@@ -29,6 +29,11 @@ const router = createRouter({
       name: 'mypage',
       component: MyPage
     },
+    {
+      path: '/joinIsland',
+      name: 'joinIsland',
+      component: () => import('../views/JoinIsland.vue')
+    },
   ]
 })
 

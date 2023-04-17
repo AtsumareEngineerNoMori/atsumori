@@ -1,3 +1,136 @@
 .detail {
   background-color: black;
+}
+
+.join {
+  width: 1000px;
+}
+.join__list {
+  display: flex;
+}
+.join__iconImg {
+  width: 200px;
+  height: 200px;
+}
+
+.mypage {
+  width: 1000px;
+}
+.mypage__list {
+  display: flex;
+}
+.mypage__profileiconImg {
+  width: 200px;
+  height: 200px;
+}
+.mypage__item {
+  margin: 20px;
+}
+.mypage__button {
+  padding: 1% 2%;
+  float: right;
+  margin-right: 50px;
+}
+.mypage__morebutton {
+  padding: 1% 2%;
+  margin-left: 60px;
+}
+.mypage__column {
+  width: 30%;
+  float: left;
+  margin-left: 50px;
+}
+.mypage__column2 {
+  width: 65%;
+  padding: 20px;
+  float: left;
+}
+.mypage__lists {
+  display: inline-block;
+}
+.mypage__space {
+  margin: 5%;
+  position: relative;
+}
+.mypage__iconImg {
+  width: 150px;
+  height: 150px;
+}
+.mypage__project {
+  margin-top: 60px;
+}
+
+*,
+*:before,
+*:after {
+  -o-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.6;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: white;
+  color: black;
+  font-size: 1.6rem;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  min-width: 600px;
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow-x: hidden;
+  padding-top: 77px;
+  padding-bottom: 120px;
+  min-height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+}
+
+img,
+video,
+object {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.4s;
+  color: black;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+p {
+  display: block;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 5px;
+}
+
+input, textarea {
+  padding: 5px;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  background-color: #4B7031;
+  color: white;
+  border-radius: 10%;
+  border: none;
+  padding: 5% 10%;
+  font-weight: bold;
 }/*# sourceMappingURL=main.css.map */

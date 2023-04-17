@@ -1,0 +1,51 @@
+.mypage {
+  width: 1000px;
+  &__list {
+    display: flex;
+  }
+  &__profileiconImg {
+    width: 200px;
+    height: 200px;
+  }
+  &__item {
+    margin: 20px;
+  }
+  &__button {
+    padding: 1% 2%;
+    float: right;
+    margin-right: 50px;
+  }
+  &__morebutton {
+    padding: 1% 2%;
+    margin-left: 60px;
+  }
+  &__column {
+    width: 30%;
+    // padding: 20px;
+    float: left;
+    margin-left: 50px;
+  }
+  &__column2 {
+    width: 65%;
+    padding: 20px;
+    float: left;
+  }
+  &__lists {
+    display: inline-block;
+  }
+  &__list {
+  }
+  &__space {
+    margin: 5%;
+    position: relative;
+    
+  }
+  &__iconImg {
+    width: 150px;
+    height: 150px;
+    
+  }
+  &__project{
+    margin-top: 60px;
+  }
+}
