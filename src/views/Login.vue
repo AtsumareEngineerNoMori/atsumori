@@ -1,8 +1,8 @@
 <template>
-    <div>ロゴ</div>
+    <img src="../../public/atsumare engimeer no Mori.png" />
     <div><input /></div>
     <div><input /></div>
-    <div><button>ログイン</button></div>
+    <div><button class="login">ログイン</button></div>
     <RouterLink to="/">アカウントを登録しよう！</RouterLink>
 </template>
 
