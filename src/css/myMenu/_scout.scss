@@ -1,0 +1,20 @@
+.scout {
+  &__buttons {
+    display: flex;
+    gap: 5%;
+    justify-content: center;
+    &-deleteButton {
+      background-color: #a9a9a9;
+    }
+    &-approveButton:hover {
+      background-color: #ffff;
+      color: #4B7031;
+      outline: 1px solid #4B7031;
+    }
+    &-deleteButton:hover {
+      background-color: #ffff;
+      color: #a9a9a9;
+      outline: 1px solid #a9a9a9;
+    }
+  }
+}
