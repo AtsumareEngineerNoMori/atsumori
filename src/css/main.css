@@ -1,3 +1,25 @@
 .detail {
-  background-color: black;
+  width: 100%;
+  margin: 0;
+}
+.detail__image__header {
+  position: relative;
+  background-color: beige;
+  height: 250px;
+  width: 100%;
+}
+.detail__image__icon {
+  position: absolute;
+  top: 150px;
+  left: 50px;
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+}
+.detail__image__setting {
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }/*# sourceMappingURL=main.css.map */
