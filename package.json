@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest"
+    "test:unit": "vitest",
+    "mock-api": "json-server --watch data/db.json --port 8000"
   },
   "dependencies": {
     "firebase": "^9.19.1",
@@ -17,6 +18,7 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/test-utils": "^2.3.0",
     "jsdom": "^21.1.0",
+    "json-server": "^0.17.3",
     "vite": "^4.1.4",
     "vitest": "^0.29.1"
   }
