@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import TopTest from "../views/TopTest.vue"
 import IslandReqList from "../views/ReqList/IslandReqList.vue"
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue"
+import SerchResult from "../views/Serch/SerchResult.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/projectReqList',
       name: 'projectReqList',
       component: ProjectReqList
+    },
+    {
+      path: '/serchResult',
+      name: 'serchResult',
+      component: SerchResult
     },
     {
       path: '/joinIsland',
