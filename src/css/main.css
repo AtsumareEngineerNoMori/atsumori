@@ -2,8 +2,37 @@
   background-color: black;
 }
 
-.login {
-  padding: 30px;
+.loginPage-logo {
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+}
+.loginPage-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: -40px;
+}
+.loginPage-email {
+  padding: 10px;
+  width: 35%;
+}
+.loginPage-password {
+  padding: 10px;
+  width: 35%;
+  margin: 3%;
+}
+.loginPage-button {
+  width: 15%;
+  padding: 1%;
+  margin-top: 3%;
+}
+.loginPage-register {
+  color: #AF7A20;
+}
+.loginPage-register-margin {
+  margin-top: 2%;
 }
 
 .join {
