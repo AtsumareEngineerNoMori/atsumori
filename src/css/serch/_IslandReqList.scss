@@ -1,0 +1,22 @@
+// 茶色: #AF7A20; 緑:#4B7031
+
+.serch {
+  width: 1000px;
+  &_title{
+    margin-bottom: 5%;
+  }
+  &_box {
+    width: 90%;
+    margin: 2%;
+  }
+  &_btn {
+    background-color: #af7a20;
+  }
+  &_list {
+    display: flex;
+  }
+  &_iconImg {
+    width: 200px;
+    height: 200px;
+  }
+}

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TopTest from "../views/TopTest.vue"
-import IslandReqList from "@/views/ReqList/IslandReqList.vue"
+import IslandReqList from "../views/ReqList/IslandReqList.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +28,11 @@ const router = createRouter({
       path: '/islandReqList',
       name: 'islandReqList',
       component: IslandReqList
+    },
+    {
+      path: '/joinIsland',
+      name: 'joinIsland',
+      component: () => import('../views/JoinIsland.vue')
     },
   ]
 })
