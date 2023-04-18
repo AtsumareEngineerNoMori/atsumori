@@ -29,7 +29,14 @@
   cursor: pointer;
 }
 .mypage__item {
-  margin: 20px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+.mypage__item_name {
+  padding: 0 20px;
+  margin-bottom: 10px;
+  padding-bottom: 40px;
 }
 .mypage__button {
   padding: 1% 2%;
@@ -55,11 +62,15 @@
   float: left;
   margin-left: 50px;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   align-items: center;
+  height: 400px;
 }
 .mypage__column2 {
   width: 65%;
+  height: 400px;
   padding: 20px;
   float: left;
 }
@@ -79,6 +90,35 @@
 }
 .mypage__project {
   margin-top: 60px;
+}
+
+.edit__input {
+  float: left;
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  background: #e0e0e0;
+  color: #7a7a7a;
+}
+.edit__button {
+  padding: 1% 2%;
+  margin: auto;
+  width: 100px;
+}
+.edit__button:hover {
+  cursor: pointer;
+}
+.edit__buttoncontainer {
+  display: flex;
+  width: 400px;
+  margin: auto;
+  margin-top: 40px;
+}
+.edit__label {
+  margin: 8px;
 }
 
 *,

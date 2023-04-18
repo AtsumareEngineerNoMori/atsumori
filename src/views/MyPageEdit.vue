@@ -46,81 +46,63 @@ const projectimgs = [
 </script>
 
 <template>
-  <h1>マイページ編集</h1>
   <div class="mypage">
-    <button class="mypage__button">依頼一覧／スカウトボタン</button>
     <div class="mypage__container">
       <div class="mypage__column">
-        <span
-          >
+        <span>
           <img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
         <span>アイコン</span>
       </div>
       <ul class="mypage__column2">
-        <li class="mypage__item">
+        <li class="mypage__item_name">
           <span>なまえ： </span>
-          <span>きじま　いくり</span>
+          <span><input type="text" class="edit__input" /></span>
         </li>
         <li class="mypage__item">
           <span>職種：</span>
-          <span>FR</span>
+          <label class="edit__label">
+            <input type="checkbox" name="WEB" value="WEB" />
+            WEB
+          </label>
+          <label class="edit__label">
+            <input type="checkbox" name="FR" value="FR" />
+            FR
+          </label>
+          <label class="edit__label">
+            <input type="checkbox" name="ML" value="ML" />
+            ML
+          </label>
+          <label class="edit__label">
+            <input type="checkbox" name="CL" value="CL" />
+            CL
+          </label>
+          <label class="edit__label">
+            <input type="checkbox" name="QA" value="QA" />
+            QA
+          </label>
+          <label class="edit__label">
+            <input type="checkbox" name="その他" value="その他" />
+            その他
+          </label>
         </li>
         <li class="mypage__item">
           <span>ひとこと：</span>
           <p>
-            あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              class="edit__input"
+            ></textarea>
           </p>
         </li>
       </ul>
     </div>
-
-    <!-- 島一覧 -->
-    <div>
-      <div class="mypage__div">島一覧</div>
-      <ul
-        v-for="islandimg in islandimgs"
-        :key="islandimg"
-        class="mypage__lists"
-      >
-        <li>
-          <div class="mypage__space">
-            <router-link to="島">
-              <img
-                v-bind:src="islandimg.icon"
-                alt="islandig"
-                class="mypage__iconImg"
-              />
-            </router-link>
-            <p>島名~~</p>
-          </div>
-        </li>
-      </ul>
-      <button class="mypage__morebutton">もっと見る</button>
-    </div>
-
-    <!-- プロジェクト一覧 -->
-    <div class="mypage__project">
-      <p mypage__div>プロジェクト一覧</p>
-      <ul
-        v-for="projectimg in projectimgs"
-        :key="projectimg"
-        class="mypage__lists"
-      >
-        <li>
-          <div class="mypage__spase">
-          <router-link to="">
-              <img
-                v-bind:src="projectimg.icon"
-                alt="projecticon"
-                class="mypage__iconImg"
-              />
-          </router-link>
-            <p>プロジェクト名</p>
-          </div>
-        </li>
-      </ul>
-      <button class="mypage__morebutton">もっと見る</button>
+    <div class="edit__buttoncontainer">
+      <button class="edit__button">戻る</button>
+      <button class="edit__button">更新</button>
     </div>
   </div>
 </template>
