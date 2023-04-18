@@ -4,6 +4,7 @@ import LoginView from '../views/Login.vue'
 import TopTest from "../views/TopTest.vue"
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IlandRegister.vue"
+import ProjectRegisterView from "../views/register/ProjectRegister.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,6 +36,11 @@ const router = createRouter({
       path: '/ilandRegister',
       name: 'ilandRegister',
       component:  IlandRegisterView
+    },
+    {
+      path: '/projectRegister',
+      name: 'projectRegister',
+      component:  ProjectRegisterView
     },
     {
       path: '/top',
