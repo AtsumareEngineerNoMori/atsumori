@@ -15,11 +15,6 @@ html {
 }
 
 body {
-  // background-color: #f0fff0;
-  // background-color: #00533f;
-  // background-color: #c49a6a;
-  // background-color: #bbe2f1;
-  // background-color: #ffffcc;
   background-image: url(../../../public/astumoriIsland.png);
   /* 画像を常に天地左右の中央に配置 */
   background-position: center center;
@@ -29,7 +24,6 @@ body {
   background-attachment: fixed;
   /* 表示するコンテナの大きさに基づいて、背景画像を調整 */
   background-size: cover;
-
   /* 背景画像が読み込まれる前に表示される背景のカラー */
   background-color: #FFFCF4;
   color: black;
@@ -40,11 +34,10 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   overflow-x: hidden;
-  // padding-top: 77px;
-  // padding-bottom: 120px;
   min-height: 100vh;
   position: relative;
   box-sizing: border-box;
+  // overflow-y: hidden;
 }
 
 img,

@@ -6,6 +6,7 @@
 .join {
   background-color: #fffcf4;
   opacity: 0.9;
+  height: 100vh;
 }
 .join__title {
   color: #af7a20;
@@ -378,7 +379,9 @@ button {
 .header {
   display: flex;
   justify-content: space-between;
-  border-bottom: 5px double #4B7031;
+  border-bottom: 5px double #4b7031;
+  background-color: #fffcf4;
+  opacity: 0.9;
 }
 .header-logo {
   width: 10%;
