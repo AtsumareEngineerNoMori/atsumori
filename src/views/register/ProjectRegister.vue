@@ -1,5 +1,6 @@
 <template>
     <Header />
+<!-- <HeaderModal /> -->
     <div class="ProjectRegister">
     <hi class="ProjectRegister-title">🌏 プロジェクト登録</hi>
   
@@ -32,6 +33,7 @@
   </template>
   
   <script setup>
-  import Header from "../../components/Header.vue"
+  import Header from "../../components/Header/Header.vue";
+  // import HeaderModal from "../../components/Header/HeaderModal.vue";
   </script>
   

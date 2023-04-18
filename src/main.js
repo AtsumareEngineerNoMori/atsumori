@@ -1,6 +1,8 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
+import "./micromodal";
+import "./css/Header.css";
 
 
 import "./css/main.css";
