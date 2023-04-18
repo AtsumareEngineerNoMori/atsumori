@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import TopTest from "../views/TopTest.vue"
 import MyPage from "../views/MyPage.vue"
 import MyPageEdit from "../views/MyPageEdit.vue"
+import IslandEdit from "../views/IslandEdit.vue"
 import OtherMyPage from "../views/OtherMyPage.vue"
 import MyPageForScout from "../views/MyPageForScout.vue"
 
@@ -51,6 +52,11 @@ const router = createRouter({
       path: '/mypageforscout',
       name: 'mypageforscout',
       component: MyPageForScout
+    },
+    {
+      path: '/islandEdit',
+      name: 'islandEdit',
+      component: IslandEdit
     },
   ]
 })
