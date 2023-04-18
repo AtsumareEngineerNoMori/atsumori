@@ -64,6 +64,11 @@
     height: 400px;
     padding: 20px;
     float: left;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
+    // align-items: center;
   }
   &__lists {
     display: inline-block;
@@ -89,7 +94,7 @@
 .edit {
   &__input{
     float: left;
-    width: 100%;
+    width: 450px;
     max-width: 100%;
     border: none;
     margin: 0.5rem 0;
@@ -97,6 +102,43 @@
     border-radius: 0.3rem;
     background: darken(#f9f9f9, 10%);
     color: darken(#f9f9f9, 50%);
+  }
+  &__textarea {
+    float: left;
+    width: 600px;
+    max-width: 100%;
+    border: none;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    background: darken(#f9f9f9, 10%);
+    color: darken(#f9f9f9, 50%);
+  }
+  &__column {
+    width: 30%;
+    float: left;
+    margin-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+  }
+  &__column2 {
+    width: 65%;
+    height: 300px;
+    padding: 20px;
+    float: left;
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
+    align-items: center;
+  }
+
+  &__item {
+    margin: auto;
   }
   &__button {
     padding: 1% 2%;

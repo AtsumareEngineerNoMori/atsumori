@@ -46,62 +46,35 @@ const projectimgs = [
 </script>
 
 <template>
+  <h1>島編集画面</h1>
   <div class="mypage">
     <div class="mypage__container">
-      <div class="mypage__column">
+      <div class="edit__column">
         <span>
           <img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
-        <span>アイコン</span>
       </div>
-      <ul class="mypage__column2">
+      <ul class="edit__column2 ">
         <li class="mypage__item_name">
-          <p>なまえ： </p>
+          <p>島名： </p>
           <span><input type="text" class="edit__input" /></span>
-        </li>
-        <li class="mypage__item">
-          <span>職種：</span>
-          <label class="edit__label">
-            <input type="radio" name="job"  value="WEB" />
-            WEB
-          </label>
-          <label class="edit__label">
-            <input type="radio" name="job" value="FR" />
-            FR
-          </label>
-          <label class="edit__label">
-            <input type="radio" name="job" value="ML" />
-            ML
-          </label>
-          <label class="edit__label">
-            <input type="radio" name="job" value="CL" />
-            CL
-          </label>
-          <label class="edit__label">
-            <input type="radio" name="job" value="QA" />
-            QA
-          </label>
-          <label class="edit__label">
-            <input type="radio" name="job"  value="その他" />
-            その他
-          </label>
-        </li>
-        <li class="mypage__item">
-          <span>ひとこと：</span>
-          <p>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
-              class="edit__input"
-            ></textarea>
-          </p>
         </li>
       </ul>
     </div>
+    <div class="edit__item">
+      <span>ひとこと：</span>
+      <p>
+        <textarea
+          name=""
+          id=""
+          cols="30"
+          rows="10"
+          class="edit__textarea"
+        ></textarea>
+      </p>
+    </div>
     <div class="edit__buttoncontainer">
-      <button class="edit__button">戻る</button>
+      <button class="edit__button">キャンセル</button>
       <button class="edit__button">更新</button>
     </div>
   </div>
