@@ -47,13 +47,12 @@ const projectimgs = [
 
 <template>
   <div class="mypage">
-    <button class="mypage__button">依頼一覧</button>
+    <button class="mypage__button">スカウトする</button>
     <div class="mypage__container">
       <div class="mypage__column">
         <span
           ><img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
-        <button class="mypage__button">マイページ編集</button>
         
       </div>
       <ul class="mypage__column2">

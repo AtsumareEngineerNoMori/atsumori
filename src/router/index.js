@@ -4,6 +4,7 @@ import TopTest from "../views/TopTest.vue"
 import MyPage from "../views/MyPage.vue"
 import MyPageEdit from "../views/MyPageEdit.vue"
 import OtherMyPage from "../views/OtherMyPage.vue"
+import MyPageForScout from "../views/MyPageForScout.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +46,11 @@ const router = createRouter({
       path: '/othermypage',
       name: 'othermypageedit',
       component: OtherMyPage
+    },
+    {
+      path: '/mypageforscout',
+      name: 'mypageforscout',
+      component: MyPageForScout
     },
   ]
 })
