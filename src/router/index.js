@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import TopTest from "../views/TopTest.vue"
 import MyPage from "../views/MyPage.vue"
+import MyPageEdit from "../views/MyPageEdit.vue"
+import OtherMyPage from "../views/OtherMyPage.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,6 +35,16 @@ const router = createRouter({
       path: '/joinIsland',
       name: 'joinIsland',
       component: () => import('../views/JoinIsland.vue')
+    },
+    {
+      path: '/mypageedit',
+      name: 'mypageedit',
+      component: MyPageEdit
+    },
+    {
+      path: '/othermypage',
+      name: 'othermypageedit',
+      component: OtherMyPage
     },
   ]
 })
