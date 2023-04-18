@@ -90,6 +90,8 @@ button {
 
 .serch {
   width: 1000px;
+  background-color: #fffcf4;
+  opacity: 0.9;
 }
 .serch_title {
   margin-bottom: 5%;
@@ -98,8 +100,10 @@ button {
   width: 90%;
   margin: 2%;
 }
-.serch_btn {
-  background-color: #AF7A20;
+.serch_btn:hover {
+  background-color: white;
+  color: #4b7031;
+  outline: 1px solid #4b7031;
 }
 .serch_list {
   display: flex;
