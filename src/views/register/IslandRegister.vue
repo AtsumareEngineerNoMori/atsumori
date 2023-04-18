@@ -1,7 +1,7 @@
 <template>
-  <Header />
+  <!-- <Header /> -->
   <div class="IlandRegister">
-  <hi class="IlandRegister-title">🏝️ 島登録</hi>
+  <hi class="IlandRegister-title">島登録</hi>
 
   <div class="IlandRegister-set">
     <div>
@@ -32,5 +32,5 @@
 </template>
 
 <script setup>
-import Header from "../../components/Header/Header.vue"
+// import Header from "../../components/Header/Header.vue"
 </script>

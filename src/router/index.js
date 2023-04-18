@@ -3,8 +3,10 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/Login.vue'
 import TopTest from "../views/TopTest.vue"
 import UserRegisterView from "../views/register/UserRegister.vue"
-import IlandRegisterView from "../views/register/IlandRegister.vue"
+import IslandRegisterView from "../views/register/IslandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+import  RecruitUserRegister from "../views/register/RecruitUserRegister.vue"
+import  RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,14 +35,24 @@ const router = createRouter({
       component:  UserRegisterView
     },
     {
-      path: '/ilandRegister',
-      name: 'ilandRegister',
-      component:  IlandRegisterView
+      path: '/islandRegister',
+      name: 'islandRegister',
+      component:  IslandRegisterView
     },
     {
       path: '/projectRegister',
       name: 'projectRegister',
       component:  ProjectRegisterView
+    },
+    {
+      path: '/recruitUserRegister',
+      name: 'recruitUserRegister',
+      component:  RecruitUserRegister
+    },
+    {
+      path: '/recruitIslandRegister',
+      name: 'recruitIslandRegister',
+      component:  RecruitIslandRegister
     },
     {
       path: '/top',

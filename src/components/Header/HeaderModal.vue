@@ -15,25 +15,19 @@ const toggleStatus  = () => {
         aria-modal="true"
         aria-labelledby="modal-1-title"
       >
-        <header class="headerModal__header">
+        <!-- <header class="headerModal__header">
           <h2 class="headerModal__title" id="modal-1-title">MENU</h2>
-        </header>
+        </header> -->
         <main class="headerModal__content" id="modal-1-content">
-            <p class="headerModal__list">マイページ</p>
-            <p class="headerModal__list">島登録</p>
-            <p class="headerModal__list">プロジェクト登録</p>
-            <p class="headerModal__list">ログアウト</p>
-        </main>
-        <footer class="headerModal__footer">
-          <button
-          @click="toggleStatus"
-            class="headerModal__btn"
+            <div class="headerModal__listdiv"><p class="headerModal__list">マイページ</p></div>
+            <div class="headerModal__listdiv"><p class="headerModal__list">島登録</p></div>
+            <div class="headerModal__listdiv"><p class="headerModal__list">プロジェクト登録</p></div>
+            <div class="headerModal__listdiv"><p class="headerModal__list">ログアウト</p></div>
+            <div class="headerModal__listdiv"><p @click="toggleStatus" 
             data-micromodal-close
             aria-label="Close this dialog window"
-          >
-            Close
-          </button>
-        </footer>
+            class="headerModal__tojiru">メニューを閉じる</p></div>
+        </main>
       </div>
     </div>
   </div>
@@ -43,7 +37,7 @@ const toggleStatus  = () => {
     href="javascript:;"
     class="headerModal__a"
   >
-    <img src="../../../public/sozai_cman_jp_20230418144417.png" class="headerModal__menu" />
-    <!-- <span class="material-symbols-rounded set">モーダル</span> -->
+    <img src="../../../public/sozai_cman_jp_20230418144417.png"
+    class="headerModal__menu" />
   </a>
 </template>

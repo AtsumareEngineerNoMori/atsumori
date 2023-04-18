@@ -1,4 +1,5 @@
 <template>
+  <div class="loginPage">
     <div class="loginPage-logo">
       <img src="../../public/atsumare engimeer no Mori.png" />
     </div>
@@ -9,6 +10,7 @@
     <div><button class="loginPage-button">ログイン</button></div>
     <div class="loginPage-register-margin"><RouterLink to="/"><span class="loginPage-register">アカウントを登録しよう！</span></RouterLink></div>
   </div>
+</div>
 </template>
 
 <script setup>

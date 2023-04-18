@@ -1,5 +1,6 @@
 <template>
-  <div class="userRegister-title">🍃 移住票</div>
+  <div class="userRegister">
+  <div class="userRegister-title">移住票</div>
   <div class="userRegister-body">
     <!-- <form method="post" action="example.cgi"> -->
 
@@ -57,6 +58,7 @@
 </div>
     <!-- </form> -->
   </div>
+</div>
 </template>
 
 <script setup></script>

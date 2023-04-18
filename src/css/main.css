@@ -277,6 +277,10 @@ button {
   padding: 0;
 }
 
+.loginPage {
+  background-color: #FFFCF4;
+  opacity: 0.9;
+}
 .loginPage-logo {
   margin: 0 auto;
   width: 50%;
@@ -310,6 +314,10 @@ button {
   margin-top: 2%;
 }
 
+.userRegister {
+  background-color: #FFFCF4;
+  opacity: 0.9;
+}
 .userRegister-body {
   margin: 0 auto;
   margin-top: 1%;
@@ -374,6 +382,7 @@ button {
   margin-top: 4%;
   padding: 1.5%;
   width: 150px;
+  margin-bottom: 5%;
 }
 
 .header {
@@ -388,7 +397,10 @@ button {
   height: 10%;
 }
 .IlandRegister {
-  margin: 10% auto 0 auto;
+  margin: 0 auto 0 auto;
+  margin: 0 auto 0 auto;
+  background-color: #FFFCF4;
+  opacity: 0.9;
 }
 .IlandRegister-title {
   font-size: 40px;
@@ -447,7 +459,9 @@ button {
 }
 
 .ProjectRegister {
-  margin: 5% auto 0 auto;
+  margin: 0 auto 0 auto;
+  background-color: #FFFCF4;
+  opacity: 0.9;
 }
 .ProjectRegister-title {
   font-size: 40px;
@@ -504,4 +518,88 @@ button {
   margin-top: 8%;
   padding: 1.5%;
   width: 150px;
+}
+
+.RecruitUserRegister {
+  background-color: #FFFCF4;
+  opacity: 0.9;
+  min-height: 100vh;
+}
+.RecruitUserRegister-title {
+  font-size: 30px;
+  text-align: center;
+  padding: 1%;
+}
+.RecruitUserRegister-details {
+  text-align: center;
+}
+.RecruitUserRegister-details-name {
+  font-size: 20px;
+  padding: 2%;
+}
+.RecruitUserRegister-details-recruitTitleSet {
+  width: 100%;
+  padding: 2%;
+}
+.RecruitUserRegister-details-recruitTitleSet-input {
+  width: 50%;
+}
+.RecruitUserRegister-details-jobSet-job {
+  padding: 2%;
+}
+.RecruitUserRegister-details-infomationSet-infomation {
+  padding: 2%;
+}
+.RecruitUserRegister-details-infomationSet-text {
+  width: 50%;
+  height: 200px;
+  margin-top: -2%;
+}
+.RecruitUserRegister-button {
+  margin-top: 10%;
+  padding: 1.5%;
+  width: 150px;
+  margin-bottom: 5%;
+}
+
+.RecruitIslandRegister {
+  background-color: #FFFCF4;
+  opacity: 0.9;
+  min-height: 100vh;
+}
+.RecruitIslandRegister-title {
+  font-size: 30px;
+  text-align: center;
+  padding: 1%;
+}
+.RecruitIslandRegister-details {
+  text-align: center;
+}
+.RecruitIslandRegister-details-name {
+  font-size: 20px;
+  padding: 2%;
+}
+.RecruitIslandRegister-details-recruitTitleSet {
+  width: 100%;
+  padding: 2%;
+}
+.RecruitIslandRegister-details-recruitTitleSet-input {
+  width: 50%;
+}
+.RecruitIslandRegister-details-jobSet-job {
+  padding: 2%;
+}
+.RecruitIslandRegister-details-infomationSet-infomation {
+  padding: 2%;
+}
+.RecruitIslandRegister-details-infomationSet-text {
+  width: 50%;
+  height: 200px;
+  margin-top: -2%;
+}
+.RecruitIslandRegister-button {
+  margin-top: 10%;
+  padding: 1.5%;
+  width: 150px;
+  margin-bottom: 5%;
 }/*# sourceMappingURL=main.css.map */
