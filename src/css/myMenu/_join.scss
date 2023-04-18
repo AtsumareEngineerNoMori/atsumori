@@ -1,0 +1,54 @@
+.join {
+  background-color: #fffcf4;
+  opacity: 0.9;
+  height: 100vh;
+  &__title {
+    color: #af7a20;
+    font-size: 2.5rem;
+  }
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6%;
+    margin-top: 5%;
+    text-align: center;
+    width: 100%;
+    height: auto;
+  }
+  &__item {
+    width: calc((100% - 6% * 4) / 5);
+    aspect-ratio: 1/1;
+  }
+  // 6個目以降に上の余白
+  &__item:nth-child(n + 6) {
+    margin-top: 8%;
+  }
+  &__iconImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid lightgray;
+    object-fit: cover;
+  }
+  &__iconImg:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  &__name {
+    margin: 3% 0 7% 0;
+  }
+  &__name:hover {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  &__button {
+    background-color: #a9a9a9;
+    cursor: pointer;
+  }
+  &__button:hover {
+    background: #ffff;
+    color: #a9a9a9;
+    outline: 1px solid #a9a9a9;
+    cursor: pointer;
+  }
+}

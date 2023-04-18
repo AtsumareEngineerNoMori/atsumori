@@ -52,6 +52,21 @@ const router = createRouter({
       name: 'joinIsland',
       component: () => import('../views/JoinIsland.vue')
     },
+    {
+      path: '/joinProject',
+      name: 'joinProject',
+      component: () => import('../views/JoinProject.vue')
+    },
+    {
+      path: '/userScout',
+      name: 'userScout',
+      component: () => import('../views/userScout.vue')
+    },
+    {
+      path: '/islandChat',
+      name: 'islandChat',
+      component: () => import('../views/chat/islandChat.vue')
+    },
   ]
 })
 
