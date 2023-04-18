@@ -34,7 +34,6 @@ const router = createRouter({
       path: '/top',
       name: 'top',
       component: TopTest
-
     },
     {
       path: '/joinIsland',

@@ -1,5 +1,7 @@
 <template>
 
+  <Header />
+
     <div class="loginPage-logo">
       <img src="../../public/atsumare engimeer no Mori.png" />
     </div>
@@ -14,4 +16,5 @@
 
 <script setup>
 import "../css/main.css";
+import Header from "../components/Header.vue"
 </script>

@@ -1,0 +1,15 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 5px double #4B7031;
+    &-logo{
+        width: 10%;
+        height: 10%;
+    }
+    &-menu{
+        width: 5%;
+        height: 5%;
+        margin-top: 2.5%;
+    
+    }
+}
