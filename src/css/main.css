@@ -15,6 +15,8 @@
 
 .mypage {
   width: 1000px;
+  display: flex;
+  flex-direction: column;
 }
 .mypage__list {
   display: flex;
@@ -28,17 +30,24 @@
 }
 .mypage__button {
   padding: 1% 2%;
-  float: right;
+  margin-left: auto;
   margin-right: 50px;
+  width: 200px;
 }
 .mypage__morebutton {
   padding: 1% 2%;
   margin-left: 60px;
 }
+.mypage__div {
+  margin: 30px 0;
+}
 .mypage__column {
   width: 30%;
   float: left;
   margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .mypage__column2 {
   width: 65%;

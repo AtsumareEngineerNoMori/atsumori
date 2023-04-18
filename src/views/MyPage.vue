@@ -47,11 +47,12 @@ const projectimgs = [
 
 <template>
   <div class="mypage">
-    <h1>マイページ</h1>
     <button class="mypage__button">依頼一覧／スカウトボタン</button>
-    <div class="container">
+    <div class="mypage__container">
       <div class="mypage__column">
-        <span><img :src="img.icon" alt="" class="mypage__profileiconImg" /></span>
+        <span
+          ><img :src="img.icon" alt="" class="mypage__profileiconImg"
+        /></span>
         <span>アイコン</span>
       </div>
       <ul class="mypage__column2">
@@ -65,48 +66,55 @@ const projectimgs = [
         </li>
         <li class="mypage__item">
           <span>ひとこと：</span>
-          <span
-            >あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ</span
-          >
+          <p>
+            あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ
+          </p>
         </li>
       </ul>
     </div>
 
     <!-- 島一覧 -->
-    <div >
-    <p>島一覧</p>
-      <ul v-for="islandimg in islandimgs" :key="islandimg" class="mypage__lists">
+    <div>
+      <div class="mypage__div">島一覧</div>
+      <ul
+        v-for="islandimg in islandimgs"
+        :key="islandimg"
+        class="mypage__lists"
+      >
         <li>
           <div class="mypage__space">
-             <img
-            v-bind:src="islandimg.icon"
-            alt="islandig"
-            class="mypage__iconImg"
-          />
-          <p>島名~~</p>
+            <img
+              v-bind:src="islandimg.icon"
+              alt="islandig"
+              class="mypage__iconImg"
+            />
+            <p>島名~~</p>
           </div>
         </li>
       </ul>
-      <button class="mypage__morebutton">・・・</button>
+      <button class="mypage__morebutton">もっと見る</button>
     </div>
 
     <!-- プロジェクト一覧 -->
     <div class="mypage__project">
-      <p>プロジェクト一覧</p>
-          <ul v-for="projectimg in projectimgs" :key="projectimg" class="mypage__lists">
-      <li>
-        <div class="mypage__spase">
-               <img
-          v-bind:src="projectimg.icon"
-          alt="projecticon"
-          class="mypage__iconImg"
-        />
-        <p>プロジェクト名</p>
-        </div>
-      </li>
-    </ul>
-    <button class="mypage__morebutton">・・・</button>
+      <p mypage__div>プロジェクト一覧</p>
+      <ul
+        v-for="projectimg in projectimgs"
+        :key="projectimg"
+        class="mypage__lists"
+      >
+        <li>
+          <div class="mypage__spase">
+            <img
+              v-bind:src="projectimg.icon"
+              alt="projecticon"
+              class="mypage__iconImg"
+            />
+            <p>プロジェクト名</p>
+          </div>
+        </li>
+      </ul>
+      <button class="mypage__morebutton">もっと見る</button>
     </div>
-
   </div>
 </template>
