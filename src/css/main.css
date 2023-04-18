@@ -24,6 +24,12 @@
 .mypage__profileiconImg {
   width: 200px;
   height: 200px;
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+  margin-bottom: 40px;
 }
 .mypage__profileiconImg:hover {
   cursor: pointer;
@@ -46,6 +52,9 @@
 }
 .mypage__button:hover {
   cursor: pointer;
+  background-color: white;
+  color: #4B7031;
+  outline: 1px solid #4B7031;
 }
 .mypage__morebutton {
   padding: 1% 2%;
@@ -53,9 +62,12 @@
 }
 .mypage__morebutton:hover {
   cursor: pointer;
+  background-color: white;
+  color: #4B7031;
+  outline: 1px solid #4B7031;
 }
-.mypage__div {
-  margin: 30px 0;
+.mypage__container {
+  margin-top: 30px;
 }
 .mypage__column {
   width: 30%;
@@ -66,7 +78,7 @@
   align-items: center;
   flex-direction: column;
   align-items: center;
-  height: 400px;
+  height: 350px;
 }
 .mypage__column2 {
   width: 65%;
@@ -142,6 +154,15 @@
   width: 100px;
 }
 .edit__button:hover {
+  cursor: pointer;
+}
+.edit__button_cansel {
+  padding: 1% 2%;
+  margin: auto;
+  width: 100px;
+  background-color: rgb(167, 167, 167);
+}
+.edit__button_cansel:hover {
   cursor: pointer;
 }
 .edit__buttoncontainer {
