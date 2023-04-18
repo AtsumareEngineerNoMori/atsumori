@@ -46,8 +46,6 @@ const projectimgs = [
 </script>
 
 <template>
-  <h1>他人のマイページ
-  </h1>
   <div class="mypage">
     <div class="mypage__container">
       <div class="mypage__column">
