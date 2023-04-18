@@ -1,12 +1,16 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import "./micromodal";
 
-import './css/main.css';
+import "./css/micromodal.css";
+import "./css/Header.css";
 
 
-const app = createApp(App)
+import "./css/main.css";
 
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(router);
+
+app.mount("#app");

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "firebase": "^9.19.1",
+    "micromodal": "^0.4.10",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
   },
