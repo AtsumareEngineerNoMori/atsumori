@@ -67,6 +67,11 @@ const router = createRouter({
       name: 'islandChat',
       component: () => import('../views/chat/islandChat.vue')
     },
+    {
+      path: '/projectChat',
+      name: 'projectChat',
+      component: () => import('../views/chat/projectChat.vue')
+    },
   ]
 })
 

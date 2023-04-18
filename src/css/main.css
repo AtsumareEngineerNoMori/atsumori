@@ -6,7 +6,8 @@
 .join {
   background-color: #fffcf4;
   opacity: 0.9;
-  height: 100vh;
+  height: 100%;
+  padding: 3%;
 }
 .join__title {
   color: #af7a20;
@@ -164,28 +165,31 @@ button {
 .chat {
   background-color: #FFFCF4;
   opacity: 0.9;
+  overflow-y: hidden;
 }
 .chat__header {
   display: flex;
   align-items: center;
   gap: 2%;
   border-bottom: 1px dashed #deb887;
+  padding: 1%;
 }
-.chat__islandIcon {
-  width: 5%;
-  height: 5%;
+.chat__icon {
+  width: 4%;
+  height: 4%;
   border-radius: 50%;
   border: 1px solid lightgray;
   -o-object-fit: cover;
      object-fit: cover;
   aspect-ratio: 1/1;
 }
-.chat__islandName {
+.chat__name {
   font-weight: bold;
 }
 .chat__messageWrapper {
   overflow: scroll;
-  height: 60%;
+  height: 448px;
+  padding: 1%;
 }
 .chat__messageWrapper-myMessage {
   display: flex;
@@ -197,6 +201,7 @@ button {
   font-size: 1.3rem;
   text-align: right;
   padding-right: 5%;
+  color: #DE822B;
 }
 .chat__messageWrapper-otherMessage {
   margin: 10px auto 10px 10px;
@@ -206,6 +211,7 @@ button {
 .chat__messageWrapper-otherMessage-userName {
   font-size: 1.3rem;
   padding-left: 5%;
+  color: #DE822B;
 }
 .chat__messageWrapper-userIcon {
   width: 10%;
@@ -217,15 +223,15 @@ button {
   aspect-ratio: 1/1;
 }
 .chat__messageWrapper-myComment {
-  background-color: #4b7031;
-  color: white;
+  background-color: #FDCD07;
+  color: #847154;
   position: relative;
   display: inline-block;
   margin: 0 15px 1.5em 0;
   padding: 7px 10px;
   width: -moz-fit-content;
   width: fit-content;
-  border-radius: 8%;
+  border-radius: 8px;
 }
 .chat__messageWrapper-myComment-text {
   margin: 0;
@@ -238,18 +244,18 @@ button {
   left: 100%;
   margin-top: -7px;
   border: 7px solid transparent;
-  border-left: 7px solid #4b7031;
+  border-left: 7px solid #FDCD07;
 }
 .chat__messageWrapper-otherComment {
-  background-color: #af7a20;
-  color: white;
+  background-color: #FCEB9C;
+  color: #847154;
   position: relative;
   display: inline-block;
   margin: 0 0 1.5em 15px;
   padding: 7px 10px;
   width: -moz-fit-content;
   width: fit-content;
-  border-radius: 8%;
+  border-radius: 8px;
 }
 .chat__messageWrapper-otherComment-text {
   margin: 0;
@@ -262,11 +268,15 @@ button {
   right: 100%;
   margin-top: -7px;
   border: 7px solid transparent;
-  border-right: 7px solid #af7a20;
+  border-right: 7px solid #FCEB9C;
 }
 .chat__textarea {
   resize: none;
   width: 100%;
+  background-color: #FFFCF4;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
 }
 .chat__textarea:focus {
   outline: none;
@@ -275,6 +285,8 @@ button {
   width: 50px;
   height: 30px;
   padding: 0;
+  margin-left: 94%;
+  cursor: pointer;
 }
 
 .loginPage-logo {
