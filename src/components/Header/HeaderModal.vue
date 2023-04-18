@@ -16,9 +16,13 @@ const toggleStatus  = () => {
         aria-labelledby="modal-1-title"
       >
         <header class="headerModal__header">
-          <h2 class="headerModal__title" id="modal-1-title">管理者専用</h2>
+          <h2 class="headerModal__title" id="modal-1-title">MENU</h2>
         </header>
         <main class="headerModal__content" id="modal-1-content">
+            <p class="headerModal__list">マイページ</p>
+            <p class="headerModal__list">島登録</p>
+            <p class="headerModal__list">プロジェクト登録</p>
+            <p class="headerModal__list">ログアウト</p>
         </main>
         <footer class="headerModal__footer">
           <button
