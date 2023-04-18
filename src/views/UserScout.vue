@@ -32,16 +32,20 @@ const array = [
 <template>
   <div class="join">
     <section>
-      <p class="join__title">参加している島</p>
+      <p class="join__title">スカウト承認待ちの島</p>
     </section>
     <section class="join__list">
       <div v-for="island in array" :key="island" class="join__item">
         <!-- リンク先変える -->
+        <!-- <RouterLink v-bind:to="{ name: 'top', params: { id: 1 } }"> -->
         <RouterLink v-bind:to="{ name: 'top' }">
           <img v-bind:src="island.icon" alt="island" class="join__iconImg" />
           <p class="join__name">{{ island.name }}</p>
         </RouterLink>
-        <button class="join__button">退会</button>
+        <div class="scout__buttons">
+          <button class="scout__buttons-approveButton">許可</button>
+          <button class="scout__buttons-deleteButton">削除</button>
+        </div>
       </div>
     </section>
   </div>

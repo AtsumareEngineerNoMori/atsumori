@@ -1,7 +1,13 @@
-import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import TopTest from "../views/TopTest.vue";
+
 import IslandShow from "../views/Show/IslandShow.vue";
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/Login.vue'
+import TopTest from "../views/TopTest.vue"
+import UserRegisterView from "../views/register/UserRegister.vue"
+import IlandRegisterView from "../views/register/IlandRegister.vue"
+import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,9 +26,29 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: "/top",
-      name: "top",
-      component: TopTest,
+      path: '/login',
+      name: 'login',
+      component: LoginView
+    },
+    {
+      path: '/userRegister',
+      name: 'userRegister',
+      component:  UserRegisterView
+    },
+    {
+      path: '/ilandRegister',
+      name: 'ilandRegister',
+      component:  IlandRegisterView
+    },
+    {
+      path: '/projectRegister',
+      name: 'projectRegister',
+      component:  ProjectRegisterView
+    },
+    {
+      path: '/top',
+      name: 'top',
+      component: TopTest
     },
     {
       path: "/show",
@@ -34,7 +60,23 @@ const router = createRouter({
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
     },
-  ],
-});
+    {
+      path: '/joinProject',
+      name: 'joinProject',
+      component: () => import('../views/JoinProject.vue')
+    },
+    {
+      path: '/userScout',
+      name: 'userScout',
+      component: () => import('../views/userScout.vue')
+    },
+    {
+      path: '/islandChat',
+      name: 'islandChat',
+      component: () => import('../views/chat/islandChat.vue')
+    },
+  ]
+})
+
 
 export default router;
