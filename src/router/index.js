@@ -5,6 +5,7 @@ import IslandReqList from "../views/ReqList/IslandReqList.vue"
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue"
 import SerchResult from "../views/Serch/SerchResult.vue"
 import ScoutIsland from "../views/Scout/ScoutIsland.vue"
+import ScoutPeople from "../views/Scout/ScoutPeople.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/scoutIsland',
       name: 'scoutIsland',
       component: ScoutIsland
+    },
+    {
+      path: '/scoutPeople',
+      name: 'scoutPeople',
+      component: ScoutPeople
     },
     {
       path: '/joinIsland',
