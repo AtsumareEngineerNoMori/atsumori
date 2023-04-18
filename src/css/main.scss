@@ -3,3 +3,13 @@
 @use "./MyPage/Mypage";
 @use "./foundation/base";
 @use "./Request/Request";
+@use "./myMenu/join";
+@use "./myMenu/scout";
+@use "./serch/IslandReqList"
+@use "./chat/chat";
+@use "./Login";
+@use "./register/Register";
+@use "./Header";
+@use "./register/IlandRegister";
+@use "./register/ProjectRegister";
+
