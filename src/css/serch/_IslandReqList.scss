@@ -1,5 +1,8 @@
 // 茶色: #AF7A20; 緑:#4B7031
 
+$basecolor_green:#4B7031;
+$basecolor_brown:#AF7A20;
+
 .serch {
   width: 1000px;
   &_title{
@@ -10,7 +13,7 @@
     margin: 2%;
   }
   &_btn {
-    background-color: #af7a20;
+    background-color: $basecolor_brown;
   }
   &_list {
     display: flex;
@@ -20,3 +23,6 @@
     height: 200px;
   }
 }
+
+  
+  
