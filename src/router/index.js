@@ -6,6 +6,7 @@ import MyPageEdit from "../views/MyPageEdit.vue"
 import IslandEdit from "../views/IslandEdit.vue"
 import ProjectEdit from "../views/ProjectEdit.vue"
 import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue"
+import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue"
 import OtherMyPage from "../views/OtherMyPage.vue"
 import MyPageForScout from "../views/MyPageForScout.vue"
 
@@ -74,6 +75,11 @@ const router = createRouter({
       path: '/islandadmissionrequest',
       name: 'islandadmissionrequest',
       component: IslandAdmissionRequest
+    },
+    {
+      path: '/projestadmissionrequest',
+      name: 'projestadmissionrequest',
+      component: ProjectAdmissionRequest
     },
   ]
 })
