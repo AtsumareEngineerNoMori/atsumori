@@ -160,6 +160,12 @@
   }
   &__button:hover {
     cursor: pointer;
+    :hover {
+    cursor: pointer;
+    background-color: #ffff;
+    color: #4B7031;
+    outline: 1px solid #4B7031;
+  }
   }
   &__button_cansel {
     padding: 1% 2%;
