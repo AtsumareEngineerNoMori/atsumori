@@ -38,6 +38,11 @@ const router = createRouter({
       name: 'userScout',
       component: () => import('../views/userScout.vue')
     },
+    {
+      path: '/islandChat',
+      name: 'islandChat',
+      component: () => import('../views/chat/islandChat.vue')
+    },
   ]
 })
 
