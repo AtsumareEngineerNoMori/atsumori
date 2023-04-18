@@ -52,7 +52,8 @@ const projectimgs = [
     <div class="mypage__container">
       <div class="mypage__column">
         <span
-          ><img :src="img.icon" alt="" class="mypage__profileiconImg"
+          >
+          <img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
         <span>アイコン</span>
       </div>
@@ -84,11 +85,13 @@ const projectimgs = [
       >
         <li>
           <div class="mypage__space">
-            <img
-              v-bind:src="islandimg.icon"
-              alt="islandig"
-              class="mypage__iconImg"
-            />
+            <router-link to="島">
+              <img
+                v-bind:src="islandimg.icon"
+                alt="islandig"
+                class="mypage__iconImg"
+              />
+            </router-link>
             <p>島名~~</p>
           </div>
         </li>
@@ -106,11 +109,13 @@ const projectimgs = [
       >
         <li>
           <div class="mypage__spase">
-            <img
-              v-bind:src="projectimg.icon"
-              alt="projecticon"
-              class="mypage__iconImg"
-            />
+          <router-link to="">
+              <img
+                v-bind:src="projectimg.icon"
+                alt="projecticon"
+                class="mypage__iconImg"
+              />
+          </router-link>
             <p>プロジェクト名</p>
           </div>
         </li>

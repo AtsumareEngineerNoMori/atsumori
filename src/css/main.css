@@ -25,6 +25,9 @@
   width: 200px;
   height: 200px;
 }
+.mypage__profileiconImg:hover {
+  cursor: pointer;
+}
 .mypage__item {
   margin: 20px;
 }
@@ -34,9 +37,15 @@
   margin-right: 50px;
   width: 200px;
 }
+.mypage__button:hover {
+  cursor: pointer;
+}
 .mypage__morebutton {
   padding: 1% 2%;
   margin-left: 60px;
+}
+.mypage__morebutton:hover {
+  cursor: pointer;
 }
 .mypage__div {
   margin: 30px 0;
@@ -64,6 +73,9 @@
 .mypage__iconImg {
   width: 150px;
   height: 150px;
+}
+.mypage__iconImg:hover {
+  cursor: pointer;
 }
 .mypage__project {
   margin-top: 60px;

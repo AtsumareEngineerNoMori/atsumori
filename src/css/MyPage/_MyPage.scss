@@ -10,6 +10,9 @@
     width: 200px;
     height: 200px;
   }
+  &__profileiconImg:hover {
+    cursor: pointer;
+  }
   &__item {
     margin: 20px;
   }
@@ -19,9 +22,15 @@
     margin-right: 50px;
     width: 200px;
   }
+  &__button:hover {
+    cursor: pointer;
+  }
   &__morebutton {
     padding: 1% 2%;
     margin-left: 60px;
+  }
+  &__morebutton:hover {
+    cursor: pointer;
   }
 
   &__div {
@@ -58,6 +67,9 @@
     width: 150px;
     height: 150px;
     
+  }
+  &__iconImg:hover {
+    cursor: pointer;
   }
   &__project{
     margin-top: 60px;

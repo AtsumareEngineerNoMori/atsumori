@@ -53,7 +53,8 @@ const projectimgs = [
         <span
           ><img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
-        <span>アイコン</span>
+        <button class="mypage__button">マイページ編集</button>
+        
       </div>
       <ul class="mypage__column2">
         <li class="mypage__item">
