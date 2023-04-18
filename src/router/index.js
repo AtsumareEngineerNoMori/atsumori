@@ -12,9 +12,17 @@ import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import LoginView from '../views/Login.vue'
 import TopTest from "../views/TopTest.vue"
+import MyPage from "../views/MyPage.vue"
+import MyPageEdit from "../views/MyPageEdit.vue"
+import IslandEdit from "../views/IslandEdit.vue"
+import ProjectEdit from "../views/ProjectEdit.vue"
+import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue"
+import OtherMyPage from "../views/OtherMyPage.vue"
+import MyPageForScout from "../views/MyPageForScout.vue"
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IlandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +46,52 @@ const router = createRouter({
       component: LoginView
     },
     {
+
+      path: '/mypage',
+      name: 'mypage',
+      component: MyPage
+    },
+    {
+      path: '/joinIsland',
+      name: 'joinIsland',
+      component: () => import('../views/JoinIsland.vue')
+    },
+    {
+      path: '/mypageedit',
+      name: 'mypageedit',
+      component: MyPageEdit
+    },
+    {
+      path: '/othermypage',
+      name: 'othermypageedit',
+      component: OtherMyPage
+    },
+    {
+      path: '/mypageforscout',
+      name: 'mypageforscout',
+      component: MyPageForScout
+    },
+    {
+      path: '/islandEdit',
+      name: 'islandEdit',
+      component: IslandEdit
+    },
+    {
+      path: '/islandEdit',
+      name: 'islandEdit',
+      component: IslandEdit
+    },
+    {
+      path: '/prijectEdit',
+      name: 'projectEdit',
+      component: ProjectEdit
+    },
+    {
+      path: '/islandadmissionrequest',
+      name: 'islandadmissionrequest',
+      component: IslandAdmissionRequest
+    },
+  {
       path: '/userRegister',
       name: 'userRegister',
       component:  UserRegisterView
