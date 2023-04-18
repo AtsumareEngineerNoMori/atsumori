@@ -1,11 +1,13 @@
 // 茶色: #AF7A20; 緑:#4B7031
 
-$basecolor_green:#4B7031;
-$basecolor_brown:#AF7A20;
+$basecolor_green: #4b7031;
+$basecolor_brown: #af7a20;
 
 .serch {
   width: 1000px;
-  &_title{
+  background-color: #fffcf4;
+  opacity: 0.9;
+  &_title {
     margin-bottom: 5%;
   }
   &_box {
@@ -13,7 +15,11 @@ $basecolor_brown:#AF7A20;
     margin: 2%;
   }
   &_btn {
-    background-color: $basecolor_brown;
+    &:hover {
+      background-color: #ffff;
+      color: $basecolor_green;
+      outline: 1px solid $basecolor_green;
+    }
   }
   &_list {
     display: flex;
@@ -23,6 +29,3 @@ $basecolor_brown:#AF7A20;
     height: 200px;
   }
 }
-
-  
-  
