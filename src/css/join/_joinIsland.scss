@@ -1,0 +1,10 @@
+.join {
+  width: 1000px;
+  &__list {
+    display: flex;
+  }
+  &__iconImg {
+    width: 200px;
+    height: 200px;
+  }
+}
