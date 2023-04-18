@@ -1,3 +1,4 @@
+   <!-- 一覧を表示、検索は再検索用 -->
 <template>
   <div class="serch">
     <section>
