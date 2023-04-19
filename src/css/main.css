@@ -838,8 +838,10 @@ button {
 }
 
 .IslandRegister {
-  margin: 10% auto 0 auto;
+  margin: 0% auto 0 auto;
   background-color: #FFFCF4;
+  height: 100vh;
+  padding-top: 10%;
 }
 .IslandRegister-title {
   font-size: 40px;
@@ -898,9 +900,10 @@ button {
 }
 
 .ProjectRegister {
-  margin: 0 auto 0 auto;
+  margin: 0% auto 0 auto;
   background-color: #FFFCF4;
-  opacity: 0.9;
+  height: 100vh;
+  padding-top: 10%;
 }
 .ProjectRegister-title {
   font-size: 40px;
@@ -1002,8 +1005,10 @@ button {
 }
 
 .RecruitIslandRegister {
+  margin: 0% auto 0 auto;
   background-color: #FFFCF4;
-  min-height: 100vh;
+  height: 100vh;
+  padding-top: 10%;
 }
 .RecruitIslandRegister-title {
   font-size: 30px;
