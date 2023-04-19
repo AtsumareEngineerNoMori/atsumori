@@ -2,16 +2,17 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
-import SerchIslandResult from "../views/Serch/SerchIslandResult.vue";
-import SerchProResult from "../views/Serch/SerchProResult.vue";
-import SerchReqIslandResult from "../views/Serch/SerchReqIslandResult.vue";
-import SerchReqProResult from "../views/Serch/SerchReqProResult.vue";
+import SearchIslandResult from "../views/Search/SearchIslandResult.vue";
+import SearchProResult from "../views/Search/SearchProResult.vue";
+import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
+import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IlandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+<<<<<<< HEAD
 import SerchBox from "../components/Serch/SerchBox.vue"
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
@@ -25,6 +26,9 @@ import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
 import IlandRegisterView from "../views/register/IlandRegister.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
+=======
+import SearchBox from "../components/Search/SearchBox.vue"
+>>>>>>> 287ecca (再検索できます)
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -164,24 +168,24 @@ const router = createRouter({
       component: ProjectReqList,
     },
     {
-      path: "/serchIslandResult",
-      name: "serchIslandResult",
-      component: SerchIslandResult,
+      path: "/searchIslandResult",
+      name: "searchIslandResult",
+      component: SearchIslandResult,
     },
     {
-      path: "/serchProResult",
-      name: "serchProResult",
-      component: SerchProResult,
+      path: "/searchProResult",
+      name: "searchProResult",
+      component: SearchProResult,
     },
     {
-      path: "/serchReqIslandResult",
-      name: "serchReqIslandResult",
-      component: SerchReqIslandResult,
+      path: "/searchReqIslandResult",
+      name: "searchReqIslandResult",
+      component: SearchReqIslandResult,
     },
     {
-      path: "/serchReqProResult",
-      name: "serchReqProResult",
-      component: SerchReqProResult,
+      path: "/searchReqProResult",
+      name: "searchReqProResult",
+      component: SearchReqProResult,
     },
     {
       path: "/scoutIsland",
@@ -189,9 +193,9 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
-      path: "/serchBox",
-      name: "serchBox",
-      component: SerchBox
+      path: "/searchBox",
+      name: "searchBox",
+      component: SearchBox
     },
   ],
 });
