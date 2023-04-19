@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import TopTest from "../views/TopTest.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
 import SerchIslandResult from "../views/Serch/SerchIslandResult.vue";
@@ -16,11 +15,13 @@ import MyPageEdit from "../views/MyPageEdit.vue";
 import IslandEdit from "../views/IslandEdit.vue";
 import ProjectEdit from "../views/ProjectEdit.vue";
 import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
+
 import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
 import IlandRegisterView from "../views/register/IlandRegister.vue";
+
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 
 const router = createRouter({
@@ -48,6 +49,7 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MyPage,
+
     },
     {
       path: "/joinIsland",
@@ -108,12 +110,17 @@ const router = createRouter({
       path: "/projectRegister",
       name: "projectRegister",
       component: ProjectRegisterView,
-    },
+      }
     {
-      path: "/top",
-      name: "top",
-      component: TopTest,
+      path: "/projectRegister",
+      name: "projectRegister",
+      component: ProjectRegisterView,
     },
+    // {
+    //   path: "/top",
+    //   name: "top",
+    //   component: TopTest,
+    // },
     {
       path: "/islandReqList",
       name: "islandReqList",
@@ -143,6 +150,11 @@ const router = createRouter({
       path: "/islandChat",
       name: "islandChat",
       component: () => import("../views/chat/islandChat.vue"),
+    },
+    {
+      path: "/projectChat",
+      name: "projectChat",
+      component: () => import("../views/chat/projectChat.vue"),
     },
     {
       path: "/projectReqList",
