@@ -1,6 +1,6 @@
 <template>
 
-  <Header />
+  <!-- <Header /> -->
   <div class="IslandRegister">
   <hi class="IslandRegister-title">島登録</hi>
 
