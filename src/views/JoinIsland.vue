@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
+import DeleteMemberButton from "../components/DeleteMemberButton.vue";
 
 const array = [
   {
@@ -75,7 +76,8 @@ getJoinIsland().then(() => {
             />
             <p class="list__name">{{ island[0].islandName }}</p>
           </RouterLink>
-          <button class="list__button">退会</button>
+          <DeleteMemberButton :userId="2" :islandId="island[0].id"/>
+          <!-- <button class="list__button">退会</button> -->
         </div>
       </section>
     </div>
