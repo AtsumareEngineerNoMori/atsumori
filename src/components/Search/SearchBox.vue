@@ -1,16 +1,16 @@
 <template>
-  <div class="island_serch">
+  <div class="island_search">
     <!-- <form action="どこから取ってくるかURL" method="get"> -->
-        <form @submit.prevent="serchIslands">
+        <form @submit.prevent="searchIslands">
       <p>キーワードを入力してください。</p>
       <input
         type="text"
         placeholder="キーワードを入力"
         v-model="keyword"
-        class="serch_box"
+        class="search_box"
       />
       <!-- <button type="submit">検索</button> -->
-      <input type="submit" name="submit" value="検索" class="serch_btn" />
+      <input type="submit" name="submit" value="検索" class="search_btn" />
     </form>
   </div>
 </template>
