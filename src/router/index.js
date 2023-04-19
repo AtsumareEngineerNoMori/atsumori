@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import TopTest from "../views/TopTest.vue";
+// import TopTest from "../views/TopTest.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
 import SerchIslandResult from "../views/Serch/SerchIslandResult.vue";
@@ -24,6 +24,7 @@ import IslandRegisterView from "../views/register/IslandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
 import  RecruitUserRegister from "../views/register/RecruitUserRegister.vue"
 import  RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue"
+import Top from "../views/Top.vue"
 
 
 const router = createRouter({
@@ -118,11 +119,11 @@ const router = createRouter({
       name: 'recruitIslandRegister',
       component:  RecruitIslandRegister
     },
-    {
-      path: '/top',
-      name: 'top',
-      component: TopTest
-    },
+    // {
+    //   path: '/top',
+    //   name: 'top',
+    //   component: TopTest
+    // },
     {
       path: "/islandReqList",
       name: "islandReqList",
@@ -187,6 +188,11 @@ const router = createRouter({
       path: "/scoutPeople",
       name: "scoutPeople",
       component: ScoutPeople,
+    },
+    {
+      path: "/",
+      name: "top",
+      component: Top,
     },
     {
       path: "/joinIsland",
