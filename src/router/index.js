@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-// import TopTest from "../views/TopTest.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
 import SerchIslandResult from "../views/Serch/SerchIslandResult.vue";
@@ -11,7 +10,6 @@ import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import LoginView from "../views/Login.vue";
-// import TopTest from "../views/TopTest.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
 import IslandEdit from "../views/IslandEdit.vue";
@@ -20,7 +18,7 @@ import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
-import IlandRegisterView from "../views/register/IlandRegister.vue";
+import IslandRegisterView from "../views/register/IslandRegister.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 
 const router = createRouter({
@@ -95,9 +93,9 @@ const router = createRouter({
       component: UserRegisterView,
     },
     {
-      path: "/ilandRegister",
-      name: "ilandRegister",
-      component: IlandRegisterView,
+      path: "/islandRegister",
+      name: "islandRegister",
+      component: IslandRegisterView,
     },
     {
       path: "/projectRegister",
