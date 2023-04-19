@@ -55,6 +55,7 @@
       </div>
    
     <RouterLink to="/"><button type="submit" class="userRegister-details2-button">登録する</button></RouterLink>
+    <div class="userRegister-details2-login">ログインはこちら！</div>
 </div>
     <!-- </form> -->
   </div>

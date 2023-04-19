@@ -707,7 +707,8 @@ button {
 .loginPage {
   background-color: #FFFCF4;
   opacity: 0.9;
-  height: 100vh;
+  height: 100%;
+  padding: 13% 0;
 }
 .loginPage-logo {
   margin: 0 auto;
@@ -743,9 +744,9 @@ button {
 }
 
 .userRegister {
-  height: 100vh;
   background-color: #FFFCF4;
   opacity: 0.9;
+  padding: 15% 0;
 }
 .userRegister-body {
   margin: 0 auto;
@@ -813,6 +814,9 @@ button {
   padding: 1.5%;
   width: 150px;
   margin-bottom: 5%;
+}
+.userRegister-details2-login {
+  color: #AF7A20;
 }
 
 .header {
