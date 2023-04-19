@@ -2,10 +2,14 @@
 // @use "./join/joinIsland";
 @use "./MyPage/Mypage";
 @use "./foundation/base";
+<<<<<<< HEAD
 @use "./Request/Request";
 @use "./myMenu/list";
 @use "./myMenu/scout";
 @use "./serch/IslandReqList";
+=======
+@use "./search/IslandReqList";
+>>>>>>> 287ecca (再検索できます)
 @use "./chat/chat";
 @use "./Login";
 @use "./register/Register";
