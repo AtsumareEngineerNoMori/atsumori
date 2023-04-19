@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import TopTest from "../views/TopTest.vue";
+// import TopTest from "../views/TopTest.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
 import SerchIslandResult from "../views/Serch/SerchIslandResult.vue";
@@ -11,7 +11,7 @@ import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import LoginView from "../views/Login.vue";
-import TopTest from "../views/TopTest.vue";
+// import TopTest from "../views/TopTest.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
 import IslandEdit from "../views/IslandEdit.vue";
@@ -104,11 +104,11 @@ const router = createRouter({
       name: "projectRegister",
       component: ProjectRegisterView,
     },
-    {
-      path: "/top",
-      name: "top",
-      component: TopTest,
-    },
+    // {
+    //   path: "/top",
+    //   name: "top",
+    //   component: TopTest,
+    // },
     {
       path: "/islandReqList",
       name: "islandReqList",

@@ -37,7 +37,7 @@ const array = [
     <section class="join__list">
       <div v-for="island in array" :key="island" class="join__item">
         <!-- リンク先変える -->
-        <RouterLink v-bind:to="{ name: 'top' }">
+        <RouterLink v-bind:to="{ name: 'joinIsland' }">
           <img v-bind:src="island.icon" alt="island" class="join__iconImg" />
           <p class="join__name">{{ island.name }}</p>
         </RouterLink>
