@@ -46,15 +46,6 @@ const projectimgs = [
   // },
 ];
 
-// const User = ref({
-//   id: 1,
-//   icon: "",
-//   name: "ハマオカ",
-//   job: "FR",
-//   comment: "Vueが少しできます",
-//   email: "miyu.hamaoka@rakus-partners.co.jp",
-// });
-
 const Islands = ref({
   id: 1,
   icon: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiLuW2xcJlrbLdQDiw-wTCsElgoQIvbaXRZ40pCZX9vxYuLh1W3njnzZ_SZddy3nVpXeTDZqdKX6rI-MQBECmDwL80RPHDA4d5_lBe89Z8YTbBw9LSlnkTYFbKFmLvObN6tMyyCx7kPVQiMVILHoqH-ze4DDH1n6tf6PIo06l_6w95xdmZ40m7X7Bzx9g/s400/rennai_kaeruka.png",
@@ -65,16 +56,27 @@ const Islands = ref({
   createDate: "2023-04-17",
 });
 
-const User = ref();
+const User = ref({
+  name: "",
+  job: "",
+  comment: "",
+});
+const userId = ref(2); //firebaseでログインしてる人のIDが入る
+const err = ref();
 
-onMounted( async ()=> {
-  const response = await fetch("http://localhost:8000/Users");
-  const data = await response.json();
-  console.log(data[0].name);
-  User.value = data[0];
-  console.log("USerrefの中身" ,User.value.name);
-})
-
+onMounted(async () => {
+  try {
+    const response = await fetch(`http://localhost:8000/Users/${userId.value}`);
+    if (!response.ok) {
+      throw new Error(`HTTPエラーです！！！: ${response.status}`);
+    }
+    User.value = await response.json();
+    console.log("User..valueの中身", User.value.name);
+  } catch (err) {
+    err.value = err;
+    console.log("エラー", err.value);
+  }
+});
 </script>
 
 <template>
@@ -82,26 +84,26 @@ onMounted( async ()=> {
     <button class="mypage__button">依頼一覧</button>
     <div class="mypage__container">
       <div class="mypage__column">
-        <button @click="Users">取得</button>
         <span
           ><img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
-        <router-link to="/mypageedit"><button class="mypage__button">マイページ編集</button></router-link>
-        
+        <router-link to="/mypageedit"
+          ><button class="mypage__button">マイページ編集</button></router-link
+        >
       </div>
       <ul class="mypage__column2">
         <li class="mypage__item">
           <span>なまえ： </span>
-          <!-- <span>{{ User.name }}</span> -->
+          <span>{{ User.name }}</span>
         </li>
         <li class="mypage__item">
           <span>職種：</span>
-          <!-- <span>{{ User.job }}</span> -->
+          <span>{{ User.job }}</span>
         </li>
         <li class="mypage__item">
           <span>ひとこと：</span>
           <p>
-            <!-- {{ User.comment }} -->
+            {{ User.comment }}
           </p>
         </li>
       </ul>

@@ -13,6 +13,14 @@
       "job": "FR",
       "comment": "Vueが少しできます",
       "email": "miyu.hamaoka@rakus-partners.co.jp"
+    },
+    {
+      "id": 2,
+      "icon": "",
+      "name": "きじま",
+      "job": "FR",
+      "comment": "まだ水曜日ということに驚いています",
+      "email": "ikuri@test.com"
     }
   ],
   "Islands": [
