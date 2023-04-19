@@ -198,7 +198,7 @@ const router = createRouter({
       component: ScoutPeople,
     },
     {
-      path: "/",
+      path: "/top",
       name: "top",
       component: Top,
     },
