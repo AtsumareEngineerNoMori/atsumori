@@ -15,10 +15,13 @@ import MyPageEdit from "../views/MyPageEdit.vue";
 import IslandEdit from "../views/IslandEdit.vue";
 import ProjectEdit from "../views/ProjectEdit.vue";
 import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
+
+import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
-import IslandRegisterView from "../views/register/IslandRegister.vue";
+import IlandRegisterView from "../views/register/IlandRegister.vue";
+
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 
 const router = createRouter({
@@ -46,6 +49,7 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MyPage,
+
     },
     {
       path: "/joinIsland",
@@ -88,15 +92,25 @@ const router = createRouter({
       component: IslandAdmissionRequest,
     },
     {
+      path: "/projectadmissionrequest",
+      name: "projectadmissionrequest",
+      component: ProjectAdmissionRequest,
+    },
+    {
       path: "/userRegister",
       name: "userRegister",
       component: UserRegisterView,
     },
     {
-      path: "/islandRegister",
-      name: "islandRegister",
-      component: IslandRegisterView,
+      path: "/ilandRegister",
+      name: "ilandRegister",
+      component: IlandRegisterView,
     },
+    {
+      path: "/projectRegister",
+      name: "projectRegister",
+      component: ProjectRegisterView,
+      }
     {
       path: "/projectRegister",
       name: "projectRegister",
