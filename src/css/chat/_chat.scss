@@ -1,63 +1,49 @@
 .chat {
-  // background-color: #ffff;
-  // background-color: #f7f7f7;
-  // background-color: #fffaf0;
   background-color: #FFFCF4;
   opacity: .9;
+  overflow-y: hidden;
   &__header {
     display: flex;
     align-items: center;
     gap: 2%;
-    // background-color: #fafad2;
     border-bottom: 1px dashed #deb887;
+    padding: 1%;
   }
-  &__islandIcon {
-    width: 5%;
-    height: 5%;
+  &__icon {
+    width: 4%;
+    height: 4%;
     border-radius: 50%;
     border: 1px solid lightgray;
     object-fit: cover;
     aspect-ratio: 1/1;
   }
-  &__islandName {
+  &__name {
     font-weight: bold;
   }
   &__messageWrapper {
-    // width: 60%;
-    // height: 60%;
     overflow: scroll;
-    height: 60%;
-    // width: 80%;
-    // margin: 0 auto;
+    height: 448px;
+    padding: 1%;
     &-myMessage {
-      // text-align: right;
       display: flex;
       flex-direction: row-reverse;
-      // justify-content: end;
       margin: 10px 10px 10px auto;
       width: 40%;
-      // &-user {
-      //   display: flex;
-      //   align-items: start;
-      //   justify-content: end;
-      // }
       &-userName {
         font-size: 1.3rem;
-        // padding-left: 5%;
         text-align: right;
         padding-right: 5%;
+        color: #DE822B;
       }
     }
     &-otherMessage {
-      // text-align: left;
-      // display: flex;
-      // justify-content: start;
       margin: 10px auto 10px 10px;
       width: 40%;
       display: flex;
       &-userName {
         font-size: 1.3rem;
         padding-left: 5%;
+        color: #DE822B;
       }
     }
     &-userIcon {
@@ -69,17 +55,15 @@
       aspect-ratio: 1/1;
     }
     &-myComment {
-      background-color: #4b7031;
+      background-color: #FDCD07;
       // opacity: .7;
-      color: #ffff;
+      color: #847154;
       position: relative;
       display: inline-block;
       margin: 0 15px 1.5em 0;
       padding: 7px 10px;
-      // min-width: 120px;
-      // max-width: 100%;
       width: fit-content;
-      border-radius: 8%;
+      border-radius: 8px;
       &-text {
         margin: 0;
         padding: 0;
@@ -92,17 +76,17 @@
       left: 100%;
       margin-top: -7px;
       border: 7px solid transparent;
-      border-left: 7px solid #4b7031;
+      border-left: 7px solid #FDCD07;
     }
     &-otherComment {
-      background-color: #af7a20;
-      color: #ffff;
+      background-color: #FCEB9C;
+      color: #847154;
       position: relative;
       display: inline-block;
       margin: 0 0 1.5em 15px;
       padding: 7px 10px;
       width: fit-content;
-      border-radius: 8%;
+      border-radius: 8px;
       &-text {
         margin: 0;
         padding: 0;
@@ -115,12 +99,16 @@
       right: 100%;
       margin-top: -7px;
       border: 7px solid transparent;
-      border-right: 7px solid #af7a20;
+      border-right: 7px solid #FCEB9C;
     }
   }
   &__textarea {
   resize: none;
   width: 100%;
+  background-color: #FFFCF4;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
   }
   &__textarea:focus {
     outline: none;
@@ -129,5 +117,7 @@
     width: 50px;
     height: 30px;
     padding: 0;
+    margin-left: 94%;
+    cursor: pointer;
   }
 }
