@@ -707,6 +707,7 @@ button {
 .loginPage {
   background-color: #FFFCF4;
   opacity: 0.9;
+  height: 100vh;
 }
 .loginPage-logo {
   margin: 0 auto;
