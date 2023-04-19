@@ -12,6 +12,7 @@ import IslandShow from "../views/Show/IslandShow.vue";
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IlandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+import SerchBox from "../components/Serch/SerchBox.vue"
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
@@ -188,14 +189,9 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
-      path: "/scoutPeople",
-      name: "scoutPeople",
-      component: ScoutPeople,
-    },
-    {
-      path: "/joinIsland",
-      name: "joinIsland",
-      component: () => import("../views/JoinIsland.vue"),
+      path: "/serchBox",
+      name: "serchBox",
+      component: SerchBox
     },
   ],
 });
