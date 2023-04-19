@@ -9,7 +9,7 @@ const array = [
     userIcon:
       "https://2.bp.blogspot.com/-uoj7bbsM5AA/WBsA4BSa9mI/AAAAAAAA_XM/-Z7iyv23qpox9VgA0Drt354rqun61oSHgCLcB/s200/simple_leaf8.png",
     name: "たぬきち",
-    islandId: 1,
+    projectId: 1,
     createDate: "2023-04-18 09:00:00",
     message: "みなさん",
   },
@@ -19,7 +19,7 @@ const array = [
     userIcon:
       "https://2.bp.blogspot.com/-uoj7bbsM5AA/WBsA4BSa9mI/AAAAAAAA_XM/-Z7iyv23qpox9VgA0Drt354rqun61oSHgCLcB/s200/simple_leaf8.png",
     name: "たぬきち",
-    islandId: 1,
+    projectId: 1,
     createDate: "2023-04-18 09:00:00",
     message: "こんにちは",
   },
@@ -29,7 +29,7 @@ const array = [
     userIcon:
       "https://4.bp.blogspot.com/-aWjtPlLB9e4/UNbZ5m-vJoI/AAAAAAAAJNo/P_-MhOOzf8g/s110/12_8bu_onpu_renkou.png",
     name: "しずえ",
-    islandId: 1,
+    projectId: 1,
     createDate: "2023-04-18 09:10:00",
     message: "こんにちは",
   },
@@ -39,7 +39,7 @@ const array = [
     userIcon:
       "https://3.bp.blogspot.com/--Gw4b3xIKS8/VGX8kG1tUGI/AAAAAAAApI4/KP8H_HNBm_8/s400/kai_hotate.png",
     name: "ラコスケ",
-    islandId: 1,
+    projectId: 1,
     createDate: "2023-04-18 09:15:00",
     message: "こんにちは",
   },
@@ -49,7 +49,7 @@ const array = [
     userIcon:
       "https://3.bp.blogspot.com/-Gzz-_2Qf5Ec/WEOPUqh4raI/AAAAAAABALU/G1mms737TJEXAsPIURsdlbNmU7EGTb-4QCLcB/s400/kaseki_kyoryu2.png",
     name: "フータ",
-    islandId: 1,
+    projectId: 1,
     createDate: "2023-04-18 09:20:00",
     message: "こんにちは",
   },
@@ -59,17 +59,17 @@ const array = [
     userIcon:
       "https://2.bp.blogspot.com/-uoj7bbsM5AA/WBsA4BSa9mI/AAAAAAAA_XM/-Z7iyv23qpox9VgA0Drt354rqun61oSHgCLcB/s200/simple_leaf8.png",
     name: "たぬきち",
-    islandId: 1,
+    projectId: 1,
     createDate: "2023-04-18 09:00:00",
     message: "何かボクに相談だなも？なんでも気軽に聞いてちょうだい！",
   },
 ];
 
 // 島の情報も別で取得する
-const islandList = {
+const projectList = {
   id: 1,
-  icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-  islandName: "島",
+  icon: "https://1.bp.blogspot.com/-X0vQtJaqZ4A/XobTGBJRa_I/AAAAAAABYEk/IkbzK54oEfY5BdwJarzSf0kovf0xZl6cQCNcBGAsYHQ/s200/flower_mark_ume03_red.png",
+  projectName: "プロジェクト",
 };
 </script>
 
@@ -77,8 +77,8 @@ const islandList = {
 <template>
   <div class="chat">
     <div class="chat__header">
-      <img :src="islandList.icon" alt="icon" class="chat__icon" />
-      <p class="chat__name">{{ islandList.islandName }}</p>
+      <img :src="projectList.icon" alt="icon" class="chat__icon" />
+      <p class="chat__name">{{ projectList.projectName }}</p>
     </div>
     <section class="chat__messageWrapper">
       <div v-for="chat in array" :key="chat">
