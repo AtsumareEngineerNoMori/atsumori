@@ -110,12 +110,7 @@ const router = createRouter({
       path: "/projectRegister",
       name: "projectRegister",
       component: ProjectRegisterView,
-      }
-    {
-      path: "/projectRegister",
-      name: "projectRegister",
-      component: ProjectRegisterView,
-    },
+      },
     // {
     //   path: "/top",
     //   name: "top",
