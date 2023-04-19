@@ -19,8 +19,11 @@ import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
-import IlandRegisterView from "../views/register/IlandRegister.vue";
+import IslandRegisterView from "../views/register/IslandRegister.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
+import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
+import RecruitIslandRegister from "../views/register/RecruitUserRegister.vue";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -100,9 +103,9 @@ const router = createRouter({
       component: UserRegisterView,
     },
     {
-      path: "/ilandRegister",
-      name: "ilandRegister",
-      component: IlandRegisterView,
+      path: "/islandRegister",
+      name: "islandRegister",
+      component: IslandRegisterView,
     },
     {
 
