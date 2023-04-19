@@ -10,7 +10,7 @@ import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import UserRegisterView from "../views/register/UserRegister.vue"
-import IlandRegisterView from "../views/register/IlandRegister.vue"
+import IlandRegisterView from "../views/register/IslandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
 <<<<<<< HEAD
 import SerchBox from "../components/Serch/SerchBox.vue"
@@ -23,12 +23,7 @@ import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
 import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
-import UserRegisterView from "../views/register/UserRegister.vue";
-import IlandRegisterView from "../views/register/IlandRegister.vue";
-import ProjectRegisterView from "../views/register/ProjectRegister.vue";
-=======
-import SearchBox from "../components/Search/SearchBox.vue"
->>>>>>> 287ecca (再検索できます)
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
