@@ -12,7 +12,6 @@ import IslandShow from "../views/Show/IslandShow.vue";
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IslandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
-<<<<<<< HEAD
 import SerchBox from "../components/Serch/SerchBox.vue"
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
@@ -23,6 +22,7 @@ import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
 import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
+import IlandRegisterView from "../views/register/IlandRegister.vue";
 
 
 const router = createRouter({
@@ -102,11 +102,11 @@ const router = createRouter({
       name: "userRegister",
       component: UserRegisterView,
     },
-    {
-      path: "/ilandRegister",
-      name: "ilandRegister",
-      component: IlandRegisterView,
-    },
+    // {
+    //   path: "/ilandRegister",
+    //   name: "ilandRegister",
+    //   component: IlandRegisterView,
+    // },
     {
       path: "/projectRegister",
       name: "projectRegister",
