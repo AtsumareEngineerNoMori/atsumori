@@ -6,13 +6,15 @@
     </section>
 
     <div class="island_serch">
-      <form action="どこから取ってくるかURL" method="get">
+      <!-- <form action="どこから取ってくるかURL" method="get"> -->
+      <form @submit.prevent="searchIslands">
         <p>キーワードを入力してください。</p>
         <input
           type="search"
           name="search"
           placeholder="キーワードを入力"
           class="serch_box"
+          v-model="keyword"
         />
         <input type="submit" name="submit" value="検索" class="serch_btn" />
       </form>
@@ -75,4 +77,22 @@ const fetchIslands = async () => {
 onMounted(async () => {
   await Promise.all([fetchRecruitNewUsers(), fetchIslands()]);
 });
+
+//再検索
+const keyword = ref("");
+
+const searchIslands = () => {
+  // 入力したキーワードを取得
+  console.log(keyword.value);
+
+  const filterRecruitNewUsers = recruitNewUsers.value.filter(
+    (recruitNewUser) => {
+      return recruitNewUser.island.islandName.includes(keyword.value);
+    }
+  );
+  console.log("検索結果", filterRecruitNewUsers);
+
+  // 検索結果を更新
+  recruitNewUsers.value = filterRecruitNewUsers;
+};
 </script>

@@ -14,6 +14,7 @@ import LoginView from '../views/Login.vue'
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IlandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+import SerchBox from "../components/Serch/SerchBox.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -117,14 +118,9 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
-      path: "/scoutPeople",
-      name: "scoutPeople",
-      component: ScoutPeople,
-    },
-    {
-      path: "/joinIsland",
-      name: "joinIsland",
-      component: () => import("../views/JoinIsland.vue"),
+      path: "/serchBox",
+      name: "serchBox",
+      component: SerchBox
     },
   ],
 });
