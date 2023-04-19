@@ -52,5 +52,9 @@
       "recruitPoint": "一人の裁量が大きいです",
       "createDate": "2023-04-17"
     }
-  ]
+  ],
+  "JoinIsland": [{ 
+    "id": 1, 
+    "userId": 333, 
+    "islandId": 1 }]
 }
