@@ -10,19 +10,18 @@ import SerchReqProResult from "../views/Serch/SerchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
-import LoginView from '../views/Login.vue'
-import TopTest from "../views/TopTest.vue"
-import MyPage from "../views/MyPage.vue"
-import MyPageEdit from "../views/MyPageEdit.vue"
-import IslandEdit from "../views/IslandEdit.vue"
-import ProjectEdit from "../views/ProjectEdit.vue"
-import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue"
-import OtherMyPage from "../views/OtherMyPage.vue"
-import MyPageForScout from "../views/MyPageForScout.vue"
-import UserRegisterView from "../views/register/UserRegister.vue"
-import IlandRegisterView from "../views/register/IlandRegister.vue"
-import ProjectRegisterView from "../views/register/ProjectRegister.vue"
-
+import LoginView from "../views/Login.vue";
+import MyPage from "../views/MyPage.vue";
+import MyPageEdit from "../views/MyPageEdit.vue";
+import IslandEdit from "../views/IslandEdit.vue";
+import ProjectEdit from "../views/ProjectEdit.vue";
+import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
+import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
+import OtherMyPage from "../views/OtherMyPage.vue";
+import MyPageForScout from "../views/MyPageForScout.vue";
+import UserRegisterView from "../views/register/UserRegister.vue";
+import IlandRegisterView from "../views/register/IlandRegister.vue";
+import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,70 +40,74 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView
+      path: "/login",
+      name: "login",
+      component: LoginView,
     },
     {
-
-      path: '/mypage',
-      name: 'mypage',
-      component: MyPage
+      path: "/mypage",
+      name: "mypage",
+      component: MyPage,
     },
     {
-      path: '/joinIsland',
-      name: 'joinIsland',
-      component: () => import('../views/JoinIsland.vue')
+      path: "/joinIsland",
+      name: "joinIsland",
+      component: () => import("../views/JoinIsland.vue"),
     },
     {
-      path: '/mypageedit',
-      name: 'mypageedit',
-      component: MyPageEdit
+      path: "/mypageedit",
+      name: "mypageedit",
+      component: MyPageEdit,
     },
     {
-      path: '/othermypage',
-      name: 'othermypageedit',
-      component: OtherMyPage
+      path: "/othermypage",
+      name: "othermypageedit",
+      component: OtherMyPage,
     },
     {
-      path: '/mypageforscout',
-      name: 'mypageforscout',
-      component: MyPageForScout
+      path: "/mypageforscout",
+      name: "mypageforscout",
+      component: MyPageForScout,
     },
     {
-      path: '/islandEdit',
-      name: 'islandEdit',
-      component: IslandEdit
+      path: "/islandEdit",
+      name: "islandEdit",
+      component: IslandEdit,
     },
     {
-      path: '/islandEdit',
-      name: 'islandEdit',
-      component: IslandEdit
+      path: "/islandEdit",
+      name: "islandEdit",
+      component: IslandEdit,
     },
     {
-      path: '/prijectEdit',
-      name: 'projectEdit',
-      component: ProjectEdit
+      path: "/prijectEdit",
+      name: "projectEdit",
+      component: ProjectEdit,
     },
     {
-      path: '/islandadmissionrequest',
-      name: 'islandadmissionrequest',
-      component: IslandAdmissionRequest
-    },
-  {
-      path: '/userRegister',
-      name: 'userRegister',
-      component:  UserRegisterView
+      path: "/islandadmissionrequest",
+      name: "islandadmissionrequest",
+      component: IslandAdmissionRequest,
     },
     {
-      path: '/ilandRegister',
-      name: 'ilandRegister',
-      component:  IlandRegisterView
+      path: "/projectadmissionrequest",
+      name: "projectadmissionrequest",
+      component: ProjectAdmissionRequest,
     },
     {
-      path: '/projectRegister',
-      name: 'projectRegister',
-      component:  ProjectRegisterView
+      path: "/userRegister",
+      name: "userRegister",
+      component: UserRegisterView,
+    },
+    {
+      path: "/ilandRegister",
+      name: "ilandRegister",
+      component: IlandRegisterView,
+    },
+    {
+      path: "/projectRegister",
+      name: "projectRegister",
+      component: ProjectRegisterView,
     },
     {
       path: "/top",
@@ -115,8 +118,8 @@ const router = createRouter({
       path: "/islandReqList",
       name: "islandReqList",
       component: IslandReqList,
-      },
-     {
+    },
+    {
       path: "/show",
       name: "show",
       component: IslandShow,
@@ -127,19 +130,19 @@ const router = createRouter({
       component: () => import("../views/JoinIsland.vue"),
     },
     {
-      path: '/joinProject',
-      name: 'joinProject',
-      component: () => import('../views/JoinProject.vue')
+      path: "/joinProject",
+      name: "joinProject",
+      component: () => import("../views/JoinProject.vue"),
     },
     {
-      path: '/userScout',
-      name: 'userScout',
-      component: () => import('../views/userScout.vue')
+      path: "/userScout",
+      name: "userScout",
+      component: () => import("../views/userScout.vue"),
     },
     {
-      path: '/islandChat',
-      name: 'islandChat',
-      component: () => import('../views/chat/islandChat.vue')
+      path: "/islandChat",
+      name: "islandChat",
+      component: () => import("../views/chat/islandChat.vue"),
     },
     {
       path: "/projectReqList",
