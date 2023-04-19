@@ -5,7 +5,7 @@
   
   <script setup>
   import { ref } from "vue";
-  import SwitchSerchResult from "../../components/Setch/SwitchSerchResult.vue";
+  import SwitchSerchResult from "../../components/Serch/SwitchSerchResult.vue";
   
   const serchTitle = ref("検索結果");
   </script>

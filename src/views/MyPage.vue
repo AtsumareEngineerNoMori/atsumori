@@ -88,7 +88,7 @@ onMounted(async () => {
           ><img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
         <router-link to="/mypageedit"
-          ><button class="mypage__button">マイページ編集</button></router-link
+          ><button class="mypage__editbutton">マイページ編集</button></router-link
         >
       </div>
       <ul class="mypage__column2">

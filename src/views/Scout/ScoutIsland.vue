@@ -4,7 +4,7 @@
 
 <script setup>
 import { ref } from "vue";
-import AllSerchResult from "../../components/Setch/AllSerchResult.vue";
+import AllSerchResult from "../../components/Serch/AllSerchResult.vue";
 
 const serchTitle = ref("スカウトする島を探す");
 </script>
