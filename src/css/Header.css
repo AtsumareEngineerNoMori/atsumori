@@ -12,7 +12,7 @@
     display: flex;
     justify-content: right;
     /* align-items: center; */
-    z-index: 1000000000;
+    z-index: 2;
 }
 
 .headerModal__container {
@@ -24,6 +24,7 @@
     overflow-y: auto;
     box-sizing: border-box;
     /* text-align: center; */
+    z-index: 3;
 }
 
 

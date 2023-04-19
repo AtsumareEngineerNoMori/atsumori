@@ -8,7 +8,8 @@ const toggleStatus  = () => {
 
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">
-    <div class="headerModal__overlay" tabindex="-1" data-micromodal-close>
+    <div class="headerModal__overlay" tabindex="-1" data-micromodal-close 
+    >
       <div
         class="headerModal__container"
         role="dialog"

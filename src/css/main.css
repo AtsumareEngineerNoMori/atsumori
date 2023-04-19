@@ -566,6 +566,11 @@ button {
   background-color: #FFFCF4;
   opacity: 0.9;
   min-height: 100vh;
+  display: block;
+  position: relative;
+  height: 100%;
+  width: inherit;
+  z-index: -1;
 }
 .RecruitIslandRegister-title {
   font-size: 30px;

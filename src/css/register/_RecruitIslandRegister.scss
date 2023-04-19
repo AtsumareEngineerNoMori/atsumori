@@ -1,7 +1,17 @@
 .RecruitIslandRegister{
+    // background-color: #FFFCF4;
+    // opacity: 0.9;
+    // min-height: 100vh;
+    // z-index: 1;
     background-color: #FFFCF4;
-    opacity: .9;
+    opacity: 0.9;
     min-height: 100vh;
+    display: block;
+    // position: fixed;
+    position: relative;
+    height: 100%;
+    width: inherit;
+    z-index: -1;
     &-title{
         font-size: 30px;
         text-align: center;
