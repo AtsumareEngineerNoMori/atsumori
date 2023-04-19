@@ -18,13 +18,21 @@
       </form>
     </div>
 
-    <!-- 結果 -->
     <section class="serch_list">
-      <router-link to="/各島の詳細画面">
-      <div v-for="island in islands" :key="island.id">
-        <img :src="island.icon" alt="island" class="serch_iconImg" />
-        <p>{{ island.islandName }}</p>
-      </div>
+      <router-link
+        v-for="recruitNewUser in recruitNewUsers"
+        :key="recruitNewUser.id"
+        :to="'/islands/' + recruitNewUser.island.id"
+      >
+        <img
+          :src="recruitNewUser.island.icon"
+          alt="island"
+          class="serch_iconImg"
+        />
+        <div class="serch_recinfo">
+          <p>{{ recruitNewUser.island.islandName }}</p>
+          <!-- <p>{{ recruitNewUser.recruitPoint }}</p> -->
+        </div>
       </router-link>
     </section>
   </div>
@@ -33,14 +41,38 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-const islands = ref([]);
-//島
-const fetchIslands = async () => {
-  const response = await fetch(`http://localhost:8000/islands`);
-  const data = await response.json();
-  islands.value = data;
-  console.log(data);
+const recruitNewUsers = ref([]);
+
+const fetchRecruitNewUsers = async () => {
+  try {
+    const response = await fetch(`http://localhost:8000/RecruitNewUser`);
+    const data = await response.json();
+    recruitNewUsers.value = data.map((recruitNewUser) => ({
+      ...recruitNewUser,
+      island: {},
+    }));
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-onMounted(fetchIslands);
+const fetchIslands = async () => {
+  try {
+    const response = await fetch(`http://localhost:8000/Islands`);
+    const data = await response.json();
+    recruitNewUsers.value.forEach((recruitNewUser) => {
+      recruitNewUser.island = data.find(
+        (island) => island.id === recruitNewUser.IslandId
+      );
+    });
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(async () => {
+  await Promise.all([fetchRecruitNewUsers(), fetchIslands()]);
+});
 </script>

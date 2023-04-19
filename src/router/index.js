@@ -11,7 +11,6 @@ import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import LoginView from '../views/Login.vue'
-import TopTest from "../views/TopTest.vue"
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IlandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
