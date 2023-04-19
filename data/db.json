@@ -21,7 +21,15 @@
       "job": "FR",
       "comment": "React,Vue",
       "email": "ayaka.mizuno@rakus-partners.co.jp"
-    }
+    },
+    {
+      "id": 3,
+      "icon": "",
+      "name": "きじま",
+      "job": "FR",
+      "comment": "まだ水曜日ということに驚いています",
+      "email": "ikuri@test.com"
+      },
   ],
   "Islands": [
     {
@@ -78,6 +86,7 @@
       "createDate": "2023-04-17"
     }
   ],
+
   "JoinIslands": [
     {
       "id": 1,
