@@ -75,7 +75,7 @@ const projectimgs = [
     </div>
 
     <!-- 島一覧 -->
-    <div>
+    <div class="mypage__table">
       <div class="mypage__div">島一覧</div>
       <ul
         v-for="islandimg in islandimgs"
@@ -97,8 +97,8 @@ const projectimgs = [
     </div>
 
     <!-- プロジェクト一覧 -->
-    <div class="mypage__project">
-      <p mypage__div>プロジェクト一覧</p>
+    <div class="mypage__table">
+      <p >プロジェクト一覧</p>
       <ul
         v-for="projectimg in projectimgs"
         :key="projectimg"

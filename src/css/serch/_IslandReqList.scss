@@ -6,7 +6,6 @@ $basecolor_brown: #af7a20;
 .serch {
   width: 1000px;
   background-color: #fffcf4;
-  opacity: 0.9;
   &_title {
     margin-bottom: 5%;
   }
@@ -23,6 +22,9 @@ $basecolor_brown: #af7a20;
   }
   &_list {
     display: flex;
+  }
+  &_recinfo{
+    text-align: center;
   }
   &_iconImg {
     width: 200px;

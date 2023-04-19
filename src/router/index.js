@@ -10,12 +10,17 @@ import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
 import Top from "../views/Top.vue"
+import UserRegisterView from "../views/register/UserRegister.vue"
+import IlandRegisterView from "../views/register/IlandRegister.vue"
+import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+import SerchBox from "../components/Serch/SerchBox.vue"
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
 import IslandEdit from "../views/IslandEdit.vue";
 import ProjectEdit from "../views/ProjectEdit.vue";
 import IslandAdmissionRequest from "../views/IslandAdmissionRequest.vue";
+import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
@@ -50,6 +55,7 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MyPage,
+
     },
     {
       path: "/joinIsland",
@@ -92,10 +98,14 @@ const router = createRouter({
       component: IslandAdmissionRequest,
     },
     {
-
       path: '/islandRegister',
       name: 'islandRegister',
       component:  IslandRegisterView
+    },{
+      path: "/projectadmissionrequest",
+      name: "projectadmissionrequest",
+      component: ProjectAdmissionRequest,
+
     },
     {
       path: "/userRegister",
@@ -116,7 +126,7 @@ const router = createRouter({
       path: "/projectRegister",
       name: "projectRegister",
       component: ProjectRegisterView,
-    },
+      },
     // {
     //   path: "/top",
     //   name: "top",
@@ -206,6 +216,10 @@ const router = createRouter({
       path: "/joinIsland",
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
+    },{
+      path: "/serchBox",
+      name: "serchBox",
+      component: SerchBox
     },
   ],
 });
