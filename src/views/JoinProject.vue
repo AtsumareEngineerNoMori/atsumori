@@ -3,33 +3,6 @@ import { ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
 
-const array = [
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-];
-
 const joinList = ref([]);
 const projectData = ref([]);
 const loading = ref(true);
@@ -41,19 +14,24 @@ const getJoinProject = async () => {
   joinList.value = data;
   console.log(data);
 };
-getJoinProject().then(() => {
-  console.log(joinList.value);
-  joinList.value.map(async (pj) => {
-    const response = await fetch(
-      `http://localhost:8000/Projects/?id=${pj.projectId}`
-    );
-    const data = await response.json();
-    projectData.value.push(data);
-    loading.value = false;
-    console.log(data);
+getJoinProject()
+  .then(() => {
+    console.log(joinList.value);
+    joinList.value.map(async (pj) => {
+      const response = await fetch(
+        `http://localhost:8000/Projects/?id=${pj.projectId}`
+      );
+      const data = await response.json();
+      projectData.value.push(data);
+      loading.value = false;
+      console.log(data);
+    });
+    console.log(projectData.value);
+  })
+  .then(() => {
+    console.log(joinList.value);
+    console.log(projectData.value);
   });
-  console.log(projectData.value);
-});
 </script>
 
 <template>
