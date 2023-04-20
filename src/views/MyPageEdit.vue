@@ -46,15 +46,15 @@ const projectimgs = [
 </script>
 
 <template>
-  <div class="mypage">
-    <div class="mypage__container">
-      <div class="mypage__column">
+  <div class="edit">
+    <div class="edit__container">
+      <div class="edit__column">
         <span>
           <img :src="img.icon" alt="" class="mypage__profileiconImg"
         /></span>
         <span>アイコン</span>
       </div>
-      <ul class="mypage__column2">
+      <ul class="edit__column2">
         <li class="mypage__item_name">
           <p>なまえ： </p>
           <span><input type="text" class="edit__input" /></span>
@@ -101,7 +101,7 @@ const projectimgs = [
       </ul>
     </div>
     <div class="edit__buttoncontainer">
-      <button class="edit__button">戻る</button>
+      <button class="edit__button_cansel">戻る</button>
       <button class="edit__button">更新</button>
     </div>
   </div>
