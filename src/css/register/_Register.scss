@@ -34,7 +34,10 @@
                 height: 100%;
             }
             &-img{
-                padding: 20px;
+                // padding: 20px;
+                border-radius: 50%;
+                aspect-ratio: 1/1;
+
             }
         }
         &-detail{
@@ -78,8 +81,33 @@
             width: 150px;
             margin-bottom: 5%;
         }
+        &-button:hover{
+            cursor: pointer;
+        }
         &-login{
             color: #AF7A20;
         }
     }
 }
+
+
+.icon_form {
+    top: 47%;
+    color: #ffff;
+    padding: 1.5% 3% 2% 1.5%;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    aspect-ratio: 1/1;
+    position: absolute;
+    right: 59%;
+    background-color: #4B7031;
+  }
+  .add_icon {
+    font-size: 27px;
+    font-weight: bold;
+    line-height: 14px;
+  }
+  .icon_input {
+    display: none;
+  }

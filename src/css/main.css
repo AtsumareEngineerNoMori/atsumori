@@ -781,7 +781,8 @@ button {
   height: 100%;
 }
 .userRegister-details-icon-img {
-  padding: 20px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 .userRegister-details-detail {
   margin-top: 5%;
@@ -821,8 +822,34 @@ button {
   width: 150px;
   margin-bottom: 5%;
 }
+.userRegister-details2-button:hover {
+  cursor: pointer;
+}
 .userRegister-details2-login {
   color: #AF7A20;
+}
+
+.icon_form {
+  top: 47%;
+  color: white;
+  padding: 1.5% 3% 2% 1.5%;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: 59%;
+  background-color: #4B7031;
+}
+
+.add_icon {
+  font-size: 27px;
+  font-weight: bold;
+  line-height: 14px;
+}
+
+.icon_input {
+  display: none;
 }
 
 .header {

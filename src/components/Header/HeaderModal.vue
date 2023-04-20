@@ -1,9 +1,16 @@
 <script setup>
+import { signOut } from "@firebase/auth";
 import { ref } from "vue";
+import {  auth } from "../../../firebase";
+
 const isShow = ref(false);
 const toggleStatus  = () => {
     isShow.value = !isShow.value;
 }
+
+const logout = async () => {
+  await signOut(auth);
+};
 </script>
 
 <template>
@@ -23,7 +30,9 @@ const toggleStatus  = () => {
             <div class="headerModal__listdiv"><p class="headerModal__list">マイページ</p></div>
             <div class="headerModal__listdiv"><p class="headerModal__list">島登録</p></div>
             <div class="headerModal__listdiv"><p class="headerModal__list">プロジェクト登録</p></div>
-            <div class="headerModal__listdiv"><p class="headerModal__list">ログアウト</p></div>
+            <RouterLink to="/login">
+            <div @click="logout" class="headerModal__listdiv"><p class="headerModal__list">ログアウト</p></div>
+            </RouterLink>
             <div class="headerModal__listdiv"><p @click="toggleStatus" 
             data-micromodal-close
             aria-label="Close this dialog window"
