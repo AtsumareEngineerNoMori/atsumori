@@ -1,8 +1,8 @@
 <template>
-    <Header />
+    <!-- <Header /> -->
 <!-- <HeaderModal /> -->
     <div class="ProjectRegister">
-    <hi class="ProjectRegister-title">🌏 プロジェクト登録</hi>
+    <hi class="ProjectRegister-title">プロジェクト登録</hi>
   
     <div class="ProjectRegister-set">
       <div>
@@ -33,7 +33,7 @@
   </template>
   
   <script setup>
-  import Header from "../../components/Header/Header.vue";
+  // import Header from "../../components/Header/Header.vue";
   // import HeaderModal from "../../components/Header/HeaderModal.vue";
   </script>
   
