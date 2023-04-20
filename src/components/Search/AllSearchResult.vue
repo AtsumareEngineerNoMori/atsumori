@@ -1,31 +1,31 @@
 <template>
   <!-- スカウトする島・難民を検索する -->
-  <div class="serch">
+  <div class="search">
     <section>
-      <h3 class="serch_title">{{ props.serchTitle }}</h3>
+      <h3 class="search_title">{{ props.searchTitle }}</h3>
     </section>
 
-    <div class="all_serch">
+    <div class="all_search">
       <form action="どこから取ってくるかURL" method="get">
         <p>キーワードを入力してください。</p>
         <input
           type="search"
           name="search"
           placeholder="キーワードを入力"
-          class="serch_box"
+          class="search_box"
         />
-        <input type="submit" name="submit" value="検索" class="serch_btn" />
+        <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
     </div>
 
     <p>検索結果を表示する(初期表示なし)</p>
 
-    <section class="serch_list">
-      <!-- <div v-if="serchImages.length > 0"> -->
-      <div v-for="serchImage in serchImages" :key="serchImage">
+    <section class="search_list">
+      <!-- <div v-if="searchImages.length > 0"> -->
+      <div v-for="searchImage in searchImages" :key="searchImage">
         <router-link to="島・プロジェクト詳細ページ">
-          <img :src="serchImage.icon" alt="island" class="serch_iconImg" />
-          <p>{{ serchImage.name }}</p>
+          <img :src="searchImage.icon" alt="island" class="search_iconImg" />
+          <p>{{ searchImage.name }}</p>
         </router-link>
       </div>
       <!-- </div>
@@ -43,10 +43,10 @@
 // import "../css/main.css";
 
 const props = defineProps({
-  serchTitle: String,
+  searchTitle: String,
 });
 
-const serchImages = [
+const searchImages = [
   {
     icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
     name: "名前",

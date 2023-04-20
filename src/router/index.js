@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
-import SerchIslandResult from "../views/Serch/SerchIslandResult.vue";
-import SerchProResult from "../views/Serch/SerchProResult.vue";
-import SerchReqIslandResult from "../views/Serch/SerchReqIslandResult.vue";
-import SerchReqProResult from "../views/Serch/SerchReqProResult.vue";
+import SearchIslandResult from "../views/Search/SearchIslandResult.vue";
+import SearchProResult from "../views/Search/SearchProResult.vue";
+import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
+import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
@@ -25,6 +25,7 @@ import UserRegisterView from "../views/register/UserRegister.vue";
 import IslandRegisterView from "../views/register/IslandRegister.vue";
 import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
 import RecruitIslandRegister from "../views/register/RecruitUserRegister.vue";
+
 
 
 const router = createRouter({
@@ -109,11 +110,13 @@ const router = createRouter({
       name: "userRegister",
       component: UserRegisterView,
     },
+
     {
       path: "/islandRegister",
       name: "islandRegister",
       component: IslandRegisterView,
     },
+
     {
 
       path: '/recruitUserRegister',
@@ -175,24 +178,24 @@ const router = createRouter({
       component: ProjectReqList,
     },
     {
-      path: "/serchIslandResult",
-      name: "serchIslandResult",
-      component: SerchIslandResult,
+      path: "/searchIslandResult",
+      name: "searchIslandResult",
+      component: SearchIslandResult,
     },
     {
-      path: "/serchProResult",
-      name: "serchProResult",
-      component: SerchProResult,
+      path: "/searchProResult",
+      name: "searchProResult",
+      component: SearchProResult,
     },
     {
-      path: "/serchReqIslandResult",
-      name: "serchReqIslandResult",
-      component: SerchReqIslandResult,
+      path: "/searchReqIslandResult",
+      name: "searchReqIslandResult",
+      component: SearchReqIslandResult,
     },
     {
-      path: "/serchReqProResult",
-      name: "serchReqProResult",
-      component: SerchReqProResult,
+      path: "/searchReqProResult",
+      name: "searchReqProResult",
+      component: SearchReqProResult,
     },
     {
       path: "/scoutIsland",
@@ -200,6 +203,7 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
+
       path: "/scoutPeople",
       name: "scoutPeople",
       component: ScoutPeople,
