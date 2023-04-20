@@ -537,13 +537,46 @@ button {
 
 .list {
   background-color: #fffcf4;
-  height: 100%;
   padding: 3%;
   height: 100vh;
 }
 .list__title {
   color: #af7a20;
   font-size: 2.5rem;
+}
+.list__noDataTitle {
+  margin-top: 10%;
+  text-align: center;
+}
+.list__noDataTitle-text {
+  color: #af7a20;
+  font-size: 2.7rem;
+  background-color: #fffcf4;
+  font-weight: bold;
+  padding: 0;
+  cursor: pointer;
+}
+.list__noDataTitle-text-back {
+  font-size: 1.6rem;
+}
+.list__noDataTitle-text:hover {
+  color: #4b7031;
+  opacity: 0.8;
+}
+.list__noDataTitle-img {
+  margin: 0 auto;
+  width: 500px;
+  height: auto;
+}
+.list__noDataTitle-pjImg {
+  margin: 0 auto;
+  width: 300px;
+  height: auto;
+}
+.list__noDataTitle-scoutImg {
+  margin: 3% auto 0 auto;
+  width: 200px;
+  height: auto;
 }
 .list__list {
   display: flex;
