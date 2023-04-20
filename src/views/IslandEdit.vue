@@ -113,10 +113,11 @@ async function updateIsland() {
       </ul>
     </div>
     <div class="edit__buttoncontainer">
-      <router-link to="/show"
+      <router-link to="/show" class="edit__router"
         ><button class="edit__button_cansel">戻る</button></router-link
       >
-      <button class="edit__button" @click="updateIsland">更新</button>
+      <router-link to="/"  class="edit__router"> <button class="edit__button" @click="updateIsland">更新</button></router-link>
+     
     </div>
   </div>
 </template>

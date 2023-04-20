@@ -368,6 +368,9 @@
 .edit__item {
   margin: auto;
 }
+.edit__router {
+  margin: 0 40px;
+}
 .edit__button {
   padding: 1% 2%;
   margin: auto;
