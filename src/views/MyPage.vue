@@ -3,11 +3,6 @@
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 
-const img = {
-  icon: "https://1.bp.blogspot.com/-ZOg0qAG4ewU/Xub_uw6q0DI/AAAAAAABZio/MshyuVBpHUgaOKJtL47LmVkCf5Vge6MQQCNcBGAsYHQ/s1600/pose_pien_uruuru_woman.png",
-  name: "アイコン",
-};
-
 const islandimgs = [
   {
     icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
@@ -58,6 +53,7 @@ const Islands = ref({
 
 const User = ref({
   name: "",
+  icon:"",
   job: "",
   comment: "",
 });
@@ -85,7 +81,7 @@ onMounted(async () => {
     <div class="mypage__container">
       <div class="mypage__column">
         <span
-          ><img :src="img.icon" alt="" class="mypage__profileiconImg"
+          ><img :src="User.icon" alt="" class="mypage__profileiconImg"
         /></span>
         <router-link to="/mypageedit"
           ><button class="mypage__editbutton">マイページ編集</button></router-link
