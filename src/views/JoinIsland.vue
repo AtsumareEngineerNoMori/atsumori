@@ -2,13 +2,14 @@
 import { ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
-import DeleteMemberButton from "../components/DeleteMemberButton.vue";
+import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-
+// joinIslandsから取得したuserIdが等しいデータを保管
 const joinList = ref([]);
+// islandsから取得したislandIdが等しいデータを保管
 const islandData = ref([]);
 const loading = ref(true);
 
@@ -19,9 +20,7 @@ const getJoinIsland = async () => {
   );
   const data = await response.json();
   joinList.value = data;
-  console.log(data);
 };
-// if (joinList.value !== []) {
 getJoinIsland().then(() => {
   console.log(joinList.value);
   // 上で取得した島idと等しいデータをIslandsテーブルから取得
@@ -42,9 +41,10 @@ getJoinIsland().then(() => {
   console.log(islandData.value);
 });
 
+// データがない場合に表示するボタン
 const noDataBtn = () => {
-  return router.push("/top")
-}
+  return router.push("/top");
+};
 </script>
 
 <template>
@@ -58,8 +58,14 @@ const noDataBtn = () => {
       </section>
       <section v-if="islandData.length <= 0">
         <div class="list__noDataTitle">
-          <button @click="noDataBtn" class="list__noDataTitle-text">島に移住しよう</button>
-          <img src="https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png" alt="titleLogo" class="list__noDataTitle-img">
+          <button @click="noDataBtn" class="list__noDataTitle-text">
+            島に移住しよう
+          </button>
+          <img
+            src="https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png"
+            alt="titleLogo"
+            class="list__noDataTitle-img"
+          />
         </div>
       </section>
       <section class="list__list" v-else>
@@ -74,7 +80,6 @@ const noDataBtn = () => {
             <p class="list__name">{{ island[0].islandName }}</p>
           </RouterLink>
           <DeleteMemberButton :userId="3" :islandId="island[0].id" />
-          <!-- <button @click="deleteBtn" class="list__button">退会</button> -->
         </div>
       </section>
     </div>

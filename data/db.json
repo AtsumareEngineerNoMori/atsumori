@@ -101,6 +101,11 @@
       "id": 5,
       "userId": 3,
       "islandId": 2
+    },
+    {
+      "userId": 3,
+      "islandId": 1,
+      "id": 6
     }
   ],
   "JoinProjects": [
@@ -120,16 +125,5 @@
       "projectId": 2
     }
   ],
-  "UserScout": [
-    {
-      "id": 1,
-      "userId": 3,
-      "islandId": 2
-    },
-    {
-      "id": 2,
-      "userId": 3,
-      "islandId": 1
-    }
-  ]
+  "UserScout": []
 }

@@ -492,19 +492,32 @@ button {
 }
 .list__noDataTitle-text {
   color: #af7a20;
+  font-size: 2.7rem;
   background-color: #fffcf4;
   font-weight: bold;
-  font-size: 2.7rem;
   padding: 0;
   cursor: pointer;
 }
+.list__noDataTitle-text-back {
+  font-size: 1.6rem;
+}
 .list__noDataTitle-text:hover {
-  color: #4B7031;
+  color: #4b7031;
   opacity: 0.8;
 }
 .list__noDataTitle-img {
   margin: 0 auto;
   width: 500px;
+  height: auto;
+}
+.list__noDataTitle-pjImg {
+  margin: 0 auto;
+  width: 300px;
+  height: auto;
+}
+.list__noDataTitle-scoutImg {
+  margin: 3% auto 0 auto;
+  width: 200px;
   height: auto;
 }
 .list__list {
