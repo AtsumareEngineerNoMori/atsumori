@@ -26,10 +26,10 @@
       "id": 3,
       "icon": "",
       "name": "きじま",
-      "job": "FR",
+      "job": "CL",
       "comment": "まだ水曜日ということに驚いています",
       "email": "ikuri@test.com"
-      }
+    }
   ],
   "Islands": [
     {
@@ -118,7 +118,6 @@
       "createDate": "2023-04-18"
     }
   ],
-
   "JoinIslands": [
     {
       "id": 1,
