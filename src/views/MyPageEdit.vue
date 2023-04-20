@@ -9,7 +9,7 @@ const img = {
 };
 
 //会員情報取得
-const userId = ref(3); //firebaseでログインしてる人のIDが入る
+const userId = ref(2); //firebaseでログインしてる人のIDが入る
 const err = ref();
 const User = ref({
   name: "",
