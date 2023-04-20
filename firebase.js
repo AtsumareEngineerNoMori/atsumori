@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -25,6 +26,7 @@ const analytics = getAnalytics(app);
 const storage = getStorage(app);
 //Firebaseの認証機能を使う場合に必要な記述
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // 上記2つの変数をどこででも使えるようにexportする
-export { storage, auth };
+export { storage, auth, analytics, db};
