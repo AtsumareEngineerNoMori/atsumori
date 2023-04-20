@@ -1,10 +1,10 @@
 <template>
-  <AllSerchResult :serchTitle="serchTitle" />
+  <AllSearchResult :searchTitle="searchTitle" />
 </template>
 
 <script setup>
 import { ref } from "vue";
-import AllSerchResult from "../../components/Setch/AllSerchResult.vue";
+import AllSearchResult from "../../components/Search/AllSearchResult.vue";
 
-const serchTitle = ref("スカウトする島を探す");
+const searchTitle = ref("スカウトする島を探す");
 </script>

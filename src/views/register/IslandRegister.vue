@@ -1,7 +1,8 @@
 <template>
-  <Header />
+
+  <!-- <Header /> -->
   <div class="IslandRegister">
-  <hi class="IslandRegister-title">🏝️ 島登録</hi>
+  <hi class="IslandRegister-title">島登録</hi>
 
   <div class="IslandRegister-set">
     <div>
@@ -22,9 +23,11 @@
     <div class="IslandRegister-details-information">
       <p class="IslandRegister-details-information-title">島の情報</p>
       <textarea class="IslandRegister-details-information-text"></textarea>
+
     </div>
   </div>
 </div>
+
 
   <button class="IslandRegister-set-button">登録する</button>
 </div>
@@ -32,5 +35,7 @@
 </template>
 
 <script setup>
+
 import Header from "../../components/Header/Header.vue"
+
 </script>
