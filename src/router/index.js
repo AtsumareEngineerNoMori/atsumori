@@ -27,7 +27,6 @@ import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
 import RecruitIslandRegister from "../views/register/RecruitUserRegister.vue";
 
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -222,6 +221,7 @@ const router = createRouter({
       name: "searchBox",
       component: SearchBox
     },
+
   ],
 });
 
