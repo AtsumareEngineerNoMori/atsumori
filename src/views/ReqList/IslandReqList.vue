@@ -1,5 +1,4 @@
 <!-- 一覧を表示、検索は再検索用 -->
-
 <template>
   <div class="search">
     <section>
@@ -21,6 +20,16 @@
     </div>
 
     <section class="search_list">
+      <div v-if="filteredRecruitNewUsers.length === 0" class="search_no">
+        検索結果がありません
+        <input
+          type="submit"
+          name="submit"
+          value="一覧に戻る"
+          class="search_btn"
+          @click="resetSerch"
+        />
+      </div>
       <router-link
         v-for="recruitNewUser in filteredRecruitNewUsers"
         :key="recruitNewUser.id"
@@ -42,8 +51,8 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-const originalRecruitNewUsers = ref([]);
-const filteredRecruitNewUsers = ref([]);
+const originalRecruitNewUsers = ref([]); //データ配列
+const filteredRecruitNewUsers = ref([]); //検索結果に基づくデータの配列
 const keyword = ref("");
 
 const fetchRecruitNewUsers = async () => {
@@ -66,7 +75,7 @@ const fetchIslands = async () => {
     const data = await response.json();
     originalRecruitNewUsers.value.forEach((recruitNewUser) => {
       recruitNewUser.island = data.find(
-        (island) => island.id === recruitNewUser.IslandId
+        (island) => island.id === recruitNewUser.islandId
       );
     });
     console.log(data);
@@ -75,10 +84,25 @@ const fetchIslands = async () => {
   }
 };
 
+//検索して検索結果に合致するデータを返す
 const filterRecruitNewUsers = (query) => {
+  const textChange = query.toLowerCase(); // 入力されたキーワードを小文字に変換
+  const hiragana = textChange.replace(/[\u30a1-\u30f6]/g, (match) =>
+    String.fromCharCode(match.charCodeAt(0) - 0x60)
+  ); // カタカナをひらがなに変換
   return originalRecruitNewUsers.value.filter((recruitNewUser) =>
-    recruitNewUser.island.islandName.includes(query)
+    recruitNewUser.island.islandName
+      .toLowerCase()
+      .replace(/[\u30a1-\u30f6]/g, (match) =>
+        String.fromCharCode(match.charCodeAt(0) - 0x60)
+      )
+      .includes(hiragana)
   );
+};
+
+//一覧に戻るボタン
+const resetSerch = () => {
+  filteredRecruitNewUsers.value = originalRecruitNewUsers.value;
 };
 
 onMounted(async () => {
@@ -86,12 +110,41 @@ onMounted(async () => {
   filteredRecruitNewUsers.value = originalRecruitNewUsers.value;
 });
 
+//検索されたものをfilterRecruitNewUsers配列生成後、filteredRecruitNewUsersにセット
 const searchIslands = () => {
   console.log(keyword.value);
   if (keyword.value.length > 20) {
     alert("20文字以内で入力してください");
+    keyword.value = "";
   } else {
     filteredRecruitNewUsers.value = filterRecruitNewUsers(keyword.value);
+    keyword.value = "";
   }
 };
 </script>
+
+<!-- コンポーネント用 -->
+<!-- 一覧を表示、検索は再検索用 -->
+<!-- <template>
+  <div>
+    <Search :fetchUrl="fetchUrl" title="島の検索" />
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+
+const fetchUrl = "http://localhost:3000/islands";
+
+const islandsData = ref([]);
+
+const fetchData = async () => {
+  const response = await fetch(fetchUrl);
+  islandsData.value = await response.json();
+};
+console.log("フェッチ", islandsData);
+
+onMounted(async () => {
+  await fetchData();
+});
+</script> -->

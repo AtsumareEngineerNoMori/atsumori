@@ -62,7 +62,7 @@
     {
       "id": 4,
       "icon": "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-      "islandName": "Vuex島",
+      "islandName": "Vuexの島",
       "islandDescription": "Vuexできる人集まれ",
       "comment": "Vuexについて話しましょう",
       "adminId": 1,
@@ -91,29 +91,45 @@
   "RecruitNewUser": [
     {
       "id": 1,
-      "IslandId": 1,
+      "islandId": 1,
       "recruitJob": "FR",
       "recruitPoint": "給料アップします",
       "createDate": "2023-04-17"
     },
     {
       "id": 2,
-      "IslandId": 2,
+      "islandId": 2,
       "recruitJob": "FR",
       "recruitPoint": "一人の裁量が大きいです",
       "createDate": "2023-04-17"
     },
     {
       "id": 3,
-      "IslandId": 3,
+      "islandId": 3,
       "recruitJob": "FR",
       "recruitPoint": "フルリモートです",
       "createDate": "2023-04-18"
     },
     {
       "id": 4,
-      "IslandId": 4,
+      "islandId": 4,
       "recruitJob": "FR",
+      "recruitPoint": "3人欲しいです",
+      "createDate": "2023-04-18"
+    }
+  ],
+  "RecruitNewIsland": [
+    {
+      "id": 1,
+      "projectId": 1,
+      "recruitJob": "Googleサイト作成",
+      "recruitPoint": "給料アップします",
+      "createDate": "2023-04-17"
+    },
+    {
+      "id": 3,
+      "projectId": 2,
+      "recruitJob": "とりあえず",
       "recruitPoint": "3人欲しいです",
       "createDate": "2023-04-18"
     }

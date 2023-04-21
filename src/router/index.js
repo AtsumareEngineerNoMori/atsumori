@@ -12,8 +12,7 @@ import IslandShow from "../views/Show/IslandShow.vue";
 import UserRegisterView from "../views/register/UserRegister.vue"
 import IlandRegisterView from "../views/register/IslandRegister.vue"
 import ProjectRegisterView from "../views/register/ProjectRegister.vue"
-<<<<<<< HEAD
-import SerchBox from "../components/Serch/SerchBox.vue"
+import SearchBox from "../components/Search/SearchBox.vue"
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
