@@ -55,6 +55,7 @@ const originalRecruitNewIslands = ref([]); //データ配列
 const filteredRecruitNewIslands = ref([]); //検索結果に基づくデータの配列
 const keyword = ref("");
 
+//募集中のデータ
 const fetchRecruitNewIslands = async () => {
   try {
     const response = await fetch(`http://localhost:8000/RecruitNewIsland`);
@@ -63,12 +64,28 @@ const fetchRecruitNewIslands = async () => {
       ...recruitNewIsland,
       project: {},
     }));
-    console.log(data);
+    console.log("募集中",data);
   } catch (error) {
-    console.log(error);
+    console.log("募集中",error);
   }
 };
+// const fetchRecruitNewIslands = () => {
+//   fetch(`http://localhost:8000/RecruitNewIsland`)
+//     .then(response => response.json())
+//     .then(data => {
+//       originalRecruitNewIslands.value = data.map((recruitNewIsland) => ({
+//         ...recruitNewIsland,
+//         project: {},
+//       }));
+//       console.log("募集中", data);
+//     })
+//     .catch(error => {
+//       console.log("募集中", error);
+//     });
+// };
 
+
+//登録されているデータ
 const fetchProjects = async () => {
   try {
     const response = await fetch(`http://localhost:8000/Projects`);
@@ -78,9 +95,9 @@ const fetchProjects = async () => {
         (project) => project.id === recruitNewIsland.projectId
       );
     });
-    console.log(data);
+    console.log("登録",data);
   } catch (error) {
-    console.log(error);
+    console.log("登録",error);
   }
 };
 

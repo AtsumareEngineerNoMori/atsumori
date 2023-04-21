@@ -1,5 +1,5 @@
+<!-- TOPからの検索結果 -->
 <template>
-  <!-- TOPからの検索結果 -->
   <div class="search">
     <section>
       <h3 class="search_title">{{ props.searchTitle }}</h3>

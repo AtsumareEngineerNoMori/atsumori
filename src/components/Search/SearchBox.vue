@@ -1,3 +1,4 @@
+<!-- 募集一覧の際検索 -->
 <template>
   <div class="search">
     <section>
@@ -26,7 +27,7 @@
           name="submit"
           value="一覧に戻る"
           class="search_btn"
-          @click="resetSerch"
+          @click="resetSearch"
         />
       </div>
       <router-link
@@ -51,44 +52,48 @@
 import { onMounted, ref, defineProps } from "vue";
 
 const props = defineProps({
-  fetchUrl: String,
+  fetchUrlRec: String,
+  fetchUrlIs: String,
   title: String,
 });
-console.log("正しいか",props.fetchUrl)
+console.log("募集一覧", props.fetchUrlRec);
+console.log("登録された方", props.fetchUrlIs);
 
 const originalRecruitNewUsers = ref([]); //データ配列
 const filteredRecruitNewUsers = ref([]); //検索結果に基づくデータの配列
 const keyword = ref("");
 
+//募集中のデータ
 const fetchRecruitNewUsers = async () => {
   try {
-    const response = await fetch(props.fetchUrl);
+    const response = await fetch(props.fetchUrlRec);
 
-    console.log("レスポンス",response);
+    console.log("レスポンス", response);
 
     const data = await response.json();
     originalRecruitNewUsers.value = data.map((recruitNewUser) => ({
       ...recruitNewUser,
       island: {},
     }));
-    console.log(data);
+    console.log("募集中", data);
   } catch (error) {
-    console.log(error);
+    console.log("募集中", error);
   }
 };
 
+//登録されているデータ
 const fetchIslands = async () => {
   try {
-    const response = await fetch(props.fetchUrl);
+    const response = await fetch(props.fetchUrlIs);
     const data = await response.json();
     originalRecruitNewUsers.value.forEach((recruitNewUser) => {
       recruitNewUser.island = data.find(
         (island) => island.id === recruitNewUser.islandId
       );
     });
-    console.log(data);
+    console.log("登録", data);
   } catch (error) {
-    console.log(error);
+    console.log("登録", error);
   }
 };
 
@@ -109,7 +114,7 @@ const filterRecruitNewUsers = (query) => {
 };
 
 //一覧に戻るボタン
-const resetSerch = () => {
+const resetSearch = () => {
   filteredRecruitNewUsers.value = originalRecruitNewUsers.value;
 };
 
