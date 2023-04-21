@@ -41,7 +41,7 @@
 <script setup>
 import { reactive, ref as vueref } from "vue" ;
 const loading = vueref(false)
-const today = vueref(new Date());
+// const today = vueref(new Date());
 
 // 前野ページからislandIdを取得
 const islandId = 12
@@ -81,7 +81,7 @@ const recruitUserRegisterButton = () =>{
       recruitTitle:recruitUser.recruitTitle,
       recruitJob:recruitUser.recruitJob,
       recruitPoint:recruitUser.recruitPoint,
-      createDate:today.value,
+      createDate:new Date(),
       islandName:islands.value.islandName,
       islandIcon:islands.value.icon
     }),

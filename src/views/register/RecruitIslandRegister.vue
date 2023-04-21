@@ -75,7 +75,7 @@
         recruitTitle:recruitIsland.recruitTitle,
         recruitJob:recruitIsland.recruitJob,
         recruitPoint:recruitIsland.recruitPoint,
-        createDate:today.value,
+        createDate:new Date(),
         projectName:projects.value.projectName,
         projectIcon:projects.value.icon
       }),

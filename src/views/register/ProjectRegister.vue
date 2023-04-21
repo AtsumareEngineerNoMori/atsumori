@@ -121,21 +121,23 @@ const projectRegisterButton = (async) => {
       projectName: project.name,
       projectDescription: project.description,
       adminId: currentUserId,
-      createDate: today.value,
+      createDate: new Date(),
       icon:iconImg.value
     }),
 })
             }else{
               fetch("http://localhost:8000/Projects", {
+                
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    
     body: JSON.stringify({
       projectName: project.name,
       projectDescription: project.description,
       adminId: currentUserId,
-      createDate: today.value,
+      createDate: new Date(),
       icon:iconImg.value
     }),
 })

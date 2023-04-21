@@ -79,7 +79,7 @@
               alt="ifomation"
               class="top-new-set-img"
             />
-            <p class="top-new-set-name">{{ infomation.islandName }}</p>
+            <p class="top-new-set-name">{{ infomation.islandName }}{{ infomation.recruitTitle }}</p>
           </div>
         </section>
       </div>
@@ -120,7 +120,7 @@ const newRecruitProjectArray = ref();
 // 島
 const getIslands = async() => {
 const response = await fetch(
-        `http://localhost:8000/Islands`
+        `http://localhost:8000/Islands/?_limit=6`
       );
       const data = await response.json();
       console.log(data)
@@ -131,7 +131,7 @@ getIslands();
 // プロジェクト
 const getProjects = async() => {
 const response = await fetch(
-        `http://localhost:8000/Projects`
+        `http://localhost:8000/Projects/?_limit=6`
       );
       const data = await response.json();
       console.log(data)
@@ -142,23 +142,37 @@ getProjects();
 // 募集人
 const getRecruitIslands = async() => {
 const response = await fetch(
-        `http://localhost:8000/RecruitNewUser`
+        `http://localhost:8000/RecruitNewUser/?_limit=6`
       );
       const data = await response.json();
       console.log(data)
-      newRecruitIslandArray.value = data
+    newRecruitIslandArray.value = data
+    console.log(typeof data[0].cr)
+    // newRecruitIslandArray.value.sort(
+    //     (x, y) => (x.createDate.getTime()) - (y.createDate.getTime()),
+    // )
 }
 getRecruitIslands();
 
 // 募集島
 const getRecruitProjects = async() => {
 const response = await fetch(
-        `http://localhost:8000/RecruitNewIsland`
+        `http://localhost:8000/RecruitNewIsland/?_limit=6`
       );
       const data = await response.json();
       console.log(data)
       newRecruitProjectArray.value = data
 }
 getRecruitProjects();
+
+// const sort = () => {
+//   return newRecruitIslandArray.value.sort((a, b) => {
+//     return b.createDate - a.createDate;
+//   });
+// }
+// sort();
+
+
+
 
 </script>

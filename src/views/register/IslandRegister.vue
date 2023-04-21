@@ -137,7 +137,7 @@ const islandRegisterButton = () => {
       islandName: island.name,
       isIandDescription: island.description,
       adminId: currentUserId,
-      createDate: today.value,
+      createDate: new Date(),
       icon:iconImg.value
     }),
 })
@@ -151,7 +151,7 @@ const islandRegisterButton = () => {
       islandName: island.name,
       isIandDescription: island.description,
       adminId: currentUserId,
-      createDate: today.value,
+      createDate: new Date(),
       icon:iconImg.value
     }),
 })
