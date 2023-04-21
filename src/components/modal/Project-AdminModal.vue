@@ -17,7 +17,7 @@ const toggleStatus = () => {
         aria-labelledby="modal-1-title"
       >
         <header class="modal__header">
-          <h2 class="modal__title" id="modal-1-title">管理者専用</h2>
+          <h2 class="modal__title" id="modal-1-title">プロジェクト管理者専用</h2>
         </header>
         <main class="modal__content" id="modal-1-content">
           <div class="adminModal">

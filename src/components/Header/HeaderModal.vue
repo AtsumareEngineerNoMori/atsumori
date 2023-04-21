@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from "vue";
 const isShow = ref(false);
-const toggleStatus  = () => {
-    isShow.value = !isShow.value;
-}
+const toggleStatus = () => {
+  isShow.value = !isShow.value;
+};
 </script>
 
 <template>
@@ -18,11 +18,10 @@ const toggleStatus  = () => {
         <header class="headerModal__header">
           <h2 class="headerModal__title" id="modal-1-title">管理者専用</h2>
         </header>
-        <main class="headerModal__content" id="modal-1-content">
-        </main>
+        <main class="headerModal__content" id="modal-1-content"></main>
         <footer class="headerModal__footer">
           <button
-          @click="toggleStatus"
+            @click="toggleStatus"
             class="headerModal__btn"
             data-micromodal-close
             aria-label="Close this dialog window"
@@ -34,12 +33,15 @@ const toggleStatus  = () => {
     </div>
   </div>
   <a
-  v-on:click="toggleStatus"
+    @click="toggleStatus"
     data-micromodal-trigger="modal-1"
     href="javascript:;"
     class="headerModal__a"
   >
-    <img src="../../../public/sozai_cman_jp_20230418144417.png" class="headerModal__menu" />
+    <img
+      src="../../../public/sozai_cman_jp_20230418144417.png"
+      class="headerModal__menu"
+    />
     <!-- <span class="material-symbols-rounded set">モーダル</span> -->
   </a>
 </template>

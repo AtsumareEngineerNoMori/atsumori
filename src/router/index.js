@@ -1,13 +1,12 @@
-
 import IslandShow from "../views/Show/IslandShow.vue";
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginView from '../views/Login.vue'
-import TopTest from "../views/TopTest.vue"
-import UserRegisterView from "../views/register/UserRegister.vue"
-import IlandRegisterView from "../views/register/IlandRegister.vue"
-import ProjectRegisterView from "../views/register/ProjectRegister.vue"
-
+import ProjectShow from "../views/Show/ProjectShow.vue";
+import { createRouter, createWebHistory } from "vue-router";
+import HomeView from "../views/HomeView.vue";
+import LoginView from "../views/Login.vue";
+import TopTest from "../views/TopTest.vue";
+import UserRegisterView from "../views/register/UserRegister.vue";
+import IlandRegisterView from "../views/register/IlandRegister.vue";
+import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,34 +25,41 @@ const router = createRouter({
       component: () => import("../views/AboutView.vue"),
     },
     {
-      path: '/login',
-      name: 'login',
-      component: LoginView
+      path: "/login",
+      name: "login",
+      component: LoginView,
     },
     {
-      path: '/userRegister',
-      name: 'userRegister',
-      component:  UserRegisterView
+      path: "/userRegister",
+      name: "userRegister",
+      component: UserRegisterView,
     },
     {
-      path: '/ilandRegister',
-      name: 'ilandRegister',
-      component:  IlandRegisterView
+      path: "/ilandRegister",
+      name: "ilandRegister",
+      component: IlandRegisterView,
     },
     {
-      path: '/projectRegister',
-      name: 'projectRegister',
-      component:  ProjectRegisterView
+      path: "/projectRegister",
+      name: "projectRegister",
+      component: ProjectRegisterView,
     },
     {
-      path: '/top',
-      name: 'top',
-      component: TopTest
+      path: "/top",
+      name: "top",
+      component: TopTest,
     },
     {
-      path: "/show",
-      name: "show",
+      path: "/islandShow",
+      name: "islandShow",
       component: IslandShow,
+      props: true,
+    },
+    {
+      path: "/projectShow",
+      name: "projectShow",
+      component: ProjectShow,
+      props: true,
     },
     {
       path: "/joinIsland",
@@ -61,22 +67,28 @@ const router = createRouter({
       component: () => import("../views/JoinIsland.vue"),
     },
     {
-      path: '/joinProject',
-      name: 'joinProject',
-      component: () => import('../views/JoinProject.vue')
+      path: "/joinProject",
+      name: "joinProject",
+      component: () => import("../views/JoinProject.vue"),
     },
     {
-      path: '/userScout',
-      name: 'userScout',
-      component: () => import('../views/userScout.vue')
+      path: "/userScout",
+      name: "userScout",
+      component: () => import("../views/userScout.vue"),
     },
     {
-      path: '/islandChat',
-      name: 'islandChat',
-      component: () => import('../views/chat/islandChat.vue')
+      path: "/islandChat",
+      name: "islandChat",
+      component: () => import("../views/chat/islandChat.vue"),
     },
-  ]
-})
+  ],
+});
 
+// 遷移元のURLを特定
+router.beforeEach((to, from, next) => {
+  router["referrer"] = from;
+  router["to"] = to;
+  next();
+});
 
 export default router;
