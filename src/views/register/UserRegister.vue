@@ -181,19 +181,14 @@ const UserRegisterButton = (async) => {
               console.log(url)
               iconImg.value = url;
               console.log(iconImg)
-            });
-          })
-          .then(() => {
-            // jsonサーバーにデータ追加
-            console.log("jsonサーバーにデータ追加のターンがきたよ");
-            fetch("http://localhost:8000/Users", {
+              fetch("http://localhost:8000/Users", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 id: currentUserId,
-                icon: iconImg.value,
+                icon: url,
                 name: user.name,
                 job: user.job,
                 comment: user.comment,
@@ -201,8 +196,28 @@ const UserRegisterButton = (async) => {
               }),
             })
               .then((res) => res.json())
-              .then(console.log);
+            });
           })
+          // .then(() => {
+          //   // jsonサーバーにデータ追加
+          //   console.log("jsonサーバーにデータ追加のターンがきたよ");
+          //   fetch("http://localhost:8000/Users", {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //     },
+          //     body: JSON.stringify({
+          //       id: currentUserId,
+          //       icon: iconImg.value,
+          //       name: user.name,
+          //       job: user.job,
+          //       comment: user.comment,
+          //       email: user.email,
+          //     }),
+          //   })
+          //     .then((res) => res.json())
+          //     .then(console.log);
+          // })
           .then(() => {
             router.push("/top");
           });

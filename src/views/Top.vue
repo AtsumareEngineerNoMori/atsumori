@@ -147,7 +147,7 @@ const response = await fetch(
       const data = await response.json();
       console.log(data)
     newRecruitIslandArray.value = data
-    console.log(typeof data[0].cr)
+    // console.log(typeof data[0].cr)
     // newRecruitIslandArray.value.sort(
     //     (x, y) => (x.createDate.getTime()) - (y.createDate.getTime()),
     // )

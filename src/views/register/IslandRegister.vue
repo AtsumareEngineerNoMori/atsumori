@@ -1,5 +1,4 @@
 <template>
-  <!-- <Header /> -->
   <div class="IslandRegister">
     <hi class="IslandRegister-title">島登録</hi>
 
@@ -8,10 +7,6 @@
         <div class="IslandRegister-details">
           <div class="IslandRegister-details-icon">
             <div class="IslandRegister-details-icon-imgdiv">
-              <!-- <img
-          src="../../../public/mujintou_kojima.png"
-          class="IslandRegister-details-icon-img"
-        /> -->
               <img
                 :src="iconImg"
                 alt="ユーザーアイコン"
@@ -19,7 +14,6 @@
                 class="IslandRegister-details-icon-img"
               />
             </div>
-            <!-- <input type="file" /> -->
             <div class="icon_form">
               <label htmlFor="iconPreview">
                 <p class="add_icon">+</p>
@@ -64,21 +58,26 @@
 </template>
 
 <script setup>
-import { reactive, ref as vueref } from "vue" ;
+import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";
 import { storage } from "../../../firebase";
-import { getDownloadURL, uploadBytesResumable, ref, getStorage } from "firebase/storage";
+import {
+  getDownloadURL,
+  uploadBytesResumable,
+  ref,
+  getStorage,
+} from "firebase/storage";
 
 const iconFileName = vueref("");
 const file = vueref();
 const haveIcon = vueref(false);
 // const iconImg = vueref("../../../public/ha.png");
-const iconImg = vueref("https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0");
-// const registerIcon = vueref("https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fnoicon.png?alt=media&token=e0f51097-8d0a-41b4-9ddf-90868ffd9c3b");
+const iconImg = vueref(
+  "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
+);
 const today = vueref(new Date());
 
-
-console.log(today.value)
+console.log(today.value);
 
 const island = reactive({
   id: "",
@@ -101,62 +100,77 @@ const previewImage = (event) => {
   reader.readAsDataURL(event.target.files[0]);
   file.value = event.target.files[0];
   iconFileName.value = event.target.files[0].name;
-  // console.log(file)
-  // console.log(iconFileName)
+  console.log(file);
+  console.log(iconFileName);
 };
 
-
 const islandRegisterButton = () => {
-            // Storageにアイコン登録
-            console.log("アイコンの登録のターンがきたよ");
-        const storageRef = ref(
-        storage, `island/${iconFileName.value}` );
-        console.log(storageRef);
-        uploadBytesResumable(storageRef, file.value)
-                  // StorageからアイコンURLを取得
-                  .then(() => {
-            console.log("アイコンを取得のターンがきたよ");
-            const storage = getStorage();
-            const starsRef = ref(storage,  `island/${iconFileName.value}`);
-            getDownloadURL(starsRef).then((url) => {
-              console.log(url)
-              iconImg.value = url;
-              // registerIcon.value = url;
-              console.log(iconImg)
-            });
-          })
+  // Storageにアイコン登録
+  console.log("アイコンの登録のターンがきたよ");
+  const storageRef = ref(storage, `island/${iconFileName.value}`);
+  console.log(storageRef);
+  uploadBytesResumable(storageRef, file.value)
+    // StorageからアイコンURLを取得
+    .then(() => {
+      console.log("アイコンを取得のターンがきたよ");
+      const storage = getStorage();
+      const starsRef = ref(storage, `island/${iconFileName.value}`);
+      getDownloadURL(starsRef).then((url) => {
+        console.log(url);
+        iconImg.value = url;
+        console.log(iconImg.value);
+        fetch("http://localhost:8000/Islands", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            islandName: island.name,
+            isIandDescription: island.description,
+            adminId: currentUserId,
+            createDate: new Date(),
+            icon: url,
+          }),
+        });
+      });
+    });
 
-          .then(() => { 
-            if(iconImg !== "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"){
-  fetch("http://localhost:8000/Islands", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      islandName: island.name,
-      isIandDescription: island.description,
-      adminId: currentUserId,
-      createDate: new Date(),
-      icon:iconImg.value
-    }),
-})
-            }else{
-              fetch("http://localhost:8000/Islands", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      islandName: island.name,
-      isIandDescription: island.description,
-      adminId: currentUserId,
-      createDate: new Date(),
-      icon:iconImg.value
-    }),
-})
-
-            }
-})
-}
+  // .then(() => {
+  //   if (
+  //     iconImg.value !==
+  //     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
+  //   ) {
+  //     console.log("新しいアイコン")
+  //     console.log(iconImg.value)
+  //     fetch("http://localhost:8000/Islands", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         islandName: island.name,
+  //         isIandDescription: island.description,
+  //         adminId: currentUserId,
+  //         createDate: new Date(),
+  //         icon: iconImg.value,
+  //       }),
+  //     });
+  //   } else {
+  //     console.log("初期表示")
+  //     fetch("http://localhost:8000/Islands", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         islandName: island.name,
+  //         isIandDescription: island.description,
+  //         adminId: currentUserId,
+  //         createDate: new Date(),
+  //         icon: iconImg.value,
+  //       }),
+  //     });
+  //   }
+  // });
+};
 </script>
