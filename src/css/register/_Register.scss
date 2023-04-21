@@ -39,6 +39,27 @@
                 aspect-ratio: 1/1;
 
             }
+            &-icon_form {
+                top: 47%;
+                color: #ffff;
+                padding: 1.5% 3% 2% 1.5%;
+                border: none;
+                border-radius: 50%;
+                width: 20px;
+                aspect-ratio: 1/1;
+                position: absolute;
+                right: 59%;
+                background-color: #4B7031;
+              }
+              &-add_icon {
+                font-size: 27px;
+                font-weight: bold;
+                line-height: 14px;
+              }
+              &-icon_input {
+                display: none;
+              }
+            
         }
         &-detail{
             margin-top: 5%;
@@ -89,25 +110,3 @@
         }
     }
 }
-
-
-.icon_form {
-    top: 47%;
-    color: #ffff;
-    padding: 1.5% 3% 2% 1.5%;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    aspect-ratio: 1/1;
-    position: absolute;
-    right: 59%;
-    background-color: #4B7031;
-  }
-  .add_icon {
-    font-size: 27px;
-    font-weight: bold;
-    line-height: 14px;
-  }
-  .icon_input {
-    display: none;
-  }

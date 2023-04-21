@@ -24,7 +24,6 @@ import {  auth } from "../../firebase";
 
 
 const router = useRouter();
-
 const user = reactive({ email: "", password: "" });
 
 const loginButton = async () => {
@@ -38,6 +37,7 @@ const loginButton = async () => {
         // } else {
         //   router.push("/top");
         // }
+        router.push("/top");
         console.log("ログインできました")
       }
     );

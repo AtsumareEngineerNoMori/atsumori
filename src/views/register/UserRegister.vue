@@ -19,9 +19,9 @@
             />
           </div>
 
-          <div class="icon_form">
+          <div class="userRegister-details-icon-icon_form">
             <label htmlFor="iconPreview">
-              <p class="add_icon">+</p>
+              <p class="userRegister-details-icon-add_icon">+</p>
             </label>
             <input
               type="file"
@@ -29,7 +29,7 @@
               @change="previewImage"
               accept=".png, .jpeg, .jpg"
               id="iconPreview"
-              class="icon_input"
+              class="userRegister-details-icon-icon_input"
             />
           </div>
           <!-- <input src="../../../public/ha.png" type="file" /> -->
@@ -112,7 +112,7 @@ import {
   getAuth,
 } from "@firebase/auth";
 import { storage, auth, db } from "../../../firebase";
-import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
+import { getDownloadURL, uploadBytesResumable, ref, getStorage } from "firebase/storage";
 import { useRouter } from "vue-router";
 
 const iconFileName = vueref("");
@@ -145,7 +145,6 @@ const previewImage = (event) => {
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
-    // iconImg.value = e.target.result;
   };
   reader.readAsDataURL(event.target.files[0]);
   file.value = event.target.files[0];
@@ -167,17 +166,21 @@ const UserRegisterButton = (async) => {
         const auth = getAuth();
         const currentUserId = auth.currentUser?.uid;
         const storageRef = ref(
-          storage,
-          `${currentUserId}/icon/${iconFileName.value}`
-        );
+        //   storage,
+        //   `${currentUserId}/icon/${iconFileName.value}`
+        // );
+        storage, `icon/${iconFileName.value}` );
         console.log(storageRef);
         uploadBytesResumable(storageRef, file.value)
           // StorageからアイコンURLを取得
           .then(() => {
             console.log("アイコンを取得のターンがきたよ");
-            getDownloadURL(storageRef).then((url) => {
+            const storage = getStorage();
+            const starsRef = ref(storage,  `icon/${iconFileName.value}`);
+            getDownloadURL(starsRef).then((url) => {
               console.log(url)
               iconImg.value = url;
+              console.log(iconImg)
             });
           })
           .then(() => {
@@ -190,7 +193,7 @@ const UserRegisterButton = (async) => {
               },
               body: JSON.stringify({
                 id: currentUserId,
-                icon: "",
+                icon: iconImg.value,
                 name: user.name,
                 job: user.job,
                 comment: user.comment,

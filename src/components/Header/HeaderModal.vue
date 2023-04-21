@@ -27,12 +27,23 @@ const logout = async () => {
           <h2 class="headerModal__title" id="modal-1-title">MENU</h2>
         </header> -->
         <main class="headerModal__content" id="modal-1-content">
-            <div class="headerModal__listdiv"><p class="headerModal__list">マイページ</p></div>
+
+            <RouterLink to="/mypage">
+              <div class="headerModal__listdiv"><p class="headerModal__list">マイページ</p></div>
+            </RouterLink>
+
+            <RouterLink to="/islandRegister">
             <div class="headerModal__listdiv"><p class="headerModal__list">島登録</p></div>
+            </RouterLink>
+
+            <RouterLink to="/projectRegister">
             <div class="headerModal__listdiv"><p class="headerModal__list">プロジェクト登録</p></div>
+            </RouterLink>
+
             <RouterLink to="/login">
             <div @click="logout" class="headerModal__listdiv"><p class="headerModal__list">ログアウト</p></div>
             </RouterLink>
+
             <div class="headerModal__listdiv"><p @click="toggleStatus" 
             data-micromodal-close
             aria-label="Close this dialog window"

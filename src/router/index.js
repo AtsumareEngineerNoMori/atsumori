@@ -24,7 +24,7 @@ import MyPageForScout from "../views/MyPageForScout.vue";
 import UserRegisterView from "../views/register/UserRegister.vue";
 import IslandRegisterView from "../views/register/IslandRegister.vue";
 import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
-import RecruitIslandRegister from "../views/register/RecruitUserRegister.vue";
+import RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue";
 
 
 const router = createRouter({

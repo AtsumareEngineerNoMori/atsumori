@@ -20,9 +20,9 @@
         <button class="top-search-button">検索</button>
       </div>
       <div class="top-select2">
-        <input type="radio" name="select" value="island" />
+        <input  class="top-select2-input" type="radio" name="select" value="island" />
         <span class="top-select2-island">島</span>
-        <input type="radio" name="select" value="project" />
+        <input  class="top-select2-input" type="radio" name="select" value="project" />
         <span>プロジェクト</span>
       </div>
     </div>
@@ -32,7 +32,7 @@
         <p class="top-new-set-title">新着島</p>
         <section class="top-new-set-list">
           <div
-            v-for="infomation in array"
+            v-for="infomation in newIslandArray"
             :key="infomation"
             class="top-new-set-item"
           >
@@ -41,7 +41,7 @@
               alt="ifomation"
               class="top-new-set-img"
             />
-            <p class="top-new-set-name">{{ infomation.name }}</p>
+            <p class="top-new-set-name">{{ infomation.islandName}}</p>
           </div>
         </section>
       </div>
@@ -50,7 +50,7 @@
         <p class="top-new-set-title">新プロジェクト</p>
         <section class="top-new-set-list">
           <div
-            v-for="infomation in array"
+            v-for="infomation in newProjectArray"
             :key="infomation"
             class="top-new-set-item"
           >
@@ -59,7 +59,7 @@
               alt="ifomation"
               class="top-new-set-img"
             />
-            <p class="top-new-set-name">{{ infomation.name }}</p>
+            <p class="top-new-set-name">{{ infomation.projectName }}</p>
           </div>
         </section>
       </div>
@@ -70,16 +70,16 @@
         <p class="top-new-set-title">新募集島</p>
         <section class="top-new-set-list">
           <div
-            v-for="infomation in array"
+            v-for="infomation in newRecruitIslandArray"
             :key="infomation"
             class="top-new-set-item"
           >
             <img
-              v-bind:src="infomation.icon"
+              v-bind:src="infomation.islandIcon"
               alt="ifomation"
               class="top-new-set-img"
             />
-            <p class="top-new-set-name">{{ infomation.name }}</p>
+            <p class="top-new-set-name">{{ infomation.islandName }}</p>
           </div>
         </section>
       </div>
@@ -88,16 +88,16 @@
         <p class="top-new-set-title">新募集プロジェクト</p>
         <section class="top-new-set-list">
           <div
-            v-for="infomation in array"
+            v-for="infomation in newRecruitProjectArray"
             :key="infomation"
             class="top-new-set-item"
           >
             <img
-              v-bind:src="infomation.icon"
+              v-bind:src="infomation.projectIcon"
               alt="ifomation"
               class="top-new-set-img"
             />
-            <p class="top-new-set-name">{{ infomation.name }}</p>
+            <p class="top-new-set-name">{{ infomation.projectName }}</p>
           </div>
         </section>
       </div>
@@ -112,30 +112,53 @@ const toggleStatus = () => {
   isShow.value = !isShow.value;
 };
 
-const array = [
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-];
+const newIslandArray = ref();
+const newProjectArray = ref();
+const newRecruitIslandArray = ref();
+const newRecruitProjectArray = ref();
+
+// 島
+const getIslands = async() => {
+const response = await fetch(
+        `http://localhost:8000/Islands`
+      );
+      const data = await response.json();
+      console.log(data)
+      newIslandArray.value = data
+}
+getIslands();
+
+// プロジェクト
+const getProjects = async() => {
+const response = await fetch(
+        `http://localhost:8000/Projects`
+      );
+      const data = await response.json();
+      console.log(data)
+      newProjectArray.value = data
+}
+getProjects();
+
+// 募集人
+const getRecruitIslands = async() => {
+const response = await fetch(
+        `http://localhost:8000/RecruitNewUser`
+      );
+      const data = await response.json();
+      console.log(data)
+      newRecruitIslandArray.value = data
+}
+getRecruitIslands();
+
+// 募集島
+const getRecruitProjects = async() => {
+const response = await fetch(
+        `http://localhost:8000/RecruitNewIsland`
+      );
+      const data = await response.json();
+      console.log(data)
+      newRecruitProjectArray.value = data
+}
+getRecruitProjects();
+
 </script>
