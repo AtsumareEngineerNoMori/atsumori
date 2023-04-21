@@ -1,5 +1,5 @@
+<!-- スカウトする島・難民を検索する -->
 <template>
-  <!-- スカウトする島・難民を検索する -->
   <div class="search">
     <section>
       <h3 class="search_title">{{ props.searchTitle }}</h3>
