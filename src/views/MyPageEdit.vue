@@ -3,15 +3,11 @@
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 
-const img = {
-  icon: "https://1.bp.blogspot.com/-ZOg0qAG4ewU/Xub_uw6q0DI/AAAAAAABZio/MshyuVBpHUgaOKJtL47LmVkCf5Vge6MQQCNcBGAsYHQ/s1600/pose_pien_uruuru_woman.png",
-  name: "アイコン",
-};
-
 //会員情報取得
 const userId = ref(3); //firebaseでログインしてる人のIDが入る
 const err = ref();
 const User = ref({
+  icon:"",
   name: "",
   job: "",
   comment: "",
@@ -25,12 +21,32 @@ onMounted(async () => {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     User.value = await response.json();
-    console.log("User..valueの中身", User.value.name);
+    console.log("User..valueの中身", User.value);
   } catch (err) {
     err.value = err;
     console.log("エラー", err.value);
   }
 });
+
+//icon選択
+async function iconEdit(event) {
+  try {
+    const file = event.target.files[0];
+    if (!file) return; // ファイルが選択されていない場合は終了
+    const base64String = await convertToBase64(file);
+    User.value.icon = base64String;
+  } catch (error) {
+    console.error(error);
+  }
+}
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+}
 
 //User更新
 async function updateUser() {
@@ -56,9 +72,15 @@ async function updateUser() {
   <div class="edit">
     <div class="edit__container">
       <div class="edit__column">
-        <span>
-          <img :src="img.icon" alt="" class="mypage__profileiconImg"
-        /></span>
+        <label for="icon_file">
+          <img :src="User.icon" alt="" class="mypage__profileiconImg" />
+        </label>
+        <input
+          type="file"
+          @change="iconEdit"
+          id="icon_file"
+          style="display: none"
+        />
         <span>アイコン</span>
       </div>
       <ul class="edit__column2">
@@ -100,8 +122,6 @@ async function updateUser() {
           <span>ひとこと：</span>
           <p>
             <textarea
-              name=""
-              id=""
               cols="30"
               rows="10"
               class="edit__input"
