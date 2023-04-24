@@ -1,42 +1,58 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import "../css/main.css";
 import UserScoutApproveButton from "../components/button/UserScoutApproveButton.vue";
 import Loading from "../components/Loading.vue";
 import DeleteUserScoutButton from "../components/button/DeleteUserScoutButton.vue";
 import { useRouter } from "vue-router";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const router = useRouter();
 
+const uid = ref("");
 // userScoutから取得したuserIdが等しいデータを保管
 const scoutList = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
 const islandData = ref([]);
 const loading = ref(true);
 
-// userScoutからuserIdが一致するデータを取得
-const getScoutUser = async () => {
-  const response = await fetch(`http://localhost:8000/userScout/?userId=${3}`);
-  const data = await response.json();
-  scoutList.value = data;
-};
-getScoutUser().then(() => {
-  console.log(scoutList.value);
-  // 上で取得した島idと等しいデータをislandsテーブルから取得
-  if (scoutList.value.length > 0) {
-    scoutList.value.map(async (island) => {
-      const response = await fetch(
-        `http://localhost:8000/Islands/?id=${island.islandId}`
-      );
-      const data = await response.json();
-      islandData.value.push(data);
-      // データ取得後に反転させる
-      loading.value = false;
-    });
-  } else {
-    console.log("データがありません");
-    loading.value = false;
-  }
+onMounted(() => {
+  onAuthStateChanged(auth, (currentUser) => {
+    if (!currentUser) {
+      console.log("ログアウト状態");
+    } else {
+      console.log(`ログイン状態 uid:${currentUser.uid}`);
+      uid.value = currentUser.uid;
+
+      // userScoutからuserIdが一致するデータを取得
+      const getScoutUser = async () => {
+        const response = await fetch(
+          `http://localhost:8000/userScout/?userId=${currentUser.uid}`
+        );
+        const data = await response.json();
+        scoutList.value = data;
+      };
+      getScoutUser().then(() => {
+        console.log(scoutList.value);
+        // 上で取得した島idと等しいデータをislandsテーブルから取得
+        if (scoutList.value.length > 0) {
+          scoutList.value.map(async (island) => {
+            const response = await fetch(
+              `http://localhost:8000/Islands/?id=${island.islandId}`
+            );
+            const data = await response.json();
+            islandData.value.push(data);
+            // データ取得後に反転させる
+            loading.value = false;
+          });
+        } else {
+          console.log("データがありません");
+          loading.value = false;
+        }
+      });
+    }
+  });
 });
 const noDataBtn = () => {
   return router.push("/mypage");
@@ -78,8 +94,8 @@ const noDataBtn = () => {
             <p class="list__name">{{ island[0].islandName }}</p>
           </RouterLink>
           <div class="scout__buttons">
-            <UserScoutApproveButton :userId="3" :islandId="island[0].id" />
-            <DeleteUserScoutButton :userId="3" :islandId="island[0].id" />
+            <UserScoutApproveButton :userId="uid" :islandId="island[0].id" />
+            <DeleteUserScoutButton :userId="uid" :islandId="island[0].id" />
           </div>
         </div>
       </section>

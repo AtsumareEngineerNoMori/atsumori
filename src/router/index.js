@@ -8,9 +8,9 @@ import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
-import Top from "../views/Top.vue"
-import ProjectRegisterView from "../views/register/ProjectRegister.vue"
-import SearchBox from "../components/Search/SearchBox.vue"
+import Top from "../views/Top.vue";
+import ProjectRegisterView from "../views/register/ProjectRegister.vue";
+import SearchBox from "../components/Search/SearchBox.vue";
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
@@ -25,7 +25,6 @@ import IslandRegisterView from "../views/register/IslandRegister.vue";
 import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
 import RecruitIslandRegister from "../views/register/RecruitUserRegister.vue";
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -38,7 +37,6 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MyPage,
-
     },
     {
       path: "/joinIsland",
@@ -81,41 +79,39 @@ const router = createRouter({
       component: IslandAdmissionRequest,
     },
     {
-      path: '/islandRegister',
-      name: 'islandRegister',
-      component:  IslandRegisterView
-    },{
+      path: "/islandRegister",
+      name: "islandRegister",
+      component: IslandRegisterView,
+    },
+    {
       path: "/projectadmissionrequest",
       name: "projectadmissionrequest",
       component: ProjectAdmissionRequest,
-
     },
     {
       path: "/userRegister",
       name: "userRegister",
       component: UserRegisterView,
     },
-
     {
       path: "/islandRegister",
       name: "islandRegister",
       component: IslandRegisterView,
     },
-
     {
-
-      path: '/recruitUserRegister',
-      name: 'recruitUserRegister',
-      component:  RecruitUserRegister
-    },{
+      path: "/recruitUserRegister",
+      name: "recruitUserRegister",
+      component: RecruitUserRegister,
+    },
+    {
       path: "/projectRegister",
       name: "projectRegister",
       component: ProjectRegisterView,
-      },
+    },
     {
-      path: '/recruitIslandRegister',
-      name: 'recruitIslandRegister',
-      component:  RecruitIslandRegister
+      path: "/recruitIslandRegister",
+      name: "recruitIslandRegister",
+      component: RecruitIslandRegister,
     },
     {
       path: "/islandReqList",
@@ -183,7 +179,6 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
-
       path: "/scoutPeople",
       name: "scoutPeople",
       component: ScoutPeople,
@@ -197,10 +192,11 @@ const router = createRouter({
       path: "/joinIsland",
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
-    },{
+    },
+    {
       path: "/searchBox",
       name: "searchBox",
-      component: SearchBox
+      component: SearchBox,
     },
   ],
 });

@@ -1,44 +1,58 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
 import { useRouter } from "vue-router";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const router = useRouter();
 
+const uid = ref("");
 // joinIslandsから取得したuserIdが等しいデータを保管
 const joinList = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
 const islandData = ref([]);
 const loading = ref(true);
 
-// joinIslandsテーブルからログインユーザーのidに等しいデータを取得
-const getJoinIsland = async () => {
-  const response = await fetch(
-    `http://localhost:8000/joinIslands/?userId=${3}`
-  );
-  const data = await response.json();
-  joinList.value = data;
-};
-getJoinIsland().then(() => {
-  console.log(joinList.value);
-  // 上で取得した島idと等しいデータをIslandsテーブルから取得
-  if (joinList.value.length > 0) {
-    joinList.value.map(async (island) => {
-      const response = await fetch(
-        `http://localhost:8000/Islands/?id=${island.islandId}`
-      );
-      const data = await response.json();
-      islandData.value.push(data);
-      loading.value = false;
-      console.log(data);
-    });
-  } else {
-    console.log("データがありません");
-    loading.value = false;
-  }
-  console.log(islandData.value);
+// ログイン認証
+onMounted(() => {
+  onAuthStateChanged(auth, (currentUser) => {
+    if (!currentUser) {
+      console.log("ログアウト状態");
+    } else {
+      console.log(`ログイン状態 uid:${currentUser.uid}`);
+      uid.value = currentUser.uid;
+      // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
+      const getJoinIsland = async () => {
+        const response = await fetch(
+          `http://localhost:8000/joinIslands/?userId=${currentUser.uid}`
+        );
+        const data = await response.json();
+        joinList.value = data;
+      };
+      getJoinIsland().then(() => {
+        console.log(joinList.value);
+        // 上で取得したデータのislandIdと等しいデータをIslandsテーブルから取得
+        if (joinList.value.length > 0) {
+          joinList.value.map(async (island) => {
+            const response = await fetch(
+              `http://localhost:8000/Islands/?id=${island.islandId}`
+            );
+            const data = await response.json();
+            islandData.value.push(data);
+            // データ取得後反転
+            loading.value = false;
+          });
+        } else {
+          console.log("データがありません");
+          loading.value = false;
+        }
+        console.log(islandData.value);
+      });
+    }
+  });
 });
 
 // データがない場合に表示するボタン
@@ -79,7 +93,7 @@ const noDataBtn = () => {
             />
             <p class="list__name">{{ island[0].islandName }}</p>
           </RouterLink>
-          <DeleteMemberButton :userId="3" :islandId="island[0].id" />
+          <DeleteMemberButton :userId="uid" :islandId="island[0].id" />
         </div>
       </section>
     </div>

@@ -1,47 +1,59 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import { useRouter } from "vue-router";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const router = useRouter();
+
 // joinProjectsから取得したuserIdが等しいデータを保管
 const joinList = ref([]);
 // projectsから取得したprojectIdが等しいデータを保管
 const projectData = ref([]);
 const loading = ref(true);
 
-const getJoinProject = async () => {
-  //joinProjectsからuserIdが等しいデータを取得
-  const response = await fetch(
-    `http://localhost:8000/joinProjects/?userId=${3}`
-  );
-  const data = await response.json();
-  joinList.value = data;
-};
-getJoinProject().then(() => {
-  console.log(joinList.value);
-  // 上で取得したprojectIdと等しいデータをprojectsテーブルから取得
-  if (joinList.value.length > 0) {
-    joinList.value.map(async (pj) => {
-      const response = await fetch(
-        `http://localhost:8000/Projects/?id=${pj.projectId}`
-      );
-      const data = await response.json();
-      projectData.value.push(data);
-      loading.value = false;
-    });
-  } else {
-    console.log("データがありません");
-    loading.value = false;
-  }
-  console.log(projectData.value);
+onMounted(() => {
+  onAuthStateChanged(auth, (currentUser) => {
+    if (!currentUser) {
+      console.log("ログアウト状態");
+    } else {
+      console.log(`ログイン状態 uid:${currentUser.uid}`);
+      const getJoinProject = async () => {
+        //joinProjectsからuserIdが等しいデータを取得
+        const response = await fetch(
+          `http://localhost:8000/joinProjects/?userId=${currentUser.uid}`
+        );
+        const data = await response.json();
+        joinList.value = data;
+      };
+      getJoinProject().then(() => {
+        console.log(joinList.value);
+        // 上で取得したprojectIdと等しいデータをprojectsテーブルから取得
+        if (joinList.value.length > 0) {
+          joinList.value.map(async (pj) => {
+            const response = await fetch(
+              `http://localhost:8000/Projects/?id=${pj.projectId}`
+            );
+            const data = await response.json();
+            projectData.value.push(data);
+            loading.value = false;
+          });
+        } else {
+          console.log("データがありません");
+          loading.value = false;
+        }
+        console.log(projectData.value);
+      });
+    }
+  });
 });
 
 // データない時に表示するボタン
 const noDataBtn = () => {
-  return router.push("/top")
-}
+  return router.push("/top");
+};
 </script>
 
 <template>

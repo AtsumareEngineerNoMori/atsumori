@@ -2,10 +2,10 @@
   <div class="kotei">
   <div class="header">
     <img
-      src="../../../public/atsumori.png"
+      src="/atsumori.png"
       class="header-logo"
     />
-    <HeaderModal class="header-menu"/>
+    <HeaderModal />
     <!-- <img src="../../../public/operation_menu1.png" class="header-menu" /> -->
   </div>
 </div>

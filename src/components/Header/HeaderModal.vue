@@ -15,7 +15,7 @@ const logout = async () => {
 
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">
-    <div class="headerModal__overlay" tabindex="-1" data-micromodal-close 
+    <div class="headerModal__overlay" tabindex="-1" data-micromodal-close
     >
       <div
         class="headerModal__container"
@@ -33,7 +33,7 @@ const logout = async () => {
             <RouterLink to="/login">
             <div @click="logout" class="headerModal__listdiv"><p class="headerModal__list">ログアウト</p></div>
             </RouterLink>
-            <div class="headerModal__listdiv"><p @click="toggleStatus" 
+            <div class="headerModal__listdiv"><p @click="toggleStatus"
             data-micromodal-close
             aria-label="Close this dialog window"
             class="headerModal__tojiru">メニューを閉じる</p></div>
@@ -47,7 +47,7 @@ const logout = async () => {
     href="javascript:;"
     class="headerModal__a"
   >
-    <img src="../../../public/sozai_cman_jp_20230418144417.png"
+    <img src="sozai_cman_jp_20230418144417.png"
     class="headerModal__menu" />
   </a>
 </template>

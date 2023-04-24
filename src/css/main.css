@@ -368,6 +368,9 @@
 .edit__item {
   margin: auto;
 }
+.edit__router {
+  margin: 0 40px;
+}
 .edit__button {
   padding: 1% 2%;
   margin: auto;
@@ -418,7 +421,7 @@ html {
 }
 
 body {
-  background-image: url(../../../public/astumoriIsland.png);
+  background-image: url(astumoriIsland.png);
   /* 画像を常に天地左右の中央に配置 */
   background-position: center center;
   /* 画像をタイル状に繰り返し表示しない */
@@ -599,6 +602,7 @@ button {
   height: 100%;
   border-radius: 50%;
   border: 1px solid lightgray;
+  background-color: white;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -686,22 +690,31 @@ button {
   height: 4%;
   border-radius: 50%;
   border: 1px solid lightgray;
+  background-color: white;
   -o-object-fit: cover;
      object-fit: cover;
   aspect-ratio: 1/1;
 }
 .chat__name {
   font-weight: bold;
+  color: #AF7A20;
 }
 .chat__messageWrapper {
   overflow: scroll;
-  height: 448px;
+  height: 434px;
   padding: 1%;
+}
+.chat__messageWrapper-noDataTitle {
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-top: 10%;
+  color: #AF7A20;
 }
 .chat__messageWrapper-myMessage {
   display: flex;
   flex-direction: row-reverse;
-  margin: 10px 10px 10px auto;
+  margin: 10px 10px 25px auto;
   width: 40%;
 }
 .chat__messageWrapper-myMessage-userName {
@@ -710,8 +723,13 @@ button {
   padding-right: 5%;
   color: #DE822B;
 }
+.chat__messageWrapper-myMessage-comDate {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end;
+}
 .chat__messageWrapper-otherMessage {
-  margin: 10px auto 10px 10px;
+  margin: 10px auto 25px 10px;
   width: 40%;
   display: flex;
 }
@@ -720,11 +738,16 @@ button {
   padding-left: 5%;
   color: #DE822B;
 }
+.chat__messageWrapper-otherMessage-comDate {
+  display: flex;
+  align-items: end;
+}
 .chat__messageWrapper-userIcon {
   width: 10%;
   height: 10%;
   border-radius: 50%;
   border: 1px solid lightgray;
+  background-color: white;
   -o-object-fit: cover;
      object-fit: cover;
   aspect-ratio: 1/1;
@@ -734,7 +757,7 @@ button {
   color: #847154;
   position: relative;
   display: inline-block;
-  margin: 0 15px 1.5em 0;
+  margin: 0 15px 0 5px;
   padding: 7px 10px;
   width: -moz-fit-content;
   width: fit-content;
@@ -758,7 +781,7 @@ button {
   color: #847154;
   position: relative;
   display: inline-block;
-  margin: 0 0 1.5em 15px;
+  margin: 0 5px 0 15px;
   padding: 7px 10px;
   width: -moz-fit-content;
   width: fit-content;
@@ -784,15 +807,27 @@ button {
   border-right: none;
   border-bottom: none;
   border-left: none;
+  border-top: 1px dashed #deb887;
+  color: #847154;
+  font-size: 1.6rem;
 }
 .chat__textarea:focus {
   outline: none;
+}
+.chat__textarea::-moz-placeholder {
+  color: #847154;
+  opacity: 0.7;
+}
+.chat__textarea::placeholder {
+  color: #847154;
+  opacity: 0.7;
 }
 .chat__submitBtn {
   width: 50px;
   height: 30px;
   padding: 0;
   margin-left: 94%;
+  margin-bottom: 1%;
   cursor: pointer;
 }
 
@@ -1380,4 +1415,8 @@ button {
   87.5% {
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
+}
+.date {
+  font-size: 1.2rem;
+  color: gray;
 }/*# sourceMappingURL=main.css.map */

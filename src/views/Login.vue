@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <div class="loginPage-logo">
-      <img src="../../public/atsumare engimeer no Mori.png" />
+      <img src="/atsumare engimeer no Mori.png" />
     </div>
 
     <div class="loginPage-text">
