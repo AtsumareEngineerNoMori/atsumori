@@ -3,15 +3,11 @@
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 
-const img = {
-  icon: "https://1.bp.blogspot.com/-ZOg0qAG4ewU/Xub_uw6q0DI/AAAAAAABZio/MshyuVBpHUgaOKJtL47LmVkCf5Vge6MQQCNcBGAsYHQ/s1600/pose_pien_uruuru_woman.png",
-  name: "アイコン",
-};
-
 //会員情報取得
 const userId = ref(2); //firebaseでログインしてる人のIDが入る
 const err = ref();
 const User = ref({
+  icon:"",
   name: "",
   icon: "",
   job: "",
@@ -26,7 +22,7 @@ onMounted(async () => {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     User.value = await response.json();
-    console.log("User..valueの中身", User.value.name);
+    console.log("User..valueの中身", User.value);
   } catch (err) {
     err.value = err;
     console.log("エラー", err.value);
@@ -132,8 +128,6 @@ async function updateUser() {
           <span>ひとこと：</span>
           <p>
             <textarea
-              name=""
-              id=""
               cols="30"
               rows="10"
               class="edit__input"
