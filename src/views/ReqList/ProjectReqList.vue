@@ -1,5 +1,36 @@
 <!-- 一覧を表示、検索は再検索用 -->
+<!-- コンポーネント用 -->
 <template>
+  <div>
+    <SearchBox
+      :fetchUrlRec="fetchUrlRec"
+      :fetchUrlIs="fetchUrlIs"
+      title="募集中のプロジェクト検索"
+    />
+  </div>
+</template>
+
+<script setup>
+import SearchBox from "../../components/Search/ReqList/ProjectReqSerch.vue";
+import { ref, onMounted } from "vue";
+
+const fetchUrlRec = "http://localhost:8000/RecruitNewIsland";
+const fetchUrlIs = "http://localhost:8000/Projects";
+
+const islandsData = ref([]);
+
+const fetchData = async () => {
+  const response = await fetch(fetchUrlRec);
+  islandsData.value = await response.json();
+};
+
+onMounted(async () => {
+  await fetchData();
+});
+</script>
+
+
+<!-- <template>
   <div class="search">
     <section>
       <h3 class="search_title">プロジェクト 募集一覧</h3>
@@ -69,21 +100,6 @@ const fetchRecruitNewIslands = async () => {
     console.log("募集中",error);
   }
 };
-// const fetchRecruitNewIslands = () => {
-//   fetch(`http://localhost:8000/RecruitNewIsland`)
-//     .then(response => response.json())
-//     .then(data => {
-//       originalRecruitNewIslands.value = data.map((recruitNewIsland) => ({
-//         ...recruitNewIsland,
-//         project: {},
-//       }));
-//       console.log("募集中", data);
-//     })
-//     .catch(error => {
-//       console.log("募集中", error);
-//     });
-// };
-
 
 //登録されているデータ
 const fetchProjects = async () => {
@@ -116,35 +132,6 @@ const filterRecruitNewIslands = (query) => {
       .includes(hiragana)
   );
 };
-// const filterRecruitNewIslands = (query) => {
-//   const textChange = query.toLowerCase(); // 入力されたキーワードを小文字に変換
-//   const hiragana = textChange.replace(/[\u30a1-\u30f6]/g, (match) =>
-//     String.fromCharCode(match.charCodeAt(0) - 0x60)
-//   );
-
-//   // 漢字をひらがなに変換
-//   const kana = textChange.replace(/[\u4E00-\u9FFF]/g, (match) =>
-//     String.fromCharCode(match.charCodeAt(0) + 0x3000 - 0x4e00)
-//   );
-
-//   return originalRecruitNewIslands.value.filter(
-//     (recruitNewIsland) =>
-//       recruitNewIsland.project.projectName
-//         .toLowerCase()
-//         .replace(/[\u30a1-\u30f6]/g, (match) =>
-//           String.fromCharCode(match.charCodeAt(0) - 0x60)
-//         )
-//         .includes(hiragana) || // ひらがな検索
-//       recruitNewIsland.project.projectName.toLowerCase().includes(textChange) || // 元の文字列検索
-//       recruitNewIsland.project.projectName
-//         .toLowerCase()
-
-//         .replace(/[\u30a1-\u30f6]/g, (match) =>
-//           String.fromCharCode(match.charCodeAt(0) - 0x60)
-//         )
-//         .includes(kana) // 漢字検索
-//   );
-// };
 
 //一覧に戻るボタン
 const resetSerch = () => {
@@ -167,4 +154,4 @@ const searchProjects = () => {
     keyword.value = "";
   }
 };
-</script>
+</script> -->

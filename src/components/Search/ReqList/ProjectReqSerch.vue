@@ -6,7 +6,7 @@
     </section>
 
     <div class="island_search">
-      <form @submit.prevent="searchIslands">
+      <form @submit.prevent="searchProjects">
         <p>キーワードを入力してください。</p>
         <input
           type="search"
@@ -20,7 +20,7 @@
     </div>
 
     <section class="search_list">
-      <div v-if="filteredRecruitNewUsers.length === 0" class="search_no">
+      <div v-if="filteredRecruitNewIslands.length === 0" class="search_no">
         検索結果がありません
         <input
           type="submit"
@@ -31,17 +31,17 @@
         />
       </div>
       <router-link
-        v-for="recruitNewUser in filteredRecruitNewUsers"
-        :key="recruitNewUser.id"
-        :to="'/islands/' + recruitNewUser.island.id"
+        v-for="recruitNewIsland in filteredRecruitNewIslands"
+        :key="recruitNewIsland.id"
+        :to="'/projects/' + recruitNewIsland.project.id"
       >
         <img
-          :src="recruitNewUser.island.icon"
-          alt="island"
+          :src="recruitNewIsland.project.icon"
+          alt="project"
           class="search_iconImg"
         />
         <div class="search_recinfo">
-          <p>{{ recruitNewUser.island.islandName }}</p>
+          <p>{{ recruitNewIsland.project.projectName }}</p>
         </div>
       </router-link>
     </section>
@@ -57,23 +57,23 @@ const props = defineProps({
   title: String,
 });
 console.log("募集一覧", props.fetchUrlRec);
-console.log("登録された方", props.fetchUrlIs);
+console.log("登録されたプロ", props.fetchUrlIs);
 
-const originalRecruitNewUsers = ref([]); //データ配列
-const filteredRecruitNewUsers = ref([]); //検索結果に基づくデータの配列
+const originalRecruitNewIslands = ref([]); //データ配列
+const filteredRecruitNewIslands = ref([]); //検索結果に基づくデータの配列
 const keyword = ref("");
 
 //募集中のデータ
-const fetchRecruitNewUsers = async () => {
+const fetchRecruitNewIslands = async () => {
   try {
     const response = await fetch(props.fetchUrlRec);
 
     console.log("レスポンス", response);
 
     const data = await response.json();
-    originalRecruitNewUsers.value = data.map((recruitNewUser) => ({
-      ...recruitNewUser,
-      island: {},
+    originalRecruitNewIslands.value = data.map((recruitNewIsland) => ({
+      ...recruitNewIsland,
+      project: {},
     }));
     console.log("募集中", data);
   } catch (error) {
@@ -82,13 +82,13 @@ const fetchRecruitNewUsers = async () => {
 };
 
 //登録されているデータ
-const fetchIslands = async () => {
+const fetchProjects = async () => {
   try {
     const response = await fetch(props.fetchUrlIs);
     const data = await response.json();
-    originalRecruitNewUsers.value.forEach((recruitNewUser) => {
-      recruitNewUser.island = data.find(
-        (island) => island.id === recruitNewUser.islandId
+    originalRecruitNewIslands.value.forEach((recruitNewIsland) => {
+      recruitNewIsland.project = data.find(
+        (project) => project.id === recruitNewIsland.projectId
       );
     });
     console.log("登録", data);
@@ -98,13 +98,13 @@ const fetchIslands = async () => {
 };
 
 //検索して検索結果に合致するデータを返す
-const filterRecruitNewUsers = (query) => {
+const filterRecruitNewIslands = (query) => {
   const textChange = query.toLowerCase(); // 入力されたキーワードを小文字に変換
   const hiragana = textChange.replace(/[\u30a1-\u30f6]/g, (match) =>
     String.fromCharCode(match.charCodeAt(0) - 0x60)
   ); // カタカナをひらがなに変換
-  return originalRecruitNewUsers.value.filter((recruitNewUser) =>
-    recruitNewUser.island.islandName
+  return originalRecruitNewIslands.value.filter((recruitNewIsland) =>
+    recruitNewIsland.project.projectName
       .toLowerCase()
       .replace(/[\u30a1-\u30f6]/g, (match) =>
         String.fromCharCode(match.charCodeAt(0) - 0x60)
@@ -115,21 +115,21 @@ const filterRecruitNewUsers = (query) => {
 
 //一覧に戻るボタン
 const resetSearch = () => {
-  filteredRecruitNewUsers.value = originalRecruitNewUsers.value;
+  filteredRecruitNewIslands.value = originalRecruitNewIslands.value;
 };
 
 onMounted(async () => {
-  await Promise.all([fetchRecruitNewUsers(), fetchIslands()]);
-  filteredRecruitNewUsers.value = originalRecruitNewUsers.value;
+  await Promise.all([fetchRecruitNewIslands(), fetchProjects()]);
+  filteredRecruitNewIslands.value = originalRecruitNewIslands.value;
 });
 
-//検索されたものをfilterRecruitNewUsers配列生成後、filteredRecruitNewUsersにセット
-const searchIslands = () => {
+//検索されたものをfilterRecruitNewIslands配列生成後、filteredRecruitNewIslandsにセット
+const searchProjects = () => {
   console.log(keyword.value);
   if (keyword.value.length > 20) {
     alert("20文字以内で入力してください");
   } else {
-    filteredRecruitNewUsers.value = filterRecruitNewUsers(keyword.value);
+    filteredRecruitNewIslands.value = filterRecruitNewIslands(keyword.value);
     keyword.value = "";
   }
 };

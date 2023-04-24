@@ -1,18 +1,21 @@
 <!-- 一覧を表示、検索は再検索用 -->
-
 <!-- コンポーネント用 -->
 <template>
   <div>
-    <SearchBox :fetchUrlRec="fetchUrlRec" :fetchUrlIs="fetchUrlIs" title="島の検索" />
+    <SearchBox
+      :fetchUrlRec="fetchUrlRec"
+      :fetchUrlIs="fetchUrlIs"
+      title="募集中の島検索"
+    />
   </div>
 </template>
 
 <script setup>
-import SearchBox from '../../components/Search/SearchBox.vue';
+import SearchBox from "../../components/Search/ReqList/IslandReqSerch.vue";
 import { ref, onMounted } from "vue";
 
 const fetchUrlRec = "http://localhost:8000/RecruitNewUser";
-const fetchUrlIs =  "http://localhost:8000/islands";
+const fetchUrlIs = "http://localhost:8000/Islands";
 
 const islandsData = ref([]);
 
