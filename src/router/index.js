@@ -71,7 +71,7 @@ const router = createRouter({
       component: IslandEdit,
     },
     {
-      path: "/prijectEdit",
+      path: "/projectEdit",
       name: "projectEdit",
       component: ProjectEdit,
     },
