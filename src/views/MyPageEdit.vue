@@ -1,19 +1,24 @@
 <script setup>
 // import { placeholder } from "@babel/types";
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import "../css/main.css";
 
 //会員情報取得
 const userId = ref(2); //firebaseでログインしてる人のIDが入る
 const err = ref();
 const User = ref({
-  icon:"",
+  icon: "",
   name: "",
   icon: "",
   job: "",
   comment: "",
 });
+const router = useRouter();
 
+const back = () => {
+  router.push("/mypage");
+};
 //会員情報取得
 onMounted(async () => {
   try {
@@ -67,6 +72,8 @@ async function updateUser() {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
+    router.push("/mypage");
+    navigate();
   } catch (err) {
     console.log("更新できません", err);
   }
@@ -138,13 +145,8 @@ async function updateUser() {
       </ul>
     </div>
     <div class="edit__buttoncontainer">
-      <router-link to="/mypage" class="edit__router"
-        ><button class="edit__button_cansel">戻る</button></router-link
-      >
-      <router-link to="/mypage" class="edit__router"
-        ><button class="edit__button" @click="updateUser">
-          更新
-        </button></router-link>
+          <button class="edit__button_cansel" @click="back">戻る</button>
+          <button class="edit__button" @click="updateUser">更新</button>
     </div>
   </div>
 </template>
