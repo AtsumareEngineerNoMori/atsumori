@@ -2,58 +2,46 @@
 import { ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
+import { useRouter } from "vue-router";
 
-const array = [
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://4.bp.blogspot.com/-a7WEvuIz_-4/W1vhClOop5I/AAAAAAABNtY/FjTJQ-3P41AFPX8QSCZXLU05YgKc8xntACLcBGAs/s400/character_earth_chikyu.png",
-    name: "プロジェクトの名前",
-  },
-];
-
+const router = useRouter();
+// joinProjectsから取得したuserIdが等しいデータを保管
 const joinList = ref([]);
+// projectsから取得したprojectIdが等しいデータを保管
 const projectData = ref([]);
 const loading = ref(true);
+
 const getJoinProject = async () => {
+  //joinProjectsからuserIdが等しいデータを取得
   const response = await fetch(
-    `http://localhost:8000/joinProjects/?userId=${2}`
+    `http://localhost:8000/joinProjects/?userId=${3}`
   );
   const data = await response.json();
   joinList.value = data;
-  console.log(data);
 };
 getJoinProject().then(() => {
   console.log(joinList.value);
-  joinList.value.map(async (pj) => {
-    const response = await fetch(
-      `http://localhost:8000/Projects/?id=${pj.projectId}`
-    );
-    const data = await response.json();
-    projectData.value.push(data);
+  // 上で取得したprojectIdと等しいデータをprojectsテーブルから取得
+  if (joinList.value.length > 0) {
+    joinList.value.map(async (pj) => {
+      const response = await fetch(
+        `http://localhost:8000/Projects/?id=${pj.projectId}`
+      );
+      const data = await response.json();
+      projectData.value.push(data);
+      loading.value = false;
+    });
+  } else {
+    console.log("データがありません");
     loading.value = false;
-    console.log(data);
-  });
+  }
   console.log(projectData.value);
 });
+
+// データない時に表示するボタン
+const noDataBtn = () => {
+  return router.push("/top")
+}
 </script>
 
 <template>
@@ -65,7 +53,19 @@ getJoinProject().then(() => {
       <section>
         <p class="list__title">参加しているプロジェクト</p>
       </section>
-      <section class="list__list">
+      <section v-if="projectData.length <= 0">
+        <div class="list__noDataTitle">
+          <button @click="noDataBtn" class="list__noDataTitle-text">
+            島からプロジェクトに参加してみよう
+          </button>
+          <img
+            src="https://1.bp.blogspot.com/-SgT2G_vDGwE/XQjt4RWH1TI/AAAAAAABTNc/0He0eUi8-7QAd0RDvxWGA1MBzphu9hvsgCLcBGAs/s800/animal_chara_computer_penguin.png"
+            alt="titleLogo"
+            class="list__noDataTitle-pjImg"
+          />
+        </div>
+      </section>
+      <section class="list__list" v-else>
         <!-- リンク先かえる -->
         <div v-for="project in projectData" :key="project" class="list__item">
           <RouterLink v-bind:to="{ name: 'joinProject' }">
