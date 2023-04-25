@@ -28,5 +28,6 @@ const storage = getStorage(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+
 // 上記2つの変数をどこででも使えるようにexportする
 export { storage, auth, analytics, db};

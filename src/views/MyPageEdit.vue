@@ -3,9 +3,11 @@
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import "../css/main.css";
+import { auth } from "../../firebase";
+
 
 //会員情報取得
-const userId = ref(2); //firebaseでログインしてる人のIDが入る
+const userId = ref(); //firebaseでログインしてる人のIDが入る
 const err = ref();
 const User = ref({
   icon: "",
@@ -16,22 +18,34 @@ const User = ref({
 });
 const router = useRouter();
 
+
 const back = () => {
   router.push("/mypage");
 };
 //会員情報取得
 onMounted(async () => {
-  try {
-    const response = await fetch(`http://localhost:8000/Users/${userId.value}`);
-    if (!response.ok) {
-      throw new Error(`HTTPエラーです！！！: ${response.status}`);
+  //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
+  auth.onAuthStateChanged(async (loggedInUser) => {
+    if (loggedInUser) {
+      userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
+
+      try {
+        const response = await fetch(
+          `http://localhost:8000/Users/${userId.value}`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTPエラーです！！！: ${response.status}`);
+        }
+        User.value = await response.json();
+        console.log("User.valueの中身", User.value);
+      } catch (err) {
+        err.value = err;
+        console.log("エラー", err.value);
+      }
+    } else {
+      router.push("/login");
     }
-    User.value = await response.json();
-    console.log("User..valueの中身", User.value);
-  } catch (err) {
-    err.value = err;
-    console.log("エラー", err.value);
-  }
+  });
 });
 
 //icon選択
@@ -55,6 +69,15 @@ function convertToBase64(file) {
   });
 }
 
+//デフォルトの画像
+const defaultIconURL = "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png"
+
+//画像削除
+const removeIcon = () => {
+  User.value.icon = defaultIconURL;
+}
+
+
 //User更新
 async function updateUser() {
   try {
@@ -73,7 +96,6 @@ async function updateUser() {
     }
     console.log("更新！！！！");
     router.push("/mypage");
-    navigate();
   } catch (err) {
     console.log("更新できません", err);
   }
@@ -95,7 +117,8 @@ async function updateUser() {
           id="icon_file"
           style="display: none"
         />
-        <span>アイコン</span>
+        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
+
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">

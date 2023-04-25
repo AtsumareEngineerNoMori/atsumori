@@ -21,7 +21,7 @@
   }
   &__profileiconImg:hover {
     cursor: pointer;
-
+    opacity: 0.8;
   }
   &__item {
     padding: 0 20px;
@@ -42,8 +42,8 @@
   &__button:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
   }
   &__editbutton {
     padding: 1% 2%;
@@ -53,8 +53,8 @@
   &__editbutton:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
   }
   &__morebutton {
     padding: 1% 2%;
@@ -63,8 +63,8 @@
   &__morebutton:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
   }
 
   // &__div {
@@ -84,18 +84,17 @@
     flex-direction: column;
     padding-left: 200px;
     height: 250px;
-    
   }
   &__column2 {
     display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  height: 250px;
-  padding: 20px;
-  padding-top: 50px;
-  margin-right: auto;
-  flex-grow: 1;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 250px;
+    padding: 20px;
+    padding-top: 50px;
+    margin-right: auto;
+    flex-grow: 1;
   }
   &__lists {
     display: inline-block;
@@ -112,12 +111,12 @@
   }
   &__iconImg:hover {
     cursor: pointer;
+    opacity: 0.7;
   }
   &__table {
     margin-top: 60px;
     margin-left: 4%;
   }
-
 }
 
 .edit {
@@ -142,20 +141,19 @@
     flex-direction: column;
     padding-left: 50px;
     height: 500px;
-    
   }
   &__column2 {
     display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  height: 500px;
-  padding: 20px;
-  padding-top: 50px;
-  margin-right: auto;
-  flex-grow: 1;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 500px;
+    padding: 20px;
+    padding-top: 50px;
+    margin-right: auto;
+    flex-grow: 1;
   }
-  &__input{
+  &__input {
     float: left;
     width: 450px;
     max-width: 100%;
@@ -212,8 +210,8 @@
   &__button:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
   }
   &__button_cansel {
     padding: 1% 2%;
@@ -230,8 +228,8 @@
   &__buttoncontainer {
     display: flex;
     width: 400px;
-    margin:auto;
-    margin-top:100px;
+    margin: auto;
+    margin-top: 100px;
   }
   &__label {
     margin: 8px;
