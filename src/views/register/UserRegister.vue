@@ -19,9 +19,9 @@
             />
           </div>
 
-          <div class="icon_form">
+          <div class="userRegister-details-icon-icon_form">
             <label htmlFor="iconPreview">
-              <p class="add_icon">+</p>
+              <p class="userRegister-details-icon-add_icon">+</p>
             </label>
             <input
               type="file"
@@ -29,7 +29,7 @@
               @change="previewImage"
               accept=".png, .jpeg, .jpg"
               id="iconPreview"
-              class="icon_input"
+              class="userRegister-details-icon-icon_input"
             />
           </div>
           <!-- <input src="../../../public/ha.png" type="file" /> -->
@@ -43,6 +43,9 @@
               class="userRegister-details-detail-name"
               v-model="user.name"
             />
+            <!-- <p v-if="!user.name.match(/^([a-zA-Z0-9]{0,20})$/)">
+              名前は1文字以上20文字以下で入力してください
+            </p> -->
           </div>
 
           <div>
@@ -74,6 +77,9 @@
             type="email"
             class="userRegister-details2-input"
           />
+          <!-- <p v-if="!user.email.match(/^([a-zA-Z0-9]{0,40})$/)">
+            40文字以内で入力してください
+          </p> -->
         </div>
         <div class="userRegister-details2-inputSet">
           <p class="userRegister-details2-p">パスワード</p>
@@ -85,8 +91,16 @@
         </div>
         <div class="userRegister-details2-inputSet">
           <p class="userRegister-details2-p">パスワード(確認)</p>
-          <input type="password" class="userRegister-details2-input" />
+          <input
+            type="password"
+            class="userRegister-details2-input"
+            v-model="user.cPassword"
+          />
         </div>
+        <!-- 色とかつけたいのと、位置がずれちゃうのを治す！ -->
+        <p v-if="user.password !== user.cPassword">
+          パスワードが一致していません
+        </p>
 
         <button
           type="submit"
@@ -112,7 +126,12 @@ import {
   getAuth,
 } from "@firebase/auth";
 import { storage, auth, db } from "../../../firebase";
-import { getDownloadURL, uploadBytesResumable, ref } from "firebase/storage";
+import {
+  getDownloadURL,
+  uploadBytesResumable,
+  ref,
+  getStorage,
+} from "firebase/storage";
 import { useRouter } from "vue-router";
 
 const iconFileName = vueref("");
@@ -125,8 +144,11 @@ const user = reactive({
   comment: "",
   email: "",
   password: "",
+  cPassword: "",
 });
 const router = useRouter();
+
+// バリテーション
 
 // ログイン状態の場合の処理
 onMounted(() => {
@@ -145,7 +167,6 @@ const previewImage = (event) => {
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
-    // iconImg.value = e.target.result;
   };
   reader.readAsDataURL(event.target.files[0]);
   file.value = event.target.files[0];
@@ -154,7 +175,6 @@ const previewImage = (event) => {
   // console.log(file)
   // console.log(iconFileName)
 };
-
 
 // 登録ボタンの処理
 const UserRegisterButton = (async) => {
@@ -167,39 +187,59 @@ const UserRegisterButton = (async) => {
         const auth = getAuth();
         const currentUserId = auth.currentUser?.uid;
         const storageRef = ref(
+          //   storage,
+          //   `${currentUserId}/icon/${iconFileName.value}`
+          // );
           storage,
-          `${currentUserId}/icon/${iconFileName.value}`
+          `icon/${iconFileName.value}`
         );
         console.log(storageRef);
         uploadBytesResumable(storageRef, file.value)
           // StorageからアイコンURLを取得
           .then(() => {
             console.log("アイコンを取得のターンがきたよ");
-            getDownloadURL(storageRef).then((url) => {
-              console.log(url)
+            const storage = getStorage();
+            const starsRef = ref(storage, `icon/${iconFileName.value}`);
+            getDownloadURL(starsRef).then((url) => {
+              console.log(url);
               iconImg.value = url;
+              console.log(iconImg);
+              fetch("http://localhost:8000/Users", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  id: currentUserId,
+                  icon: url,
+                  name: user.name,
+                  job: user.job,
+                  comment: user.comment,
+                  email: user.email,
+                }),
+              }).then((res) => res.json());
             });
           })
-          .then(() => {
-            // jsonサーバーにデータ追加
-            console.log("jsonサーバーにデータ追加のターンがきたよ");
-            fetch("http://localhost:8000/Users", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                id: currentUserId,
-                icon: "",
-                name: user.name,
-                job: user.job,
-                comment: user.comment,
-                email: user.email,
-              }),
-            })
-              .then((res) => res.json())
-              .then(console.log);
-          })
+          // .then(() => {
+          //   // jsonサーバーにデータ追加
+          //   console.log("jsonサーバーにデータ追加のターンがきたよ");
+          //   fetch("http://localhost:8000/Users", {
+          //     method: "POST",
+          //     headers: {
+          //       "Content-Type": "application/json",
+          //     },
+          //     body: JSON.stringify({
+          //       id: currentUserId,
+          //       icon: iconImg.value,
+          //       name: user.name,
+          //       job: user.job,
+          //       comment: user.comment,
+          //       email: user.email,
+          //     }),
+          //   })
+          //     .then((res) => res.json())
+          //     .then(console.log);
+          // })
           .then(() => {
             router.push("/top");
           });

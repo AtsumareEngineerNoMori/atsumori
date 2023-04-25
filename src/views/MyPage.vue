@@ -1,6 +1,6 @@
 <script setup>
 // import { onMounted } from "vue";
-import { promiseImpl } from "ejs";
+// import { promiseImpl } from "ejs";
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 import { auth } from "../../firebase";

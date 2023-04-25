@@ -371,6 +371,9 @@
 .edit__item {
   margin: auto;
 }
+.edit__router {
+  margin: 0 40px;
+}
 .edit__button {
   padding: 1% 2%;
   margin: auto;
@@ -846,6 +849,26 @@ button {
   border-radius: 50%;
   aspect-ratio: 1/1;
 }
+.userRegister-details-icon-icon_form {
+  top: 47%;
+  color: white;
+  padding: 1.5% 3% 2% 1.5%;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: 59%;
+  background-color: #4B7031;
+}
+.userRegister-details-icon-add_icon {
+  font-size: 27px;
+  font-weight: bold;
+  line-height: 14px;
+}
+.userRegister-details-icon-icon_input {
+  display: none;
+}
 .userRegister-details-detail {
   margin-top: 5%;
   margin-left: 5%;
@@ -891,29 +914,6 @@ button {
   color: #AF7A20;
 }
 
-.icon_form {
-  top: 47%;
-  color: white;
-  padding: 1.5% 3% 2% 1.5%;
-  border: none;
-  border-radius: 50%;
-  width: 20px;
-  aspect-ratio: 1/1;
-  position: absolute;
-  right: 59%;
-  background-color: #4B7031;
-}
-
-.add_icon {
-  font-size: 27px;
-  font-weight: bold;
-  line-height: 14px;
-}
-
-.icon_input {
-  display: none;
-}
-
 .header {
   display: flex;
   justify-content: space-between;
@@ -929,7 +929,7 @@ button {
 .IslandRegister {
   margin: 0% auto 0 auto;
   background-color: #FFFCF4;
-  height: 100vh;
+  min-height: 100hv;
   padding-top: 10%;
 }
 .IslandRegister-title {
@@ -958,7 +958,8 @@ button {
   justify-content: center;
 }
 .IslandRegister-details-icon-img {
-  padding: 20px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 .IslandRegister-details-name {
   margin-top: 3%;
@@ -978,6 +979,7 @@ button {
 .IslandRegister-details-information-text {
   width: 100%;
   height: 90%;
+  border-radius: 3%;
 }
 .IslandRegister-set {
   text-align: center;
@@ -987,11 +989,38 @@ button {
   padding: 1.5%;
   width: 150px;
 }
+.IslandRegister-set-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.icon_form {
+  top: 69%;
+  color: white;
+  padding: 1.5% 3% 2% 1.5%;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: 68%;
+  background-color: #4B7031;
+}
+
+.add_icon {
+  font-size: 27px;
+  font-weight: bold;
+  line-height: 14px;
+}
+
+.icon_input {
+  display: none;
+}
 
 .ProjectRegister {
   margin: 0% auto 0 auto;
   background-color: #FFFCF4;
-  height: 100vh;
+  min-height: 100hv;
   padding-top: 10%;
 }
 .ProjectRegister-title {
@@ -1021,7 +1050,8 @@ button {
   justify-content: center;
 }
 .ProjectRegister-details-icon-img {
-  padding: 20px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 .ProjectRegister-details-name {
   margin-top: 3%;
@@ -1041,6 +1071,7 @@ button {
 .ProjectRegister-details-information-text {
   width: 100%;
   height: 90%;
+  border-radius: 3%;
 }
 .ProjectRegister-set {
   text-align: center;
@@ -1049,6 +1080,33 @@ button {
   margin-top: 8%;
   padding: 1.5%;
   width: 150px;
+}
+.ProjectRegister-set-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.icon_form {
+  top: 69%;
+  color: white;
+  padding: 1.5% 3% 2% 1.5%;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  aspect-ratio: 1/1;
+  position: absolute;
+  right: 68%;
+  background-color: #4B7031;
+}
+
+.add_icon {
+  font-size: 27px;
+  font-weight: bold;
+  line-height: 14px;
+}
+
+.icon_input {
+  display: none;
 }
 
 .RecruitUserRegister {
@@ -1065,7 +1123,7 @@ button {
   text-align: center;
 }
 .RecruitUserRegister-details-name {
-  font-size: 20px;
+  font-size: 22px;
   padding: 2%;
 }
 .RecruitUserRegister-details-recruitTitleSet {
@@ -1092,12 +1150,13 @@ button {
   width: 150px;
   margin-bottom: 5%;
 }
+.RecruitUserRegister-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
 
 .RecruitIslandRegister {
-  margin: 0% auto 0 auto;
   background-color: #FFFCF4;
-  height: 100vh;
-  padding-top: 10%;
 }
 .RecruitIslandRegister-title {
   font-size: 30px;
@@ -1203,6 +1262,10 @@ button {
 .top-search-input {
   width: 50%;
 }
+.top-search-input:hover:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
 .top-search-button {
   padding: 1%;
 }
@@ -1218,6 +1281,10 @@ button {
 .top-select2-island {
   margin-right: 1%;
 }
+.top-select2-input:hover:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
 .top-new {
   display: flex;
   gap: 3%;
@@ -1226,6 +1293,7 @@ button {
   margin: 0 5%;
 }
 .top-new-set {
+  height: 440px;
   width: 40%;
   border: 3px dashed #4B7031;
   width: 80%;
@@ -1306,6 +1374,7 @@ button {
   border: 1px solid gray;
   -o-object-fit: cover;
      object-fit: cover;
+  height: 110px;
 }
 .top-new-set-img:hover {
   opacity: 0.6;
