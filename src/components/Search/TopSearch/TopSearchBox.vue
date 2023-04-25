@@ -42,7 +42,7 @@
         </label>
       </div>
 
-      <form :action="formAction">
+      <form :action="formAction" @submit.prevent="handleSubmit">
         <input
           type="search"
           name="search"
@@ -83,7 +83,7 @@ const formAction = computed(() => {
     selectedFilter.value === "filter2" &&
     searchType.value === "island"
   ) {
-    return "/islandReqList";
+    return "/searchReqIslandResult";
   } else if (
     selectedFilter.value === "filter2" &&
     searchType.value === "project"
@@ -94,20 +94,22 @@ const formAction = computed(() => {
   }
 });
 
-//submitイベントを監視
-function handleSubmit(event) {
-  event.preventDefault(); //submitイベントキャンセル
+function handleSubmit() {
+  if (keyword.value.length > 20) {
+    alert("20文字以内で入力してください");
+    return (keyword.value = "");
+  } else {
+    const url = `${formAction.value}?search=${keyword.value}`;
+    router.push(url);
+    // const kana = keyword.value
+    //   .toLowerCase()
+    //   .replace(/[ぁ-ん]/g, (s) => String.fromCharCode(s.charCodeAt(0) + 0x60))
+    //   .replace(/[ァ-ン]/g, (s) => String.fromCharCode(s.charCodeAt(0) + 0x60));
 
-  // URLに検索情報を付与して画面遷移
-  const url = `${formAction.value}?search=${keyword.value}`;
-  router.push(url);
+    // const url = `${formAction.value}?search=${encodeURI(kana)}`;
+    // router.push(url);
+  }
 }
-
-// function onSubmit() {
-//   if (formAction.value) {
-//     router.push(formAction.value)
-//   }
-// }
 </script>
 
 <style>
