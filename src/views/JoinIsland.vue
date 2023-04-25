@@ -25,6 +25,8 @@ onMounted(() => {
       console.log(`ログイン状態 uid:${currentUser.uid}`);
       uid.value = currentUser.uid;
       // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
+      // idが一致するか(元と新しいもの)
+      // 差分だけ取得できるようにする
       const getJoinIsland = async () => {
         const response = await fetch(
           `http://localhost:8000/joinIslands/?userId=${currentUser.uid}`
@@ -35,6 +37,7 @@ onMounted(() => {
       getJoinIsland().then(() => {
         console.log(joinList.value);
         // 上で取得したデータのislandIdと等しいデータをIslandsテーブルから取得
+        // 上の情報に差分がないならここの処理やらなくていい
         if (joinList.value.length > 0) {
           joinList.value.map(async (island) => {
             const response = await fetch(
@@ -67,7 +70,7 @@ const noDataBtn = () => {
   </div>
   <template v-else>
     <div class="list">
-      <section>
+      <section class="list__sectionTitle">
         <p class="list__title">参加している島</p>
       </section>
       <section v-if="islandData.length <= 0">

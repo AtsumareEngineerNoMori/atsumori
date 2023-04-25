@@ -543,9 +543,13 @@ button {
   padding: 3%;
   height: 100vh;
 }
+.list__sectionTitle {
+  height: 14%;
+}
 .list__title {
   color: #af7a20;
   font-size: 2.5rem;
+  height: 100%;
 }
 .list__noDataTitle {
   margin-top: 10%;
@@ -585,7 +589,6 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 6%;
-  margin-top: 5%;
   text-align: center;
   width: 100%;
   height: auto;
@@ -595,7 +598,7 @@ button {
   aspect-ratio: 1/1;
 }
 .list__item:nth-child(n+6) {
-  margin-top: 8%;
+  margin-top: 5%;
 }
 .list__iconImg {
   width: 100%;
@@ -1416,7 +1419,7 @@ button {
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
 }
-.date {
+.time {
   font-size: 1.2rem;
   color: gray;
 }/*# sourceMappingURL=main.css.map */
