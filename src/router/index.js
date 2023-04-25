@@ -25,6 +25,7 @@ import IslandRegisterView from "../views/register/IslandRegister.vue";
 import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
 import RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue";
 
+import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,7 +39,6 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MyPage,
-
     },
     {
       path: "/joinIsland",
@@ -111,6 +111,13 @@ const router = createRouter({
       path: "/projectRegister",
       name: "projectRegister",
       component: ProjectRegisterView,
+    },
+    // {
+    //   path: "/top",
+    //   name: "top",
+    //   component: TopTest,
+    // },
+
       },
     {
       path: '/recruitIslandRegister',
@@ -183,10 +190,14 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
-
       path: "/scoutPeople",
       name: "scoutPeople",
       component: ScoutPeople,
+    },
+    {
+      path: "/topSearchBox",
+      name: "topSearchBox",
+      component: TopSearchBox,
     },
     {
       path: "/top",

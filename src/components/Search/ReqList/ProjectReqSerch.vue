@@ -1,39 +1,8 @@
-<!-- 一覧を表示、検索は再検索用 -->
-<!-- コンポーネント用 -->
+<!-- 募集一覧の際検索 -->
 <template>
-  <div>
-    <SearchBox
-      :fetchUrlRec="fetchUrlRec"
-      :fetchUrlIs="fetchUrlIs"
-      title="募集中のプロジェクト検索"
-    />
-  </div>
-</template>
-
-<script setup>
-import SearchBox from "../../components/Search/ReqList/ProjectReqSerch.vue";
-import { ref, onMounted } from "vue";
-
-const fetchUrlRec = "http://localhost:8000/RecruitNewIsland";
-const fetchUrlIs = "http://localhost:8000/Projects";
-
-const islandsData = ref([]);
-
-const fetchData = async () => {
-  const response = await fetch(fetchUrlRec);
-  islandsData.value = await response.json();
-};
-
-onMounted(async () => {
-  await fetchData();
-});
-</script>
-
-
-<!-- <template>
   <div class="search">
     <section>
-      <h3 class="search_title">プロジェクト 募集一覧</h3>
+      <h3 class="search_title">{{ title }}</h3>
     </section>
 
     <div class="island_search">
@@ -58,7 +27,7 @@ onMounted(async () => {
           name="submit"
           value="一覧に戻る"
           class="search_btn"
-          @click="resetSerch"
+          @click="resetSearch"
         />
       </div>
       <router-link
@@ -80,7 +49,15 @@ onMounted(async () => {
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineProps } from "vue";
+
+const props = defineProps({
+  fetchUrlRec: String,
+  fetchUrlIs: String,
+  title: String,
+});
+console.log("募集一覧", props.fetchUrlRec);
+console.log("登録されたプロ", props.fetchUrlIs);
 
 const originalRecruitNewIslands = ref([]); //データ配列
 const filteredRecruitNewIslands = ref([]); //検索結果に基づくデータの配列
@@ -89,31 +66,34 @@ const keyword = ref("");
 //募集中のデータ
 const fetchRecruitNewIslands = async () => {
   try {
-    const response = await fetch(`http://localhost:8000/RecruitNewIsland`);
+    const response = await fetch(props.fetchUrlRec);
+
+    console.log("レスポンス", response);
+
     const data = await response.json();
     originalRecruitNewIslands.value = data.map((recruitNewIsland) => ({
       ...recruitNewIsland,
       project: {},
     }));
-    console.log("募集中",data);
+    console.log("募集中", data);
   } catch (error) {
-    console.log("募集中",error);
+    console.log("募集中", error);
   }
 };
 
 //登録されているデータ
 const fetchProjects = async () => {
   try {
-    const response = await fetch(`http://localhost:8000/Projects`);
+    const response = await fetch(props.fetchUrlIs);
     const data = await response.json();
     originalRecruitNewIslands.value.forEach((recruitNewIsland) => {
       recruitNewIsland.project = data.find(
         (project) => project.id === recruitNewIsland.projectId
       );
     });
-    console.log("登録",data);
+    console.log("登録", data);
   } catch (error) {
-    console.log("登録",error);
+    console.log("登録", error);
   }
 };
 
@@ -134,7 +114,7 @@ const filterRecruitNewIslands = (query) => {
 };
 
 //一覧に戻るボタン
-const resetSerch = () => {
+const resetSearch = () => {
   filteredRecruitNewIslands.value = originalRecruitNewIslands.value;
 };
 
@@ -148,10 +128,9 @@ const searchProjects = () => {
   console.log(keyword.value);
   if (keyword.value.length > 20) {
     alert("20文字以内で入力してください");
-    keyword.value = "";
   } else {
     filteredRecruitNewIslands.value = filterRecruitNewIslands(keyword.value);
     keyword.value = "";
   }
 };
-</script> -->
+</script>
