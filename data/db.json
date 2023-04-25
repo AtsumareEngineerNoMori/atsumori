@@ -38,7 +38,6 @@
       "email": "emiri@rakus-partners.co.jp"
     },
     {
-
       "id": "SOeiQluo7QU908mDWQ0dkDJpqgJ2",
       "icon": "../../../public/ha.png",
       "name": "emiri",
@@ -70,21 +69,22 @@
       "comment": "やすお",
       "email": "yasuoayari@rakus-partners.co.jp"
     },
-    {      "id": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
-    "icon": "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png",
-    "name": "いくり",
-    "job": "FR",
-    "comment": "あああjフィヘアういhフェイ亜mR和９グセTBん８うts",
-    "email": "ikuri@test.com"
-  },
-  {
-    "id": "L9SFMsLzVgcwwj4Rjdp3HJRvX8V2",
-    "icon": "",
-    "name": "テスト人間",
-    "job": "その他",
-    "comment": "テストのために生まれてきました🥹🧡",
-    "email": "aaaaa@test.com"
-  }
+    {
+      "id": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
+      "icon": "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png",
+      "name": "中山功太",
+      "job": "FR",
+      "comment": "あああああああああああああああああ\nあああああああ\nああああああああああああああああああああ\nあああああああああああああああ\nああああああああああああ\nあああああああああああああああああああ\nああああああああああ\nああああ\nああああああああああああああああああああああああああ",
+      "email": "ikuri@test.com"
+    },
+    {
+      "id": "L9SFMsLzVgcwwj4Rjdp3HJRvX8V2",
+      "icon": "",
+      "name": "テスト人間",
+      "job": "その他",
+      "comment": "テストのために生まれてきました🥹🧡",
+      "email": "aaaaa@test.com"
+    }
   ],
   "Islands": [
     {
@@ -231,7 +231,6 @@
     }
   ],
   "UserScout": [],
-
   "RecruitNewIsland": [
     {
       "projectId": 4,
