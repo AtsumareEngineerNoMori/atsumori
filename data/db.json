@@ -103,6 +103,14 @@
       "createDate": "2023-04-21T08:06:30.433Z",
       "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fzou.png?alt=media&token=89507b4f-ed38-439b-b587-2009a309d9ca",
       "id": 13
+    },
+    {
+      "islandName": "島",
+      "isIandDescription": "島情報登録",
+      "adminId": "zCxnUCzeYwfpdJrNnPN0GblFSFi1",
+      "createDate": "2023-04-25T01:17:31.983Z",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fbuta.png?alt=media&token=53bdbdc9-ce27-4d5a-990a-cefa13d1e552",
+      "id": 14
     }
   ],
   "Projects": [
