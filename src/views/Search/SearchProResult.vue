@@ -1,11 +1,11 @@
+<!-- TOPからのプロジェクト検索結果 -->
 <template>
-      TOPからのプロジェクト検索結果
-    <SwitchSearchResult :searchTitle="searchTitle" :action="どこから取ってくるかURL" />
+    <TopSearchResult :searchTitle="searchTitle" :action="どこから取ってくるかURL" />
   </template>
   
   <script setup>
   import { ref } from "vue";
-  import SwitchSearchResult from "../../components/Search/SwitchSearchResult.vue";
+  import TopSearchResult from "../../components/Search/TopSearch/TopSearchResult.vue";
   
-  const searchTitle = ref("検索結果");
+  const searchTitle = ref("プロジェクトの検索結果");
   </script>

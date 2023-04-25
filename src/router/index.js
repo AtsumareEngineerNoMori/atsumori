@@ -9,9 +9,9 @@ import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
-import UserRegisterView from "../views/register/UserRegister.vue"
-import IlandRegisterView from "../views/register/IslandRegister.vue"
-import ProjectRegisterView from "../views/register/ProjectRegister.vue"
+import UserRegisterView from "../views/register/UserRegister.vue";
+import IlandRegisterView from "../views/register/IslandRegister.vue";
+import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
@@ -22,6 +22,7 @@ import ProjectAdmissionRequest from "../views/ProjectAdmissionRequest.vue";
 import OtherMyPage from "../views/OtherMyPage.vue";
 import MyPageForScout from "../views/MyPageForScout.vue";
 
+import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,7 +49,6 @@ const router = createRouter({
       path: "/mypage",
       name: "mypage",
       component: MyPage,
-
     },
     {
       path: "/joinIsland",
@@ -109,7 +109,7 @@ const router = createRouter({
       path: "/projectRegister",
       name: "projectRegister",
       component: ProjectRegisterView,
-      },
+    },
     // {
     //   path: "/top",
     //   name: "top",
@@ -179,6 +179,17 @@ const router = createRouter({
       path: "/scoutIsland",
       name: "scoutIsland",
       component: ScoutIsland,
+    },
+    {
+      path: "/scoutPeople",
+      name: "scoutPeople",
+      component: ScoutPeople,
+    },
+
+    {
+      path: "/topSearchBox",
+      name: "topSearchBox",
+      component: TopSearchBox,
     },
   ],
 });
