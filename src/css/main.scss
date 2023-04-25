@@ -1,5 +1,4 @@
 @use "./show/islandShow";
-// @use "./join/joinIsland";
 @use "./MyPage/Mypage";
 @use "./foundation/base";
 @use "./Request/Request";
@@ -12,4 +11,7 @@
 @use "./Header";
 @use "./register/IslandRegister";
 @use "./register/ProjectRegister";
+@use "./register/RecruitUserRegister";
+@use "./register/RecruitIslandRegister";
+@use "./Top";
 @use "./loading";
