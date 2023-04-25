@@ -18,8 +18,6 @@
       </form>
     </div>
 
-    <p>検索結果を表示する(初期表示なし)</p>
-
     <section class="search_list">
       <div v-for="searchImage in searchImages" :key="searchImage">
         <router-link to="島・プロジェクト詳細ページ">
