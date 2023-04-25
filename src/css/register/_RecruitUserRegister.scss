@@ -14,7 +14,7 @@
         // flex-direction:column;
         text-align: center;
         &-name{
-            font-size: 20px;
+            font-size: 22px;
             padding: 2%;
         }
         &-recruitTitleSet{
@@ -48,5 +48,9 @@
         padding: 1.5%;
         width: 150px;
         margin-bottom: 5%;
+    }
+    &-button:hover{
+        cursor: pointer;
+        opacity: 0.6;
     }
 }
