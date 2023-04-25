@@ -46,6 +46,15 @@ function convertToBase64(file) {
 }
 
 
+//デフォルトの画像
+const defaultIconURL = "https://1.bp.blogspot.com/-LZL7jGWmL3Q/X-FcwoOnE2I/AAAAAAABdEs/qUrY1ClrQrMukkdaEnZK8-Bdob7mOdmQgCNcBGAsYHQ/s400/onepiece13_crocodile.png"
+
+//画像削除
+const removeIcon = () => {
+  Project.value.icon = defaultIconURL;
+}
+
+
 //Projects更新
 async function updateProject() {
   try {
@@ -83,6 +92,8 @@ async function updateProject() {
           id="icon_file"
           style="display: none"
         />
+        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
+
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">

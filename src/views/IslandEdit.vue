@@ -41,7 +41,7 @@ function convertToBase64(file) {
 }
 
 //デフォルトの画像
-const defaultIconURL = "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png"
+const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
 
 //画像削除
 const removeIcon = () => {
