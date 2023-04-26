@@ -872,6 +872,7 @@ button {
 }
 .search_list {
   display: flex;
+  flex-wrap: wrap;
 }
 .search_recinfo {
   text-align: center;
