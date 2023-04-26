@@ -4,7 +4,7 @@
       src="../../../public/atsumori.png"
       class="header-logo"
     />
-    <HeaderModal class="header-menu"/>
+    <HeaderModal />
     <!-- <img src="../../../public/operation_menu1.png" class="header-menu" /> -->
   </div>
 </template>

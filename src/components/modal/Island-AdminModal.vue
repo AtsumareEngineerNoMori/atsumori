@@ -4,13 +4,13 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const props = defineProps({
-  islandId: Number,
-});
-
 const isShow = ref(false);
 const recruitIsShow = ref(false);
 const recruitData = ref();
+
+const props = defineProps({
+  islandId: Number,
+});
 
 // モーダル表示切り替え
 const toggleStatus = () => {
@@ -20,6 +20,7 @@ const toggleStatus = () => {
 watch(props, async () => {
   // 募集中か否か判別
   const islandId = props.islandId;
+
   const recruit = await fetch(
     `http://localhost:8000/RecruitNewUser?islandId=${islandId}`
   ).then((res) => res.json());
@@ -65,6 +66,14 @@ const deleteIsland = () => {
     console.log(e);
   }
 };
+
+// 遷移
+const editRouter = () => {
+  router.push({ name: "projectShow", params: { id: props.islandId } });
+};
+const recruitRouter = () => {
+  router.push({ name: "", params: { id: props.islandId } });
+};
 </script>
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">
@@ -80,8 +89,13 @@ const deleteIsland = () => {
         </header>
         <main class="modal__content" id="modal-1-content">
           <div class="adminModal">
-            <button class="adminModal__btn">編集</button>
-            <button v-show="!recruitIsShow" class="adminModal__btn">
+            <button @click="editRouter" class="adminModal__btn">編集</button>
+
+            <button
+              v-show="!recruitIsShow"
+              @click="recruitRouter"
+              class="adminModal__btn"
+            >
               募集作成
             </button>
             <button

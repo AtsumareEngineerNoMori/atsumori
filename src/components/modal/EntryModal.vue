@@ -1,10 +1,27 @@
 <script setup>
-import { ref } from "vue";
+import { watch, ref } from "vue";
+// import { getAuth } from "@firebase/auth";
 
 const isShow = ref(false);
+
+const props = defineProps({
+  projectId: Number,
+});
+
+// モーダル表示切り替え
 const toggleStatus = () => {
   isShow.value = !isShow.value;
 };
+
+watch(props, async () => {
+  // const auth = getAuth();
+  // const myId = auth.currentUser?.uid;
+  const myId = 1;
+
+  const joinIslands = await fetch(
+    `http://localhost:8000/JoinIslands?userId=${myId}`
+  ).then((res) => res.json());
+});
 </script>
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">

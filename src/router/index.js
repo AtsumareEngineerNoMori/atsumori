@@ -50,16 +50,14 @@ const router = createRouter({
       component: TopTest,
     },
     {
-      path: "/islandShow",
+      path: "/islandShow/:id",
       name: "islandShow",
       component: IslandShow,
-      props: true,
     },
     {
-      path: "/projectShow",
+      path: "/projectShow/:id",
       name: "projectShow",
       component: ProjectShow,
-      props: true,
     },
     {
       path: "/joinIsland",

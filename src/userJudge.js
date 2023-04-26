@@ -1,13 +1,14 @@
 import { getAuth } from "@firebase/auth";
 
 // ログイン中Id
-const myId = 1;
+const myId = 5;
 // const auth = getAuth();
 // const myId = auth.currentUser?.uid;
 
 // 引数：管理者idと参加者id
 // 管理者、参加者、その他
 function userJudge(adminId, joinIds) {
+  // console.log("sss",joinIds);
   if (myId === adminId) {
     return 1;
   } else if (joinIds.includes(myId)) {

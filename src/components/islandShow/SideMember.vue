@@ -19,26 +19,22 @@ watch(props, async () => {
   const islandId = props.islandId;
   const adminId = props.adminId;
 
-  // 参加している島データ
+  // 参加している島のデータからユーザーid取得
   const joinDatas = await fetch(
     `http://localhost:8000/JoinIslands?islandId=${islandId}`
   ).then((res) => res.json());
 
-  // 参加している島のデータからユーザーid取得
-  const userIds = [];
-  joinDatas.forEach((joinData) => {
-    userIds.push(joinData.userId);
-  });
+  const userIds = joinDatas.map((joinData) => joinData.userId);
 
   // ユーザーidからユーザーデータ取得
   userIds.forEach(async (userId) => {
-    const userData = await fetch(
-      `http://localhost:8000/Users?id=${userId}`
-    ).then((res) => res.json());
-    users.value.push(userData[0]);
+    const userData = await fetch(`http://localhost:8000/Users/${userId}`).then(
+      (res) => res.json()
+    );
+    users.value.push(userData);
   });
 
-  // ユーザーの判別
+  // 管理者、参加者、未参加者の判別
   userJudges.value = userJudge(adminId, userIds);
 
   // ユーザー毎に表示内容の変更
@@ -56,9 +52,9 @@ watch(props, async () => {
     // ユーザーidからユーザーデータ取得
     requestUserIds.forEach(async (requestUserId) => {
       const requestUserData = await fetch(
-        `http://localhost:8000/Users?id=${requestUserId}`
+        `http://localhost:8000/Users/${requestUserId}`
       ).then((res) => res.json());
-      requestUsers.value.push(requestUserData[0]);
+      requestUsers.value.push(requestUserData);
     });
   }
 });

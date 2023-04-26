@@ -60,10 +60,34 @@
   }
 
   &__desc {
+    position: relative;
     margin-left: 100px;
     margin-top: 80px;
     width: 60%;
-    border: 2px solid green;
+
+    &__title {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #fffcf4;
+      border: 3px solid green;
+      padding: 5px 25px;
+      text-align: center;
+      z-index: 20;
+    }
+    &__text {
+      position: absolute;
+      border: 5px dashed lawngreen;
+      top: 30px;
+      padding-top: 40px;
+      width: 100%;
+      z-index: 10;
+    }
   }
 
   &__member {
@@ -74,7 +98,6 @@
     border: 2px solid green;
   }
 }
-
 
 .material-symbols-outlined {
   &.no {

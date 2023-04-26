@@ -1,10 +1,69 @@
 <script setup>
-import { ref } from "vue";
+import { watch, ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const isShow = ref(false);
-const scout = ref(false);
+const recruitIsShow = ref(false);
+const recruitData = ref();
+
+const props = defineProps({
+  projectId: Number,
+});
+
+// モーダルの表示切り替え
 const toggleStatus = () => {
   isShow.value = !isShow.value;
+};
+
+watch(props, async () => {
+  //募集中か否か判別
+  const projectId = props.projectId;
+  const recruit = await fetch(
+    `http://localhost:8000/RecruitNewIsland?projectId=${projectId}`
+  ).then((res) => res.json());
+
+  if (recruit.length >= 1) {
+    recruitIsShow.value = true;
+    recruitData.value = recruit[0];
+  }
+});
+
+// 募集削除
+const deleteRecruit = () => {
+  const recruitId = recruitData.value.id;
+  fetch(`http://localhost:8000/RecruitNewIsland/${recruitId}`, {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  recruitIsShow.value = false;
+  router.go(0);
+};
+
+// プロジェクト解散
+const deleteProject = () => {
+  try {
+    // プロジェクトの削除
+    const projectId = props.projectId;
+    fetch(`http://localhost:8000/projects/${projectId}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    // 募集削除（あったら）
+    if (recruitIsShow.value) {
+      deleteRecruit();
+    }
+
+    router.push("/top");
+  } catch (e) {
+    console.log(e);
+  }
 };
 </script>
 <template>
@@ -17,18 +76,27 @@ const toggleStatus = () => {
         aria-labelledby="modal-1-title"
       >
         <header class="modal__header">
-          <h2 class="modal__title" id="modal-1-title">プロジェクト管理者専用</h2>
+          <h2 class="modal__title" id="modal-1-title">
+            プロジェクト管理者専用
+          </h2>
         </header>
         <main class="modal__content" id="modal-1-content">
           <div class="adminModal">
             <button class="adminModal__btn">編集</button>
-            <button v-show="!scout" class="adminModal__btn scout">
+
+            <button v-show="!recruitIsShow" class="adminModal__btn">
               募集作成
             </button>
-            <button v-show="scout" class="adminModal__btn stop">
+            <button
+              v-show="recruitIsShow"
+              @click="deleteRecruit"
+              class="adminModal__btn stop"
+            >
               募集削除
             </button>
-            <button class="adminModal__btn stop">解散</button>
+            <button @click="deleteProject" class="adminModal__btn stop">
+              解散
+            </button>
           </div>
         </main>
         <footer class="modal__footer">

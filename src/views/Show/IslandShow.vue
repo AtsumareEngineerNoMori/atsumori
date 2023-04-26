@@ -5,24 +5,21 @@ import SideScout from "../../components/islandShow/SideScout.vue";
 import ShowBtn from "../../components/islandShow/ShowBtn.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
-const router = useRouter();
+const route = useRoute();
 
 const island = ref([]);
-const islandId = ref(null);
 const adminId = ref(null);
 const adminName = ref();
 const userJudges = ref(null);
 
 onMounted(async () => {
-  // const id = rout.params.id;
-  const id = 1;
+  const id = route.params.id;
   const islandData = await fetch(`http://localhost:8000/Islands/${id}`).then(
     (res) => res.json()
   );
   island.value = islandData;
-  islandId.value = id;
   adminId.value = islandData.adminId;
 
   // ユーザーの判別
@@ -54,12 +51,12 @@ onMounted(async () => {
       </div>
 
       <div v-show="userJudges === 1" class="detail__user__setting">
-        <AdminModal :islandId="islandId" />
+        <AdminModal :islandId="island.id" />
       </div>
     </div>
 
     <div class="detail__btn">
-      <ShowBtn :islandId="islandId" />
+      <ShowBtn :islandId="island.id" />
     </div>
 
     <div class="detail__desc">
@@ -68,11 +65,11 @@ onMounted(async () => {
     </div>
 
     <div class="detail__member">
-      <SideMember :islandId="islandId" :adminId="adminId" />
+      <SideMember :islandId="island.id" :adminId="adminId" />
     </div>
 
     <div class="detail__scout">
-      <SideScout :islandId="islandId" :userJudge="userJudges" />
+      <SideScout :islandId="island.id" :userJudge="userJudges" />
     </div>
   </div>
 </template>
