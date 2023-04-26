@@ -4,6 +4,20 @@ import "../css/main.css";
 
 const Islands = ref(1); //?????
 //島情報取得
+const IslandId = ref(1); //firebaseでログインしてる人のIDが入る
+const Island = ref({
+  icon: "",
+  islandName: "",
+  comment: "",
+});
+const data = ref({
+  recruitTitle: "",
+  recruitJob: "",
+  recruitPoint: "",
+  createDate: "",
+});
+
+
 onMounted(async () => {
   try {
     const response = await fetch(
@@ -40,6 +54,16 @@ function convertToBase64(file) {
   });
 }
 
+//RecruitNewUser更新
+const getFlight = async () => {
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+  const recruitNewUserData = await response.json();
+  console.log(recruitNewUserData);
+  data.value = recruitNewUserData;
+  console.log(data);
+};
+getFlight();
+
 //デフォルトの画像
 const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
 
@@ -50,6 +74,7 @@ const removeIcon = () => {
 
 //Island更新
 async function updateIslands() {
+
   try {
     const response = await fetch(
       `http://localhost:8000/Islands/${Islands.value.id}`,
@@ -61,6 +86,28 @@ async function updateIslands() {
         body: JSON.stringify(Islands.value),
       }
     );
+
+    // recruitNewUser更新
+    const updateRecruitNewUser = () => {
+      fetch(`http://localhost:8000/RecruitNewUser/4`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          islandId: IslandId,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          islandName: Island.value.islandName,
+          islandIcon: Island.value.icon,
+          id: IslandId,
+        }),
+      });
+    };
+    updateRecruitNewUser();
+
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
@@ -118,6 +165,16 @@ async function updateIslands() {
       </p>
     </div>
     <div class="edit__buttoncontainer">
+
+      <router-link to="/show" class="edit__router"
+        ><button class="edit__button_cansel">戻る</button></router-link
+      >
+      <router-link to="/" class="edit__router">
+        <button class="edit__button" @click="updateIsland">
+          更新
+        </button></router-link
+      >
+
       <button class="edit__button_cansel">戻る</button>
       <button class="edit__button" @click="updateIslands">更新</button>
     </div>
