@@ -17,6 +17,7 @@ const data = ref({
   createDate: "",
 });
 
+
 onMounted(async () => {
   try {
     const response = await fetch(
@@ -55,9 +56,7 @@ function convertToBase64(file) {
 
 //RecruitNewUser取得
 const getFlight = async () => {
-  const response = await fetch(
-    `http://localhost:8000/RecruitNewUser/${IslandId.value}`
-  );
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
   const recruitNewUserData = await response.json();
   console.log(recruitNewUserData);
   data.value = recruitNewUserData;
@@ -66,16 +65,16 @@ const getFlight = async () => {
 getFlight();
 
 //デフォルトの画像
-const defaultIconURL =
-  "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png";
+const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
 
 //画像削除
 const removeIcon = () => {
   Islands.value.icon = defaultIconURL;
-};
+}
 
 //Island更新
 async function updateIslands() {
+
   try {
     const response = await fetch(
       `http://localhost:8000/Islands/${Islands.value.id}`,
@@ -133,9 +132,7 @@ async function updateIslands() {
           id="icon_file"
           style="display: none"
         />
-        <button @click="removeIcon" class="edit__button_cansel">
-          画像を削除
-        </button>
+        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
