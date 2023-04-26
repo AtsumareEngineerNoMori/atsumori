@@ -646,6 +646,36 @@ button {
   outline: 1px solid #a9a9a9;
 }
 
+.search {
+  width: 1000px;
+  background-color: #fffcf4;
+}
+.search_title {
+  margin-bottom: 5%;
+}
+.search_box {
+  width: 90%;
+  margin: 2%;
+}
+.search_no {
+  margin: auto;
+}
+.search_btn:hover {
+  background-color: white;
+  color: #4b7031;
+  outline: 1px solid #4b7031;
+}
+.search_list {
+  display: flex;
+}
+.search_recinfo {
+  text-align: center;
+}
+.search_iconImg {
+  width: 200px;
+  height: 200px;
+}
+
 .chat {
   background-color: #FFFCF4;
   overflow-y: hidden;
