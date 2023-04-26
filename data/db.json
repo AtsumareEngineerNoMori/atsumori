@@ -1,10 +1,4 @@
 {
-  "items": [
-    {
-      "name": "商品1",
-      "id": 1
-    }
-  ],
   "Users": [
     {
       "id": 1,
@@ -253,50 +247,7 @@
       "id": 7
     }
   ],
-  "JoinIslands": [
-    {
-      "id": 1,
-      "userId": "zCxnUCzeYwfpdJrNnPN0GblFSFi1",
-      "islandId": 1
-    },
-    {
-      "id": 2,
-      "userId": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
-      "islandId": 1
-    },
-    {
-      "id": 3,
-      "userId": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
-      "islandId": 2
-    }
-  ],
-  "JoinProjects": [
-    {
-      "id": 1,
-      "userId": 1,
-      "projectId": 1
-    },
-    {
-      "id": 2,
-      "userId": 3,
-      "projectId": 1
-    },
-    {
-      "id": 3,
-      "userId": 3,
-      "projectId": 2
-    },
-    {
-      "id": 4,
-      "userId": 3,
-      "projectId": 2
-    },
-    {
-      "id": 5,
-      "userId": 3,
-      "projectId": 2
-    }
-  ],
+
   "UserScout": [
     {
       "userId": "L9SFMsLzVgcwwj4Rjdp3HJRvX8V2",
@@ -341,14 +292,14 @@
   ],
   "RecruitNewUser": [
     {
-      "islandId": 12,
-      "recruitTitle": "1",
+      "islandId": 1,
+      "recruitTitle": "ああああああああああああ",
       "recruitJob": "WEB",
-      "recruitPoint": "1",
+      "recruitPoint": "ああああああああああああ",
       "createDate": "2023-04-21T07:07:59.707Z",
       "islandName": "画像ないよ島",
       "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 4
+      "id": 1
     },
     {
       "islandId": 12,
@@ -419,6 +370,67 @@
       "islandName": "画像ないよ島",
       "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
       "id": 11
+    }
+  ],
+  "RequestIsland": [
+    {
+      "id": 1,
+      "userId": 3,
+      "islandId": 1
+    }
+  ],
+  "RequestProject": [],
+  "JoinIslands": [
+    {
+      "id": 1,
+      "userId": "zCxnUCzeYwfpdJrNnPN0GblFSFi1",
+      "islandId": 1
+    },
+    {
+      "id": 2,
+      "userId": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
+      "islandId": 1
+    },
+    {
+      "id": 3,
+      "userId": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
+      "islandId": 2
+    }
+  ],
+  "JoinProjects": [
+    {
+      "id": 1,
+      "userId": 1,
+      "projectId": 1
+    },
+    {
+      "id": 2,
+      "userId": 3,
+      "projectId": 1
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "projectId": 2
+    },
+    {
+      "id": 4,
+      "userId": 3,
+      "projectId": 2
+    },
+    {
+      "id": 5,
+      "userId": 3,
+      "projectId": 2
+    }
+  ],
+  "IslandChat": [],
+  "ProjectChat": [],
+  "IslandScout": [
+    {
+      "id": 1,
+      "islandId": 1,
+      "projectId": 1
     }
   ]
 }
