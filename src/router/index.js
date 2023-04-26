@@ -49,7 +49,7 @@ const router = createRouter({
       component: MyPageEdit,
     },
     {
-      path: "/othermypage",
+      path: "/othermypage/:userId/:islandId",
       name: "othermypageedit",
       component: OtherMyPage,
     },

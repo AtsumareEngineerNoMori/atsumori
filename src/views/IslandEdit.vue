@@ -40,6 +40,14 @@ function convertToBase64(file) {
   });
 }
 
+//デフォルトの画像
+const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
+
+//画像削除
+const removeIcon = () => {
+  Islands.value.icon = defaultIconURL;
+}
+
 //Island更新
 async function updateIslands() {
   try {
@@ -77,6 +85,7 @@ async function updateIslands() {
           id="icon_file"
           style="display: none"
         />
+        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">

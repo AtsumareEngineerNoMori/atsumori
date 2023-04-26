@@ -76,8 +76,6 @@ const defaultIconURL = "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAA
 const removeIcon = () => {
   User.value.icon = defaultIconURL;
 }
-
-
 //User更新
 async function updateUser() {
   try {
