@@ -43,6 +43,19 @@
     color: #4b7031;
     outline: 1px solid #4b7031;
   }
+  &__cansel_button {
+    padding: 1% 2%;
+    margin-left: auto;
+    margin-right: 50px;
+    width: 200px;
+    background-color: #703131;
+  }
+  &__cansel_button:hover {
+    cursor: pointer;
+    background-color: #ffff;
+    color: #703131;
+    outline: 1px solid #703131;
+  }
   &__editbutton {
     padding: 1% 2%;
     margin-left: auto;
