@@ -2,11 +2,7 @@
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 
-const img = {
-  icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-  name: "アイコン",
-};
-
+const Islands = ref(1); //?????
 //島情報取得
 const IslandId = ref(1); //firebaseでログインしてる人のIDが入る
 const Island = ref({
@@ -14,34 +10,41 @@ const Island = ref({
   islandName: "",
   comment: "",
 });
+const data = ref({
+  recruitTitle: "",
+  recruitJob: "",
+  recruitPoint: "",
+  createDate: "",
+});
+
 
 onMounted(async () => {
   try {
     const response = await fetch(
-      `http://localhost:8000/Islands/${IslandId.value}`
+      `http://localhost:8000/Islands/${Islands.value}`
     );
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
-    Island.value = await response.json();
-    console.log("User..valueの中身", Island.value.islandName);
+    Islands.value = await response.json();
+    console.log("Islands.valueの中身", Islands.value);
   } catch (err) {
     err.value = err;
     console.log("エラー", err.value);
   }
 });
 
+//icon選択
 async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
     const base64String = await convertToBase64(file);
-    Island.value.icon = base64String;
+    Islands.value.icon = base64String;
   } catch (error) {
     console.error(error);
   }
 }
-
 function convertToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -51,19 +54,60 @@ function convertToBase64(file) {
   });
 }
 
-//Islands更新
-async function updateIsland() {
+//RecruitNewUser更新
+const getFlight = async () => {
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+  const recruitNewUserData = await response.json();
+  console.log(recruitNewUserData);
+  data.value = recruitNewUserData;
+  console.log(data);
+};
+getFlight();
+
+//デフォルトの画像
+const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
+
+//画像削除
+const removeIcon = () => {
+  Islands.value.icon = defaultIconURL;
+}
+
+//Island更新
+async function updateIslands() {
+
   try {
     const response = await fetch(
-      `http://localhost:8000/Islands/${IslandId.value}`,
+      `http://localhost:8000/Islands/${Islands.value.id}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(Island.value),
+        body: JSON.stringify(Islands.value),
       }
     );
+
+    // recruitNewUser更新
+    const updateRecruitNewUser = () => {
+      fetch(`http://localhost:8000/RecruitNewUser/4`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          islandId: IslandId,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          islandName: Island.value.islandName,
+          islandIcon: Island.value.icon,
+          id: IslandId,
+        }),
+      });
+    };
+    updateRecruitNewUser();
+
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
@@ -76,11 +120,11 @@ async function updateIsland() {
 
 <template>
   <!-- 島編集画面 -->
-  <div class="edit">
-    <div class="edit__container">
+  <div class="mypage">
+    <div class="mypage__container">
       <div class="edit__column">
         <label for="icon_file">
-          <img :src="Island.icon" alt="" class="mypage__profileiconImg" />
+          <img :src="Islands.icon" alt="" class="mypage__profileiconImg" />
         </label>
         <input
           type="file"
@@ -88,36 +132,51 @@ async function updateIsland() {
           id="icon_file"
           style="display: none"
         />
+        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
           <p>島名：</p>
           <span
-            ><input type="text" v-model="Island.islandName" class="edit__input"
-          /></span>
-        </li>
-
-        <li class="mypage__item">
-          <span>ひとこと：</span>
-          <p>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="10"
+            ><input
+              type="text"
+              v-model="Islands.islandName"
               class="edit__input"
-              v-model="Island.comment"
-            ></textarea>
-          </p>
+          /></span>
+          <p>島詳細：</p>
+          <span
+            ><input
+              type="text"
+              v-model="Islands.islandDescription"
+              class="edit__input"
+          /></span>
         </li>
       </ul>
     </div>
+    <div class="edit__item">
+      <span>ひとこと：</span>
+      <p>
+        <textarea
+          cols="30"
+          rows="10"
+          class="edit__textarea"
+          v-model="Islands.comment"
+        ></textarea>
+      </p>
+    </div>
     <div class="edit__buttoncontainer">
+
       <router-link to="/show" class="edit__router"
         ><button class="edit__button_cansel">戻る</button></router-link
       >
-      <router-link to="/"  class="edit__router"> <button class="edit__button" @click="updateIsland">更新</button></router-link>
-     
+      <router-link to="/" class="edit__router">
+        <button class="edit__button" @click="updateIsland">
+          更新
+        </button></router-link
+      >
+
+      <button class="edit__button_cansel">戻る</button>
+      <button class="edit__button" @click="updateIslands">更新</button>
     </div>
   </div>
 </template>
