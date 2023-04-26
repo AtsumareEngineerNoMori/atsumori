@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-        <button @click="islandRegisterButton" class="IslandRegister-set-button">
+        <button class="IslandRegister-set-button">
           登録する
         </button>
     </div>
@@ -74,9 +74,12 @@ const iconFileName = vueref("");
 const file = vueref();
 const haveIcon = vueref(false);
 // const iconImg = vueref("../../../public/ha.png");
-const iconImg = vueref(
+const  iconImg = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
 );
+const firstIconImg = vueref(
+  "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
+)
 const today = vueref(new Date());
 
 console.log(today.value);
@@ -84,7 +87,7 @@ console.log(today.value);
 const island = reactive({
   id: "",
   islandName: "",
-  isIandDescription: "",
+  islandDescription: "",
   adminId: "",
   createDate: "",
   name:"",
@@ -97,6 +100,7 @@ const currentUserId = auth.currentUser?.uid;
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
   haveIcon.value = true;
+  console.log(haveIcon.value);
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
@@ -107,6 +111,8 @@ const previewImage = (event) => {
   console.log(file);
   console.log(iconFileName);
 };
+
+console.log(haveIcon.value);
 
 const islandRegisterButton = () => {
   // Storageにアイコン登録
@@ -122,7 +128,9 @@ const islandRegisterButton = () => {
       getDownloadURL(starsRef).then((url) => {
         console.log(url);
         iconImg.value = url;
-        console.log(iconImg.value);
+
+        console.log(haveIcon.value);
+        if(haveIcon){
         fetch("http://localhost:8000/Islands", {
           method: "POST",
           headers: {
@@ -130,12 +138,27 @@ const islandRegisterButton = () => {
           },
           body: JSON.stringify({
             islandName: island.name,
-            isIandDescription: island.description,
+            islandDescription: island.description,
             adminId: currentUserId,
             createDate: new Date(),
-            icon: url,
+            icon: iconImg.value,
           }),
         });
+      }else {
+        fetch("http://localhost:8000/Islands", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            islandName: island.name,
+            islandDescription: island.description,
+            adminId: currentUserId,
+            createDate: new Date(),
+            icon: firstIconImg.value,
+          }),
+        });
+      }
       });
     });
 };

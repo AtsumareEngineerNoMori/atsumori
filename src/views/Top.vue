@@ -84,15 +84,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-          <RouterLink to="/mypage">
-            <img
-              v-bind:src="infomation.icon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">{{ infomation.islandName }}</p>
-          </RouterLink>
-
+            <router-link
+              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.icon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">{{ infomation.islandName }}</p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -105,14 +106,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-          <RouterLink to="/mypage">
-            <img
-              v-bind:src="infomation.icon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">{{ infomation.projectName }}</p>
-          </RouterLink>
+            <router-link
+              :to="{ name: 'projectShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.icon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">{{ infomation.projectName }}</p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -127,16 +130,18 @@
             :key="infomation"
             class="top-new-set-item"
           >
-          <RouterLink to="/mypage">
-            <img
-              v-bind:src="infomation.islandIcon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">
-              {{ infomation.islandName }}
-            </p>
-          </RouterLink>
+            <router-link
+              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.islandIcon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">
+                {{ infomation.islandName }}
+              </p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -149,14 +154,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-          <RouterLink to="/mypage">
-            <img
-              v-bind:src="infomation.projectIcon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">{{ infomation.projectName }}</p>
-          </RouterLink>
+            <router-link
+              :to="{ name: 'projectShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.projectIcon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">{{ infomation.projectName }}</p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -225,7 +232,9 @@ function handleSubmit() {
 
 // 島
 const getIslands = async () => {
-  const response = await fetch(`http://localhost:8000/Islands/?_limit=6&_sort=createDate&_order=desc`);
+  const response = await fetch(
+    `http://localhost:8000/Islands/?_limit=6&_sort=createDate&_order=desc`
+  );
   const data = await response.json();
   console.log(data);
   newIslandArray.value = data;
@@ -234,7 +243,9 @@ getIslands();
 
 // プロジェクト
 const getProjects = async () => {
-  const response = await fetch(`http://localhost:8000/Projects/?_limit=6&_sort=createDate&_order=desc`);
+  const response = await fetch(
+    `http://localhost:8000/Projects/?_limit=6&_sort=createDate&_order=desc`
+  );
   const data = await response.json();
   console.log(data);
   newProjectArray.value = data;
@@ -267,7 +278,4 @@ const getRecruitProjects = async () => {
   newRecruitProjectArray.value = data;
 };
 getRecruitProjects();
-
-
-
 </script>

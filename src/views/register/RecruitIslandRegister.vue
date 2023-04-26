@@ -85,7 +85,12 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 const loading = vueref(false);
+
+// const projectId = route.params.id;
 const projectId = 4;
 
 const router = useRouter();
