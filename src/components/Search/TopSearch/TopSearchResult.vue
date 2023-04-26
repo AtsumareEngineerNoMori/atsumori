@@ -1,4 +1,4 @@
-<!-- TOPからの検索結果 -->
+<!-- ごみ -->
 <template>
   <div class="search">
     <section>
