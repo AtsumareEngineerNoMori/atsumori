@@ -88,7 +88,7 @@ import { reactive, ref as vueref } from "vue";
 const loading = vueref(false);
 
 // 前野ページからislandIdを取得
-const islandId = 12;
+const islandId = 4;
 
 const router = useRouter();
 const recruitUser = reactive({
@@ -100,7 +100,7 @@ const recruitUser = reactive({
 const islands = vueref();
 
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/Islands/12`);
+  const response = await fetch(`http://localhost:8000/Islands/4`);
   const data = await response.json();
   console.log(data);
   islands.value = data;
@@ -124,6 +124,7 @@ const recruitUserRegisterButton = () => {
       createDate: new Date(),
       islandName: islands.value.islandName,
       islandIcon: islands.value.icon,
+      id:islandId,
     }),
   });
 };
@@ -137,13 +138,13 @@ const registerRecruitUser = () => {
     window.alert("募集要項を登録してください");
   } else if (
     !recruitUser.recruitTitle.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
+      /^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,20})$/
     )
   ) {
     window.alert("募集タイトルは1文字以上20文字以下で入力してください");
   } else if (
     !recruitUser.recruitPoint.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
+      /^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,255})$/
     )
   ) {
     window.alert("募集要項は1文字以上255文字以下で入力してください");

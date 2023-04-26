@@ -14,6 +14,12 @@ const Island = ref({
   islandName: "",
   comment: "",
 });
+const data = ref({
+  recruitTitle: "",
+  recruitJob: "",
+  recruitPoint: "",
+  createDate: "",
+});
 
 onMounted(async () => {
   try {
@@ -51,6 +57,16 @@ function convertToBase64(file) {
   });
 }
 
+//RecruitNewUser更新
+const getFlight = async () => {
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+  const recruitNewUserData = await response.json();
+  console.log(recruitNewUserData);
+  data.value = recruitNewUserData;
+  console.log(data);
+};
+getFlight();
+
 //Islands更新
 async function updateIsland() {
   try {
@@ -64,6 +80,28 @@ async function updateIsland() {
         body: JSON.stringify(Island.value),
       }
     );
+
+    // recruitNewUser更新
+    const updateRecruitNewUser = () => {
+      fetch(`http://localhost:8000/RecruitNewUser/4`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          islandId: IslandId,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          islandName: Island.value.islandName,
+          islandIcon: Island.value.icon,
+          id: IslandId,
+        }),
+      });
+    };
+    updateRecruitNewUser();
+
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
@@ -116,8 +154,11 @@ async function updateIsland() {
       <router-link to="/show" class="edit__router"
         ><button class="edit__button_cansel">戻る</button></router-link
       >
-      <router-link to="/"  class="edit__router"> <button class="edit__button" @click="updateIsland">更新</button></router-link>
-     
+      <router-link to="/" class="edit__router">
+        <button class="edit__button" @click="updateIsland">
+          更新
+        </button></router-link
+      >
     </div>
   </div>
 </template>

@@ -66,8 +66,9 @@
 
 
 .headerModal__menu{
-    width: 50%;
-    height: 50%;
+    width: 30%;
+    height: 30%;
+    margin-right: 10%;
 }
 
 .headerModal__a{
