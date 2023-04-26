@@ -240,11 +240,11 @@ const getRecruitIslands = async () => {
   const data = await response.json();
   console.log(data);
   newRecruitIslandArray.value = data;
-  console.log(typeof data[0].createDate)
-  console.log(data[0].createDate)
-  newRecruitIslandArray.value.sort(
-      (x, y) => (y.createDate) - (x.createDate),
-  )
+  // console.log(typeof data[0].createDate)
+  // console.log(data[0].createDate)
+  // newRecruitIslandArray.value.sort(
+  //     (x, y) => (y.createDate) - (x.createDate),
+  // )
 };
 getRecruitIslands();
 
