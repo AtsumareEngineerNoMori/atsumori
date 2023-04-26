@@ -370,7 +370,7 @@
   width: 1000px;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: #fffcf4;
   padding-top: 15px;
   padding-bottom: 40px;
 }
@@ -378,8 +378,6 @@
   display: flex;
 }
 .mypage__profileiconImg {
-  width: 200px;
-  height: 200px;
   width: 170px;
   height: 170px;
   border: 2px solid;
@@ -389,6 +387,7 @@
 }
 .mypage__profileiconImg:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 .mypage__item {
   padding: 0 20px;
@@ -409,8 +408,8 @@
 .mypage__button:hover {
   cursor: pointer;
   background-color: white;
-  color: #4B7031;
-  outline: 1px solid #4B7031;
+  color: #4b7031;
+  outline: 1px solid #4b7031;
 }
 .mypage__editbutton {
   padding: 1% 2%;
@@ -420,8 +419,8 @@
 .mypage__editbutton:hover {
   cursor: pointer;
   background-color: white;
-  color: #4B7031;
-  outline: 1px solid #4B7031;
+  color: #4b7031;
+  outline: 1px solid #4b7031;
 }
 .mypage__morebutton {
   padding: 1% 2%;
@@ -430,23 +429,22 @@
 .mypage__morebutton:hover {
   cursor: pointer;
   background-color: white;
-  color: #4B7031;
-  outline: 1px solid #4B7031;
+  color: #4b7031;
+  outline: 1px solid #4b7031;
 }
 .mypage__container {
   display: grid;
-  grid-template-columns: 50% 40%;
+  grid-template-columns: 40% 50%;
   margin-top: 30px;
-  -moz-column-gap: 10%;
-       column-gap: 10%;
-  display: flex;
+  -moz-column-gap: 5%;
+       column-gap: 5%;
 }
 .mypage__column {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-left: 200px;
+  padding-left: 100px;
   height: 250px;
 }
 .mypage__column2 {
@@ -473,12 +471,48 @@
 }
 .mypage__iconImg:hover {
   cursor: pointer;
+  opacity: 0.7;
 }
 .mypage__table {
   margin-top: 60px;
   margin-left: 4%;
 }
 
+.edit {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fffcf4;
+  padding-top: 100px;
+  padding-bottom: 40px;
+}
+.edit__container {
+  display: grid;
+  grid-template-columns: 50% 40%;
+  margin-top: 30px;
+  -moz-column-gap: 10%;
+       column-gap: 10%;
+  display: flex;
+}
+.edit__column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-left: 50px;
+  height: 500px;
+}
+.edit__column2 {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 500px;
+  padding: 20px;
+  padding-top: 50px;
+  margin-right: auto;
+  flex-grow: 1;
+}
 .edit__input {
   float: left;
   width: 450px;
@@ -489,6 +523,7 @@
   border-radius: 0.3rem;
   background: #e0e0e0;
   color: #7a7a7a;
+  margin-bottom: 40px;
 }
 .edit__textarea {
   float: left;
@@ -530,12 +565,9 @@
 }
 .edit__button:hover {
   cursor: pointer;
-}
-.edit__button:hover :hover {
-  cursor: pointer;
   background-color: white;
-  color: #4B7031;
-  outline: 1px solid #4B7031;
+  color: #4b7031;
+  outline: 1px solid #4b7031;
 }
 .edit__button_cansel {
   padding: 1% 2%;
@@ -545,12 +577,15 @@
 }
 .edit__button_cansel:hover {
   cursor: pointer;
+  background-color: white;
+  color: rgb(167, 167, 167);
+  outline: 1px solid rgb(167, 167, 167);
 }
 .edit__buttoncontainer {
   display: flex;
   width: 400px;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 100px;
 }
 .edit__label {
   margin: 8px;
@@ -638,56 +673,6 @@ button {
   border: none;
   padding: 5% 10%;
   font-weight: bold;
-}
-
-.request {
-  text-align: center;
-  margin: auto;
-  padding-bottom: 50px;
-  background-color: #ffffff;
-}
-.request__container {
-  margin-top: 50px;
-}
-.request__title {
-  font-size: 30px;
-}
-.request__detail {
-  width: 80%;
-  padding-bottom: 30px;
-  margin: auto;
-}
-.request__input {
-  width: 450px;
-  max-width: 100%;
-  border: none;
-  margin: 0.5rem 0;
-  padding: 0.5rem 1rem;
-  border-radius: 0.3rem;
-  background: #e0e0e0;
-  color: #7a7a7a;
-}
-.request__item {
-  margin: 10px;
-}
-.request__agree {
-  margin-top: 30px;
-}
-.request__button {
-  padding: 1% 2%;
-  margin-top: 30px;
-  width: 100px;
-  background-color: #4B7031;
-}
-.request__button:hover {
-  cursor: pointer;
-  background-color: white;
-  color: #4B7031;
-  outline: 1px solid #4B7031;
-}
-.request__disabled {
-  opacity: 0.5;
-  pointer-events: none;
 }
 
 .list {
@@ -1103,8 +1088,10 @@ button {
   opacity: 0.9;
 }
 .header-logo {
-  width: 10%;
-  height: 10%;
+  width: 15%;
+  height: 15%;
+  margin-bottom: -24px;
+  margin-top: -23px;
 }
 
 .IslandRegister {
@@ -1449,6 +1436,11 @@ button {
 }
 .top-search-button {
   padding: 1%;
+  border: 3px dashed #4B7031;
+  background-color: #4B7031;
+  color: white;
+  font-weight: bold;
+  border-radius: 20%;
 }
 .top-search-button:hover {
   opacity: 0.6;

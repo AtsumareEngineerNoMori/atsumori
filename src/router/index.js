@@ -50,8 +50,8 @@ const router = createRouter({
       component: MyPageEdit,
     },
     {
-      path: "/othermypage/:id",
-      name: "othermypage",
+      path: "/othermypage/:userId/:islandId",
+      name: "othermypageedit",
       component: OtherMyPage,
     },
     {
@@ -65,7 +65,7 @@ const router = createRouter({
       component: IslandEdit,
     },
     {
-      path: "/prijectEdit",
+      path: "/projectEdit",
       name: "projectEdit",
       component: ProjectEdit,
     },
@@ -107,7 +107,7 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
-      path: "/recruitIslandRegister",
+      path: "/recruitIslandRegister/:id",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,
     },
