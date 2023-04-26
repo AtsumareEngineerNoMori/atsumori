@@ -118,7 +118,8 @@ const getJoinIsland = async (island) => {
           </div>
         </li>
       </div>
-      <button class="mypage__morebutton">もっと見る</button>
+      <button v-if="islandData.length >=5 " class="mypage__morebutton">もっと見る</button>
+
     </div>
   </div>
 </template>
