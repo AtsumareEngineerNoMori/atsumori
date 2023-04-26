@@ -1,7 +1,8 @@
 <template>
   <div class="IslandRegister">
-    <hi class="IslandRegister-title">島登録</hi>
+    <h1 class="IslandRegister-title">島登録</h1>
 
+    <form @submit.prevent="registerIsland">
     <div class="IslandRegister-set">
       <div>
         <div class="IslandRegister-details">
@@ -47,17 +48,16 @@
           </div>
         </div>
       </div>
-
-      <RouterLink to="/top">
         <button @click="islandRegisterButton" class="IslandRegister-set-button">
           登録する
         </button>
-      </RouterLink>
     </div>
+    </form>
   </div>
 </template>
 
 <script setup>
+import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";
 import { storage } from "../../../firebase";
@@ -67,7 +67,9 @@ import {
   ref,
   getStorage,
 } from "firebase/storage";
+import ProjectChat from "../chat/projectChat.vue";
 
+const router = useRouter();
 const iconFileName = vueref("");
 const file = vueref();
 const haveIcon = vueref(false);
@@ -85,6 +87,8 @@ const island = reactive({
   isIandDescription: "",
   adminId: "",
   createDate: "",
+  name:"",
+  description:""
 });
 
 const auth = getAuth();
@@ -134,43 +138,28 @@ const islandRegisterButton = () => {
         });
       });
     });
-
-  // .then(() => {
-  //   if (
-  //     iconImg.value !==
-  //     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
-  //   ) {
-  //     console.log("新しいアイコン")
-  //     console.log(iconImg.value)
-  //     fetch("http://localhost:8000/Islands", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         islandName: island.name,
-  //         isIandDescription: island.description,
-  //         adminId: currentUserId,
-  //         createDate: new Date(),
-  //         icon: iconImg.value,
-  //       }),
-  //     });
-  //   } else {
-  //     console.log("初期表示")
-  //     fetch("http://localhost:8000/Islands", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         islandName: island.name,
-  //         isIandDescription: island.description,
-  //         adminId: currentUserId,
-  //         createDate: new Date(),
-  //         icon: iconImg.value,
-  //       }),
-  //     });
-  //   }
-  // });
 };
+
+const registerIsland = () =>{
+  if(island.name === "") {
+    window.alert("島の名前を登録してください");
+  }else if(island.description === ""){
+    window.alert("島の情報を登録してください");
+  } else if (
+    !island.name.match(
+      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
+    )
+  ) {
+    window.alert("島の名前は1文字以上20文字以下で入力してください");
+  }else if (
+    !island.description.match(
+      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
+    )
+  ) {
+    window.alert("島の情報は1文字以上255文字以下で入力してください");
+  }else{
+    islandRegisterButton();
+    router.push("/top");
+  }
+}
 </script>

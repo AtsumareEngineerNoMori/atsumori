@@ -1,7 +1,7 @@
 <template>
   <div class="loginPage">
     <div class="loginPage-logo">
-      <img src="../../public/atsumare engimeer no Mori.png" />
+      <img src="../../public/atsumori.png" />
     </div>
 
     <div class="loginPage-text">
@@ -30,13 +30,6 @@ const loginButton = async () => {
   try {
     await signInWithEmailAndPassword(auth, user.email, user.password).then(
       () => {
-        // if (referrer.path === "/top") {
-        //   router.push("/top");
-        // } else if (referrer.path === "/top") {
-        //   router.push("/top");
-        // } else {
-        //   router.push("/top");
-        // }
         router.push("/top");
         console.log("ログインできました")
       }
