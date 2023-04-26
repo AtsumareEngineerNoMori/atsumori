@@ -1,5 +1,4 @@
 <script setup>
-import { useRouter } from "vue-router";
 import "../../css/main.css";
 
 //チャットテーブルとユーザーテーブルを結合して、島詳細から島idを受け取り、等しいデータだけ取得する
@@ -54,15 +53,16 @@ const array = [
     createDate: "2023-04-18 09:20:00",
     message: "こんにちは",
   },
-  // {
-  //   id: 6,
-  //   userId: "1234567890abcdefgh1234567890",
-  //   userIcon:"https://2.bp.blogspot.com/-EpFA_dP5qi8/UNvss9CZLxI/AAAAAAAAJrE/9EN7-85gOlM/s1600/music_acostic_guitar.png",
-  //   name:"とたけけ",
-  //   islandId: 2,
-  //   createDate: "2023-04-18 10:00:00",
-  //   message: "島2!",
-  // },
+  {
+    id: 6,
+    userId: "12345678901234567890abcdefgh",
+    userIcon:
+      "https://2.bp.blogspot.com/-uoj7bbsM5AA/WBsA4BSa9mI/AAAAAAAA_XM/-Z7iyv23qpox9VgA0Drt354rqun61oSHgCLcB/s200/simple_leaf8.png",
+    name: "たぬきち",
+    islandId: 1,
+    createDate: "2023-04-18 09:00:00",
+    message: "何かボクに相談だなも？なんでも気軽に聞いてちょうだい！",
+  },
 ];
 
 // 島の情報も別で取得する
@@ -71,57 +71,62 @@ const islandList = {
   icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
   islandName: "島",
 };
-// {
-//   id: 2,
-//   icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-//   islandName: "島2",
-// },
-// ];
-
-const router = useRouter();
 </script>
 
+<!-- iconと名前からユーザーのマイページにリンク飛ばす -->
 <template>
   <div class="chat">
-  <!-- <button @click="$router.back()" class="">戻る</button> -->
-  <div class="chat__header">
-    <img :src="islandList.icon" alt="icon" class="chat__islandIcon" />
-    <p class="chat__islandName">{{ islandList.islandName }}</p>
-  </div>
-  <section v-for="chat in array" :key="chat" class="chat__messageWrapper">
-    <div
-      v-if="chat.userId === '12345678901234567890abcdefgh'"
-      class="chat__messageWrapper-myMessage"
-    >
-      <!-- <div class="chat__messageWrapper-myMessage-user"> -->
-        <img
-          :src="chat.userIcon"
-          alt="userIcon"
-          class="chat__messageWrapper-userIcon"
-        />
-        <div>
-        <p class="chat__messageWrapper-myMessage-userName">{{ chat.name }}</p>
-      <!-- </div> -->
-      <div class="chat__messageWrapper-myComment">
-        <p class="chat__messageWrapper-myComment-text">{{ chat.message }}</p>
-      </div>
+    <div class="chat__header">
+      <img :src="islandList.icon" alt="icon" class="chat__icon" />
+      <p class="chat__name">{{ islandList.islandName }}</p>
     </div>
-    </div>
-    <div v-else class="chat__messageWrapper-otherMessage">
-      <img
-        :src="chat.userIcon"
-        alt="userIcon"
-        class="chat__messageWrapper-userIcon"
-      />
-      <div>
-        <p class="chat__messageWrapper-otherMessage-userName">{{ chat.name }}</p>
-        <div class="chat__messageWrapper-otherComment">
-          <p class="chat__messageWrapper-otherComment-text">{{ chat.message }}</p>
+    <section class="chat__messageWrapper">
+      <div v-for="chat in array" :key="chat">
+        <div
+          v-if="chat.userId === '12345678901234567890abcdefgh'"
+          class="chat__messageWrapper-myMessage"
+        >
+          <img
+            :src="chat.userIcon"
+            alt="userIcon"
+            class="chat__messageWrapper-userIcon"
+          />
+          <div>
+            <p class="chat__messageWrapper-myMessage-userName">
+              {{ chat.name }}
+            </p>
+            <div class="chat__messageWrapper-myComment">
+              <p class="chat__messageWrapper-myComment-text">
+                {{ chat.message }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div v-else class="chat__messageWrapper-otherMessage">
+          <img
+            :src="chat.userIcon"
+            alt="userIcon"
+            class="chat__messageWrapper-userIcon"
+          />
+          <div>
+            <p class="chat__messageWrapper-otherMessage-userName">
+              {{ chat.name }}
+            </p>
+            <div class="chat__messageWrapper-otherComment">
+              <p class="chat__messageWrapper-otherComment-text">
+                {{ chat.message }}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-<textarea name="" id="" placeholder="入力してください" class="chat__textarea"></textarea>
-<button class="chat__submitBtn">送信</button>
-</div>
+    </section>
+    <textarea
+      name=""
+      id=""
+      placeholder="入力してください"
+      class="chat__textarea"
+    ></textarea>
+    <button class="chat__submitBtn">送信</button>
+  </div>
 </template>
