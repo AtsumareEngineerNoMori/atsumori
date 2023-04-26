@@ -437,7 +437,10 @@
 }
 .mypage__morebutton {
   padding: 1% 2%;
-  margin-left: 60px;
+  margin-left: auto;
+  position: absolute;
+  right: 35px;
+  bottom: 100px;
 }
 .mypage__morebutton:hover {
   cursor: pointer;
@@ -479,8 +482,8 @@
   position: relative;
 }
 .mypage__iconImg {
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
 }
 .mypage__iconImg:hover {
   cursor: pointer;
@@ -489,6 +492,7 @@
 .mypage__table {
   margin-top: 60px;
   margin-left: 4%;
+  position: relative;
 }
 
 .edit {

@@ -77,39 +77,78 @@ const scouted = ref(false);
 
 //スカウト申請
 async function Scout() {
-  // try {
-  //   const response = await fetch(
-  //     `http://localhost:8000/UserScout`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         userId: userId,
-  //         islandId: islandId,
-  //       })
-  //     }
-  //   );
-  //   if (!response.ok) {
-  //     throw new Error(`HTTPエラーです！！！: ${response.status}`);
-  //   }
-  //   console.log("更新！！！！");
-  // } catch (err) {
-  //   console.log("更新できません", err);
-  // }
+  try {
+    const response = await fetch(
+      `http://localhost:8000/UserScout`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: userId,
+          islandId: islandId,
+        })
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTPエラーです！！！: ${response.status}`);
+    }
+    console.log("更新！！！！");
+  } catch (err) {
+    console.log("更新できません", err);
+  }
   scouted.value = true
 }
 
-async function ScoutCansel() {
-  scouted.value = false
+//userIdとislandIsと同じスカウトを探す
+async function findScout() {
+  try {
+    const response = await fetch(`http://localhost:8000/UserScout`);
+    const data = await response.json();
+
+    const matchingId = data.find(
+      (item) => item.userId === userId && item.islandId === islandId
+    )?.id;
+
+    if (!matchingId) {
+      console.log("同じデータはありません");
+      return;
+    }
+
+    await ScoutCansel(matchingId);
+  } catch (err) {
+    console.log("エラーです", err);
+  }
 }
+
+async function ScoutCansel(id) {
+  scouted.value = false
+  try {
+    const response = await fetch(
+      `http://localhost:8000/UserScout/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTPエラーです！！！: ${response.status}`);
+    }
+    console.log("更新！！！！");
+  } catch (err) {
+    console.log("更新できません", err);
+  }
+}
+
 </script>
 
 <template>
   <div class="mypage">
     <button v-if="!scouted" class="mypage__button" @click="Scout">スカウトする</button>
-    <button v-else class="mypage__cansel_button" @click="ScoutCansel">スカウトをやめる</button>
+    <button v-else class="mypage__cansel_button" @click="findScout">スカウトをやめる</button>
     <div class="mypage__container">
       <div class="mypage__column">
         <span
@@ -136,8 +175,8 @@ async function ScoutCansel() {
 
     <!-- 島一覧 -->
     <div class="mypage__table">
-      <div class="mypage__div">島一覧</div>
-      <div v-for="island in islandData" :key="island.id" class="mypage__lists">
+      <div class="mypage__div">参加島一覧</div>
+      <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
             <router-link to="/">
@@ -151,7 +190,7 @@ async function ScoutCansel() {
           </div>
         </li>
       </div>
-      <button class="mypage__morebutton">もっと見る</button>
+      <button v-if="islandData.length >=5 " class="mypage__morebutton">もっと見る</button>
     </div>
   </div>
 </template>
