@@ -1,10 +1,27 @@
 <script setup>
-import { ref } from "vue";
+import { watch, ref } from "vue";
+// import { getAuth } from "@firebase/auth";
 
 const isShow = ref(false);
+
+const props = defineProps({
+  projectId: Number,
+});
+
+// モーダル表示切り替え
 const toggleStatus = () => {
   isShow.value = !isShow.value;
 };
+
+watch(props, async () => {
+  // const auth = getAuth();
+  // const myId = auth.currentUser?.uid;
+  const myId = 1;
+
+  const joinIslands = await fetch(
+    `http://localhost:8000/JoinIslands?userId=${myId}`
+  ).then((res) => res.json());
+});
 </script>
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">
@@ -28,7 +45,7 @@ const toggleStatus = () => {
         </main>
 
         <footer class="modal__footer">
-          <button class="entryModal__btn">参加</button>
+          <button class="entryModal__btn">申請</button>
           <button
             @click="toggleStatus"
             class="modal__btn"
@@ -47,6 +64,6 @@ const toggleStatus = () => {
     data-micromodal-trigger="modal-1"
     href="javascript:;"
   >
-    <button class="btn">プロジェクト申請</button>
+    <button class="showBtn showEntry">プロジェクト申請</button>
   </a>
 </template>

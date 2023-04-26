@@ -5,7 +5,6 @@
   border-color: green;
   border-radius: 50%;
 }
-// 管理者専用モーダル
 .material-symbols-rounded {
   color: white;
   &:hover {
@@ -13,7 +12,7 @@
   }
 }
 
-.detail {
+.projectDetail {
   width: 100%;
   margin: 0;
   background-color: #fffcf4;
@@ -33,7 +32,7 @@
       left: 50px;
 
       &__text {
-        margin-top: 10px;
+        margin-top: 20px;
         text-align: center;
         font-weight: bold;
         &__name {
@@ -44,15 +43,6 @@
           color: rgba(169, 169, 169, 1);
           line-height: 7px;
           margin: 10px;
-        }
-        &__asign {
-          margin-top: 15px;
-          &__a {
-            font-size: small;
-            color: #1e90ff;
-            text-decoration: underline;
-            cursor: pointer;
-          }
         }
       }
     }
@@ -66,14 +56,14 @@
 
   &__btn {
     text-align: center;
-    margin-top: 55px;
+    margin-top: 70px;
   }
 
   &__desc {
     position: relative;
-    margin: auto;
-    margin-top: 42px;
-    width: 40%;
+    margin-left: 100px;
+    margin-top: 80px;
+    width: 60%;
 
     &__title {
       position: absolute;
@@ -99,85 +89,18 @@
       padding-right: 10px;
       width: 100%;
       z-index: 10;
-
-      &__title {
-        font-size: 16px;
-        font-weight: bolder;
-      }
     }
   }
 
   &__member {
     position: absolute;
-    top: 400px;
-    right: 30px;
+    top: 370px;
+    right: 20px;
     width: 25%;
-    border: 3px solid green;
-  }
-
-  &__scout {
-    position: absolute;
-    top: 550px;
-    left: 30px;
-    width: 25%;
+    border: 2px solid green;
   }
 }
 
-// サイドバー（左）
-.scout {
-  border: 3px solid green;
-  &__title {
-    text-align: center;
-    margin: 5px;
-    font-weight: bold;
-  }
-  &__content {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-
-    &__icon {
-      width: 50px;
-      height: 50px;
-      border: 2px solid;
-      border-color: green;
-      border-radius: 50%;
-      margin: 0 20px 0 10px;
-      cursor: pointer;
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-    &__name {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 40%;
-    }
-  }
-  &__btn {
-    margin: 10px 0 20px;
-    display: flex;
-    justify-content: center;
-
-    &__yes {
-      padding: 5px 10px;
-      margin-right: 10px;
-      cursor: pointer;
-      &:hover {
-        background-color: #ffff;
-        color: #4b7031;
-        outline: 1px solid #4b7031;
-      }
-    }
-    & a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-left: 10px;
-    }
-  }
-}
 .material-symbols-outlined {
   &.no {
     color: red;
@@ -185,7 +108,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     &:hover {
       transform: scale(1.05);
     }

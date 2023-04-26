@@ -1,0 +1,8 @@
+.showBtn {
+  cursor: pointer;
+  &:hover {
+    background-color: #ffff;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
+  }
+}

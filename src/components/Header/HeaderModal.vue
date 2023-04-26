@@ -53,7 +53,7 @@ const logout = async () => {
     </div>
   </div>
   <a
-  v-on:click="toggleStatus"
+    @click="toggleStatus"
     data-micromodal-trigger="modal-1"
     href="javascript:;"
     class="headerModal__a"
