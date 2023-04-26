@@ -25,6 +25,7 @@ $basecolor_brown: #af7a20;
   }
   &_list {
     display: flex;
+    flex-wrap: wrap;
   }
   &_recinfo{
     text-align: center;
