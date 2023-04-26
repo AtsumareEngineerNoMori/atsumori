@@ -1,5 +1,4 @@
 <script setup>
-// import { onMounted } from "vue";
 import { promiseImpl } from "ejs";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
@@ -69,36 +68,10 @@ const getJoinIsland = async (island) => {
   console.log("islandDATA~~~~", islandData.value);
 };
 
-const IslandId = ref(1);
-//スカウト申請
-async function Scout() {
-  try {
-    const response = await fetch(
-      `http://localhost:8000/UserScout`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          islandId: islandId,
-        })
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTPエラーです！！！: ${response.status}`);
-    }
-    console.log("更新！！！！");
-  } catch (err) {
-    console.log("更新できません", err);
-  }
-}
 </script>
 
 <template>
   <div class="mypage">
-    <button class="mypage__button" @click="Scout">スカウトする</button>
     <div class="mypage__container">
       <div class="mypage__column">
         <span
@@ -142,27 +115,5 @@ async function Scout() {
       </div>
       <button class="mypage__morebutton">もっと見る</button>
     </div>
-
-    <!-- プロジェクト一覧 -->
-    <!-- <div class="mypage__table">
-      <p>プロジェクト一覧</p>
-      <div
-        v-for="project in PJData"
-        :key="project"
-        class="mypage__lists"
-      >
-        <li>
-          <div class="mypage__spase">
-            <img
-              v-bind:src="project.icon"
-              alt="projecticon"
-              class="mypage__iconImg"
-            />
-            <p>{{ project.projectName }}</p>
-          </div>
-        </li>
-      </div>
-      <button class="mypage__morebutton">もっと見る</button>
-    </div> -->
   </div>
 </template>
