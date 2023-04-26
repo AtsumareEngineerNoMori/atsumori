@@ -5,9 +5,8 @@ import Loading from "../components/Loading.vue";
 import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
 import { useRouter } from "vue-router";
 
-const router = useRouter();
 
-// joinIslandsから取得したuserIdが等しいデータを保管
+const router = useRouter();
 const joinList = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
 const islandData = ref([]);

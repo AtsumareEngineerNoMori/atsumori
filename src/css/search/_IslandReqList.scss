@@ -13,6 +13,9 @@ $basecolor_brown: #af7a20;
     width: 90%;
     margin: 2%;
   }
+  &_no{
+    margin: auto;
+  }
   &_btn {
     &:hover {
       background-color: #ffff;
