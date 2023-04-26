@@ -82,7 +82,7 @@ const scout = async (projectId) => {
     </p>
     <div v-for="project in projects">
       <div class="scout__content">
-        <router-link to="/">
+        <router-link to="/top">
           <img
             src="../../../public/beach-1824855_1920.jpg"
             class="scout__content__icon"

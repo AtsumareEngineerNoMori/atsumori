@@ -1,7 +1,7 @@
 import { getAuth } from "@firebase/auth";
 
 // ログイン中Id
-const myId = 5;
+const myId = 6;
 // const auth = getAuth();
 // const myId = auth.currentUser?.uid;
 

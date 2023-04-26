@@ -2,6 +2,7 @@
 import { watch, ref } from "vue";
 import { joinJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
+import { getAuth } from "@firebase/auth";
 
 // 1.参加者　2.未参加者　3.スカウト
 const props = defineProps({
@@ -26,32 +27,56 @@ watch(props, async () => {
     const joinDatas = await fetch(
       `http://localhost:8000/JoinIslands?islandId=${id}`
     ).then((res) => res.json());
-    console.log(joinDatas);
 
     const joinIds = [];
     joinDatas.forEach((joinData) => {
       joinIds.push(joinData.userId);
     });
-    console.log(joinIds);
 
     userJudge.value = joinJudge(joinIds);
   }
 });
+
+// 遷移
+const islandChatRouter = () => {
+  router.push({ name: "islandChat", params: { id: props.islandId } });
+};
+
+const auth = getAuth();
+const myId = auth.currentUser?.uid;
+const recruitRouter = () => {
+  router.push({
+    name: "islandadmissionrequest",
+    params: { islandId: props.islandId, userId: myId },
+  });
+};
+
+const scoutRouter = () => {
+  router.push({
+    name: "islandadmissionrequest",
+    params: { islandId: props.islandId, userId: myId },
+  });
+}
 </script>
 
 <template>
   <div>
-    <router-link to="/">
-      <button v-show="userJudge === 1" class="showBtn showChat">
-        チャット
-      </button>
-    </router-link>
-    <router-link to="/">
-      <button v-show="userJudge === 2" class="showBtn showEntry">
-        移住申請
-      </button>
-    </router-link>
+    <button
+      v-show="userJudge === 1"
+      @click="islandChatRouter"
+      class="showBtn showChat"
+    >
+      チャット
+    </button>
 
-    <button v-show="userJudge === 3" class="showBtn showScout">スカウト</button>
+    <button
+      v-show="userJudge === 2"
+      @click="recruitRouter"
+      class="showBtn showEntry"
+    >
+      移住申請
+    </button>
+
+    <button v-show="userJudge === 3"  @click="scoutRouter" class="showBtn showScout">スカウト</button>
   </div>
 </template>

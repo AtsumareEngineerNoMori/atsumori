@@ -77,7 +77,7 @@ onMounted(async () => {
     </div>
 
     <div class="projectDetail__btn">
-      <ShowBtn :userIds="userIds" :projectId="project.id"/>
+      <ShowBtn :userIds="userIds" :projectId="project.id" />
     </div>
 
     <div class="projectDetail__desc">

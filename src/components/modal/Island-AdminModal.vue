@@ -69,10 +69,10 @@ const deleteIsland = () => {
 
 // 遷移
 const editRouter = () => {
-  router.push({ name: "projectShow", params: { id: props.islandId } });
+  router.push({ name: "islandEdit", params: { id: props.islandId } });
 };
 const recruitRouter = () => {
-  router.push({ name: "", params: { id: props.islandId } });
+  router.push({ name: "recruitUserRegister", params: { id: props.islandId } });
 };
 </script>
 <template>

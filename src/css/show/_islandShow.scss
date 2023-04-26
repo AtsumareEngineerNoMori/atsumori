@@ -45,6 +45,15 @@
           line-height: 7px;
           margin: 10px;
         }
+        &__asign {
+          margin-top: 15px;
+          &__a {
+            font-size: small;
+            color: #1e90ff;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
       }
     }
 
@@ -86,7 +95,15 @@
       border: 5px dashed lawngreen;
       top: 30px;
       padding-top: 40px;
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
       z-index: 10;
+
+      &__title {
+        font-size: 16px;
+        font-weight: bolder;
+      }
     }
   }
 
@@ -100,7 +117,7 @@
 
   &__scout {
     position: absolute;
-    top: 520px;
+    top: 550px;
     left: 30px;
     width: 25%;
   }

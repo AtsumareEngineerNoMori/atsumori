@@ -45,6 +45,15 @@
   line-height: 7px;
   margin: 10px;
 }
+.detail__user__icon__text__asign {
+  margin-top: 15px;
+}
+.detail__user__icon__text__asign__a {
+  font-size: small;
+  color: #1e90ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
 .detail__user__setting {
   position: absolute;
   top: 120px;
@@ -80,7 +89,14 @@
   border: 5px dashed lawngreen;
   top: 30px;
   padding-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
   z-index: 10;
+}
+.detail__desc__text__title {
+  font-size: 16px;
+  font-weight: bolder;
 }
 .detail__member {
   position: absolute;
@@ -91,7 +107,7 @@
 }
 .detail__scout {
   position: absolute;
-  top: 520px;
+  top: 550px;
   left: 30px;
   width: 25%;
 }
@@ -246,6 +262,8 @@
   border: 5px dashed lawngreen;
   top: 30px;
   padding-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
   width: 100%;
   z-index: 10;
 }

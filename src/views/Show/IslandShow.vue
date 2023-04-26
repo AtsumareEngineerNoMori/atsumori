@@ -5,14 +5,17 @@ import SideScout from "../../components/islandShow/SideScout.vue";
 import ShowBtn from "../../components/islandShow/ShowBtn.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 const island = ref([]);
 const adminId = ref(null);
 const adminName = ref();
 const userJudges = ref(null);
+const Recruits = ref([]);
+const RecruitIshow = ref(false);
 
 onMounted(async () => {
   const id = route.params.id;
@@ -29,7 +32,20 @@ onMounted(async () => {
     `http://localhost:8000/Users/${islandData.adminId}`
   ).then((res) => res.json());
   adminName.value = adminData.name;
+
+  const Recruit = await fetch(
+    `http://localhost:8000/RecruitNewUser?islandId=${id}`
+  ).then((res) => res.json());
+
+  if (Recruit.length >= 1) {
+    RecruitIshow.value = true;
+    Recruits.value = Recruit[0];
+  }
 });
+
+const joinProject = () => {
+  router.push({ name: "joinProject", params: { id: island.value.id } });
+};
 </script>
 
 <template>
@@ -47,6 +63,11 @@ onMounted(async () => {
             <span class="detail__user__icon__text__admin">管理者</span>
             <span>{{ adminName }}</span>
           </div>
+          <div class="detail__user__icon__text__asign">
+            <a @click="joinProject" class="detail__user__icon__text__asign__a"
+              >参加プロジェクト一覧へ
+            </a>
+          </div>
         </div>
       </div>
 
@@ -61,7 +82,16 @@ onMounted(async () => {
 
     <div class="detail__desc">
       <p class="detail__desc__title">島情報</p>
-      <p class="detail__desc__text">{{ island.islandDescription }}</p>
+      <div class="detail__desc__text">
+        <p class="detail__desc__text__title">【詳細情報】</p>
+        {{ island.islandDescription }}
+
+        <div v-show="RecruitIshow">
+          <p class="detail__desc__text__title">【募集内容】</p>
+          <p>{{ Recruits.recruitTitle }}</p>
+          <p>{{ Recruits.recruitPoint }}</p>
+        </div>
+      </div>
     </div>
 
     <div class="detail__member">

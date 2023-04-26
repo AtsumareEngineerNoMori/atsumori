@@ -96,12 +96,12 @@ const Asign = async (userId) => {
   <div class="member">
     <p class="member__title">メンバー</p>
     <div v-for="user in users" class="member__content">
-      <!-- <router-link :to="{ name: 'othermypage', params: { id: user.id } }"> -->
-      <img
-        src="../../../public/beach-1824855_1920.jpg"
-        class="member__content__icon"
-      />
-      <!-- </router-link> -->
+      <router-link :to="{ name: 'othermypage', params: { id: user.id } }">
+        <img
+          src="../../../public/beach-1824855_1920.jpg"
+          class="member__content__icon"
+        />
+      </router-link>
       <span class="member__content__name">{{ user.name }}</span>
     </div>
 
@@ -109,14 +109,14 @@ const Asign = async (userId) => {
     <div v-show="userJudges === 1">
       <p class="member__title">許可待ちメンバー</p>
       <div v-for="requestUser in requestUsers" class="member__content">
-        <!-- <router-link
+        <router-link
           :to="{ name: 'othermypage', params: { id: requestUser.id } }"
-        > -->
-        <img
-          src="../../../public/beach-1824855_1920.jpg"
-          class="member__content__icon asign"
-        />
-        <!-- </router-link> -->
+        >
+          <img
+            src="../../../public/beach-1824855_1920.jpg"
+            class="member__content__icon asign"
+          />
+        </router-link>
         <span class="member__content__name">{{ requestUser.name }}</span>
         <div class="member__content__btn">
           <button
@@ -134,7 +134,7 @@ const Asign = async (userId) => {
 
     <!-- v-showで切り替え -->
     <div v-show="userJudges === 1 || userJudges === 2" class="member__btn">
-      <router-link to="/">
+      <router-link to="/top">
         <button type="button" class="member__btn__scout">スカウト</button>
       </router-link>
     </div>
