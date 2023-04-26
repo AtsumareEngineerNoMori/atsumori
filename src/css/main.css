@@ -675,6 +675,57 @@ button {
   font-weight: bold;
 }
 
+.request {
+  width: 1000px;
+  text-align: center;
+  margin: auto;
+  padding-bottom: 80px;
+  background-color: #fffcf4;
+}
+.request__container {
+  margin-top: 50px;
+}
+.request__title {
+  font-size: 30px;
+}
+.request__detail {
+  width: 80%;
+  padding-bottom: 30px;
+  margin: auto;
+}
+.request__input {
+  width: 450px;
+  max-width: 100%;
+  border: none;
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+  background: #e0e0e0;
+  color: #7a7a7a;
+}
+.request__item {
+  margin: 10px;
+}
+.request__agree {
+  margin-top: 30px;
+}
+.request__button {
+  padding: 1% 2%;
+  margin-top: 30px;
+  width: 100px;
+  background-color: #4B7031;
+}
+.request__button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #4B7031;
+  outline: 1px solid #4B7031;
+}
+.request__disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .list {
   background-color: #fffcf4;
   padding: 3%;
