@@ -30,7 +30,7 @@ onMounted(async () => {
   try {
     const response = await fetch(`http://localhost:8000/Users/${userId}`);
     await getIsland();
-    await getJoinIsland();
+    // await getJoinIsland();
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
@@ -45,11 +45,13 @@ onMounted(async () => {
 // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
 const getIsland = async () => {
   const response = await fetch(
-    `http://localhost:8000/joinIslands/?userId=${userId.value}`
+    `http://localhost:8000/joinIslands/?userId=${userId}`
   );
   const data = await response.json();
   joinList.value = data;
   console.log("１つめ", joinList.value);
+  await getJoinIsland();
+
 };
 
 //ログインユーザーが参加している島IDと同じ島IDの島をIslandsテーブルから取得
