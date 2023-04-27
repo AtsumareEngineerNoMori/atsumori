@@ -84,7 +84,7 @@ const router = createRouter({
       component: IslandRegisterView,
     },
     {
-      path: "/projectadmissionrequest",
+      path: "/projectadmissionrequest/:userId/:projectId",
       name: "projectadmissionrequest",
       component: ProjectAdmissionRequest,
     },
