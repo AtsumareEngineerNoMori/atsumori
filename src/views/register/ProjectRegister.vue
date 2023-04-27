@@ -126,7 +126,7 @@ const projectRegisterButton = () => {
               icon: iconImg.value,
             }),
           })
-          .then(function (response) {
+            .then(function (response) {
               // fetch が返した Promise の解決を待つ
               return response.json();
             })
@@ -144,7 +144,6 @@ const projectRegisterButton = () => {
                 }),
               });
             });
-
         });
       });
   } else {
@@ -161,24 +160,24 @@ const projectRegisterButton = () => {
         icon: iconImg.value,
       }),
     })
-    .then(function (response) {
-              // fetch が返した Promise の解決を待つ
-              return response.json();
-            })
-            .then(function (jsonObj) {
-              // response.json が返した Promise の解決を待つ
-              console.log(jsonObj.id);
-              fetch("http://localhost:8000/JoinProjects", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  userId: currentUserId,
-                  projectId: jsonObj.id,
-                }),
-              });
-            });
+      .then(function (response) {
+        // fetch が返した Promise の解決を待つ
+        return response.json();
+      })
+      .then(function (jsonObj) {
+        // response.json が返した Promise の解決を待つ
+        console.log(jsonObj.id);
+        fetch("http://localhost:8000/JoinProjects", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: currentUserId,
+            projectId: jsonObj.id,
+          }),
+        });
+      });
   }
 };
 
@@ -187,16 +186,11 @@ const registerProject = () => {
     window.alert("プロジェクトの名前を登録してください");
   } else if (project.description === "") {
     window.alert("プロジェクトの情報を登録してください");
-  } else if (
-    !project.name.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
-    )
-  ) {
+  } else if (project.name.length < 1 || project.name.length > 20) {
     window.alert("プロジェクトの名前は1文字以上20文字以下で入力してください");
   } else if (
-    !project.description.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
-    )
+    project.description.length < 1 ||
+    project.description.length > 255
   ) {
     window.alert("プロジェクトの情報は1文字以上255文字以下で入力してください");
   } else {

@@ -123,7 +123,7 @@ const router = createRouter({
       component: IslandReqList,
     },
     {
-      path: "/show",
+      path: "/show/:id",
       name: "show",
       component: IslandShow,
     },

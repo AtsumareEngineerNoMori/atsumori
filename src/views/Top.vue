@@ -85,7 +85,7 @@
             class="top-new-set-item"
           >
             <router-link
-              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+              :to="{ name: 'show', params: { id: infomation.id } }"
             >
               <img
                 v-bind:src="infomation.icon"
@@ -106,16 +106,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <router-link
+            <!-- <router-link
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
-            >
+            > -->
               <img
                 v-bind:src="infomation.icon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
               <p class="top-new-set-name">{{ infomation.projectName }}</p>
-            </router-link>
+            <!-- </router-link> -->
           </div>
         </section>
       </div>
@@ -131,7 +131,7 @@
             class="top-new-set-item"
           >
             <router-link
-              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+              :to="{ name: 'show', params: { id: infomation.id } }"
             >
               <img
                 v-bind:src="infomation.islandIcon"
@@ -154,16 +154,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <router-link
+            <!-- <router-link
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
-            >
+            > -->
               <img
                 v-bind:src="infomation.projectIcon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
               <p class="top-new-set-name">{{ infomation.projectName }}</p>
-            </router-link>
+            <!-- </router-link> -->
           </div>
         </section>
       </div>
@@ -257,11 +257,6 @@ const getRecruitIslands = async () => {
   const data = await response.json();
   console.log(data);
   newRecruitIslandArray.value = data;
-  // console.log(typeof data[0].createDate)
-  // console.log(data[0].createDate)
-  // newRecruitIslandArray.value.sort(
-  //     (x, y) => (y.createDate) - (x.createDate),
-  // )
 };
 getRecruitIslands();
 
