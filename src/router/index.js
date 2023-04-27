@@ -54,7 +54,7 @@ const router = createRouter({
       component: OtherMyPage,
     },
     {
-      path: "/mypageforscout/:userId/:idlandId",
+      path: "/mypageforscout/:islandId/:userId",
       name: "mypageforscout",
       component: MyPageForScout,
     },
@@ -176,7 +176,7 @@ const router = createRouter({
       component: SearchReqProResult,
     },
     {
-      path: "/scoutIsland",
+      path: "/scoutIsland/:projectId",
       name: "scoutIsland",
       component: ScoutIsland,
     },
