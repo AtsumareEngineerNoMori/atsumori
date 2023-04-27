@@ -19,7 +19,7 @@
       </form>
     </div>
 
-    <section class="search_list">
+    <!-- <section class="search_list">
       <div v-if="filteredRecruitNewUsers.length === 0" class="search_no">
         検索結果がありません
         <input
@@ -44,6 +44,23 @@
           <p>{{ recruitNewUser.island.islandName }}</p>
         </div>
       </router-link>
+    </section> -->
+    <section :class="{ search_list: true, hidden: !results }">
+      <div v-if="filteredUsers.length > 0">
+        <router-link
+          v-for="user in filteredUsers"
+          :key="user.id"
+          :to="`/mypageforscout/${$route.params.id}/${user.id}`"
+        >
+          <img :src="user.icon" alt="user" class="search_iconImg" />
+          <div class="search_recinfo">
+            <p>{{ user.name }}</p>
+          </div>
+        </router-link>
+      </div>
+      <div v-else class="search_no">
+        <p>検索結果はありません。</p>
+      </div>
     </section>
   </div>
 </template>
@@ -125,7 +142,7 @@ onMounted(async () => {
 
 //検索されたものをfilterRecruitNewUsers配列生成後、filteredRecruitNewUsersにセット
 const searchIslands = () => {
-  console.log(keyword.value);
+  console.log("検索:", keyword.value);
   if (keyword.value.length > 20) {
     alert("20文字以内で入力してください");
   } else {

@@ -1,8 +1,13 @@
 <script setup>
+<<<<<<< HEAD
 
 // import { promiseImpl } from "ejs";
+=======
+>>>>>>> bc181ef3201d36015c0ab27195ea83c62b9f0ba5
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
 import "../css/main.css";
 
 const User = ref({
@@ -19,6 +24,8 @@ const islandData = ref([]);
 
 
 const route = useRoute();
+const router = useRouter();
+
 //パラメーターからuserId取得
 const userId = route.params.userId;
 //パラメーターからislandId取得
@@ -69,6 +76,11 @@ const getJoinIsland = async (island) => {
   console.log("islandDATA~~~~", islandData.value);
 };
 
+//もっと見る
+const moreIslands = () => {
+  router.push("/joinIsland");
+}
+
 </script>
 
 <template>
@@ -100,7 +112,7 @@ const getJoinIsland = async (island) => {
     <!-- 島一覧 -->
     <div class="mypage__table">
       <div class="mypage__div">島一覧</div>
-      <div v-for="island in islandData" :key="island.id" class="mypage__lists">
+      <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
             <router-link to="/">
@@ -114,7 +126,7 @@ const getJoinIsland = async (island) => {
           </div>
         </li>
       </div>
-      <button v-if="islandData.length >=5 " class="mypage__morebutton">もっと見る</button>
+      <button v-if="islandData.length >=5 " class="mypage__morebutton" @click="moreIslands">もっと見る</button>
     </div>
   </div>
 </template>

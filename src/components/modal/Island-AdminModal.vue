@@ -46,6 +46,7 @@ const deleteRecruit = () => {
 
 // 島解散
 const deleteIsland = () => {
+  alert("本当に削除してもよろしいですか？");
   try {
     // 島の削除
     const islandId = props.islandId;

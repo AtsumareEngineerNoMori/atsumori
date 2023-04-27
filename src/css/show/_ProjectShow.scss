@@ -89,6 +89,11 @@
       padding-right: 10px;
       width: 100%;
       z-index: 10;
+
+      &__title {
+        font-size: 16px;
+        font-weight: bolder;
+      }
     }
   }
 

@@ -9,18 +9,23 @@ const userJudge = ref(null);
 const props = defineProps({
   userIds: Array,
   projectId: Number,
+  myId: String,
 });
 
 watch(props, () => {
-  userJudge.value = joinJudge(props.userIds);
+  userJudge.value = joinJudge(props.userIds, props.myId);
 });
 </script>
 
 <template>
   <div>
     <div v-show="userJudge === 2">
-      <EntryModal :projectId="props.projectId" />
+      <EntryModal :projectId="props.projectId" :myId="props.myId" />
     </div>
-    <button v-show="userJudge === 1" class="showBtn showChat">チャット</button>
+    <router-link :to="{ name: 'projectChat', params: { id: 5 } }">
+      <button v-show="userJudge === 1" class="showBtn showChat">
+        チャット
+      </button>
+    </router-link>
   </div>
 </template>

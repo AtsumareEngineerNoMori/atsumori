@@ -180,8 +180,10 @@ const islandRegisterButton = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+
             userId: currentUserId,
             islandId: jsonObj.id,
+
           }),
         });
       });
@@ -193,21 +195,11 @@ const registerIsland = () => {
     window.alert("島の名前を登録してください");
   } else if (island.description === "") {
     window.alert("島の情報を登録してください");
-  } else if (
-    !island.name.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
-    )
-  ) {
+  } else if (island.name.length < 1 || island.name.length > 20){
     window.alert("島の名前は1文字以上20文字以下で入力してください");
-  } else if (
-    !island.description.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
-    )
-  ) {
-    window.alert("島の情報は1文字以上255文字以下で入力してください");
+  }else if (island.description.length < 1 || island.description.length > 255 ){
+  window.alert("島の情報は1文字以上255文字以下で入力してください");
   } else {
-    console.log(iconImg.value);
-
     islandRegisterButton();
     router.push("/top");
   }
