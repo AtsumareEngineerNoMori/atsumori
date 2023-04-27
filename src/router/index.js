@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import IslandShow from "../views/Show/IslandShow.vue";
-import ProjectShow from "../views/Show/ProjectShow.vue";
 import IslandReqList from "../views/ReqList/IslandReqList.vue";
 import ProjectReqList from "../views/ReqList/ProjectReqList.vue";
 import SearchIslandResult from "../views/Search/SearchIslandResult.vue";
@@ -9,6 +7,7 @@ import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
 import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
+import IslandShow from "../views/Show/IslandShow.vue";
 import Top from "../views/Top.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 import LoginView from "../views/Login.vue";
@@ -60,7 +59,12 @@ const router = createRouter({
       component: MyPageForScout,
     },
     {
-      path: "/islandEdit/:id",
+      path: "/islandEdit",
+      name: "islandEdit",
+      component: IslandEdit,
+    },
+    {
+      path: "/islandEdit",
       name: "islandEdit",
       component: IslandEdit,
     },
@@ -80,7 +84,7 @@ const router = createRouter({
       component: IslandRegisterView,
     },
     {
-      path: "/projectadmissionrequest",
+      path: "/projectadmissionrequest/:userId/:projectId",
       name: "projectadmissionrequest",
       component: ProjectAdmissionRequest,
     },
@@ -97,7 +101,7 @@ const router = createRouter({
     },
 
     {
-      path: "/recruitUserRegister/:id",
+      path: "/recruitUserRegister",
       name: "recruitUserRegister",
       component: RecruitUserRegister,
     },
@@ -107,7 +111,7 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
-      path: "/recruitIslandRegister/:id",
+      path: "/recruitIslandRegister",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,
     },
@@ -117,14 +121,9 @@ const router = createRouter({
       component: IslandReqList,
     },
     {
-      path: "/islandShow/:id",
-      name: "islandShow",
+      path: "/show",
+      name: "show",
       component: IslandShow,
-    },
-    {
-      path: "/projectShow/:id",
-      name: "projectShow",
-      component: ProjectShow,
     },
     {
       path: "/joinIsland",
@@ -132,7 +131,7 @@ const router = createRouter({
       component: () => import("../views/JoinIsland.vue"),
     },
     {
-      path: "/joinProject/:id",
+      path: "/joinProject",
       name: "joinProject",
       component: () => import("../views/JoinProject.vue"),
     },
@@ -142,11 +141,10 @@ const router = createRouter({
       component: () => import("../views/userScout.vue"),
     },
     {
-      path: "/islandChat/:id",
+      path: "/islandChat",
       name: "islandChat",
       component: () => import("../views/chat/islandChat.vue"),
     },
-
     {
       path: "/projectChat/:id",
       name: "projectChat",
@@ -197,14 +195,12 @@ const router = createRouter({
       name: "top",
       component: Top,
     },
+    {
+      path: "/joinIsland",
+      name: "joinIsland",
+      component: () => import("../views/JoinIsland.vue"),
+    },
   ],
-});
-
-// 遷移元のURLを特定
-router.beforeEach((to, from, next) => {
-  router["referrer"] = from;
-  router["to"] = to;
-  next();
 });
 
 export default router;

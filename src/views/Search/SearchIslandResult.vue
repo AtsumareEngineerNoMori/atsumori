@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watchEffect } from "vue";
 import { useRoute } from "vue-router";
 import TopSearchBox from "../../components/Search/TopSearch/TopSearchBox.vue";
 
@@ -39,6 +39,11 @@ async function fetchData() {
 }
 
 onMounted(() => {
+  fetchData();
+});
+
+// クエリパラメータの変更を監視し、変更があった場合にfetchDataを実行する
+watchEffect(() => {
   fetchData();
 });
 </script>

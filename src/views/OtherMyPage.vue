@@ -1,8 +1,8 @@
 <script setup>
-// import { onMounted } from "vue";
-// import { promiseImpl } from "js";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
 import "../css/main.css";
 
 const User = ref({
@@ -19,6 +19,8 @@ const islandData = ref([]);
 
 
 const route = useRoute();
+const router = useRouter();
+
 //パラメーターからuserId取得
 const userId = route.params.userId;
 //パラメーターからislandId取得
@@ -69,36 +71,15 @@ const getJoinIsland = async (island) => {
   console.log("islandDATA~~~~", islandData.value);
 };
 
-const IslandId = ref(1);
-//スカウト申請
-async function Scout() {
-  try {
-    const response = await fetch(
-      `http://localhost:8000/UserScout`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: userId,
-          islandId: islandId,
-        })
-      }
-    );
-    if (!response.ok) {
-      throw new Error(`HTTPエラーです！！！: ${response.status}`);
-    }
-    console.log("更新！！！！");
-  } catch (err) {
-    console.log("更新できません", err);
-  }
+//もっと見る
+const moreIslands = () => {
+  router.push("/joinIsland");
 }
+
 </script>
 
 <template>
   <div class="mypage">
-    <button class="mypage__button" @click="Scout">スカウトする</button>
     <div class="mypage__container">
       <div class="mypage__column">
         <span
@@ -126,7 +107,7 @@ async function Scout() {
     <!-- 島一覧 -->
     <div class="mypage__table">
       <div class="mypage__div">島一覧</div>
-      <div v-for="island in islandData" :key="island.id" class="mypage__lists">
+      <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
             <router-link to="/">
@@ -140,29 +121,7 @@ async function Scout() {
           </div>
         </li>
       </div>
-      <button class="mypage__morebutton">もっと見る</button>
+      <button v-if="islandData.length >=5 " class="mypage__morebutton" @click="moreIslands">もっと見る</button>
     </div>
-
-    <!-- プロジェクト一覧 -->
-    <!-- <div class="mypage__table">
-      <p>プロジェクト一覧</p>
-      <div
-        v-for="project in PJData"
-        :key="project"
-        class="mypage__lists"
-      >
-        <li>
-          <div class="mypage__spase">
-            <img
-              v-bind:src="project.icon"
-              alt="projecticon"
-              class="mypage__iconImg"
-            />
-            <p>{{ project.projectName }}</p>
-          </div>
-        </li>
-      </div>
-      <button class="mypage__morebutton">もっと見る</button>
-    </div> -->
   </div>
 </template>

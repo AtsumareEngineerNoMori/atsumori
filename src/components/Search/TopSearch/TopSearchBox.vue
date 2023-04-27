@@ -88,7 +88,7 @@ const formAction = computed(() => {
     selectedFilter.value === "filter2" &&
     searchType.value === "project"
   ) {
-    return "/projectReqList";
+    return "/searchReqProResult";
   } else {
     return "";
   }
@@ -99,15 +99,21 @@ function handleSubmit() {
     alert("20文字以内で入力してください");
     return (keyword.value = "");
   } else {
-    const url = `${formAction.value}?search=${keyword.value}`;
-    router.push(url);
-    // const kana = keyword.value
-    //   .toLowerCase()
-    //   .replace(/[ぁ-ん]/g, (s) => String.fromCharCode(s.charCodeAt(0) + 0x60))
-    //   .replace(/[ァ-ン]/g, (s) => String.fromCharCode(s.charCodeAt(0) + 0x60));
+    // ひらがなとカタカナに変換する
+    // const hiraganaKatakana = keyword.value
+    //   .replace(/[ぁ-ん]/g, (match) => {
+    //     return String.fromCharCode(match.charCodeAt(0) + 0x60);
+    //   })
+    //   .replace(/[ァ-ン]/g, (match) => {
+    //     return String.fromCharCode(match.charCodeAt(0) + 0x60);
+    //   });
 
-    // const url = `${formAction.value}?search=${encodeURI(kana)}`;
-    // router.push(url);
+    // const regex = new RegExp(keyword.value.replace(/[ぁ-んァ-ン]/g, "[ぁ-んァ-ン]"));
+
+    const url = `${formAction.value}?search=${keyword.value}`;
+    // const url = `${formAction.value}?search=${encodeURIComponent(regex.source)}`;
+
+    router.push(url);
   }
 }
 </script>
