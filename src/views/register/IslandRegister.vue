@@ -84,7 +84,7 @@ console.log(today.value);
 const island = reactive({
   id: "",
   islandName: "",
-  isIandDescription: "",
+  islandDescription: "",
   adminId: "",
   createDate: "",
   name:"",
@@ -130,7 +130,7 @@ const islandRegisterButton = () => {
           },
           body: JSON.stringify({
             islandName: island.name,
-            isIandDescription: island.description,
+            islandDescription: island.description,
             adminId: currentUserId,
             createDate: new Date(),
             icon: url,
