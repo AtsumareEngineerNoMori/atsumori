@@ -192,9 +192,6 @@ function selectFilter(filter) {
   console.log("変更しています", filter);
   isShow.value = !isShow.value;
 }
-// const toggleStatus = () => {
-//   isShow.value = !isShow.value;
-// };
 
 // みゆ
 const formAction = computed(() => {

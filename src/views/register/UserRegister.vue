@@ -37,9 +37,6 @@
                 class="userRegister-details-detail-name"
                 v-model="user.name"
               />
-              <!-- <p v-if="!user.name.match(/^([a-zA-Z0-9]{0,20})$/)">
-              名前は1文字以上20文字以下で入力してください
-            </p> -->
             </div>
 
             <div>
@@ -71,9 +68,6 @@
               type="email"
               class="userRegister-details2-input"
             />
-            <!-- <p v-if="!user.email.match(/^([a-zA-Z0-9]{0,40})$/)">
-            40文字以内で入力してください
-          </p> -->
           </div>
           <div class="userRegister-details2-inputSet">
             <p class="userRegister-details2-p">パスワード</p>
@@ -94,9 +88,9 @@
           <button type="submit" class="userRegister-details2-button">
             登録する
           </button>
-          <RouterLink to="/login">
-            <div class="userRegister-details2-login">ログインはこちら！</div>
-          </RouterLink>
+          <!-- <RouterLink to="/login"> -->
+          <div class="userRegister-details2-login">ログインはこちら！</div>
+          <!-- </RouterLink> -->
         </div>
       </form>
     </div>
@@ -122,8 +116,10 @@ import { useRouter } from "vue-router";
 
 const iconFileName = vueref("");
 const file = vueref();
-const haveIcon = vueref(false);
-const iconImg = vueref("../../../public/ha.png");
+// const haveIcon = vueref(false);
+const iconImg = vueref(
+  "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
+);
 const user = reactive({
   name: "",
   job: "",
@@ -147,7 +143,7 @@ onMounted(() => {
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
-  haveIcon.value = true;
+  // haveIcon.value = true;
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
@@ -158,54 +154,76 @@ const previewImage = (event) => {
 };
 
 // 登録ボタンの処理
-const UserRegisterButton = (async) => {
-  try {
-    // Authenticationに登録
-    createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then(() => {
-        // Storageにアイコン登録
-        console.log("アイコンの登録のターンがきたよ");
-        const auth = getAuth();
-        const currentUserId = auth.currentUser?.uid;
-        const storageRef = ref(storage, `icon/${iconFileName.value}`);
-        console.log(storageRef);
-        uploadBytesResumable(storageRef, file.value)
-          // StorageからアイコンURLを取得
-          .then(() => {
-            console.log("アイコンを取得のターンがきたよ");
-            const storage = getStorage();
-            const starsRef = ref(storage, `icon/${iconFileName.value}`);
-            getDownloadURL(starsRef).then((url) => {
-              console.log(url);
-              iconImg.value = url;
-              console.log(iconImg);
-              fetch("http://localhost:8000/Users", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  id: currentUserId,
-                  icon: url,
-                  name: user.name,
-                  job: user.job,
-                  comment: user.comment,
-                  email: user.email,
-                }),
-              }).then((res) => res.json());
+const UserRegisterButton = () => {
+  console.log(iconImg.value);
+  if (
+    iconImg.value !==
+    "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
+    // "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
+  ) {
+    console.log("画像挿入されてる処理");
+    try {
+      // Authenticationに登録
+      createUserWithEmailAndPassword(auth, user.email, user.password)
+        .then(() => {
+          // Storageにアイコン登録
+          const auth = getAuth();
+          const currentUserId = auth.currentUser?.uid;
+          const storageRef = ref(storage, `icon/${iconFileName.value}`);
+          uploadBytesResumable(storageRef, file.value)
+            // StorageからアイコンURLを取得
+            .then(() => {
+              const storage = getStorage();
+              const starsRef = ref(storage, `icon/${iconFileName.value}`);
+              getDownloadURL(starsRef).then((url) => {
+                console.log(url);
+                iconImg.value = url;
+                fetch("http://localhost:8000/Users", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    id: currentUserId,
+                    icon: iconImg.value,
+                    name: user.name,
+                    job: user.job,
+                    comment: user.comment,
+                    email: user.email,
+                  }),
+                }).then((res) => res.json());
+              });
+            })
+            .then(() => {
+              router.push("/top");
             });
-          })
-          .then(() => {
-            router.push("/top");
-          });
-      })
-      .catch((err) => {
-        window.alert("既に登録されているメールアドレスです");
-        console.log(err);
-        throw err;
-      });
-  } catch (e) {
-    console.log(e);
+        })
+        .catch((err) => {
+          window.alert("既に登録されているメールアドレスです");
+          console.log(err);
+          throw err;
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  } else {
+    console.log(`画像なしです${iconImg.value}`);
+    const auth = getAuth();
+    const currentUserId = auth.currentUser?.uid;
+    fetch("http://localhost:8000/Users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: currentUserId,
+        icon: iconImg.value,
+        name: user.name,
+        job: user.job,
+        comment: user.comment,
+        email: user.email,
+      }),
+    });
   }
 };
 
@@ -253,6 +271,7 @@ const registerUser = () => {
   // }
   else {
     UserRegisterButton();
+    router.push("/top");
   }
 };
 </script>
