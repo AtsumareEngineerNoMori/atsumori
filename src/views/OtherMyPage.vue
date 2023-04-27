@@ -1,6 +1,6 @@
 <script setup>
 // import { onMounted } from "vue";
-import { promiseImpl } from "ejs";
+// import { promiseImpl } from "js";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import "../css/main.css";

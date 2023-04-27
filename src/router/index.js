@@ -50,12 +50,12 @@ const router = createRouter({
       component: MyPageEdit,
     },
     {
-      path: "/othermypage/:userId/:islandId",
-      name: "othermypageedit",
+      path: "/othermypage/:id",
+      name: "othermypage",
       component: OtherMyPage,
     },
     {
-      path: "/mypageforscout",
+      path: "/mypageforscout/:userId/:idlandId",
       name: "mypageforscout",
       component: MyPageForScout,
     },
@@ -65,12 +65,12 @@ const router = createRouter({
       component: IslandEdit,
     },
     {
-      path: "/projectEdit",
+      path: "/projectEdit/:id",
       name: "projectEdit",
       component: ProjectEdit,
     },
     {
-      path: "/islandadmissionrequest/:userId/:islandId",
+      path: "/islandadmissionrequest/:islandId/:userId",
       name: "islandadmissionrequest",
       component: IslandAdmissionRequest,
     },
@@ -148,7 +148,7 @@ const router = createRouter({
     },
 
     {
-      path: "/projectChat",
+      path: "/projectChat/:id",
       name: "projectChat",
       component: () => import("../views/chat/projectChat.vue"),
     },
@@ -183,7 +183,7 @@ const router = createRouter({
       component: ScoutIsland,
     },
     {
-      path: "/scoutPeople",
+      path: "/scoutPeople/:islandId",
       name: "scoutPeople",
       component: ScoutPeople,
     },

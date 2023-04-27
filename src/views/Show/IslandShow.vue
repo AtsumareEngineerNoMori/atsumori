@@ -3,19 +3,25 @@ import AdminModal from "../../components/modal/Island-AdminModal.vue";
 import SideMember from "../../components/islandShow/SideMember.vue";
 import SideScout from "../../components/islandShow/SideScout.vue";
 import ShowBtn from "../../components/islandShow/ShowBtn.vue";
+import Loading from "../../components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { onAuthStateChanged, getAuth } from "@firebase/auth";
+
 
 const route = useRoute();
 const router = useRouter();
+const myId = ref();
 
 const island = ref([]);
-const adminId = ref(null);
+const adminId = ref();
 const adminName = ref();
 const userJudges = ref(null);
 const Recruits = ref([]);
 const RecruitIshow = ref(false);
+
+const loading = ref(false);
 
 onMounted(async () => {
   const id = route.params.id;
@@ -25,14 +31,30 @@ onMounted(async () => {
   island.value = islandData;
   adminId.value = islandData.adminId;
 
+  // ログインID取得
+  function auth() {
+    return new Promise((resolve) => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (currentUser) => {
+        myId.value = currentUser?.uid;
+
+        resolve();
+      });
+    });
+  }
+  await auth().then(() => {
+    loading.value = true;
+  });
+
   // ユーザーの判別
-  userJudges.value = adminJudge(adminId.value);
+  userJudges.value = adminJudge(adminId.value, myId.value);
 
   const adminData = await fetch(
     `http://localhost:8000/Users/${islandData.adminId}`
   ).then((res) => res.json());
   adminName.value = adminData.name;
 
+  // 募集要項取得
   const Recruit = await fetch(
     `http://localhost:8000/RecruitNewUser?islandId=${id}`
   ).then((res) => res.json());
@@ -49,7 +71,10 @@ const joinProject = () => {
 </script>
 
 <template>
-  <div class="detail">
+  <div v-show="!loading">
+    <Loading />
+  </div>
+  <div v-show="loading" class="detail">
     <div class="detail__user">
       <img
         src="../../../public/beach-1824855_1920.jpg"
@@ -77,7 +102,7 @@ const joinProject = () => {
     </div>
 
     <div class="detail__btn">
-      <ShowBtn :islandId="island.id" />
+      <ShowBtn :islandId="island.id" :myId="myId" />
     </div>
 
     <div class="detail__desc">
@@ -95,7 +120,7 @@ const joinProject = () => {
     </div>
 
     <div class="detail__member">
-      <SideMember :islandId="island.id" :adminId="adminId" />
+      <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
     </div>
 
     <div class="detail__scout">

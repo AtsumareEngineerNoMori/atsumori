@@ -267,6 +267,10 @@
   width: 100%;
   z-index: 10;
 }
+.projectDetail__desc__text__title {
+  font-size: 16px;
+  font-weight: bolder;
+}
 .projectDetail__member {
   position: absolute;
   top: 370px;
