@@ -1,9 +1,5 @@
 <script setup>
-<<<<<<< HEAD
 
-// import { promiseImpl } from "ejs";
-=======
->>>>>>> bc181ef3201d36015c0ab27195ea83c62b9f0ba5
 import { onMounted, ref } from "vue";
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
