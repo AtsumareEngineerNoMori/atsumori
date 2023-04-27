@@ -153,9 +153,25 @@ const previewImage = (event) => {
   iconFileName.value = event.target.files[0].name;
 };
 
+const U = async() => {
+  try {
+    //Authenticationへのユーザー登録
+    await createUserWithEmailAndPassword(auth, user.email, user.password);
+    onAuthStateChanged(auth,  (user) => {
+      if (!user) {
+        console.log("ユーザーがいません")
+      } else {
+        UserRegisterButton();
+      }
+    });
+  } catch (error) {
+    window.alert("既に登録されているメールアドレスです");
+  }
+};
+
 // 登録ボタンの処理
 const UserRegisterButton = () => {
-  createUserWithEmailAndPassword(auth, user.email, user.password);
+  // createUserWithEmailAndPassword(auth, user.email, user.password);
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
@@ -223,36 +239,38 @@ const UserRegisterButton = () => {
         comment: user.comment,
         email: user.email,
       }),
+    }).then(() => {
+      router.push("/top");
     });
   }
 };
 
-  // パスワードの入力形式チェック
-  const inputCheckSmall = /[a-z]/,
-    inputCheckBig = /[A-Z]/,
-    inputCheckNumber = /[0-9]/;
+// パスワードの入力形式チェック
+const inputCheckSmall = /[a-z]/,
+  inputCheckBig = /[A-Z]/,
+  inputCheckNumber = /[0-9]/;
 
-  // メールアドレスの入力形式チェック
-  const pattern =
-    /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
+// メールアドレスの入力形式チェック
+const pattern =
+  /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
 
-  const passwordValid = (password) => {
-    return (
-      inputCheckSmall.test(password) &&
-      inputCheckBig.test(password) &&
-      inputCheckNumber.test(password)
-    );
-  };
+const passwordValid = (password) => {
+  return (
+    inputCheckSmall.test(password) &&
+    inputCheckBig.test(password) &&
+    inputCheckNumber.test(password)
+  );
+};
 
-  const emailValid = (email) => {
-    return pattern.test(email);
-  };
+const emailValid = (email) => {
+  return pattern.test(email);
+};
 
 const registerUser = () => {
   passwordValid(user.password);
   emailValid(user.email);
-  fetchSignInMethodsForEmail(user.email)
-  console.log(fetchSignInMethodsForEmail(user.email))
+  fetchSignInMethodsForEmail(user.email);
+  console.log(fetchSignInMethodsForEmail(user.email));
   if (user.name === "") {
     window.alert("お名前を入力してください");
   } else if (user.job === "") {
@@ -282,8 +300,7 @@ const registerUser = () => {
   } else if (!emailValid(user.email)) {
     window.alert("ラクスのドメインにして！！！！！");
   } else {
-    UserRegisterButton();
-    router.push("/top");
+U();
   }
 };
 </script>
