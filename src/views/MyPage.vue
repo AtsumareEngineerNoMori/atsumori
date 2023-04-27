@@ -4,6 +4,10 @@
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 import { auth } from "../../firebase";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 
 const User = ref({
   name: "",
@@ -67,6 +71,11 @@ const getJoinIsland = async (island) => {
   );
   console.log("islandDATA~~~~", islandData.value);
 };
+
+//もっと見る
+const moreIslands = () => {
+  router.push("/joinIsland");
+}
 </script>
 
 <template>
@@ -104,7 +113,7 @@ const getJoinIsland = async (island) => {
     <!-- 島一覧 -->
     <div class="mypage__table">
       <div class="mypage__div">島一覧</div>
-      <div v-for="island in islandData" :key="island.id" class="mypage__lists">
+      <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
             <router-link to="/">
@@ -118,7 +127,10 @@ const getJoinIsland = async (island) => {
           </div>
         </li>
       </div>
-      <button class="mypage__morebutton">もっと見る</button>
+      <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
+      <button v-if="islandData.length >= 5" class="mypage__morebutton" @click="moreIslands">
+        もっと見る
+      </button>
     </div>
   </div>
 </template>

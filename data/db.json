@@ -331,50 +331,8 @@
     }
   ],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "id": 1,
-      "userId": "zCxnUCzeYwfpdJrNnPN0GblFSFi1",
-      "islandId": 1
-    },
-    {
-      "id": 2,
-      "userId": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
-      "islandId": 1
-    },
-    {
-      "id": 3,
-      "userId": "YAK7qQovKNh8x6W1PYLzkpBk5wI3",
-      "islandId": 2
-    }
-  ],
-  "JoinProjects": [
-    {
-      "id": 1,
-      "userId": 1,
-      "projectId": 1
-    },
-    {
-      "id": 2,
-      "userId": 3,
-      "projectId": 1
-    },
-    {
-      "id": 3,
-      "userId": 3,
-      "projectId": 2
-    },
-    {
-      "id": 4,
-      "userId": 3,
-      "projectId": 2
-    },
-    {
-      "id": 5,
-      "userId": 3,
-      "projectId": 2
-    }
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "IslandChat": [],
   "ProjectChat": [],
   "IslandScout": [
@@ -384,4 +342,5 @@
       "projectId": 1
     }
   ]
+  "UserScout": [],
 }

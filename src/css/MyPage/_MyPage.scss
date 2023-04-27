@@ -67,16 +67,24 @@
     color: #4b7031;
     outline: 1px solid #4b7031;
   }
+  &__NOisland{
+    margin: 30px 0;
+  }
   &__morebutton {
     padding: 1% 2%;
-    margin-left: 60px;
+    margin-left: auto;
+    position: absolute;
+    right: 35px;
+    bottom: 100px;
   }
+  
   &__morebutton:hover {
     cursor: pointer;
     background-color: #ffff;
     color: #4b7031;
     outline: 1px solid #4b7031;
   }
+  
 
   // &__div {
   //   margin: 30px 0;
@@ -117,8 +125,8 @@
     position: relative;
   }
   &__iconImg {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
   &__iconImg:hover {
     cursor: pointer;
@@ -127,6 +135,7 @@
   &__table {
     margin-top: 60px;
     margin-left: 4%;
+    position: relative;
   }
 }
 
