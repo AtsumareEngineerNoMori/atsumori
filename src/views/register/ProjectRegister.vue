@@ -50,9 +50,7 @@
             </div>
           </div>
         </div>
-        <!-- <RouterLink to="/top"> -->
         <button class="ProjectRegister-set-button">登録する</button>
-        <!-- </RouterLink> -->
       </div>
     </form>
   </div>
@@ -73,15 +71,14 @@ import {
 const router = useRouter();
 const iconFileName = vueref("");
 const file = vueref();
-const haveIcon = vueref(false);
 const iconImg = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
 );
 
 const project = reactive({
   id: "",
-  islandName: "",
-  isIandDescription: "",
+  projectName: "",
+  projectDescription: "",
   adminId: "",
   createDate: "",
   name: "",
@@ -93,7 +90,6 @@ const currentUserId = auth.currentUser?.uid;
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
-  haveIcon.value = true;
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
@@ -103,35 +99,86 @@ const previewImage = (event) => {
   iconFileName.value = event.target.files[0].name;
 };
 
-const projectRegisterButton = (async) => {
+const projectRegisterButton = () => {
   // Storageにアイコン登録
-  console.log("アイコンの登録のターンがきたよ");
-  const storageRef = ref(storage, `project/${iconFileName.value}`);
-  console.log(storageRef);
-  uploadBytesResumable(storageRef, file.value)
-    // StorageからアイコンURLを取得
-    .then(() => {
-      console.log("アイコンを取得のターンがきたよ");
-      const storage = getStorage();
-      const starsRef = ref(storage, `project/${iconFileName.value}`);
-      getDownloadURL(starsRef).then((url) => {
-        console.log(url);
-        iconImg.value = url;
-        fetch("http://localhost:8000/Projects", {
+  if (
+    iconImg.value !==
+    "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
+  ) {
+    const storageRef = ref(storage, `project/${iconFileName.value}`);
+    uploadBytesResumable(storageRef, file.value)
+      // StorageからアイコンURLを取得
+      .then(() => {
+        const storage = getStorage();
+        const starsRef = ref(storage, `project/${iconFileName.value}`);
+        getDownloadURL(starsRef).then((url) => {
+          iconImg.value = url;
+          fetch("http://localhost:8000/Projects", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              projectName: project.name,
+              projectDescription: project.description,
+              adminId: currentUserId,
+              createDate: new Date(),
+              icon: iconImg.value,
+            }),
+          })
+            .then(function (response) {
+              // fetch が返した Promise の解決を待つ
+              return response.json();
+            })
+            .then(function (jsonObj) {
+              // response.json が返した Promise の解決を待つ
+              console.log(jsonObj.id);
+              fetch("http://localhost:8000/JoinProjects", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  userId: currentUserId,
+                  projectId: jsonObj.id,
+                }),
+              });
+            });
+        });
+      });
+  } else {
+    fetch("http://localhost:8000/Projects", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        projectName: project.name,
+        projectDescription: project.description,
+        adminId: currentUserId,
+        createDate: new Date(),
+        icon: iconImg.value,
+      }),
+    })
+      .then(function (response) {
+        // fetch が返した Promise の解決を待つ
+        return response.json();
+      })
+      .then(function (jsonObj) {
+        // response.json が返した Promise の解決を待つ
+        console.log(jsonObj.id);
+        fetch("http://localhost:8000/JoinProjects", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            projectName: project.name,
-            projectDescription: project.description,
-            adminId: currentUserId,
-            createDate: new Date(),
-            icon: url,
+            userId: currentUserId,
+            projectId: jsonObj.id,
           }),
         });
       });
-    });
+  }
 };
 
 const registerProject = () => {
@@ -139,16 +186,11 @@ const registerProject = () => {
     window.alert("プロジェクトの名前を登録してください");
   } else if (project.description === "") {
     window.alert("プロジェクトの情報を登録してください");
-  } else if (
-    !project.name.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
-    )
-  ) {
+  } else if (project.name.length < 1 || project.name.length > 20) {
     window.alert("プロジェクトの名前は1文字以上20文字以下で入力してください");
   } else if (
-    !project.description.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
-    )
+    project.description.length < 1 ||
+    project.description.length > 255
   ) {
     window.alert("プロジェクトの情報は1文字以上255文字以下で入力してください");
   } else {

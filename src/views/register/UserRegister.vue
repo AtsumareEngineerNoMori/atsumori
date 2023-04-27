@@ -37,9 +37,6 @@
                 class="userRegister-details-detail-name"
                 v-model="user.name"
               />
-              <!-- <p v-if="!user.name.match(/^([a-zA-Z0-9]{0,20})$/)">
-              名前は1文字以上20文字以下で入力してください
-            </p> -->
             </div>
 
             <div>
@@ -71,9 +68,6 @@
               type="email"
               class="userRegister-details2-input"
             />
-            <!-- <p v-if="!user.email.match(/^([a-zA-Z0-9]{0,40})$/)">
-            40文字以内で入力してください
-          </p> -->
           </div>
           <div class="userRegister-details2-inputSet">
             <p class="userRegister-details2-p">パスワード</p>
@@ -94,9 +88,9 @@
           <button type="submit" class="userRegister-details2-button">
             登録する
           </button>
-          <RouterLink to="/login">
-            <div class="userRegister-details2-login">ログインはこちら！</div>
-          </RouterLink>
+          <!-- <RouterLink to="/login"> -->
+          <div class="userRegister-details2-login">ログインはこちら！</div>
+          <!-- </RouterLink> -->
         </div>
       </form>
     </div>
@@ -122,8 +116,10 @@ import { useRouter } from "vue-router";
 
 const iconFileName = vueref("");
 const file = vueref();
-const haveIcon = vueref(false);
-const iconImg = vueref("../../../public/ha.png");
+// const haveIcon = vueref(false);
+const iconImg = vueref(
+  "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
+);
 const user = reactive({
   name: "",
   job: "",
@@ -147,7 +143,7 @@ onMounted(() => {
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
-  haveIcon.value = true;
+  // haveIcon.value = true;
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
@@ -157,102 +153,154 @@ const previewImage = (event) => {
   iconFileName.value = event.target.files[0].name;
 };
 
-// 登録ボタンの処理
-const UserRegisterButton = (async) => {
+const U = async() => {
   try {
-    // Authenticationに登録
-    createUserWithEmailAndPassword(auth, user.email, user.password)
-      .then(() => {
-        // Storageにアイコン登録
-        console.log("アイコンの登録のターンがきたよ");
-        const auth = getAuth();
-        const currentUserId = auth.currentUser?.uid;
-        const storageRef = ref(storage, `icon/${iconFileName.value}`);
-        console.log(storageRef);
-        uploadBytesResumable(storageRef, file.value)
-          // StorageからアイコンURLを取得
-          .then(() => {
-            console.log("アイコンを取得のターンがきたよ");
-            const storage = getStorage();
-            const starsRef = ref(storage, `icon/${iconFileName.value}`);
-            getDownloadURL(starsRef).then((url) => {
-              console.log(url);
-              iconImg.value = url;
-              console.log(iconImg);
-              fetch("http://localhost:8000/Users", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  id: currentUserId,
-                  icon: url,
-                  name: user.name,
-                  job: user.job,
-                  comment: user.comment,
-                  email: user.email,
-                }),
-              }).then((res) => res.json());
-            });
-          })
-          .then(() => {
-            router.push("/top");
-          });
-      })
-      .catch((err) => {
-        window.alert("既に登録されているメールアドレスです");
-        console.log(err);
-        throw err;
-      });
-  } catch (e) {
-    console.log(e);
+    //Authenticationへのユーザー登録
+    await createUserWithEmailAndPassword(auth, user.email, user.password);
+    onAuthStateChanged(auth,  (user) => {
+      if (!user) {
+        console.log("ユーザーがいません")
+      } else {
+        UserRegisterButton();
+      }
+    });
+  } catch (error) {
+    window.alert("既に登録されているメールアドレスです");
   }
 };
 
+// 登録ボタンの処理
+const UserRegisterButton = () => {
+  // createUserWithEmailAndPassword(auth, user.email, user.password);
+  if (
+    iconImg.value !==
+    "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
+  ) {
+    console.log("画像挿入されてる処理");
+    // try {
+    // Authenticationに登録
+    // createUserWithEmailAndPassword(auth, user.email, user.password)
+    // .then(() => {
+    // Storageにアイコン登録
+    const auth = getAuth();
+    const currentUserId = auth.currentUser?.uid;
+    const storageRef = ref(storage, `icon/${iconFileName.value}`);
+    uploadBytesResumable(storageRef, file.value)
+      // StorageからアイコンURLを取得
+      .then(() => {
+        const storage = getStorage();
+        const starsRef = ref(storage, `icon/${iconFileName.value}`);
+        getDownloadURL(starsRef).then((url) => {
+          console.log(url);
+          iconImg.value = url;
+          fetch("http://localhost:8000/Users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: currentUserId,
+              icon: iconImg.value,
+              name: user.name,
+              job: user.job,
+              comment: user.comment,
+              email: user.email,
+            }),
+          }).then((res) => res.json());
+        });
+      })
+      .then(() => {
+        router.push("/top");
+      });
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   throw err;
+    // });
+    // } catch (e) {
+    //   console.log(e);
+    // }
+  } else {
+    // Authenticationに登録
+    // createUserWithEmailAndPassword(auth, user.email, user.password);
+    console.log(`画像なしです${iconImg.value}`);
+    const auth = getAuth();
+    const currentUserId = auth.currentUser?.uid;
+    fetch("http://localhost:8000/Users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: currentUserId,
+        icon: iconImg.value,
+        name: user.name,
+        job: user.job,
+        comment: user.comment,
+        email: user.email,
+      }),
+    }).then(() => {
+      router.push("/top");
+    });
+  }
+};
+
+// パスワードの入力形式チェック
+const inputCheckSmall = /[a-z]/,
+  inputCheckBig = /[A-Z]/,
+  inputCheckNumber = /[0-9]/;
+
+// メールアドレスの入力形式チェック
+const pattern =
+  /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
+
+const passwordValid = (password) => {
+  return (
+    inputCheckSmall.test(password) &&
+    inputCheckBig.test(password) &&
+    inputCheckNumber.test(password)
+  );
+};
+
+const emailValid = (email) => {
+  return pattern.test(email);
+};
+
 const registerUser = () => {
+  passwordValid(user.password);
+  emailValid(user.email);
+  fetchSignInMethodsForEmail(user.email);
+  console.log(fetchSignInMethodsForEmail(user.email));
   if (user.name === "") {
     window.alert("お名前を入力してください");
-  } else if (user.comment === "") {
-    window.alert("ひとことを入力してください");
   } else if (user.job === "") {
     window.alert("職種を選択してください");
+  } else if (user.comment === "") {
+    window.alert("ひとことを入力してください");
   } else if (user.email === "") {
     window.alert("メールアドレスを入力してください");
   } else if (user.password === "") {
     window.alert("パスワードを入力してください");
   } else if (user.cPassword === "") {
     window.alert("パスワード(確認)を入力してください");
-  } else if (
-    !user.name.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
-    )
-  ) {
+  } else if (user.name.length < 1 || user.name.length > 20) {
     window.alert("お名前は1文字以上20文字以下で入力してください");
-  } else if (
-    !user.comment.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
-    )
-  ) {
+  } else if (user.comment.length < 1 || user.comment.length > 255) {
     window.alert("ひとことは1文字以上255文字以下で入力してください");
+  } else if (
+    !passwordValid(user.password) ||
+    user.password.length < 8 ||
+    user.password.length > 20
+  ) {
+    window.alert(
+      "パスワードは、英字小文字、英字大文字、数字を含む8文字以上22文字以内で入力してください"
+    );
   } else if (user.password !== user.cPassword) {
     window.alert("パスワードが一致しません");
-  }
-  //  else if (
-  //   !user.password.match(
-  //     /^[a-zA-Z0-9.?/-]{8,22}$/
-  //   )
-  // ) {
-  //   window.alert("大文字小文字の含まれた8文字以上22文字以内で入力してください");
-  // }
-  // else if (
-  //   !user.email.match(
-  //     // /^([a-zA-Z0-9_.+-]{1,19}@[r][a][k][u][s][-][p][a][r][t][n][e][r][s][.][c][o][.][j][p]{1,40})$/
-  //   )
-  // ) {
-  //   window.alert("40文字以内で入力してください");
-  // }
-  else {
-    UserRegisterButton();
+  } else if (!emailValid(user.email)) {
+    window.alert("ラクスのドメインにして！！！！！");
+  } else {
+U();
   }
 };
 </script>
