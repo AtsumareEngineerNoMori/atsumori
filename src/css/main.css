@@ -435,6 +435,9 @@
   color: #4b7031;
   outline: 1px solid #4b7031;
 }
+.mypage__NOisland {
+  margin: 30px 0;
+}
 .mypage__morebutton {
   padding: 1% 2%;
   margin-left: auto;

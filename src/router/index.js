@@ -54,7 +54,7 @@ const router = createRouter({
       component: OtherMyPage,
     },
     {
-      path: "/mypageforscout/:userId/:islandId",
+      path: "/mypageforscout/:islandId/:userId",
       name: "mypageforscout",
       component: MyPageForScout,
     },
@@ -74,7 +74,7 @@ const router = createRouter({
       component: ProjectEdit,
     },
     {
-      path: "/islandadmissionrequest",
+      path: "/islandadmissionrequest/:userId/:islandId",
       name: "islandadmissionrequest",
       component: IslandAdmissionRequest,
     },

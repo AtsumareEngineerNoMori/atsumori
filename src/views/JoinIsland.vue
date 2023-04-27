@@ -15,7 +15,7 @@ const loading = ref(true);
 // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
 const getJoinIsland = async () => {
   const response = await fetch(
-    `http://localhost:8000/joinIslands/?userId=${3}`
+    `http://localhost:8000/joinIslands/?userId=${2}`
   );
   const data = await response.json();
   joinList.value = data;
