@@ -7,6 +7,9 @@ import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
 import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
+import IslandShow from "../views/Show/IslandShow.vue";
+import ProjectShow from "../views/Show/ProjectShow.vue";
+import ScoutShow from "../views/Show/ScoutShow.vue";
 import Top from "../views/Top.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 import LoginView from "../views/Login.vue";
@@ -60,12 +63,7 @@ const router = createRouter({
       component: MyPageForScout,
     },
     {
-      path: "/islandEdit",
-      name: "islandEdit",
-      component: IslandEdit,
-    },
-    {
-      path: "/islandEdit",
+      path: "/islandEdit/:id",
       name: "islandEdit",
       component: IslandEdit,
     },
@@ -102,8 +100,7 @@ const router = createRouter({
     },
 
     {
-      path: "/recruitUserRegister/:islandId",
-
+      path: "/recruitUserRegister/:id",
       name: "recruitUserRegister",
       component: RecruitUserRegister,
     },
@@ -113,10 +110,9 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
-
-      path: '/recruitIslandRegister/:projectId',
-      name: 'recruitIslandRegister',
-      component:  RecruitIslandRegister
+      path: "/recruitIslandRegister/:id",
+      name: "recruitIslandRegister",
+      component: RecruitIslandRegister,
     },
     {
       path: "/islandReqList",
@@ -134,12 +130,17 @@ const router = createRouter({
       component: ProjectShow,
     },
     {
+      path: "/scoutShow/:islandId/:projectId",
+      name: "scoutShow",
+      component: ScoutShow,
+    },
+    {
       path: "/joinIsland",
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
     },
     {
-      path: "/joinProject",
+      path: "/joinProject/:id",
       name: "joinProject",
       component: () => import("../views/JoinProject.vue"),
     },
@@ -149,7 +150,7 @@ const router = createRouter({
       component: () => import("../views/userScout.vue"),
     },
     {
-      path: "/islandChat",
+      path: "/islandChat/:id",
       name: "islandChat",
       component: () => import("../views/chat/islandChat.vue"),
     },

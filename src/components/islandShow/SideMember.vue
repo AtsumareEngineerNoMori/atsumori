@@ -130,24 +130,18 @@ const scoutRouter = () => {
     <p class="member__title">メンバー</p>
     <div v-for="user in users" class="member__content">
       <a @click="userRouter(user.id)">
-        <img
-          src="../../../public/beach-1824855_1920.jpg"
-          class="member__content__icon"
-        />
+        <img :src="user.icon" class="member__content__icon" />
       </a>
 
       <span class="member__content__name">{{ user.name }}</span>
     </div>
 
     <!-- v-showで切り替え -->
-    <div v-show="userJudges === 1">
+    <div v-show="userJudges === 1 && requestUsers.length >= 1">
       <p class="member__title">許可待ちメンバー</p>
       <div v-for="requestUser in requestUsers" class="member__content">
         <a @click="userRouter(requestUser.id)">
-          <img
-            src="../../../public/beach-1824855_1920.jpg"
-            class="member__content__icon asign"
-          />
+          <img :src="requestUser.icon" class="member__content__icon asign" />
         </a>
 
         <span class="member__content__name">{{ requestUser.name }}</span>
