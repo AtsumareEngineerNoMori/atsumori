@@ -6,7 +6,7 @@
       <div v-if="projects.length > 0">
         <div class="search_list">
           <div v-for="project in projects" :key="project.id" class="search_result">
-            <router-link :to="'/projects/' + project.id">
+            <router-link :to="'/projectshow/' + project.id">
               <img :src="project.icon" alt="project" class="search_iconImg" />
               <div class="search_recinfo">
                 {{ project.projectName }}

@@ -10,7 +10,7 @@
             :key="recruitNewUser.id"
             class="search_result"
           >
-            <router-link :to="'/islands/' + recruitNewUser.island.id">
+            <router-link :to="'/islandshow/' + recruitNewUser.island.id">
               <img
                 :src="recruitNewUser.island.icon"
                 alt="island"
