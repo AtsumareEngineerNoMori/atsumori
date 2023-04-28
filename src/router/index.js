@@ -102,7 +102,7 @@ const router = createRouter({
     },
 
     {
-      path: "/recruitUserRegister/:islandId",
+      path: "/recruitUserRegister/:id",
 
       name: "recruitUserRegister",
       component: RecruitUserRegister,
@@ -114,7 +114,7 @@ const router = createRouter({
     },
     {
 
-      path: '/recruitIslandRegister/:projectId',
+      path: '/recruitIslandRegister/:id',
       name: 'recruitIslandRegister',
       component:  RecruitIslandRegister
     },

@@ -11,10 +11,11 @@
 @use "./chat/chat";
 @use "./Login";
 @use "./register/Register";
-@use "./Header";
+@use "./header/Header";
 @use "./register/IslandRegister";
 @use "./register/ProjectRegister";
 @use "./register/RecruitUserRegister";
 @use "./register/RecruitIslandRegister";
 @use "./Top";
 @use "./loading";
+@use "./header/HeaderModal";

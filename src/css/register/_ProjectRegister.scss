@@ -1,7 +1,7 @@
 .ProjectRegister{
     margin: 0% auto 0 auto;
     background-color: #FFFCF4;
-    // height: 100vh;
+    height: 100%;
     min-height: 100hv;
     padding-top: 10%;
     &-title{
@@ -76,8 +76,7 @@
 
 }
 
-.icon_form {
-    top: 69%;
+.icon_form-project {
     color: #ffff;
     padding: 1.5% 3% 2% 1.5%;
     border: none;
@@ -85,8 +84,10 @@
     width: 20px;
     aspect-ratio: 1/1;
     position: absolute;
-    right: 68%;
+    margin-top: -110px;
+    top: 702px;
     background-color: #4B7031;
+    right: 690px;
   }
   .add_icon {
     font-size: 27px;
