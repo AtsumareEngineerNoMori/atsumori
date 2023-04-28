@@ -88,9 +88,9 @@
           <button type="submit" class="userRegister-details2-button">
             登録する
           </button>
-          <!-- <RouterLink to="/login"> -->
+          <RouterLink to="/login">
           <div class="userRegister-details2-login">ログインはこちら！</div>
-          <!-- </RouterLink> -->
+          </RouterLink>
         </div>
       </form>
     </div>
