@@ -84,12 +84,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <img
-              v-bind:src="infomation.icon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">{{ infomation.islandName }}</p>
+            <router-link
+              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.icon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">{{ infomation.islandName }}</p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -102,12 +106,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <img
-              v-bind:src="infomation.icon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">{{ infomation.projectName }}</p>
+            <router-link class ="top-new-set-imgdiv"
+              :to="{ name: 'projectShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.icon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">{{ infomation.projectName }}</p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -122,14 +130,18 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <img
-              v-bind:src="infomation.islandIcon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">
-              {{ infomation.islandName }}{{ infomation.recruitTitle }}
-            </p>
+            <router-link
+              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.islandIcon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">
+                {{ infomation.islandName }}
+              </p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -142,12 +154,16 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <img
-              v-bind:src="infomation.projectIcon"
-              alt="ifomation"
-              class="top-new-set-img"
-            />
-            <p class="top-new-set-name">{{ infomation.projectName }}</p>
+            <router-link
+              :to="{ name: 'projectShow', params: { id: infomation.id } }"
+            >
+              <img
+                v-bind:src="infomation.projectIcon"
+                alt="ifomation"
+                class="top-new-set-img"
+              />
+              <p class="top-new-set-name">{{ infomation.projectName }}</p>
+            </router-link>
           </div>
         </section>
       </div>
@@ -176,9 +192,6 @@ function selectFilter(filter) {
   console.log("変更しています", filter);
   isShow.value = !isShow.value;
 }
-// const toggleStatus = () => {
-//   isShow.value = !isShow.value;
-// };
 
 // みゆ
 const formAction = computed(() => {
@@ -216,7 +229,9 @@ function handleSubmit() {
 
 // 島
 const getIslands = async () => {
-  const response = await fetch(`http://localhost:8000/Islands/?_limit=6`);
+  const response = await fetch(
+    `http://localhost:8000/Islands/?_limit=6&_sort=createDate&_order=desc`
+  );
   const data = await response.json();
   console.log(data);
   newIslandArray.value = data;
@@ -225,7 +240,9 @@ getIslands();
 
 // プロジェクト
 const getProjects = async () => {
-  const response = await fetch(`http://localhost:8000/Projects/?_limit=6`);
+  const response = await fetch(
+    `http://localhost:8000/Projects/?_limit=6&_sort=createDate&_order=desc`
+  );
   const data = await response.json();
   console.log(data);
   newProjectArray.value = data;
@@ -235,30 +252,22 @@ getProjects();
 // 募集人
 const getRecruitIslands = async () => {
   const response = await fetch(
-    `http://localhost:8000/RecruitNewUser/?_limit=6`
+    `http://localhost:8000/RecruitNewUser/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
   console.log(data);
   newRecruitIslandArray.value = data;
-  console.log(typeof data[0].createDate)
-  console.log(data[0].createDate)
-  newRecruitIslandArray.value.sort(
-      (x, y) => (y.createDate) - (x.createDate),
-  )
 };
 getRecruitIslands();
 
 // 募集島
 const getRecruitProjects = async () => {
   const response = await fetch(
-    `http://localhost:8000/RecruitNewIsland/?_limit=6`
+    `http://localhost:8000/RecruitNewIsland/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
   console.log(data);
   newRecruitProjectArray.value = data;
 };
 getRecruitProjects();
-
-
-
 </script>

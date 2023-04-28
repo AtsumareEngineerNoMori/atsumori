@@ -8,6 +8,14 @@ const img = {
 };
 
 const Project = ref(1); //?????
+
+const data = ref({
+  recruitTitle: "",
+  recruitJob: "",
+  recruitPoint: "",
+  createDate: "",
+});
+
 //プロジェクト情報取得
 onMounted(async () => {
   try {
@@ -19,6 +27,7 @@ onMounted(async () => {
     }
     Project.value = await response.json();
     console.log("Islands.valueの中身", Project.value);
+    console.log( Project.value)
   } catch (err) {
     err.value = err;
     console.log("エラー", err.value);
@@ -45,6 +54,16 @@ function convertToBase64(file) {
   });
 }
 
+//RecruitNewUser取得
+const getFlight = async () => {
+  const response = await fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`);
+  const recruitNewIslandData = await response.json();
+  console.log(recruitNewIslandData);
+  data.value = recruitNewIslandData;
+  console.log(data);
+};
+getFlight();
+
 
 //デフォルトの画像
 const defaultIconURL = "https://1.bp.blogspot.com/-LZL7jGWmL3Q/X-FcwoOnE2I/AAAAAAABdEs/qUrY1ClrQrMukkdaEnZK8-Bdob7mOdmQgCNcBGAsYHQ/s400/onepiece13_crocodile.png"
@@ -68,6 +87,32 @@ async function updateProject() {
         body: JSON.stringify(Project.value),
       }
     );
+
+        // recruitNewIsland更新
+        const updateRecruitNewUser = () => {
+      fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectId: Project,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          projectName: Project.value.projectName ,
+          projectIcon: Project.value.icon ,
+          // id: Project,
+        }),
+      });
+    };
+    updateRecruitNewUser();
+
+
+
+
+
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }

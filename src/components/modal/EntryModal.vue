@@ -51,6 +51,7 @@ const asign = () => {
         islandId: selectIsland.value,
       }),
     });
+    toggleStatus();
   }
 };
 </script>

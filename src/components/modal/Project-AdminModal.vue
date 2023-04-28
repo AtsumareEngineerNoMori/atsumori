@@ -65,6 +65,17 @@ const deleteProject = () => {
     console.log(e);
   }
 };
+
+// 遷移
+const editRouter = () => {
+  router.push({ name: "projectEdit", params: { id: props.projectId } });
+};
+const recruitRouter = () => {
+  router.push({
+    name: "recruitIslandRegister",
+    params: { id: props.projectId },
+  });
+};
 </script>
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">
@@ -82,9 +93,13 @@ const deleteProject = () => {
         </header>
         <main class="modal__content" id="modal-1-content">
           <div class="adminModal">
-            <button class="adminModal__btn">編集</button>
+            <button @click="editRouter" class="adminModal__btn">編集</button>
 
-            <button v-show="!recruitIsShow" class="adminModal__btn">
+            <button
+              v-show="!recruitIsShow"
+              @click="recruitRouter"
+              class="adminModal__btn"
+            >
               募集作成
             </button>
             <button
