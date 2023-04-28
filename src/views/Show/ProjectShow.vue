@@ -93,7 +93,7 @@ onMounted(async () => {
         class="projectDetail__user__header"
       />
       <div class="projectDetail__user__icon">
-        <img src="../../../public/atsumare engimeer no Mori.png" class="icon" />
+        <img :src="project.icon" class="icon" />
         <div class="projectDetail__user__icon__text">
           <p class="projectDetail__user__icon__text__name">
             {{ project.projectName }}
