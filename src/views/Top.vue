@@ -106,7 +106,7 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <router-link
+            <router-link class ="top-new-set-imgdiv"
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
             >
               <img

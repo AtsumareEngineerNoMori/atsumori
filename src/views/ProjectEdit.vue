@@ -103,7 +103,7 @@ async function updateProject() {
           createDate: data.value.createDate,
           projectName: Project.value.projectName ,
           projectIcon: Project.value.icon ,
-          id: Project,
+          // id: Project,
         }),
       });
     };

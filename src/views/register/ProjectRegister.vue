@@ -15,7 +15,7 @@
                   class="ProjectRegister-details-icon-img"
                 />
               </div>
-              <div class="icon_form">
+              <div class="icon_form-project">
                 <label htmlFor="iconPreview">
                   <p class="add_icon">+</p>
                 </label>

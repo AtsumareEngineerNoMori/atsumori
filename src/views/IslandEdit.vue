@@ -60,7 +60,7 @@ const getFlight = async () => {
   const recruitNewUserData = await response.json();
   console.log(recruitNewUserData);
   data.value = recruitNewUserData;
-  console.log(data);
+  console.log(data.value);
 };
 getFlight();
 
@@ -87,6 +87,8 @@ async function updateIslands() {
       }
     );
 
+
+
     // recruitNewUser更新
     const updateRecruitNewUser = () => {
       fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
@@ -95,14 +97,14 @@ async function updateIslands() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          islandId: IslandId,
+          islandId: IslandId.value,
           recruitTitle: data.value.recruitTitle,
           recruitJob: data.value.recruitJob,
           recruitPoint: data.value.recruitPoint,
           createDate: data.value.createDate,
-          islandName: Island.value.islandName,
-          islandIcon: Island.value.icon,
-          id: IslandId,
+          islandName: Islands.value.islandName,
+          islandIcon: Islands.value.icon,
+          // id: IslandId,
         }),
       });
     };

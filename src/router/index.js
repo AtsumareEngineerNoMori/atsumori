@@ -110,6 +110,7 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
+
       path: "/recruitIslandRegister/:id",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,

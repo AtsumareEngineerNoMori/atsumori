@@ -955,7 +955,6 @@ button {
   display: inline-block;
   margin: 0 15px 1.5em 0;
   padding: 7px 10px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -980,7 +979,6 @@ button {
   display: inline-block;
   margin: 0 0 1.5em 15px;
   padding: 7px 10px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1020,7 +1018,8 @@ button {
 .loginPage {
   background-color: #FFFCF4;
   opacity: 0.9;
-  height: 100%;
+  height: 300vh;
+  height: 300%;
   padding: 13% 0;
 }
 .loginPage-logo {
@@ -1169,11 +1168,18 @@ button {
   margin-bottom: -24px;
   margin-top: -23px;
 }
+.header__a {
+  margin-right: 10px;
+  justify-content: end;
+  display: flex;
+  align-items: center;
+}
 
 .IslandRegister {
   margin: 0% auto 0 auto;
   background-color: #FFFCF4;
-  min-height: 100hv;
+  height: 100%;
+  min-height: 130hv;
   padding-top: 10%;
 }
 .IslandRegister-title {
@@ -1239,7 +1245,6 @@ button {
 }
 
 .icon_form {
-  top: 69%;
   color: white;
   padding: 1.5% 3% 2% 1.5%;
   border: none;
@@ -1247,8 +1252,12 @@ button {
   width: 20px;
   aspect-ratio: 1/1;
   position: absolute;
-  right: 68%;
+  right: 690px;
+  /* margin-top: -110px; */
   background-color: #4B7031;
+  /* top: 17px; */
+  /* top: 1px; */
+  top: 580px;
 }
 
 .add_icon {
@@ -1264,6 +1273,7 @@ button {
 .ProjectRegister {
   margin: 0% auto 0 auto;
   background-color: #FFFCF4;
+  height: 100%;
   min-height: 100hv;
   padding-top: 10%;
 }
@@ -1330,8 +1340,7 @@ button {
   opacity: 0.6;
 }
 
-.icon_form {
-  top: 69%;
+.icon_form-project {
   color: white;
   padding: 1.5% 3% 2% 1.5%;
   border: none;
@@ -1339,8 +1348,10 @@ button {
   width: 20px;
   aspect-ratio: 1/1;
   position: absolute;
-  right: 68%;
+  margin-top: -110px;
+  top: 702px;
   background-color: #4B7031;
+  right: 690px;
 }
 
 .add_icon {
@@ -1566,13 +1577,15 @@ button {
   width: 32.6666666667%;
   aspect-ratio: 1/1;
 }
+.top-new-set-imgdiv {
+  width: 100%;
+}
 .top-new-set-img {
-  width: 90%;
-  height: 90%;
   border-radius: 50%;
   border: 1px solid gray;
   -o-object-fit: cover;
      object-fit: cover;
+  margin-left: 4%;
 }
 .top-new-set-img:hover {
   opacity: 0.6;
@@ -1646,36 +1659,8 @@ button {
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;
-  -webkit-animation: load4 1.3s infinite linear;
   animation: load4 1.3s infinite linear;
   transform: translateZ(0);
-}
-
-@-webkit-keyframes load4 {
-  0%, 100% {
-    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
-  }
-  12.5% {
-    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
-  }
-  25% {
-    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
-  }
-  37.5% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
-  }
-  50% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
-  }
-  62.5% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
-  }
-  75% {
-    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
-  }
-  87.5% {
-    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
-  }
 }
 @keyframes load4 {
   0%, 100% {
@@ -1702,4 +1687,60 @@ button {
   87.5% {
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
+}
+.headerModal__container {
+  position: absolute;
+  /* top: 4.5%; */
+  left: 40%;
+  /* right: -119px; */
+  /* bottom: 90%; */
+}
+.headerModal__content {
+  display: flex;
+  margin-top: 3%;
+  margin-left: 10%;
+}
+.headerModal__menudiv {
+  justify-content: end;
+  display: flex;
+  align-items: center;
+}
+.headerModal__menu {
+  width: 30%;
+  height: 30%;
+  margin-right: 10%;
+}
+.headerModal__tojirudiv {
+  justify-content: end;
+  display: flex;
+  align-items: center;
+}
+.headerModal__hukidasidiv {
+  height: 10px;
+  margin-right: 10%;
+}
+.headerModal__hukidasi {
+  height: 800%;
+  width: 570px;
+  margin-top: 2%;
+}
+.headerModal__listdiv-my {
+  margin-right: 20px;
+}
+.headerModal__listdiv-island {
+  margin-right: 20px;
+}
+.headerModal__listdiv-project {
+  margin-right: 20px;
+}
+.headerModal__list {
+  color: #4b7031;
+  font-size: 100%;
+  text-decoration: underline;
+}
+.headerModal__list:hover {
+  color: #4b7031;
+  font-weight: bold;
+  cursor: pointer;
+  cursor: hand;
 }/*# sourceMappingURL=main.css.map */
