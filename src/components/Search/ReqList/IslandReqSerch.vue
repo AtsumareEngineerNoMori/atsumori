@@ -1,4 +1,4 @@
-<!-- 募集一覧の際検索 -->
+<!-- 募集一覧の再検索 -->
 <template>
   <div class="search">
     <section>

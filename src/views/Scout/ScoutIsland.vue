@@ -6,7 +6,7 @@
       <h3 class="search_title">スカウトする島を探す</h3>
     </section>
 
-    <div class="island_search">
+    <div class="search">
       <form @submit.prevent="searchIslands">
         <input
           type="search"
@@ -21,24 +21,26 @@
 
     <section v-if="results" class="search_list">
       <div v-if="filteredIslands.length > 0">
-        <router-link
-          v-for="island in filteredIslands"
-          :key="island.id"
-          :to="`/mypageforscout/${$route.params.id}/${island.id}`"
-        >
-          <!-- <router-link
+        <div class="search_list">
+          <router-link
+            v-for="island in filteredIslands"
+            :key="island.id"
+            :to="`/projectShow/${$route.params.projectId}/${island.id}`"
+          >
+            <!-- <router-link
           v-for="(island, index) in filteredIslands.slice(0, 5)"
           :key="island.id"
           :to="`/mypageforscout/${$route.params.id}/${island.id}`"
         > -->
-          <img :src="island.icon" alt="island" class="search_iconImg" />
-          <div class="search_recinfo">
-            <p>{{ island.islandName }}</p>
-          </div>
-        </router-link>
-        <!-- <div v-if="filteredIslands.length > 5" class="search_no">
+            <img :src="island.icon" alt="island" class="search_iconImg" />
+            <div class="search_recinfo">
+              <p>{{ island.islandName }}</p>
+            </div>
+          </router-link>
+          <!-- <div v-if="filteredIslands.length > 5" class="search_no">
           <p>最新のおすすめ20件</p>
         </div> -->
+        </div>
       </div>
       <div v-else class="search_no">
         <p>検索結果はありません。</p>
@@ -49,10 +51,13 @@
 
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
+const route = useRouter();
 const keyword = ref("");
 const islands = ref([]);
 const filteredIslands = ref([]);
+const joinProjects = ref([]);
 const results = ref(false);
 
 const fetchIslands = async () => {
@@ -60,12 +65,25 @@ const fetchIslands = async () => {
     const responce = await fetch(`http://localhost:8000/Islands`);
     const data = await responce.json();
     islands.value = data;
-    console.log("難民", data);
+    console.log("島", data);
   } catch (error) {
-    console.log("難民", error);
+    console.log("島", error);
   }
 };
 
+//参加しているプロジェクト
+const fetchJoinProjects = async () => {
+  try {
+    const responce = await fetch(`http://localhost:8000/JoinProjects`);
+    const data = await responce.json();
+    joinProjects.value = data;
+    console.log("参加プロ", data);
+  } catch (error) {
+    console.log("参加プロ", error);
+  }
+};
+
+//paramsのprojectId以外のデータを取得
 const searchIslands = () => {
   console.log("検索:", keyword.value);
 
@@ -75,14 +93,30 @@ const searchIslands = () => {
       alert("20文字以内で入力してください");
       keyword.value = "";
     } else {
-      filteredIslands.value = islands.value.filter((island) =>
-        island.islandName.toLowerCase().includes(keywordIsland)
-      );
+      filteredIslands.value = islands.value
+        .filter((island) =>
+          island.islandName.toLowerCase().includes(keywordIsland)
+        )
+        .filter(
+          (island) =>
+            !joinProjects.value.some(
+              (join) =>
+                join.islandId === island.id &&
+                join.projectId === parseInt(route.params.projectId)
+            )
+        );
       results.value = true;
       keyword.value = "";
     }
   } else {
-    filteredIslands.value = islands.value;
+    filteredIslands.value = islands.value.filter(
+      (island) =>
+        !joinProjects.value.some(
+          (join) =>
+            join.islandId === island.id &&
+            join.projectId === parseInt(route.params.projectId)
+        )
+    );
     results.value = true;
     keyword.value = "";
   }
@@ -90,5 +124,6 @@ const searchIslands = () => {
 
 onMounted(() => {
   fetchIslands();
+  fetchJoinProjects();
 });
 </script>
