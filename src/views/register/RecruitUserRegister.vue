@@ -85,10 +85,13 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 const loading = vueref(false);
 
 // 前野ページからislandIdを取得
-const islandId = 4;
+const islandId = route.params.id;
 
 const router = useRouter();
 const recruitUser = reactive({
@@ -100,7 +103,7 @@ const recruitUser = reactive({
 const islands = vueref();
 
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/Islands/4`);
+  const response = await fetch(`http://localhost:8000/Islands/${islandId}`);
   const data = await response.json();
   console.log(data);
   islands.value = data;
@@ -124,7 +127,7 @@ const recruitUserRegisterButton = () => {
       createDate: new Date(),
       islandName: islands.value.islandName,
       islandIcon: islands.value.icon,
-      id:islandId,
+      id: islandId,
     }),
   });
 };
@@ -137,15 +140,11 @@ const registerRecruitUser = () => {
   } else if (recruitUser.recruitPoint === "") {
     window.alert("募集要項を登録してください");
   } else if (
-    !recruitUser.recruitTitle.match(
-      /^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,20})$/
-    )
+    !recruitUser.recruitTitle.match(/^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,20})$/)
   ) {
     window.alert("募集タイトルは1文字以上20文字以下で入力してください");
   } else if (
-    !recruitUser.recruitPoint.match(
-      /^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,255})$/
-    )
+    !recruitUser.recruitPoint.match(/^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,255})$/)
   ) {
     window.alert("募集要項は1文字以上255文字以下で入力してください");
   } else {

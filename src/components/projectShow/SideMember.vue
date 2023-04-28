@@ -12,9 +12,10 @@ const requestIslands = ref([]);
 
 const props = defineProps({
   projectId: Number,
-  adminId: Number,
+  adminId: String,
   userIds: Array,
   islandId: Array,
+  myId: String,
 });
 
 watch(props, async () => {
@@ -22,7 +23,7 @@ watch(props, async () => {
   const adminId = props.adminId;
 
   // 管理者、参加者、未参加者の判別
-  userJudges.value = userJudge(adminId, props.userIds);
+  userJudges.value = userJudge(adminId, props.userIds, props.myId);
 
   // 島idから島データ取得
   for (let islandId of props.islandId) {
@@ -106,6 +107,14 @@ const Asign = async (islandId) => {
   deleteAsign(islandId);
   router.go(0);
 };
+
+//遷移
+const scoutRouter = () => {
+  router.push({
+    name: "scoutIsland",
+    params: { projectId: props.projectId },
+  });
+};
 </script>
 
 <template>
@@ -113,10 +122,7 @@ const Asign = async (islandId) => {
     <p class="member__title">参加している島</p>
     <div v-for="island in islands" class="member__content">
       <router-link :to="{ name: 'islandShow', params: { id: island.id } }">
-        <img
-          src="../../../public/beach-1824855_1920.jpg"
-          class="member__content__icon"
-        />
+        <img :src="island.icon" class="member__content__icon" />
       </router-link>
       <span class="member__content__name">{{ island.islandName }}</span>
     </div>
@@ -128,10 +134,7 @@ const Asign = async (islandId) => {
         <router-link
           :to="{ name: 'islandShow', params: { id: requestIsland.id } }"
         >
-          <img
-            src="../../../public/beach-1824855_1920.jpg"
-            class="member__content__icon asign"
-          />
+          <img :src="requestIsland.icon" class="member__content__icon asign" />
         </router-link>
         <span class="member__content__name">
           {{ requestIsland.islandName }}
@@ -152,9 +155,7 @@ const Asign = async (islandId) => {
 
     <!-- v-showで切り替え -->
     <div v-show="userJudges === 1 || userJudges === 2" class="member__btn">
-      <router-link to="/">
-        <button type="button" class="member__btn__scout">スカウト</button>
-      </router-link>
+      <button @click="scoutRouter" class="member__btn__scout">スカウト</button>
     </div>
   </div>
 </template>

@@ -11,24 +11,22 @@ import { onAuthStateChanged, getAuth } from "@firebase/auth";
 
 const route = useRoute();
 const router = useRouter();
-const myId = ref();
 
 const island = ref([]);
-const adminId = ref();
+const adminId = ref("X");
+const myId = ref();
 const adminName = ref();
-const userJudges = ref(null);
 const Recruits = ref([]);
 const RecruitIshow = ref(false);
 
 const loading = ref(false);
 
 onMounted(async () => {
-  const id = route.params.id;
+  const id = route.params.islandId;
   const islandData = await fetch(`http://localhost:8000/Islands/${id}`).then(
     (res) => res.json()
   );
   island.value = islandData;
-  adminId.value = islandData.adminId;
 
   // ログインID取得
   function auth() {
@@ -44,9 +42,6 @@ onMounted(async () => {
   await auth().then(() => {
     loading.value = true;
   });
-
-  // ユーザーの判別
-  userJudges.value = adminJudge(adminId.value, myId.value);
 
   const adminData = await fetch(
     `http://localhost:8000/Users/${islandData.adminId}`
@@ -64,6 +59,25 @@ onMounted(async () => {
   }
 });
 
+// スカウト申請
+const scoutRouter = async () => {
+  const islandId = route.params.islandId;
+  const projectId = route.params.projectId;
+
+  await fetch("http://localhost:8000/IslandScout", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      islandId: Number(islandId),
+      projectId: Number(projectId),
+    }),
+  }).then((res) => res.json());
+  router.push({ name: "projectShow", params: { id: projectId } });
+};
+
+// 遷移
 const joinProject = () => {
   router.push({ name: "joinProject", params: { id: island.value.id } });
 };
@@ -80,7 +94,7 @@ const joinProject = () => {
         class="detail__user__header"
       />
       <div class="detail__user__icon">
-        <img :src="island.icon" class="icon" alt="icon"/>
+        <img :src="island.icon" class="icon" alt="icon" />
         <div class="detail__user__icon__text">
           <p class="detail__user__icon__text__name">{{ island.islandName }}</p>
           <div>
@@ -94,14 +108,10 @@ const joinProject = () => {
           </div>
         </div>
       </div>
-
-      <div v-show="userJudges === 1" class="detail__user__setting">
-        <AdminModal :islandId="island.id" />
-      </div>
     </div>
 
     <div class="detail__btn">
-      <ShowBtn :islandId="island.id" :myId="myId" />
+      <button @click="scoutRouter" class="showBtn showScout">スカウト</button>
     </div>
 
     <div class="detail__desc">
@@ -120,10 +130,6 @@ const joinProject = () => {
 
     <div class="detail__member">
       <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
-    </div>
-
-    <div class="detail__scout">
-      <SideScout :islandId="island.id" :userJudge="userJudges" />
     </div>
   </div>
 </template>

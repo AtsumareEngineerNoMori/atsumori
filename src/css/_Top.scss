@@ -143,12 +143,16 @@
         width: calc((100% - 1% * 2) / 3);
         aspect-ratio: 1/1;
       }
+      &-imgdiv{
+        width:100%;
+      }
       &-img {
-        width: 90%;
-        height: 90%;
+        // width: 90%;
+        // height: 90%;
         border-radius: 50%;
         border: 1px solid gray;
         object-fit: cover;
+        margin-left: 4%;
       }
       &-img:hover {
         opacity: 0.6;

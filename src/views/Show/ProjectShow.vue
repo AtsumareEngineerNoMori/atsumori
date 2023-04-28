@@ -2,9 +2,11 @@
 import AdminModal from "../../components/modal/Project-AdminModal.vue";
 import SideMember from "../../components/projectShow/SideMember.vue";
 import ShowBtn from "../../components/projectShow/ShowBtn.vue";
+import Loading from "../../components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import { onAuthStateChanged, getAuth } from "@firebase/auth";
 
 const route = useRoute();
 
@@ -13,9 +15,28 @@ const adminName = ref();
 const userJudges = ref(null);
 const userIds = ref([]);
 const islandId = ref([]);
+const myId = ref();
+const loading = ref(false);
+const Recruits = ref([]);
+const RecruitIshow = ref(false);
 
 onMounted(async () => {
   const id = route.params.id;
+
+  // ログインID取得
+  function auth() {
+    return new Promise((resolve) => {
+      const auth = getAuth();
+      onAuthStateChanged(auth, (currentUser) => {
+        myId.value = currentUser?.uid;
+
+        resolve();
+      });
+    });
+  }
+  await auth().then(() => {
+    loading.value = true;
+  });
 
   // プロジェクトデータの取得
   const projectDatas = await fetch(`http://localhost:8000/Projects/${id}`).then(
@@ -24,7 +45,7 @@ onMounted(async () => {
   project.value = projectDatas;
 
   // 管理者かの判別
-  userJudges.value = adminJudge(project.value.adminId);
+  userJudges.value = adminJudge(project.value.adminId, myId.value);
   // 管理者の名前取得
   const adminData = await fetch(
     `http://localhost:8000/Users/${project.value.adminId}`
@@ -48,18 +69,31 @@ onMounted(async () => {
       userIds.value.push(joinIsland.userId);
     }
   }
+
+  // 募集要項取得
+  const Recruit = await fetch(
+    `http://localhost:8000/RecruitNewIsland?projectId=${id}`
+  ).then((res) => res.json());
+
+  if (Recruit.length >= 1) {
+    RecruitIshow.value = true;
+    Recruits.value = Recruit[0];
+  }
 });
 </script>
 
 <template>
-  <div class="projectDetail">
+  <div v-show="!loading">
+    <Loading />
+  </div>
+  <div v-show="loading" class="projectDetail">
     <div class="projectDetail__user">
       <img
         src="../../../public/projectHeader.jpg"
         class="projectDetail__user__header"
       />
       <div class="projectDetail__user__icon">
-        <img src="../../../public/atsumare engimeer no Mori.png" class="icon" />
+        <img :src="project.icon" class="icon" />
         <div class="projectDetail__user__icon__text">
           <p class="projectDetail__user__icon__text__name">
             {{ project.projectName }}
@@ -77,14 +111,21 @@ onMounted(async () => {
     </div>
 
     <div class="projectDetail__btn">
-      <ShowBtn :userIds="userIds" :projectId="project.id" />
+      <ShowBtn :userIds="userIds" :projectId="project.id" :myId="myId" />
     </div>
 
     <div class="projectDetail__desc">
       <p class="projectDetail__desc__title">プロジェクト情報</p>
-      <p class="projectDetail__desc__text">
+      <div class="projectDetail__desc__text">
+        <p class="projectDetail__desc__text__title">【詳細情報】</p>
         {{ project.projectDescription }}
-      </p>
+
+        <div v-show="RecruitIshow">
+          <p class="projectDetail__desc__text__title">【募集内容】</p>
+          <p>{{ Recruits.recruitTitle }}</p>
+          <p>{{ Recruits.recruitPoint }}</p>
+        </div>
+      </div>
     </div>
 
     <div class="projectDetail__member">
@@ -93,6 +134,7 @@ onMounted(async () => {
         :adminId="project.adminId"
         :userIds="userIds"
         :islandId="islandId"
+        :myId="myId"
       />
     </div>
   </div>

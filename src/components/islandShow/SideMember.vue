@@ -12,7 +12,8 @@ const requestUsers = ref([]);
 
 const props = defineProps({
   islandId: Number,
-  adminId: Number,
+  adminId: String,
+  myId: String,
 });
 
 watch(props, async () => {
@@ -25,37 +26,56 @@ watch(props, async () => {
   ).then((res) => res.json());
 
   const userIds = joinDatas.map((joinData) => joinData.userId);
+  // 管理者、参加者、未参加者の判別
+  userJudges.value = userJudge(adminId, userIds, props.myId);
 
   // ユーザーidからユーザーデータ取得
-  userIds.forEach(async (userId) => {
+  for (let userId of userIds) {
     const userData = await fetch(`http://localhost:8000/Users/${userId}`).then(
       (res) => res.json()
     );
-    users.value.push(userData);
-  });
 
-  // 管理者、参加者、未参加者の判別
-  userJudges.value = userJudge(adminId, userIds);
+    // 既に追加されているかの判別
+    let user = false;
+    for (let i = 0; i < users.value.length; i++) {
+      if (users.value[i].id === userData.id) {
+        user = true;
+        break;
+      }
+    }
+    if (!user) {
+      users.value.push(userData);
+    }
+  }
 
-  // ユーザー毎に表示内容の変更
+  // 管理者画面の表示
   if (userJudges.value === 1) {
     requestIslands.value = await fetch(
       `http://localhost:8000/RequestIsland?islandId=${islandId}`
     ).then((res) => res.json());
 
     // リクエストデータからユーザーid取得
-    const requestUserIds = [];
-    requestIslands.value.forEach((requestIsland) => {
-      requestUserIds.push(requestIsland.userId);
-    });
+    const requestUserIds = requestIslands.value.map(
+      (requestIsland) => requestIsland.userId
+    );
 
-    // ユーザーidからユーザーデータ取得
-    requestUserIds.forEach(async (requestUserId) => {
+    for (let requestUserId of requestUserIds) {
       const requestUserData = await fetch(
         `http://localhost:8000/Users/${requestUserId}`
       ).then((res) => res.json());
-      requestUsers.value.push(requestUserData);
-    });
+
+      // 既に追加されているかの判別
+      let requestUser = false;
+      for (let i = 0; i < requestUsers.value.length; i++) {
+        if (requestUsers.value[i].id === requestUserData.id) {
+          requestUser = true;
+          break;
+        }
+      }
+      if (!requestUser) {
+        requestUsers.value.push(requestUserData);
+      }
+    }
   }
 });
 
@@ -86,9 +106,22 @@ const Asign = async (userId) => {
       userId: userId,
       islandId: props.islandId,
     }),
+  }).then((res) => {
+    console.log(res);
   });
   deleteAsign(userId);
   router.go(0);
+};
+
+//遷移
+const userRouter = (userId) => {
+  router.push({ name: "othermypage", params: { id: userId } });
+};
+const scoutRouter = () => {
+  router.push({
+    name: "scoutPeople",
+    params: { islandId: props.islandId },
+  });
 };
 </script>
 
@@ -96,27 +129,21 @@ const Asign = async (userId) => {
   <div class="member">
     <p class="member__title">メンバー</p>
     <div v-for="user in users" class="member__content">
-      <router-link :to="{ name: 'othermypage', params: { id: user.id } }">
-        <img
-          src="../../../public/beach-1824855_1920.jpg"
-          class="member__content__icon"
-        />
-      </router-link>
+      <a @click="userRouter(user.id)">
+        <img :src="user.icon" class="member__content__icon" />
+      </a>
+
       <span class="member__content__name">{{ user.name }}</span>
     </div>
 
     <!-- v-showで切り替え -->
-    <div v-show="userJudges === 1">
+    <div v-show="userJudges === 1 && requestUsers.length >= 1">
       <p class="member__title">許可待ちメンバー</p>
       <div v-for="requestUser in requestUsers" class="member__content">
-        <router-link
-          :to="{ name: 'othermypage', params: { id: requestUser.id } }"
-        >
-          <img
-            src="../../../public/beach-1824855_1920.jpg"
-            class="member__content__icon asign"
-          />
-        </router-link>
+        <a @click="userRouter(requestUser.id)">
+          <img :src="requestUser.icon" class="member__content__icon asign" />
+        </a>
+
         <span class="member__content__name">{{ requestUser.name }}</span>
         <div class="member__content__btn">
           <button
@@ -134,9 +161,7 @@ const Asign = async (userId) => {
 
     <!-- v-showで切り替え -->
     <div v-show="userJudges === 1 || userJudges === 2" class="member__btn">
-      <router-link to="/top">
-        <button type="button" class="member__btn__scout">スカウト</button>
-      </router-link>
+      <button @click="scoutRouter" class="member__btn__scout">スカウト</button>
     </div>
   </div>
 </template>

@@ -1,4 +1,5 @@
 <script setup>
+
 import { onMounted, ref } from "vue";
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
@@ -22,7 +23,7 @@ const route = useRoute();
 const router = useRouter();
 
 //パラメーターからuserId取得
-const userId = route.params.userId;
+const userId = route.params.id;
 //パラメーターからislandId取得
 const islandId = route.params.islandId;
 

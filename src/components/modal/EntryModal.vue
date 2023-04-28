@@ -1,11 +1,13 @@
 <script setup>
 import { watch, ref } from "vue";
-// import { getAuth } from "@firebase/auth";
 
 const isShow = ref(false);
+const joinIsland = ref([]);
+const selectIsland = ref();
 
 const props = defineProps({
   projectId: Number,
+  myId: String,
 });
 
 // モーダル表示切り替え
@@ -14,14 +16,44 @@ const toggleStatus = () => {
 };
 
 watch(props, async () => {
-  // const auth = getAuth();
-  // const myId = auth.currentUser?.uid;
-  const myId = 1;
-
-  const joinIslands = await fetch(
-    `http://localhost:8000/JoinIslands?userId=${myId}`
+  const joinIslandDatas = await fetch(
+    `http://localhost:8000/JoinIslands?userId=${props.myId}`
   ).then((res) => res.json());
+
+  for (let joinIslandData of joinIslandDatas) {
+    const island = await fetch(
+      `http://localhost:8000/Islands/${joinIslandData.islandId}`
+    ).then((res) => res.json());
+
+    let islands = false;
+    for (let i = 0; i < joinIsland.value.length; i++) {
+      if (joinIsland.value[i].id === joinIslandData.islandId) {
+        islands = true;
+        break;
+      }
+    }
+    if (!islands) {
+      joinIsland.value.push(island);
+    }
+  }
 });
+
+// 申請する
+const asign = () => {
+  if (selectIsland.value !== undefined) {
+    fetch("http://localhost:8000/RequestProject", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        projectId: props.projectId,
+        islandId: selectIsland.value,
+      }),
+    });
+    toggleStatus();
+  }
+};
 </script>
 <template>
   <div v-show="isShow" id="modal-1" aria-hidden="true">
@@ -38,14 +70,20 @@ watch(props, async () => {
           </h2>
         </header>
         <main class="modal__content" id="modal-1-content">
-          <select name="island" id="island-select" class="entryModal__select">
-            <option value="">--Please select--</option>
-            <option value="島">島</option>
+          <select
+            name="island"
+            id="island-select"
+            v-model="selectIsland"
+            class="entryModal__select"
+          >
+            <option v-for="island in joinIsland" :value="island.id" selected>
+              {{ island.islandName }}
+            </option>
           </select>
         </main>
 
         <footer class="modal__footer">
-          <button class="entryModal__btn">申請</button>
+          <button @click="asign" class="entryModal__btn">申請</button>
           <button
             @click="toggleStatus"
             class="modal__btn"

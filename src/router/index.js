@@ -8,6 +8,8 @@ import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
 import IslandShow from "../views/Show/IslandShow.vue";
+import ProjectShow from "../views/Show/ProjectShow.vue";
+import ScoutShow from "../views/Show/ScoutShow.vue";
 import Top from "../views/Top.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 import LoginView from "../views/Login.vue";
@@ -49,8 +51,8 @@ const router = createRouter({
       component: MyPageEdit,
     },
     {
-      path: "/othermypage/:userId",
-      name: "othermypageedit",
+      path: "/othermypage/:id",
+      name: "othermypage",
       component: OtherMyPage,
     },
     {
@@ -59,22 +61,17 @@ const router = createRouter({
       component: MyPageForScout,
     },
     {
-      path: "/islandEdit",
+      path: "/islandEdit/:id",
       name: "islandEdit",
       component: IslandEdit,
     },
     {
-      path: "/islandEdit",
-      name: "islandEdit",
-      component: IslandEdit,
-    },
-    {
-      path: "/projectEdit",
+      path: "/projectEdit/:id",
       name: "projectEdit",
       component: ProjectEdit,
     },
     {
-      path: "/islandadmissionrequest/:userId/:islandId",
+      path: "/islandadmissionrequest/:islandId/:userId",
       name: "islandadmissionrequest",
       component: IslandAdmissionRequest,
     },
@@ -84,7 +81,7 @@ const router = createRouter({
       component: IslandRegisterView,
     },
     {
-      path: "/projectadmissionrequest",
+      path: "/projectadmissionrequest/:userId/:projectId",
       name: "projectadmissionrequest",
       component: ProjectAdmissionRequest,
     },
@@ -101,7 +98,7 @@ const router = createRouter({
     },
 
     {
-      path: "/recruitUserRegister",
+      path: "/recruitUserRegister/:id",
       name: "recruitUserRegister",
       component: RecruitUserRegister,
     },
@@ -111,7 +108,8 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
-      path: "/recruitIslandRegister",
+
+      path: "/recruitIslandRegister/:id",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,
     },
@@ -121,9 +119,19 @@ const router = createRouter({
       component: IslandReqList,
     },
     {
-      path: "/show",
-      name: "show",
+      path: "/islandShow/:id",
+      name: "islandShow",
       component: IslandShow,
+    },
+    {
+      path: "/projectShow/:id",
+      name: "projectShow",
+      component: ProjectShow,
+    },
+    {
+      path: "/scoutShow/:islandId/:projectId",
+      name: "scoutShow",
+      component: ScoutShow,
     },
     {
       path: "/joinIsland",
@@ -131,7 +139,7 @@ const router = createRouter({
       component: () => import("../views/JoinIsland.vue"),
     },
     {
-      path: "/joinProject",
+      path: "/joinProject/:id",
       name: "joinProject",
       component: () => import("../views/JoinProject.vue"),
     },
@@ -141,12 +149,12 @@ const router = createRouter({
       component: () => import("../views/userScout.vue"),
     },
     {
-      path: "/islandChat",
+      path: "/islandChat/:id",
       name: "islandChat",
       component: () => import("../views/chat/islandChat.vue"),
     },
     {
-      path: "/projectChat",
+      path: "/projectChat/:id",
       name: "projectChat",
       component: () => import("../views/chat/projectChat.vue"),
     },
@@ -176,12 +184,12 @@ const router = createRouter({
       component: SearchReqProResult,
     },
     {
-      path: "/scoutIsland",
+      path: "/scoutIsland/:projectId",
       name: "scoutIsland",
       component: ScoutIsland,
     },
     {
-      path: "/scoutPeople",
+      path: "/scoutPeople/:islandId",
       name: "scoutPeople",
       component: ScoutPeople,
     },
