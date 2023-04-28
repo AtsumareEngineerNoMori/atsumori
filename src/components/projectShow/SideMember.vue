@@ -111,7 +111,7 @@ const Asign = async (islandId) => {
 //遷移
 const scoutRouter = () => {
   router.push({
-    name: "",
+    name: "scoutIsland",
     params: { projectId: props.projectId },
   });
 };
@@ -122,10 +122,7 @@ const scoutRouter = () => {
     <p class="member__title">参加している島</p>
     <div v-for="island in islands" class="member__content">
       <router-link :to="{ name: 'islandShow', params: { id: island.id } }">
-        <img
-          src="../../../public/beach-1824855_1920.jpg"
-          class="member__content__icon"
-        />
+        <img :src="island.icon" class="member__content__icon" />
       </router-link>
       <span class="member__content__name">{{ island.islandName }}</span>
     </div>
@@ -137,10 +134,7 @@ const scoutRouter = () => {
         <router-link
           :to="{ name: 'islandShow', params: { id: requestIsland.id } }"
         >
-          <img
-            src="../../../public/beach-1824855_1920.jpg"
-            class="member__content__icon asign"
-          />
+          <img :src="requestIsland.icon" class="member__content__icon asign" />
         </router-link>
         <span class="member__content__name">
           {{ requestIsland.islandName }}

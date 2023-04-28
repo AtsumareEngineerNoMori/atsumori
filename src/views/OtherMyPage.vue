@@ -23,7 +23,7 @@ const route = useRoute();
 const router = useRouter();
 
 //パラメーターからuserId取得
-const userId = route.params.userId;
+const userId = route.params.id;
 //パラメーターからislandId取得
 const islandId = route.params.islandId;
 
