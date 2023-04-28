@@ -15,23 +15,14 @@ const router = useRouter();
 
 // 表示切り替え
 watch(props, async () => {
-  // 遷移元のURL
-  let url = router.referrer;
-  // スカウト検索結果画面のURL
-  const scoutUrl = "http://localhost:5173/";
+  const id = props.islandId;
+  const joinDatas = await fetch(
+    `http://localhost:8000/JoinIslands?islandId=${id}`
+  ).then((res) => res.json());
 
-  if (url === scoutUrl) {
-    userJudge.value = 3;
-  } else {
-    const id = props.islandId;
-    const joinDatas = await fetch(
-      `http://localhost:8000/JoinIslands?islandId=${id}`
-    ).then((res) => res.json());
+  const joinIds = joinDatas.map((joinData) => joinData.userId);
 
-    const joinIds = joinDatas.map((joinData) => joinData.userId);
-
-    userJudge.value = joinJudge(joinIds, props.myId);
-  }
+  userJudge.value = joinJudge(joinIds, props.myId);
 });
 
 // 遷移
@@ -44,10 +35,6 @@ const recruitRouter = () => {
     name: "islandadmissionrequest",
     params: { islandId: props.islandId, userId: props.myId },
   });
-};
-
-const scoutRouter = () => {
-
 };
 </script>
 
@@ -67,14 +54,6 @@ const scoutRouter = () => {
       class="showBtn showEntry"
     >
       移住申請
-    </button>
-
-    <button
-      v-show="userJudge === 3"
-      @click="scoutRouter"
-      class="showBtn showScout"
-    >
-      スカウト
     </button>
   </div>
 </template>
