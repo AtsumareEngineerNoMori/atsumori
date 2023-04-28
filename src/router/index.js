@@ -7,7 +7,6 @@ import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
 import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
-import IslandShow from "../views/Show/IslandShow.vue";
 import Top from "../views/Top.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
 import LoginView from "../views/Login.vue";
@@ -24,6 +23,8 @@ import IslandRegisterView from "../views/register/IslandRegister.vue";
 import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
 import RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue";
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
+import IslandShow from "../views/Show/IslandShow.vue";
+import ProjectShow from "../views/Show/ProjectShow.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -121,11 +122,6 @@ const router = createRouter({
       component: IslandReqList,
     },
     {
-      path: "/show",
-      name: "show",
-      component: IslandShow,
-    },
-    {
       path: "/joinIsland",
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
@@ -199,6 +195,16 @@ const router = createRouter({
       path: "/joinIsland",
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
+    },
+    {
+      path: "/islandShow/:id",
+      name: "islandShow",
+      component: IslandShow,
+    },
+    {
+      path: "/projectShow/:id",
+      name: "projectShow",
+      component: ProjectShow,
     },
   ],
 });

@@ -865,28 +865,66 @@ button {
 .search_title {
   margin-bottom: 5%;
 }
-.search_box {
-  width: 90%;
+.search_select {
+  background-color: #fff;
+  color: #ccc;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.search_select.active {
+  background-color: #4b7031;
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.search_selects4 {
+  width: 80%;
+  margin: 0 auto;
+}
+.search .all_search {
   margin: 2%;
+}
+.search_box {
+  width: 80%;
+  margin: 5%;
 }
 .search_no {
   margin: auto;
 }
+.search_btn {
+  padding: 1%;
+  border: 3px dashed #4b7031;
+  background-color: #4b7031;
+  color: white;
+  font-weight: bold;
+  border-radius: 20%;
+}
 .search_btn:hover {
-  background-color: white;
-  color: #4b7031;
-  outline: 1px solid #4b7031;
+  opacity: 0.6;
+  cursor: pointer;
 }
 .search_list {
   display: flex;
   flex-wrap: wrap;
+  margin: 7%;
 }
 .search_recinfo {
   text-align: center;
 }
 .search_iconImg {
-  width: 200px;
-  height: 200px;
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: #4b7031;
+  border-radius: 50%;
+}
+.search_set {
+  border: 3px dashed #4b7031;
+  width: 80%;
+  margin: 0 auto;
+  background-color: white;
+  padding: 3%;
 }
 
 .chat {
@@ -955,7 +993,6 @@ button {
   display: inline-block;
   margin: 0 15px 1.5em 0;
   padding: 7px 10px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -980,7 +1017,6 @@ button {
   display: inline-block;
   margin: 0 0 1.5em 15px;
   padding: 7px 10px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1646,36 +1682,8 @@ button {
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;
-  -webkit-animation: load4 1.3s infinite linear;
   animation: load4 1.3s infinite linear;
   transform: translateZ(0);
-}
-
-@-webkit-keyframes load4 {
-  0%, 100% {
-    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
-  }
-  12.5% {
-    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
-  }
-  25% {
-    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
-  }
-  37.5% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
-  }
-  50% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
-  }
-  62.5% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
-  }
-  75% {
-    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
-  }
-  87.5% {
-    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
-  }
 }
 @keyframes load4 {
   0%, 100% {
