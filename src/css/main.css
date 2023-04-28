@@ -456,11 +456,11 @@
   outline: 1px solid #4b7031;
 }
 .mypage__container {
-  display: grid;
   grid-template-columns: 40% 50%;
   margin-top: 30px;
   -moz-column-gap: 5%;
        column-gap: 5%;
+  display: flex;
 }
 .mypage__column {
   display: flex;
@@ -511,7 +511,6 @@
   padding-bottom: 40px;
 }
 .edit__container {
-  display: grid;
   grid-template-columns: 50% 40%;
   margin-top: 30px;
   -moz-column-gap: 10%;

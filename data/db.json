@@ -1,0 +1,54 @@
+{
+  "Users": [
+    {
+      "id": "rZwkM7Wjj3NIkCvkXNo5eGaktPY2",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Ficon_1682671636688?alt=media&token=f59c16a2-6a05-4989-843e-7de7b485f353",
+      "name": "きじまいくり",
+      "job": "ML",
+      "comment": "GW",
+      "email": "ikuri@rakus-partners.co.jp"
+    }
+  ],
+  "Islands": [
+    {
+      "islandName": "ぞうがかわいい",
+      "islandDescription": "ぞうが世界で一番かわいいと思っている人だけ",
+      "adminId": "rZwkM7Wjj3NIkCvkXNo5eGaktPY2",
+      "createDate": "2023-04-28T08:31:41.181Z",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fpostgres-logo.png?alt=media&token=505fdfa8-2dfb-46b7-afdb-8d539e35cee1",
+      "id": 1
+    }
+  ],
+  "Projects": [
+    {
+      "projectName": "入りたい島がないなあ",
+      "projectDescription": "魅力的な島がないせいで僕は難民です",
+      "adminId": "rZwkM7Wjj3NIkCvkXNo5eGaktPY2",
+      "createDate": "2023-04-28T08:32:11.207Z",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2FGit-Logo.png?alt=media&token=1d5884f1-66eb-48cf-b746-95b4cfe46e60",
+      "id": 1
+    }
+  ],
+  "RecruitNewUser": [],
+  "RecruitNewIsland": [],
+  "RequestIsland": [],
+  "RequestProject": [],
+  "JoinIslands": [
+    {
+      "userId": "rZwkM7Wjj3NIkCvkXNo5eGaktPY2",
+      "islandId": 1,
+      "id": 1
+    }
+  ],
+  "JoinProjects": [
+    {
+      "userId": "rZwkM7Wjj3NIkCvkXNo5eGaktPY2",
+      "projectId": 1,
+      "id": 1
+    }
+  ],
+  "IslandChat": [],
+  "ProjectChat": [],
+  "UserScout": [],
+  "IslandScout": []
+}

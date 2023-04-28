@@ -1,15 +1,21 @@
 <script setup>
 // import { placeholder } from "@babel/types";
-import { onMounted, ref } from "vue";
+import { onMounted, ref as vueRef } from "vue";
 import { useRouter } from "vue-router";
 import "../css/main.css";
 import { auth } from "../../firebase";
-
+//firestorage
+import {
+  getStorage,
+  ref as firebaseRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 //会員情報取得
-const userId = ref(); //firebaseでログインしてる人のIDが入る
-const err = ref();
-const User = ref({
+const userId = vueRef(); //firebaseでログインしてる人のIDが入る
+const err = vueRef();
+const User = vueRef({
   icon: "",
   name: "",
   icon: "",
@@ -18,10 +24,10 @@ const User = ref({
 });
 const router = useRouter();
 
-
 const back = () => {
   router.push("/mypage");
 };
+
 //会員情報取得
 onMounted(async () => {
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
@@ -53,29 +59,37 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
-    const base64String = await convertToBase64(file);
-    User.value.icon = base64String;
+    const storage = getStorage();
+    const iconFileName = vueRef("icon_" + Date.now());
+    const storageRef = firebaseRef(storage, `icon/${iconFileName.value}`);
+    console.log("aaa", storageRef);
+    uploadBytesResumable(storageRef, file)
+      .then(() => {
+        console.log("アイコン取得");
+        const starsRef = firebaseRef(storage, `icon/${iconFileName.value}`);
+        getDownloadURL(starsRef).then((url) => {
+          console.log("URL", url);
+          User.value.icon = url;
+          console.log(User.value.icon);
+        });
+      })
+      .catch((error) => {
+        console.error("アップロード中にエラーが出ました", error);
+      });
   } catch (error) {
-    console.error(error);
+    console.error("エラー", error);
   }
 }
 
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
 
 //デフォルトの画像
-const defaultIconURL = "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png"
+const defaultIconURL =
+  "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png";
 
 //画像削除
 const removeIcon = () => {
   User.value.icon = defaultIconURL;
-}
+};
 //User更新
 async function updateUser() {
   try {
@@ -115,8 +129,9 @@ async function updateUser() {
           id="icon_file"
           style="display: none"
         />
-        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
-
+        <button @click="removeIcon" class="edit__button_cansel">
+          画像を削除
+        </button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
@@ -166,8 +181,8 @@ async function updateUser() {
       </ul>
     </div>
     <div class="edit__buttoncontainer">
-          <button class="edit__button_cansel" @click="back">戻る</button>
-          <button class="edit__button" @click="updateUser">更新</button>
+      <button class="edit__button_cansel" @click="back">戻る</button>
+      <button class="edit__button" @click="updateUser">更新</button>
     </div>
   </div>
 </template>
