@@ -85,7 +85,12 @@
 <script setup>
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
 const loading = vueref(false);
+
+// const projectId = route.params.id;
 const projectId = 4;
 
 const router = useRouter();
@@ -132,15 +137,13 @@ const registerRecruitIsland = () => {
   } else if (recruitIsland.recruitPoint === "") {
     window.alert("募集要項を登録してください");
   } else if (
-    !recruitIsland.recruitTitle.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,20})$/
-    )
+    recruitIsland.recruitTitle.length < 1 ||
+    recruitIsland.recruitTitle.length > 20
   ) {
     window.alert("募集タイトルは1文字以上20文字以下で入力してください");
   } else if (
-    !recruitIsland.recruitPoint.match(
-      /^([ぁ-んーァ-ンヴーｧ-ﾝﾞﾟ\-0-9a-zA-Z^\x20-\x7e一-龠]{1,255})$/
-    )
+    recruitIsland.recruitPoint.length < 1 ||
+    recruitIsland.recruitPoint.length > 255
   ) {
     window.alert("募集要項は1文字以上255文字以下で入力してください");
   } else {

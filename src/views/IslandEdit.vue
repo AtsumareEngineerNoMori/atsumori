@@ -54,7 +54,7 @@ function convertToBase64(file) {
   });
 }
 
-//RecruitNewUser更新
+//RecruitNewUser取得
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
   const recruitNewUserData = await response.json();
@@ -89,7 +89,7 @@ async function updateIslands() {
 
     // recruitNewUser更新
     const updateRecruitNewUser = () => {
-      fetch(`http://localhost:8000/RecruitNewUser/4`, {
+      fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -165,16 +165,6 @@ async function updateIslands() {
       </p>
     </div>
     <div class="edit__buttoncontainer">
-
-      <router-link to="/show" class="edit__router"
-        ><button class="edit__button_cansel">戻る</button></router-link
-      >
-      <router-link to="/" class="edit__router">
-        <button class="edit__button" @click="updateIsland">
-          更新
-        </button></router-link
-      >
-
       <button class="edit__button_cansel">戻る</button>
       <button class="edit__button" @click="updateIslands">更新</button>
     </div>

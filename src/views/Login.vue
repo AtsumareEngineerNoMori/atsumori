@@ -18,13 +18,28 @@
 <script setup>
 import "../css/main.css";
 import { useRouter } from "vue-router";
-import { reactive } from "vue";
+import { reactive,onMounted } from "vue";
 import { signInWithEmailAndPassword} from "@firebase/auth";
 import {  auth } from "../../firebase";
+import {
+  onAuthStateChanged,
+} from "@firebase/auth";
 
 
 const router = useRouter();
 const user = reactive({ email: "", password: "" });
+
+
+// ログイン状態の場合の処理
+onMounted(() => {
+  onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+      router.push("/top");
+    } else {
+      console.log("ログインしてないです");
+    }
+  });
+});
 
 const loginButton = async () => {
   try {

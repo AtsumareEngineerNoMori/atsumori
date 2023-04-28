@@ -26,6 +26,8 @@ import IslandRegisterView from "../views/register/IslandRegister.vue";
 import RecruitUserRegister from "../views/register/RecruitUserRegister.vue";
 import RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue";
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
+import IslandShow from "../views/Show/IslandShow.vue";
+import ProjectShow from "../views/Show/ProjectShow.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,7 +58,7 @@ const router = createRouter({
       component: OtherMyPage,
     },
     {
-      path: "/mypageforscout/:userId/:idlandId",
+      path: "/mypageforscout/:islandId/:userId",
       name: "mypageforscout",
       component: MyPageForScout,
     },
