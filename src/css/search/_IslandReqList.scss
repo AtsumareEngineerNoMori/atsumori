@@ -9,29 +9,75 @@ $basecolor_brown: #af7a20;
   &_title {
     margin-bottom: 5%;
   }
-  &_box {
-    width: 90%;
+  &_select {
+    background-color: #fff;
+    color: #ccc;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  &_select.active {
+    background-color:  $basecolor_green;
+    color:  #fff;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+  &_selects4{
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .all_search {
     margin: 2%;
   }
-  &_no{
+  &_box {
+    width: 80%;
+    margin: 5%;
+  }
+  &_no {
     margin: auto;
   }
+  // &_btn {
+  //   &:hover {
+  //     background-color: #ffff;
+  //     color: $basecolor_green;
+  //     outline: 1px solid $basecolor_green;
+  //   }
+  // }
   &_btn {
-    &:hover {
-      background-color: #ffff;
-      color: $basecolor_green;
-      outline: 1px solid $basecolor_green;
-    }
+    padding: 1%;
+    border: 3px dashed  $basecolor_green;
+    background-color:  $basecolor_green;
+    color: white;
+    font-weight: bold;
+    border-radius: 20%;
+
+  }
+  &_btn:hover {
+    opacity: 0.6;
+    cursor: pointer;
   }
   &_list {
     display: flex;
     flex-wrap: wrap;
+    margin: 7%;
   }
-  &_recinfo{
+  &_recinfo {
     text-align: center;
   }
   &_iconImg {
-    width: 200px;
-    height: 200px;
+    width: 170px;
+    height: 170px;
+    border: 2px solid;
+    border-color:  $basecolor_green;
+    border-radius: 50%;
+  }
+  &_set{
+    border: 3px dashed $basecolor_green;
+    width: 80%;
+    margin: 0 auto;
+    background-color:#ffff;
+    padding: 3%;
   }
 }
