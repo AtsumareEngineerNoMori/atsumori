@@ -76,11 +76,16 @@ const getJoinIsland = async (island) => {
 const moreIslands = () => {
   router.push("/joinIsland");
 }
+//承認依頼
+const  UserScout= () => {
+  router.push("/userScout");
+}
+
 </script>
 
 <template>
   <div class="mypage">
-    <button class="mypage__button">依頼一覧</button>
+    <button class="mypage__button" @click="UserScout">依頼一覧</button>
     <div class="mypage__container">
       <div class="mypage__column">
         <span
@@ -116,7 +121,7 @@ const moreIslands = () => {
       <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
-            <router-link to="/">
+            <router-link :to="{name:'islandShow', params: {id: island.id}}">
               <img
                 v-bind:src="island.icon"
                 alt="islandig"

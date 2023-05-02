@@ -127,6 +127,7 @@ async function updateIslands() {
       <div class="edit__column">
         <label for="icon_file">
           <img :src="Islands.icon" alt="" class="mypage__profileiconImg" />
+          <p class="edit__pr_is_plus">+</p>
         </label>
         <input
           type="file"
@@ -134,7 +135,7 @@ async function updateIslands() {
           id="icon_file"
           style="display: none"
         />
-        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
+        <button @click="removeIcon"  class="edit__delete">画像を削除</button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">

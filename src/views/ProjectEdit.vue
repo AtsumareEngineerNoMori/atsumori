@@ -130,6 +130,7 @@ async function updateProject() {
       <div class="edit__column">
         <label for="icon_file">
           <img :src="Project.icon" alt="" class="mypage__profileiconImg" />
+          <p class="edit__pr_is_plus">+</p>
         </label>
         <input
           type="file"

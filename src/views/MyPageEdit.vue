@@ -113,7 +113,7 @@ async function updateUser() {
   }
 }
 
-//アイコン編集
+
 </script>
 
 <template>
@@ -122,6 +122,7 @@ async function updateUser() {
       <div class="edit__column">
         <label for="icon_file">
           <img :src="User.icon" alt="" class="mypage__profileiconImg" />
+          <p class="edit__mypageplus">+</p>
         </label>
         <input
           type="file"
