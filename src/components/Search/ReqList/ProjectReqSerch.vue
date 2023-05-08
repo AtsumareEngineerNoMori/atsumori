@@ -1,4 +1,4 @@
-<!-- 募集一覧の際検索 -->
+<!-- 募集一覧の再検索 -->
 <template>
   <div class="search">
     <section>
@@ -33,7 +33,7 @@
       <router-link
         v-for="recruitNewIsland in filteredRecruitNewIslands"
         :key="recruitNewIsland.id"
-        :to="'/projects/' + recruitNewIsland.project.id"
+        :to="'/projectshow/' + recruitNewIsland.project.id"
       >
         <img
           :src="recruitNewIsland.project.icon"

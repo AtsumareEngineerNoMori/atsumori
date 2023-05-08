@@ -1,129 +1,15 @@
 {
-  "Users": [
-    {
-      "id": "Cose4Yi82FPW7X82ZHU0s0udZpR2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon?alt=media&token=3a5a4536-6d2c-45e4-b589-a2403a275fc7",
-      "name": "たぬきち",
-      "job": "FR",
-      "comment": "よろしくお願いします",
-      "email": "terada@rakus-partners.co.jp"
-    },
-    {
-      "id": "qgo7ZNSeRcXp2ovbXkDDyQr66Rd2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon?alt=media&token=0d9f15fb-34f1-48fc-ab50-7139dea68485",
-      "name": "ますたー",
-      "job": "FR",
-      "comment": "あああああああ",
-      "email": "master@rakus-partners.co.jp"
-    },
-    {
-      "id": "opDH4UY01QMkvQIOC2YFM1KZ3ei1",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon?alt=media&token=e377c16a-e679-45bd-93ee-671eb1734d17",
-      "name": "とたけけ",
-      "job": "QA",
-      "comment": "とたけけけけけ",
-      "email": "totakeke@rakus-partners.co.jp"
-    }
-  ],
-  "Islands": [
-    {
-      "islandName": "島島島島島島島島島島島島島島島島島島島島",
-      "islandDescription": "Vue好きのフロントエンジニアコミュニティーです。",
-      "adminId": "Cose4Yi82FPW7X82ZHU0s0udZpR2",
-      "createDate": "2023-04-27T07:27:53.300Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island?alt=media&token=c165e447-d587-41a9-8acd-c6be612092c0",
-      "id": 1
-    },
-    {
-      "islandName": "React島",
-      "islandDescription": "React好きの島",
-      "adminId": "qgo7ZNSeRcXp2ovbXkDDyQr66Rd2",
-      "createDate": "2023-04-28T04:32:51.954Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island?alt=media&token=82701281-67a2-4377-bec3-e4231a2eac39",
-      "id": 2
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "あつ森プロジェクト",
-      "projectDescription": "あああああああああああああああああああああああああああああああああああああああああああああ",
-      "adminId": "Cose4Yi82FPW7X82ZHU0s0udZpR2",
-      "createDate": "2023-04-27T08:22:33.694Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project?alt=media&token=a89ba051-6fcd-4fab-ab8b-2a7d24626577",
-      "id": 1
-    },
-    {
-      "projectName": "マスターPJ",
-      "projectDescription": "マスター",
-      "adminId": "qgo7ZNSeRcXp2ovbXkDDyQr66Rd2",
-      "createDate": "2023-04-28T04:33:42.058Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project?alt=media&token=865646cc-c43b-4096-8df5-1c7fa5877ffb",
-      "id": 2
-    }
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
-  "RecruitNewIsland": [
-    {
-      "projectId": 1,
-      "recruitTitle": "集まれ",
-      "recruitJob": "CL",
-      "recruitPoint": "あああああああああああああああああ",
-      "createDate": "2023-04-28T01:45:23.045Z",
-      "id": 1
-    }
-  ],
-  "RequestIsland": [
-    {
-      "id": 1,
-      "userId": "qgo7ZNSeRcXp2ovbXkDDyQr66Rd2",
-      "islandId": 1,
-      "comment": "あああああああ"
-    }
-  ],
-  "RequestProject": [
-    {
-      "projectId": 1,
-      "islandId": 2,
-      "id": 1
-    }
-  ],
-  "JoinIslands": [
-    {
-      "id": 1,
-      "userId": "Cose4Yi82FPW7X82ZHU0s0udZpR2",
-      "islandId": 1
-    },
-    {
-      "userId": "opDH4UY01QMkvQIOC2YFM1KZ3ei1",
-      "islandId": 1,
-      "id": 2
-    },
-    {
-      "userId": "qgo7ZNSeRcXp2ovbXkDDyQr66Rd2",
-      "islandId": 2,
-      "id": 3
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    },
-    {
-      "islandId": 2,
-      "projectId": 2,
-      "id": 2
-    }
-  ],
+  "RecruitNewIsland": [],
+  "RequestIsland": [],
+  "RequestProject": [],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "IslandChat": [],
   "ProjectChat": [],
   "UserScout": [],
-  "IslandScout": [
-    {
-      "islandId": 1,
-      "projectId": 2,
-      "id": 1
-    }
-  ]
+  "IslandScout": []
 }

@@ -6,7 +6,7 @@
       <div v-if="islands.length > 0">
         <div class="search_list">
           <div v-for="island in islands" :key="island.id" class="search_result">
-            <router-link :to="'/islands/' + island.id">
+            <router-link :to="'/islandshow/' + island.id">
               <img :src="island.icon" alt="island" class="search_iconImg" />
               <div class="search_recinfo">
                 {{ island.islandName }}

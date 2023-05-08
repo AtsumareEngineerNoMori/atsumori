@@ -7,15 +7,33 @@
         <div>
           <div class="IslandRegister-details">
             <div class="IslandRegister-details-icon">
+              <label htmlFor="iconPreview">
               <div class="IslandRegister-details-icon-imgdiv">
+          
                 <img
                   :src="iconImg"
                   alt="ユーザーアイコン"
                   v-if="iconImg !== undefined"
                   class="IslandRegister-details-icon-img"
                 />
+
+                <div class="icon_form">
+                <label htmlFor="iconPreview">
+                  <p class="add_icon">+</p>
+                  </label>
+                </div>
+              
               </div>
-              <div class="icon_form">
+            </label>
+            <input
+                  type="file"
+                  name="iconPreview"
+                  @change="previewImage"
+                  accept=".png, .jpeg, .jpg"
+                  id="iconPreview"
+                  class="icon_input"
+                />
+              <!-- <div class="IslandRegister-details-icon-iconform">
                 <label htmlFor="iconPreview">
                   <p class="add_icon">+</p>
                 </label>
@@ -27,7 +45,7 @@
                   id="iconPreview"
                   class="icon_input"
                 />
-              </div>
+              </div> -->
 
               <div class="IslandRegister-details-name">
                 島の名前

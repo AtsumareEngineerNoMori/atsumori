@@ -1,8 +1,15 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRoute , useRouter} from "vue-router";
+
 import "../css/main.css";
 
-const Islands = ref(1); //?????
+const route = useRoute();
+const router = useRouter();
+
+
+const Islands = ref(route.params.id);
+
 //島情報取得
 const IslandId = ref(1); //firebaseでログインしてる人のIDが入る
 const Island = ref({
@@ -60,7 +67,7 @@ const getFlight = async () => {
   const recruitNewUserData = await response.json();
   console.log(recruitNewUserData);
   data.value = recruitNewUserData;
-  console.log(data);
+  console.log(data.value);
 };
 getFlight();
 
@@ -87,34 +94,44 @@ async function updateIslands() {
       }
     );
 
+
+
     // recruitNewUser更新
-    const updateRecruitNewUser = () => {
-      fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          islandId: IslandId,
-          recruitTitle: data.value.recruitTitle,
-          recruitJob: data.value.recruitJob,
-          recruitPoint: data.value.recruitPoint,
-          createDate: data.value.createDate,
-          islandName: Island.value.islandName,
-          islandIcon: Island.value.icon,
-          id: IslandId,
-        }),
-      });
-    };
-    updateRecruitNewUser();
+    // const updateRecruitNewUser = () => {
+    //   fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       islandId: IslandId.value,
+    //       recruitTitle: data.value.recruitTitle,
+    //       recruitJob: data.value.recruitJob,
+    //       recruitPoint: data.value.recruitPoint,
+    //       createDate: data.value.createDate,
+    //       islandName: Islands.value.islandName,
+    //       islandIcon: Islands.value.icon,
+    //       // id: IslandId,
+    //     }),
+    //   });
+    // };
+    // updateRecruitNewUser();
 
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
+    router.push(`/islandShow/${Islands.value.id}`);
+
+    
   } catch (err) {
     console.log("更新できません", err);
   }
+}
+
+const back = () => {
+  router.push(`/islandShow/${Islands.value.id}`);
+
 }
 </script>
 
@@ -165,7 +182,7 @@ async function updateIslands() {
       </p>
     </div>
     <div class="edit__buttoncontainer">
-      <button class="edit__button_cansel">戻る</button>
+      <button class="edit__button_cansel" @click="back">戻る</button>
       <button class="edit__button" @click="updateIslands">更新</button>
     </div>
   </div>
