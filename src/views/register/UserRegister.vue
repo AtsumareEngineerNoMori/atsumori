@@ -118,7 +118,7 @@ import { useRouter } from "vue-router";
 const iconFileName = vueref("");
 const file = vueref();
 const haveIcon = vueref(false);
-const iconImg = vueref("../../../public/ha.png");
+const iconImg = vueref("/ha.png");
 const user = reactive({
   name: "",
   job: "",

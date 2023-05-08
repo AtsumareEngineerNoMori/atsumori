@@ -2,6 +2,7 @@
   background-color: #FFFCF4;
   // opacity: .9;
   overflow-y: hidden;
+  // height: 100vh;
   &__header {
     display: flex;
     align-items: center;
@@ -14,20 +15,48 @@
     height: 4%;
     border-radius: 50%;
     border: 1px solid lightgray;
+    background-color: #ffff;
     object-fit: cover;
     aspect-ratio: 1/1;
   }
   &__name {
     font-weight: bold;
+    color: #AF7A20;
   }
   &__messageWrapper {
-    overflow: scroll;
-    height: 448px;
+    overflow-y: scroll;
+    height: 434px;
+    // height: 70%;
     padding: 1%;
+    &-noDataTitle {
+      text-align: center;
+      font-size: 1.7rem;
+      font-weight: bold;
+      margin-top: 10%;
+      // color: #deb887;
+      color: #AF7A20;
+    }
+    &-loadMore {
+      width: 11%;
+      height: auto;
+      margin: 0 auto;
+    }
+    &-loadMoreBtn {
+      width: 100%;
+      height: auto;
+      // background-color: #4B7031;
+      background: transparent;
+      color: #4B7031;
+      // opacity: 0.8;
+      padding: 0;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
     &-myMessage {
       display: flex;
       flex-direction: row-reverse;
-      margin: 10px 10px 10px auto;
+      margin: 10px 10px 25px auto;
       width: 40%;
       &-userName {
         font-size: 1.3rem;
@@ -35,9 +64,14 @@
         padding-right: 5%;
         color: #DE822B;
       }
+      &-comDate {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: end;
+      }
     }
     &-otherMessage {
-      margin: 10px auto 10px 10px;
+      margin: 10px auto 25px 10px;
       width: 40%;
       display: flex;
       &-userName {
@@ -45,12 +79,17 @@
         padding-left: 5%;
         color: #DE822B;
       }
+      &-comDate {
+        display: flex;
+        align-items: end;
+      }
     }
     &-userIcon {
       width: 10%;
       height: 10%;
       border-radius: 50%;
       border: 1px solid lightgray;
+      background-color: #ffff;
       object-fit: cover;
       aspect-ratio: 1/1;
     }
@@ -60,7 +99,7 @@
       color: #847154;
       position: relative;
       display: inline-block;
-      margin: 0 15px 1.5em 0;
+      margin: 0 15px 0 5px;
       padding: 7px 10px;
       width: fit-content;
       border-radius: 8px;
@@ -83,7 +122,7 @@
       color: #847154;
       position: relative;
       display: inline-block;
-      margin: 0 0 1.5em 15px;
+      margin: 0 5px 0 15px;
       padding: 7px 10px;
       width: fit-content;
       border-radius: 8px;
@@ -109,15 +148,23 @@
   border-right: none;
   border-bottom: none;
   border-left: none;
+  border-top: 1px dashed #deb887;
+  color: #847154;
+  font-size: 1.6rem;
   }
   &__textarea:focus {
     outline: none;
+  }
+  &__textarea::placeholder {
+    color: #847154;
+    opacity: .7;
   }
   &__submitBtn {
     width: 50px;
     height: 30px;
     padding: 0;
     margin-left: 94%;
+    margin-bottom: 1%;
     cursor: pointer;
   }
 }

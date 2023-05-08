@@ -2,9 +2,13 @@
   background-color: #fffcf4;
   padding: 3%;
   height: 100vh;
+  &__sectionTitle {
+    height: 14%;
+  }
   &__title {
     color: #af7a20;
     font-size: 2.5rem;
+    height: 100%;
   }
   &__noDataTitle {
     margin-top: 10%;
@@ -44,7 +48,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 6%;
-    margin-top: 5%;
+    // margin-top: 5%;
     text-align: center;
     width: 100%;
     height: auto;
@@ -55,13 +59,14 @@
   }
   // 6個目以降に上の余白
   &__item:nth-child(n + 6) {
-    margin-top: 8%;
+    margin-top: 5%;
   }
   &__iconImg {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     border: 1px solid lightgray;
+    background-color: #ffff;
     object-fit: cover;
   }
   &__iconImg:hover {
