@@ -103,7 +103,7 @@ const recruitIsland = reactive({
 const projects = vueref();
 
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/Projects/4`);
+  const response = await fetch(`http://localhost:8000/Projects/${projectId}`);
   const data = await response.json();
   console.log(data);
   projects.value = data;
