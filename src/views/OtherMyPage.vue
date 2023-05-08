@@ -111,7 +111,7 @@ const moreIslands = () => {
       <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
-            <router-link to="/">
+            <router-link :to="`/islandShow/${island.id}`">
               <img
                 v-bind:src="island.icon"
                 alt="islandig"
