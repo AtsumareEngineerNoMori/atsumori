@@ -703,7 +703,7 @@ button {
   color: #AF7A20;
 }
 .chat__messageWrapper {
-  overflow: scroll;
+  overflow-y: scroll;
   height: 434px;
   padding: 1%;
 }
@@ -713,6 +713,21 @@ button {
   font-weight: bold;
   margin-top: 10%;
   color: #AF7A20;
+}
+.chat__messageWrapper-loadMore {
+  width: 11%;
+  height: auto;
+  margin: 0 auto;
+}
+.chat__messageWrapper-loadMoreBtn {
+  width: 100%;
+  height: auto;
+  background: transparent;
+  color: #4B7031;
+  padding: 0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 .chat__messageWrapper-myMessage {
   display: flex;

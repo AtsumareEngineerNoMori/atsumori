@@ -24,7 +24,7 @@
     color: #AF7A20;
   }
   &__messageWrapper {
-    overflow: scroll;
+    overflow-y: scroll;
     height: 434px;
     // height: 70%;
     padding: 1%;
@@ -35,6 +35,23 @@
       margin-top: 10%;
       // color: #deb887;
       color: #AF7A20;
+    }
+    &-loadMore {
+      width: 11%;
+      height: auto;
+      margin: 0 auto;
+    }
+    &-loadMoreBtn {
+      width: 100%;
+      height: auto;
+      // background-color: #4B7031;
+      background: transparent;
+      color: #4B7031;
+      // opacity: 0.8;
+      padding: 0;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
     }
     &-myMessage {
       display: flex;
