@@ -29,12 +29,13 @@
 .detail__user__icon {
   position: absolute;
   top: 250px;
-  left: 50px;
+  left: 60px;
 }
 .detail__user__icon__text {
   margin-top: 10px;
   text-align: center;
   font-weight: bold;
+  width: 170px;
 }
 .detail__user__icon__text__name {
   margin-bottom: 10px;
@@ -66,7 +67,7 @@
 .detail__desc {
   position: relative;
   margin: auto;
-  margin-top: 42px;
+  margin-top: 65px;
   width: 40%;
 }
 .detail__desc__title {
@@ -107,7 +108,7 @@
 }
 .detail__scout {
   position: absolute;
-  top: 550px;
+  top: 600px;
   left: 30px;
   width: 25%;
 }
@@ -992,6 +993,7 @@ button {
   display: inline-block;
   margin: 0 15px 1.5em 0;
   padding: 7px 10px;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1016,6 +1018,7 @@ button {
   display: inline-block;
   margin: 0 0 1.5em 15px;
   padding: 7px 10px;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1696,8 +1699,36 @@ button {
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
   animation: load4 1.3s infinite linear;
   transform: translateZ(0);
+}
+
+@-webkit-keyframes load4 {
+  0%, 100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
 }
 @keyframes load4 {
   0%, 100% {
