@@ -1377,9 +1377,19 @@ button {
 .ProjectRegister-details-information-title {
   text-align: left;
 }
+.ProjectRegister-details-information-selecttitle {
+  text-align: left;
+  margin-top: 10%;
+}
+.ProjectRegister-details-information-select {
+  width: 100%;
+  border-radius: 3%;
+  height: 8%;
+  margin-bottom: 6%;
+}
 .ProjectRegister-details-information-text {
   width: 100%;
-  height: 90%;
+  height: 62%;
   border-radius: 3%;
 }
 .ProjectRegister-set {
@@ -1418,6 +1428,43 @@ button {
 
 .icon_input {
   display: none;
+}
+
+.val-name {
+  color: red;
+  font-size: small;
+  margin-left: 1%;
+}
+.val-select {
+  color: red;
+  font-size: small;
+  margin-left: -55%;
+  margin-top: -6%;
+  margin-bottom: 3%;
+}
+.val-infomation {
+  color: red;
+  font-size: small;
+  margin-left: -53%;
+  margin-top: -1%;
+}
+.val-infomation2 {
+  color: red;
+  font-size: small;
+  margin-left: -36%;
+  margin-top: -4%;
+}
+.val-infomation3 {
+  color: red;
+  font-size: small;
+  margin-left: -64%;
+  margin-top: -1%;
+}
+.val-infomation4 {
+  color: red;
+  font-size: small;
+  margin-left: -60%;
+  margin-top: -1%;
 }
 
 .RecruitUserRegister {
@@ -1464,6 +1511,11 @@ button {
 .RecruitUserRegister-button:hover {
   cursor: pointer;
   opacity: 0.6;
+}
+
+.recruitVal {
+  color: red;
+  font-size: small;
 }
 
 .RecruitIslandRegister {

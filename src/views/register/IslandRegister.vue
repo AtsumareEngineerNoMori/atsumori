@@ -53,7 +53,14 @@
                   v-model="island.name"
                   type="text"
                   class="IslandRegister-details-name-input"
+                  @change="changeName"
                 />
+                <p  class="val-name" v-if=islandNameLength>
+                  島の名前を入力してください
+                </p>
+                <p  class="val-name" v-if="island.name.length > 20">
+                  20文字以下で入力してください
+                </p>
               </div>
             </div>
 
@@ -62,7 +69,14 @@
               <textarea
                 v-model="island.description"
                 class="IslandRegister-details-information-text"
+                @change="changeInfomation"
               ></textarea>
+              <p  class="val-infomation3" v-if=islandDescriptionLength>
+                島の情報を入力してください
+              </p>
+              <p class="val-infomation4" v-if="island.description.length > 255">
+                255文字以下で入力してください
+              </p>
             </div>
           </div>
         </div>
@@ -103,8 +117,21 @@ const island = reactive({
   description: "",
 });
 
+const islandNameLength = vueref(false)
+const islandDescriptionLength =vueref(false)
+
 const auth = getAuth();
 const currentUserId = auth.currentUser?.uid;
+
+const changeName = (e) => {
+  console.log(e)
+  islandNameLength.value = false
+    }
+
+    const changeInfomation = (e) => {
+  console.log(e)
+  islandDescriptionLength.value = false
+    }
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
@@ -209,14 +236,16 @@ const islandRegisterButton = () => {
 };
 
 const registerIsland = () => {
+
   if (island.name === "") {
-    window.alert("島の名前を登録してください");
-  } else if (island.description === "") {
-    window.alert("島の情報を登録してください");
-  } else if (island.name.length < 1 || island.name.length > 20){
-    window.alert("島の名前は1文字以上20文字以下で入力してください");
-  }else if (island.description.length < 1 || island.description.length > 255 ){
-  window.alert("島の情報は1文字以上255文字以下で入力してください");
+  islandNameLength.value = true
+  } 
+  if (island.description === "") {
+  islandDescriptionLength.value=true
+  }
+  
+  if (island.name === "" ||  island.description === "" ||island.name.length > 20 || island.description.length > 255){
+ console.log("エラーあります")
   } else {
     islandRegisterButton();
     router.push("/top");

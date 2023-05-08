@@ -36,6 +36,7 @@
                 type="text"
                 class="userRegister-details-detail-name"
                 v-model="user.name"
+                @change="changeName"
               />
               <p v-if=userNameLength class="val-name">
                 お名前を入力してください
@@ -49,11 +50,11 @@
               <div>職種</div>
               <input type="radio" name="job" value="WEB" v-model="user.job" />
               WEB
-              <input type="radio" name="job" value="FR" v-model="user.job" /> FR
-              <input type="radio" name="job" value="ML" v-model="user.job" /> ML
-              <input type="radio" name="job" value="CL" v-model="user.job" /> CL
-              <input type="radio" name="job" value="QA" v-model="user.job" /> QA
-              <input type="radio" name="job" value="その他" /> その他
+              <input type="radio" name="job" value="FR" v-model="user.job" @change="changeJob"/> FR
+              <input type="radio" name="job" value="ML" v-model="user.job" @change="changeJob"/> ML
+              <input type="radio" name="job" value="CL" v-model="user.job" @change="changeJob"/> CL
+              <input type="radio" name="job" value="QA" v-model="user.job" @change="changeJob"/> QA
+              <input type="radio" name="job" value="その他" @change="changeJob"/> その他
               <p class="val-job" v-if=userJobLength >
                 職種を選択してください
               </p>
@@ -64,6 +65,7 @@
               <textarea
                 class="userRegister-details-detail-hitokoto-text"
                 v-model="user.comment"
+                @change="changeComment"
               ></textarea>
               <p class="val-comment" v-if=userCommentLength>
                 ひとことを入力してください
@@ -82,6 +84,7 @@
               v-model="user.email"
               type="email"
               class="userRegister-details2-input"
+              @change="changeEmail"
             />
           </div>
           <p class="val-email" v-if=userEmailLength>
@@ -100,6 +103,7 @@
               v-model="user.password"
               type="password"
               class="userRegister-details2-input"
+              @change="changePassword"
             />
           </div>
           <p class="val-password" v-if=userPasswordLength>
@@ -121,6 +125,7 @@
               type="password"
               class="userRegister-details2-input"
               v-model="user.cPassword"
+              @change="changecPassword"
             />
           </div>
           <p class="val-cpassword" v-if="user.cPassword.length <= 0">&nbsp;</p>
@@ -182,6 +187,30 @@ const user = reactive({
   cPassword: "",
 });
 const router = useRouter();
+
+const changeName = (e) => {
+  userNameLength.value = false;
+};
+
+const changeJob = (e) => {
+  userJobLength.value = false;
+};
+
+const changeComment = (e) => {
+  userCommentLength.value = false;
+};
+
+const changeEmail = (e) => {
+  userEmailLength.value = false;
+};
+
+const changePassword = (e) => {
+  userPasswordLength.value = false;
+};
+
+const changecPassword = (e) => {
+  usercPasswordLength.value = false;
+};
 
 // ログイン状態の場合の処理
 onMounted(() => {

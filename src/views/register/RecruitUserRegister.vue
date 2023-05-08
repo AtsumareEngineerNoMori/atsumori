@@ -18,7 +18,12 @@
             class="RecruitUserRegister-details-recruitTitleSet-input"
             type="text"
             v-model="recruitUser.recruitTitle"
+            @change="changeTitle"
           />
+          <p class="recruitVal" v-if="titleLength">募集タイトルを入力してください</p>
+          <p class="recruitVal"  v-if="recruitUser.recruitTitle.length > 20">
+            20文字以下で入力してください
+          </p>
         </div>
         <div class="RecruitUserRegister-details-jobSet-job">
           <p>募集職種</p>
@@ -27,6 +32,7 @@
             name="job"
             value="WEB"
             v-model="recruitUser.recruitJob"
+            @change="changeSelect"
           />
           WEB
           <input
@@ -34,6 +40,7 @@
             name="job"
             value="FR"
             v-model="recruitUser.recruitJob"
+            @change="changeSelect"
           />
           FR
           <input
@@ -41,6 +48,7 @@
             name="job"
             value="ML"
             v-model="recruitUser.recruitJob"
+            @change="changeSelect"
           />
           ML
           <input
@@ -48,6 +56,7 @@
             name="job"
             value="CL"
             v-model="recruitUser.recruitJob"
+            @change="changeSelect"
           />
           CL
           <input
@@ -55,6 +64,7 @@
             name="job"
             value="QA"
             v-model="recruitUser.recruitJob"
+            @change="changeSelect"
           />
           QA
           <input
@@ -62,8 +72,10 @@
             name="job"
             value="その他"
             v-model="recruitUser.recruitJob"
+            @change="changeSelect"
           />
           その他
+          <p class="recruitVal"  v-if="selectLength">募集職種を選択してください</p>
         </div>
         <div>
           <p class="RecruitUserRegister-details-infomationSet-infomation">
@@ -72,7 +84,10 @@
           <textarea
             class="RecruitUserRegister-details-infomationSet-text"
             v-model="recruitUser.recruitPoint"
+            @change="changeInfomation"
           ></textarea>
+          <p class="recruitVal" v-if="infomationLength">募集要項を入力してください</p>
+          <p class="recruitVal"  v-if="recruitUser.recruitPoint.length >255">255文字以下で入力してください</p>
         </div>
         <div class="RecruitUserRegister-buttonset">
           <button class="RecruitUserRegister-button">登録する</button>
@@ -90,6 +105,10 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const loading = vueref(false);
 
+const titleLength = vueref(false);
+const selectLength = vueref(false);
+const infomationLength = vueref(false);
+
 // 前野ページからislandIdを取得
 const islandId = route.params.id;
 
@@ -101,6 +120,16 @@ const recruitUser = reactive({
   createDate: "",
 });
 const islands = vueref();
+
+const changeTitle = (e) => {
+  titleLength.value = false;
+};
+const changeSelect = (e) => {
+  selectLength.value = false;
+};
+const changeInfomation = (e) => {
+  infomationLength.value = false;
+};
 
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/Islands/${islandId}`);
@@ -134,19 +163,23 @@ const recruitUserRegisterButton = () => {
 
 const registerRecruitUser = () => {
   if (recruitUser.recruitTitle === "") {
-    window.alert("募集タイトルを登録してください");
-  } else if (recruitUser.recruitJob === "") {
-    window.alert("募集職種を登録してください");
-  } else if (recruitUser.recruitPoint === "") {
-    window.alert("募集要項を登録してください");
-  } else if (
-    !recruitUser.recruitTitle.match(/^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,20})$/)
+    titleLength.value=true
+  }
+  if (recruitUser.recruitJob === ""){
+    selectLength.value=true
+  }
+  if(recruitUser.recruitPoint === ""){
+    infomationLength.value=true
+  }
+
+
+  if (recruitUser.recruitTitle === "" ||
+  recruitUser.recruitJob === "" ||
+  recruitUser.recruitPoint === "" ||
+  recruitUser.recruitTitle.length > 20 ||
+  recruitUser.recruitPoint.length > 255
   ) {
-    window.alert("募集タイトルは1文字以上20文字以下で入力してください");
-  } else if (
-    !recruitUser.recruitPoint.match(/^([ぁ-ん-ァ-ン-0-9a-zA-Z-一-龠]{1,255})$/)
-  ) {
-    window.alert("募集要項は1文字以上255文字以下で入力してください");
+   console.log("エラーあります")
   } else {
     recruitUserRegisterButton();
     router.push("/top");
