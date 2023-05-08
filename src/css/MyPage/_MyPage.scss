@@ -90,17 +90,18 @@
   //   margin: 30px 0;
   // }
   &__container {
-    display: grid;
-    grid-template-columns: 40% 50%;
+    // display: grid;
+    // grid-template-columns: 40% 50%;
     margin-top: 30px;
     column-gap: 5%;
-    // display: flex;
+    display: flex;
   }
   &__column {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    // padding-left: 100px;
     padding-left: 100px;
     height: 250px;
   }
@@ -110,6 +111,7 @@
     align-items: flex-start;
     flex-direction: column;
     height: 250px;
+    width: 600px;
     padding: 20px;
     padding-top: 50px;
     margin-right: auto;
@@ -148,7 +150,7 @@
   padding-bottom: 40px;
 
   &__container {
-    display: grid;
+    // display: grid;
     grid-template-columns: 50% 40%;
     margin-top: 30px;
     column-gap: 10%;

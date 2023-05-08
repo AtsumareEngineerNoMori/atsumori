@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
+import { useRoute , useRouter } from "vue-router"
 import "../css/main.css";
 
 const img = {
@@ -7,7 +8,10 @@ const img = {
   name: "アイコン",
 };
 
-const Project = ref(1); //?????
+const route = useRoute();
+const router = useRouter();
+
+const Project = ref(route.params.id); //?????
 
 const data = ref({
   recruitTitle: "",
@@ -89,25 +93,25 @@ async function updateProject() {
     );
 
         // recruitNewIsland更新
-        const updateRecruitNewUser = () => {
-      fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          projectId: Project,
-          recruitTitle: data.value.recruitTitle,
-          recruitJob: data.value.recruitJob,
-          recruitPoint: data.value.recruitPoint,
-          createDate: data.value.createDate,
-          projectName: Project.value.projectName ,
-          projectIcon: Project.value.icon ,
-          // id: Project,
-        }),
-      });
-    };
-    updateRecruitNewUser();
+    //     const updateRecruitNewUser = () => {
+    //   fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       projectId: Project,
+    //       recruitTitle: data.value.recruitTitle,
+    //       recruitJob: data.value.recruitJob,
+    //       recruitPoint: data.value.recruitPoint,
+    //       createDate: data.value.createDate,
+    //       projectName: Project.value.projectName ,
+    //       projectIcon: Project.value.icon ,
+    //       // id: Project,
+    //     }),
+    //   });
+    // };
+    // updateRecruitNewUser();
 
 
 
@@ -117,9 +121,15 @@ async function updateProject() {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
+    router.push(`/projectShow/${Project.value.id}`);
+
   } catch (err) {
     console.log("更新できません", err);
   }
+}
+
+const back = () => {
+  router.push(`/projectShow/${Project.value.id}`)
 }
 </script>
 
@@ -174,7 +184,7 @@ async function updateProject() {
       </p>
     </div>
     <div class="edit__buttoncontainer">
-      <button class="edit__button_cansel">キャンセル</button>
+      <button class="edit__button_cansel" @click="back">キャンセル</button>
       <button class="edit__button" @click="updateProject">更新</button>
 
     </div>
