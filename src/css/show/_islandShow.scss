@@ -30,12 +30,13 @@
     &__icon {
       position: absolute;
       top: 250px;
-      left: 50px;
+      left: 60px;
 
       &__text {
         margin-top: 10px;
         text-align: center;
         font-weight: bold;
+        width: 170px;
         &__name {
           margin-bottom: 10px;
         }
@@ -72,7 +73,7 @@
   &__desc {
     position: relative;
     margin: auto;
-    margin-top: 42px;
+    margin-top: 65px;
     width: 40%;
 
     &__title {
@@ -117,7 +118,7 @@
 
   &__scout {
     position: absolute;
-    top: 550px;
+    top: 600px;
     left: 30px;
     width: 25%;
   }

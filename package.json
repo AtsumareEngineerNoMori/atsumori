@@ -13,7 +13,9 @@
     "firebase": "^9.19.1",
     "micromodal": "^0.4.10",
     "vue": "^3.2.47",
-    "vue-router": "^4.1.6"
+    "vue-cookies": "^1.8.3",
+    "vue-router": "^4.1.6",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

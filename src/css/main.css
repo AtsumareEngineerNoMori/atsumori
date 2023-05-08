@@ -29,12 +29,13 @@
 .detail__user__icon {
   position: absolute;
   top: 250px;
-  left: 50px;
+  left: 60px;
 }
 .detail__user__icon__text {
   margin-top: 10px;
   text-align: center;
   font-weight: bold;
+  width: 170px;
 }
 .detail__user__icon__text__name {
   margin-bottom: 10px;
@@ -66,7 +67,7 @@
 .detail__desc {
   position: relative;
   margin: auto;
-  margin-top: 42px;
+  margin-top: 65px;
   width: 40%;
 }
 .detail__desc__title {
@@ -107,7 +108,7 @@
 }
 .detail__scout {
   position: absolute;
-  top: 550px;
+  top: 600px;
   left: 30px;
   width: 25%;
 }

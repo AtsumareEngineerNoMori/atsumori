@@ -27,7 +27,7 @@
   ],
   "Islands": [
     {
-      "islandName": "Vue島",
+      "islandName": "島島島島島島島島島島島島島島島島島島島島",
       "islandDescription": "Vue好きのフロントエンジニアコミュニティーです。",
       "adminId": "Cose4Yi82FPW7X82ZHU0s0udZpR2",
       "createDate": "2023-04-27T07:27:53.300Z",
@@ -61,16 +61,7 @@
       "id": 2
     }
   ],
-  "RecruitNewUser": [
-    {
-      "islandId": 1,
-      "recruitTitle": "ああああ",
-      "recruitJob": "QA",
-      "recruitPoint": "ああああああああああ",
-      "createDate": "2023-04-28T05:28:52.250Z",
-      "id": 1
-    }
-  ],
+  "RecruitNewUser": [],
   "RecruitNewIsland": [
     {
       "projectId": 1,

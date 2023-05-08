@@ -7,8 +7,6 @@ import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
 import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
-import IslandShow from "../views/Show/IslandShow.vue";
-import ProjectShow from "../views/Show/ProjectShow.vue";
 import ScoutShow from "../views/Show/ScoutShow.vue";
 import Top from "../views/Top.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
