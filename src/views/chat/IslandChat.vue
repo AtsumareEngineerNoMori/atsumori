@@ -57,7 +57,7 @@ const getData = () => {
         chatList.value.findIndex((chat) => chat.userId === "1234567890") === -1
       ) {
         loadDisplay.value = true;
-      }else {
+      } else {
         loadDisplay.value = false;
       }
     })
@@ -213,9 +213,12 @@ const loadMore = () => {
     console.log(data);
     moreChatList.value = data;
     // 見つからない場合は-1を返す(ボタンを表示する)
-    if (moreChatList.value.findIndex((chat) => chat.userId === "1234567890") === -1) {
+    if (
+      moreChatList.value.findIndex((chat) => chat.userId === "1234567890") ===
+      -1
+    ) {
       loadDisplay.value = true;
-    }else {
+    } else {
       loadDisplay.value = false;
     }
   };
@@ -283,6 +286,9 @@ onUpdated(() => {
         </div>
       </template>
       <div v-for="chat in displayList" :key="chat">
+        <template v-if="chat.userId !== '1234567890'">
+          <!-- <GetDate :createDate="chat.createDate" :displayList = displayList /> -->
+        </template>
         <!-- <div v-if="dateTitle">日付</div> -->
         <!-- <GetDate :createDate="chat.createDate" :displayList = displayList /> -->
         <!-- 自分のメッセージか判別する -->
