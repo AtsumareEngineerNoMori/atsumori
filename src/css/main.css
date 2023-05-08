@@ -1055,6 +1055,11 @@ button {
   margin-top: 2%;
 }
 
+.alart {
+  color: red;
+  font-size: small;
+}
+
 .userRegister {
   background-color: #FFFCF4;
   opacity: 0.9;
@@ -1091,7 +1096,7 @@ button {
   aspect-ratio: 1/1;
 }
 .userRegister-details-icon-icon_form {
-  top: 47%;
+  top: 470px;
   color: white;
   padding: 1.5% 3% 2% 1.5%;
   border: none;
@@ -1099,7 +1104,7 @@ button {
   width: 20px;
   aspect-ratio: 1/1;
   position: absolute;
-  right: 59%;
+  left: 370px;
   background-color: #4B7031;
 }
 .userRegister-details-icon-add_icon {
@@ -1116,7 +1121,6 @@ button {
 }
 .userRegister-details-detail-name {
   width: 70%;
-  margin-bottom: 4%;
 }
 .userRegister-details-detail-hitokoto {
   margin-top: 4%;
@@ -1146,13 +1150,63 @@ button {
   margin-top: 4%;
   padding: 1.5%;
   width: 150px;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 }
 .userRegister-details2-button:hover {
   cursor: pointer;
 }
 .userRegister-details2-login {
   color: #AF7A20;
+}
+
+.val-name {
+  color: red;
+  font-size: small;
+  margin-left: 18%;
+  margin-bottom: -4%;
+}
+.val-job {
+  color: red;
+  font-size: small;
+}
+.val-comment {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+}
+.val-email {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -2%;
+}
+.val-password {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -4%;
+}
+.val-password2 {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: 33%;
+}
+.val-cpassword {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -1%;
+}
+.val-cpassword2 {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -7%;
+}
+
+.aaa {
+  margin-top: 6%;
 }
 
 .header {
@@ -1238,6 +1292,7 @@ button {
   margin-top: 8%;
   padding: 1.5%;
   width: 150px;
+  margin-bottom: 10%;
 }
 .IslandRegister-set-button:hover {
   cursor: pointer;
@@ -1334,6 +1389,7 @@ button {
   margin-top: 8%;
   padding: 1.5%;
   width: 150px;
+  margin-bottom: 6%;
 }
 .ProjectRegister-set-button:hover {
   cursor: pointer;
@@ -1447,7 +1503,7 @@ button {
   margin-top: 10%;
   padding: 1.5%;
   width: 150px;
-  margin-bottom: 5%;
+  margin-bottom: 8%;
 }
 
 .top {

@@ -139,7 +139,7 @@ const projectRegisterButton = () => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  userId: currentUserId,
+                  islandId: currentUserId,
                   projectId: jsonObj.id,
                 }),
               });
