@@ -12,8 +12,9 @@
     <RouterLink to="/userRegister">
     <div class="loginPage-register-margin"><span class="loginPage-register">アカウントを登録しよう！</span></div>
     </RouterLink>
+    </div>
+
   </div>
-</div>
 </template>
 
 <script setup>
@@ -27,10 +28,15 @@ import {
 } from "@firebase/auth";
 
 
+
 const router = useRouter();
 const user = reactive({ email: "", password: "" });
 const input = ref(false)
 
+// cookieに登録
+const setCookie = (myId) => {
+  $cookies.set("myId", myId);
+};
 
 // ログイン状態の場合の処理
 onMounted(() => {
@@ -48,8 +54,10 @@ const loginButton = async () => {
     await signInWithEmailAndPassword(auth, user.email, user.password).then(
       () => {
         console.log(auth.currentUser.uid)
+        setCookie(auth.currentUser.uid);
+
         router.push("/top");
-        console.log("ログインできました")
+        console.log("ログインできました");
       }
     );
   } catch (error) {
@@ -57,7 +65,4 @@ const loginButton = async () => {
     console.log("メールアドレスまたはパスワードが間違っています");
   }
 };
-
-
-
 </script>
