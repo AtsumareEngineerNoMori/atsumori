@@ -179,6 +179,7 @@ const registerRecruitUser = () => {
   recruitUser.recruitTitle.length > 20 ||
   recruitUser.recruitPoint.length > 255
   ) {
+    window.alert("入力が間違っているところがあります")
    console.log("エラーあります")
   } else {
     recruitUserRegisterButton();

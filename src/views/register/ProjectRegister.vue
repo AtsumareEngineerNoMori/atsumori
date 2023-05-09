@@ -262,6 +262,7 @@ const registerProject = () => {
     project.description.length > 255 ||
     selectIsland === ""
   ) {
+    window.alert("入力が間違っているところがあります")
     console.log("yahho~!")
   }else{
     projectRegisterButton();

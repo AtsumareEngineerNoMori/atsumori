@@ -177,6 +177,7 @@ const registerRecruitIsland = () => {
     recruitIsland.recruitPoint.length > 255
   ) {
     console.log("エラーあります");
+    window.alert("入力が間違っているところがあります")
   } else {
     recruitIslandRegisterButton();
     router.push("/top");

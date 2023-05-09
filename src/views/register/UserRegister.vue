@@ -389,6 +389,7 @@ const registerUser = () => {
     user.cPassword.length <= 0 ||
     user.cPassword !== user.password
   ) {
+    window.alert("入力が間違っているところがあります")
     console.log("やっほ〜〜！");
   } else {
     U();

@@ -8,31 +8,29 @@
           <div class="IslandRegister-details">
             <div class="IslandRegister-details-icon">
               <label htmlFor="iconPreview">
-              <div class="IslandRegister-details-icon-imgdiv">
-          
-                <img
-                  :src="iconImg"
-                  alt="ユーザーアイコン"
-                  v-if="iconImg !== undefined"
-                  class="IslandRegister-details-icon-img"
-                />
+                <div class="IslandRegister-details-icon-imgdiv">
+                  <img
+                    :src="iconImg"
+                    alt="ユーザーアイコン"
+                    v-if="iconImg !== undefined"
+                    class="IslandRegister-details-icon-img"
+                  />
 
-                <div class="icon_form">
-                <label htmlFor="iconPreview">
-                  <p class="add_icon">+</p>
-                  </label>
+                  <div class="icon_form">
+                    <label htmlFor="iconPreview">
+                      <p class="add_icon">+</p>
+                    </label>
+                  </div>
                 </div>
-              
-              </div>
-            </label>
-            <input
-                  type="file"
-                  name="iconPreview"
-                  @change="previewImage"
-                  accept=".png, .jpeg, .jpg"
-                  id="iconPreview"
-                  class="icon_input"
-                />
+              </label>
+              <input
+                type="file"
+                name="iconPreview"
+                @change="previewImage"
+                accept=".png, .jpeg, .jpg"
+                id="iconPreview"
+                class="icon_input"
+              />
               <!-- <div class="IslandRegister-details-icon-iconform">
                 <label htmlFor="iconPreview">
                   <p class="add_icon">+</p>
@@ -55,10 +53,10 @@
                   class="IslandRegister-details-name-input"
                   @change="changeName"
                 />
-                <p  class="val-name" v-if=islandNameLength>
+                <p class="val-name" v-if="islandNameLength">
                   島の名前を入力してください
                 </p>
-                <p  class="val-name" v-if="island.name.length > 20">
+                <p class="val-name" v-if="island.name.length > 20">
                   20文字以下で入力してください
                 </p>
               </div>
@@ -71,7 +69,7 @@
                 class="IslandRegister-details-information-text"
                 @change="changeInfomation"
               ></textarea>
-              <p  class="val-infomation3" v-if=islandDescriptionLength>
+              <p class="val-infomation3" v-if="islandDescriptionLength">
                 島の情報を入力してください
               </p>
               <p class="val-infomation4" v-if="island.description.length > 255">
@@ -117,21 +115,21 @@ const island = reactive({
   description: "",
 });
 
-const islandNameLength = vueref(false)
-const islandDescriptionLength =vueref(false)
+const islandNameLength = vueref(false);
+const islandDescriptionLength = vueref(false);
 
 const auth = getAuth();
 const currentUserId = auth.currentUser?.uid;
 
 const changeName = (e) => {
-  console.log(e)
-  islandNameLength.value = false
-    }
+  console.log(e);
+  islandNameLength.value = false;
+};
 
-    const changeInfomation = (e) => {
-  console.log(e)
-  islandDescriptionLength.value = false
-    }
+const changeInfomation = (e) => {
+  console.log(e);
+  islandDescriptionLength.value = false;
+};
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
@@ -225,10 +223,8 @@ const islandRegisterButton = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-
             userId: currentUserId,
             islandId: jsonObj.id,
-
           }),
         });
       });
@@ -236,16 +232,21 @@ const islandRegisterButton = () => {
 };
 
 const registerIsland = () => {
-
   if (island.name === "") {
-  islandNameLength.value = true
-  } 
-  if (island.description === "") {
-  islandDescriptionLength.value=true
+    islandNameLength.value = true;
   }
-  
-  if (island.name === "" ||  island.description === "" ||island.name.length > 20 || island.description.length > 255){
- console.log("エラーあります")
+  if (island.description === "") {
+    islandDescriptionLength.value = true;
+  }
+
+  if (
+    island.name === "" ||
+    island.description === "" ||
+    island.name.length > 20 ||
+    island.description.length > 255
+  ) {
+    window.alert("入力が間違っているところがあります");
+    console.log("エラーあります");
   } else {
     islandRegisterButton();
     router.push("/top");
