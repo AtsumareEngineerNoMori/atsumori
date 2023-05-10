@@ -153,6 +153,11 @@ const previewImage = (event) => {
   iconFileName.value = event.target.files[0].name;
 };
 
+// cookieに登録
+const setCookie = (myId) => {
+  $cookies.set("myId", myId);
+};
+
 const U = async() => {
   try {
     //Authenticationへのユーザー登録
@@ -161,6 +166,7 @@ const U = async() => {
       if (!user) {
         console.log("ユーザーがいません")
       } else {
+        setCookie(auth.currentUser.uid);
         UserRegisterButton();
       }
     });

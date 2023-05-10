@@ -18,7 +18,7 @@
   width: 100%;
   margin: 0;
   background-color: #fffcf4;
-  min-height: 100vh;
+  height: auto;
 }
 .detail__user__header {
   position: relative;
@@ -61,56 +61,39 @@
   right: 30px;
 }
 .detail__btn {
+  position: absolute;
   text-align: center;
   margin-top: 55px;
-}
-.detail__desc {
-  position: relative;
-  margin: auto;
-  margin-top: 65px;
-  width: 40%;
-}
-.detail__desc__title {
-  position: absolute;
-  top: 0;
+  top: 380px;
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #fffcf4;
-  border: 3px solid green;
-  padding: 5px 25px;
-  text-align: center;
-  z-index: 20;
 }
-.detail__desc__text {
-  position: absolute;
+.detail__underContent {
+  display: flex;
+}
+.detail__desc {
+  margin: auto;
+  margin-top: 200px;
+  margin-bottom: 20px;
+  width: 40%;
   border: 5px dashed lawngreen;
-  top: 30px;
-  padding-top: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  z-index: 10;
 }
-.detail__desc__text__title {
+.detail__desc__title {
+  margin-top: 10px;
   font-size: 16px;
   font-weight: bolder;
 }
 .detail__member {
-  position: absolute;
-  top: 400px;
-  right: 30px;
+  margin: 50px 25px 0 auto;
   width: 25%;
-  border: 3px solid green;
+  margin-bottom: 20px;
 }
 .detail__scout {
-  position: absolute;
-  top: 600px;
-  left: 30px;
+  margin: 200px auto 0 25px;
   width: 25%;
+  margin-bottom: 20px;
 }
 
 .scout {
@@ -201,7 +184,7 @@
   width: 100%;
   margin: 0;
   background-color: #fffcf4;
-  min-height: 100vh;
+  height: auto;
 }
 .projectDetail__user__header {
   position: relative;
@@ -212,12 +195,13 @@
 .projectDetail__user__icon {
   position: absolute;
   top: 250px;
-  left: 50px;
+  left: 60px;
 }
 .projectDetail__user__icon__text {
   margin-top: 20px;
   text-align: center;
   font-weight: bold;
+  width: 170px;
 }
 .projectDetail__user__icon__text__name {
   margin-bottom: 10px;
@@ -234,50 +218,34 @@
   right: 30px;
 }
 .projectDetail__btn {
-  text-align: center;
-  margin-top: 70px;
-}
-.projectDetail__desc {
-  position: relative;
-  margin-left: 100px;
-  margin-top: 80px;
-  width: 60%;
-}
-.projectDetail__desc__title {
   position: absolute;
-  top: 0;
+  text-align: center;
+  margin-top: 55px;
+  top: 380px;
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #fffcf4;
-  border: 3px solid green;
-  padding: 5px 25px;
-  text-align: center;
-  z-index: 20;
 }
-.projectDetail__desc__text {
-  position: absolute;
+.projectDetail__underContent {
+  display: flex;
+}
+.projectDetail__desc {
+  width: 60%;
+  margin-left: 100px;
+  margin-top: 200px;
+  margin-bottom: 20px;
   border: 5px dashed lawngreen;
-  top: 30px;
-  padding-top: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  z-index: 10;
 }
-.projectDetail__desc__text__title {
+.projectDetail__desc__title {
+  margin-top: 10px;
   font-size: 16px;
   font-weight: bolder;
 }
 .projectDetail__member {
-  position: absolute;
-  top: 370px;
-  right: 20px;
+  margin: 50px 25px 0 auto;
   width: 25%;
-  border: 2px solid green;
+  margin-bottom: 20px;
 }
 
 .material-symbols-outlined.no {
@@ -304,6 +272,9 @@
   outline: 1px solid #4b7031;
 }
 
+.member {
+  border: 3px solid green;
+}
 .member__title {
   text-align: center;
   margin-top: 10px;
