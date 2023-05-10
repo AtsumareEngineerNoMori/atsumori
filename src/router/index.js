@@ -108,7 +108,6 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
-
       path: "/recruitIslandRegister/:id",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,
@@ -202,16 +201,6 @@ const router = createRouter({
       path: "/top",
       name: "top",
       component: Top,
-    },
-    {
-      path: "/islandShow/:id",
-      name: "islandShow",
-      component: IslandShow,
-    },
-    {
-      path: "/projectShow/:id",
-      name: "projectShow",
-      component: ProjectShow,
     },
   ],
 });

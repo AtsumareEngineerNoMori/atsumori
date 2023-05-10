@@ -29,19 +29,8 @@ onMounted(async () => {
   island.value = islandData;
 
   // ログインID取得
-  function auth() {
-    return new Promise((resolve) => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (currentUser) => {
-        myId.value = currentUser?.uid;
-
-        resolve();
-      });
-    });
-  }
-  await auth().then(() => {
-    loading.value = true;
-  });
+  const userId = $cookies.get("myId");
+  myId.value = userId;
 
   const adminData = await fetch(
     `http://localhost:8000/Users/${islandData.adminId}`
@@ -57,6 +46,8 @@ onMounted(async () => {
     RecruitIshow.value = true;
     Recruits.value = Recruit[0];
   }
+
+  loading.value = true;
 });
 
 // スカウト申請
