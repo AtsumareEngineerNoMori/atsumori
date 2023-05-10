@@ -1,0 +1,125 @@
+.icon {
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+}
+.material-symbols-rounded {
+  color: white;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.projectDetail {
+  width: 100%;
+  margin: 0;
+  background-color: #fffcf4;
+  min-height: 100vh;
+
+  &__user {
+    &__header {
+      position: relative;
+      background-color: beige;
+      height: 250px;
+      width: 100%;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 250px;
+      left: 50px;
+
+      &__text {
+        margin-top: 20px;
+        text-align: center;
+        font-weight: bold;
+        &__name {
+          margin-bottom: 10px;
+        }
+        &__admin {
+          font-size: small;
+          color: rgba(169, 169, 169, 1);
+          line-height: 7px;
+          margin: 10px;
+        }
+      }
+    }
+
+    &__setting {
+      position: absolute;
+      top: 120px;
+      right: 30px;
+    }
+  }
+
+  &__btn {
+    text-align: center;
+    margin-top: 70px;
+  }
+
+  &__desc {
+    position: relative;
+    margin-left: 100px;
+    margin-top: 80px;
+    width: 60%;
+
+    &__title {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #fffcf4;
+      border: 3px solid green;
+      padding: 5px 25px;
+      text-align: center;
+      z-index: 20;
+    }
+    &__text {
+      position: absolute;
+      border: 5px dashed lawngreen;
+      top: 30px;
+      padding-top: 40px;
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
+      z-index: 10;
+
+      &__title {
+        font-size: 16px;
+        font-weight: bolder;
+      }
+    }
+  }
+
+  &__member {
+    position: absolute;
+    top: 370px;
+    right: 20px;
+    width: 25%;
+    border: 2px solid green;
+  }
+}
+
+.material-symbols-outlined {
+  &.no {
+    color: red;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// 真ん中ボタン
+.showBtn {
+  padding: 10px 30px;
+}

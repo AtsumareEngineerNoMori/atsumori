@@ -1,24 +1,30 @@
-   <!-- 一覧を表示、検索は再検索用 -->
+<!-- 一覧を表示、検索は再検索用 -->
+<!-- コンポーネント用 -->
 <template>
-  <div class="search">
-    <section>
-      <h3 class="search_title">プロジェクト 募集一覧</h3>
-    </section>
-
-    <div class="island_search">
-      <form action="どこから取ってくるかURL" method="get">
-        <p>キーワードを入力してください。</p>
-        <input
-          type="search"
-          name="search"
-          placeholder="キーワードを入力"
-          class="search_box"
-        />
-        <input type="submit" name="submit" value="検索" class="search_btn" />
-      </form>
-    </div>
-
-  
-    <!-- 結果 -->
+  <div>
+    <SearchBox
+      :fetchUrlRec="fetchUrlRec"
+      :fetchUrlIs="fetchUrlIs"
+      title="募集中のプロジェクト検索"
+    />
   </div>
 </template>
+
+<script setup>
+import SearchBox from "../../components/Search/ReqList/ProjectReqSerch.vue";
+import { ref, onMounted } from "vue";
+
+const fetchUrlRec = "http://localhost:8000/RecruitNewIsland";
+const fetchUrlIs = "http://localhost:8000/Projects";
+
+const islandsData = ref([]);
+
+const fetchData = async () => {
+  const response = await fetch(fetchUrlRec);
+  islandsData.value = await response.json();
+};
+
+onMounted(async () => {
+  await fetchData();
+});
+</script>

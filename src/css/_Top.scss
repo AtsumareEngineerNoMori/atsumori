@@ -80,8 +80,18 @@
     &-input {
       width: 50%;
     }
+    &-input:hover:hover{
+      cursor: pointer;
+      opacity: 0.6;
+  }
     &-button {
       padding: 1%;
+      border: 3px dashed #4B7031;
+      background-color: #4B7031;
+      color: white;
+      font-weight: bold;
+      border-radius: 20%;
+
     }
     &-button:hover {
       opacity: 0.6;
@@ -96,7 +106,12 @@
     &-island {
       margin-right: 1%;
     }
+    &-input:hover:hover{
+      cursor: pointer;
+      opacity: 0.6;
   }
+  }
+
   &-new {
     display: flex;
     gap: 3%;
@@ -104,6 +119,7 @@
     padding-top: 3%;
     margin: 0 5%;
     &-set {
+      height: 440px;
       width: 40%;
       border: 3px dashed #4B7031;
       width: 80%;
@@ -127,12 +143,16 @@
         width: calc((100% - 1% * 2) / 3);
         aspect-ratio: 1/1;
       }
+      &-imgdiv{
+        width:100%;
+      }
       &-img {
-        width: 90%;
-        height: 90%;
+        // width: 90%;
+        // height: 90%;
         border-radius: 50%;
         border: 1px solid gray;
         object-fit: cover;
+        margin-left: 4%;
       }
       &-img:hover {
         opacity: 0.6;
@@ -183,6 +203,7 @@
         border-radius: 50%;
         border: 1px solid gray;
         object-fit: cover;
+        height: 110px;
       }
       &-img:hover {
         opacity: 0.6;

@@ -10,8 +10,6 @@
     display: flex;
   }
   &__profileiconImg {
-    width: 200px;
-    height: 200px;
     width: 170px;
     height: 170px;
     border: 2px solid;
@@ -21,7 +19,7 @@
   }
   &__profileiconImg:hover {
     cursor: pointer;
-
+    opacity: 0.8;
   }
   &__item {
     padding: 0 20px;
@@ -42,8 +40,21 @@
   &__button:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
+  }
+  &__cansel_button {
+    padding: 1% 2%;
+    margin-left: auto;
+    margin-right: 50px;
+    width: 200px;
+    background-color: #703131;
+  }
+  &__cansel_button:hover {
+    cursor: pointer;
+    background-color: #ffff;
+    color: #703131;
+    outline: 1px solid #703131;
   }
   &__editbutton {
     padding: 1% 2%;
@@ -53,28 +64,36 @@
   &__editbutton:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
+  }
+  &__NOisland{
+    margin: 30px 0;
   }
   &__morebutton {
     padding: 1% 2%;
-    margin-left: 60px;
+    margin-left: auto;
+    position: absolute;
+    right: 35px;
+    bottom: 100px;
   }
+  
   &__morebutton:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
   }
+  
 
   // &__div {
   //   margin: 30px 0;
   // }
   &__container {
-    display: grid;
-    grid-template-columns: 50% 40%;
+    // display: grid;
+    // grid-template-columns: 40% 50%;
     margin-top: 30px;
-    column-gap: 10%;
+    column-gap: 5%;
     display: flex;
   }
   &__column {
@@ -82,20 +101,21 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-left: 200px;
+    // padding-left: 100px;
+    padding-left: 100px;
     height: 250px;
-    
   }
   &__column2 {
     display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  height: 250px;
-  padding: 20px;
-  padding-top: 50px;
-  margin-right: auto;
-  flex-grow: 1;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 250px;
+    width: 600px;
+    padding: 20px;
+    padding-top: 50px;
+    margin-right: auto;
+    flex-grow: 1;
   }
   &__lists {
     display: inline-block;
@@ -107,17 +127,18 @@
     position: relative;
   }
   &__iconImg {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
   &__iconImg:hover {
     cursor: pointer;
+    opacity: 0.7;
   }
   &__table {
     margin-top: 60px;
     margin-left: 4%;
+    position: relative;
   }
-
 }
 
 .edit {
@@ -129,7 +150,7 @@
   padding-bottom: 40px;
 
   &__container {
-    display: grid;
+    // display: grid;
     grid-template-columns: 50% 40%;
     margin-top: 30px;
     column-gap: 10%;
@@ -142,20 +163,19 @@
     flex-direction: column;
     padding-left: 50px;
     height: 500px;
-    
   }
   &__column2 {
     display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-direction: column;
-  height: 500px;
-  padding: 20px;
-  padding-top: 50px;
-  margin-right: auto;
-  flex-grow: 1;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 500px;
+    padding: 20px;
+    padding-top: 50px;
+    margin-right: auto;
+    flex-grow: 1;
   }
-  &__input{
+  &__input {
     float: left;
     width: 450px;
     max-width: 100%;
@@ -165,6 +185,7 @@
     border-radius: 0.3rem;
     background: darken(#f9f9f9, 10%);
     color: darken(#f9f9f9, 50%);
+    margin-bottom: 40px;
   }
   &__textarea {
     float: left;
@@ -203,9 +224,6 @@
   &__item {
     margin: auto;
   }
-  &__router {
-    margin: 0 40px;
-  }
   &__button {
     padding: 1% 2%;
     margin: auto;
@@ -214,8 +232,8 @@
   &__button:hover {
     cursor: pointer;
     background-color: #ffff;
-    color: #4B7031;
-    outline: 1px solid #4B7031;
+    color: #4b7031;
+    outline: 1px solid #4b7031;
   }
   &__button_cansel {
     padding: 1% 2%;
@@ -232,8 +250,8 @@
   &__buttoncontainer {
     display: flex;
     width: 400px;
-    margin:auto;
-    margin-top:100px;
+    margin: auto;
+    margin-top: 100px;
   }
   &__label {
     margin: 8px;

@@ -5,6 +5,7 @@
   border-color: green;
   border-radius: 50%;
 }
+// 管理者専用モーダル
 .material-symbols-rounded {
   color: white;
   &:hover {
@@ -15,8 +16,10 @@
 .detail {
   width: 100%;
   margin: 0;
+  background-color: #fffcf4;
+  min-height: 100vh;
 
-  &__image {
+  &__user {
     &__header {
       position: relative;
       background-color: beige;
@@ -26,125 +29,113 @@
 
     &__icon {
       position: absolute;
-      top: 230px;
-      left: 50px;
+      top: 250px;
+      left: 60px;
 
       &__text {
         margin-top: 10px;
         text-align: center;
+        font-weight: bold;
+        width: 170px;
+        &__name {
+          margin-bottom: 10px;
+        }
+        &__admin {
+          font-size: small;
+          color: rgba(169, 169, 169, 1);
+          line-height: 7px;
+          margin: 10px;
+        }
+        &__asign {
+          margin-top: 15px;
+          &__a {
+            font-size: small;
+            color: #1e90ff;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
       }
     }
 
     &__setting {
       position: absolute;
-      top: 100px;
+      top: 120px;
       right: 30px;
     }
   }
 
   &__btn {
     text-align: center;
-    margin-top: 50px;
-
-    &__content {
-      padding: 10px 30px;
-    }
+    margin-top: 55px;
   }
 
   &__desc {
+    position: relative;
     margin: auto;
-    margin-top: 50px;
-    width: 50%;
+    margin-top: 65px;
+    width: 40%;
 
-    border: 2px solid green;
+    &__title {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #fffcf4;
+      border: 3px solid green;
+      padding: 5px 25px;
+      text-align: center;
+      z-index: 20;
+    }
+    &__text {
+      position: absolute;
+      border: 5px dashed lawngreen;
+      top: 30px;
+      padding-top: 40px;
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 100%;
+      z-index: 10;
+
+      &__title {
+        font-size: 16px;
+        font-weight: bolder;
+      }
+    }
   }
 
   &__member {
     position: absolute;
-    top: 350px;
-    right: 0;
-    width: 23%;
-    border: 2px solid green;
+    top: 400px;
+    right: 30px;
+    width: 25%;
+    border: 3px solid green;
   }
 
   &__scout {
     position: absolute;
-    top: 500px;
-    left: 0;
-    width: 23%;
-    border: 2px solid green;
-  }
-}
-
-// サイドバー（右）
-.member {
-  &__title {
-    text-align: center;
-    margin: 5px;
-  }
-  &__content {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
-
-    &__icon {
-      width: 50px;
-      height: 50px;
-      border: 2px solid;
-      border-color: green;
-      border-radius: 50%;
-    }
-    &__name {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    &__btn {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      &__yes {
-        padding: 2px 5px;
-        height: 25px;
-        cursor: pointer;
-        &:hover {
-          background-color: #ffff;
-          color: #4b7031;
-          outline: 1px solid #4b7031;
-        }
-      }
-      & a {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-  }
-  &__btn {
-    text-align: center;
-    margin: 20px 0 10px;
-    
-    &__scout {
-      background-color: skyblue;
-      cursor: pointer;
-      &:hover {
-        background-color: white;
-        color: skyblue;
-        outline: 1px solid skyblue;
-      }
-    }
+    top: 600px;
+    left: 30px;
+    width: 25%;
   }
 }
 
 // サイドバー（左）
 .scout {
+  border: 3px solid green;
   &__title {
     text-align: center;
     margin: 5px;
+    font-weight: bold;
   }
   &__content {
     display: flex;
-    justify-content: space-around;
+    width: 100%;
+    justify-content: center;
 
     &__icon {
       width: 50px;
@@ -152,20 +143,27 @@
       border: 2px solid;
       border-color: green;
       border-radius: 50%;
+      margin: 0 20px 0 10px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.05);
+      }
     }
     &__name {
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 40%;
     }
   }
   &__btn {
-    margin: 5px 0 20px;
+    margin: 10px 0 20px;
     display: flex;
     justify-content: center;
 
     &__yes {
       padding: 5px 10px;
+      margin-right: 10px;
       cursor: pointer;
       &:hover {
         background-color: #ffff;
@@ -177,6 +175,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-left: 10px;
     }
   }
 }
@@ -187,13 +186,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     &:hover {
       transform: scale(1.05);
     }
   }
 }
 
-// ボタン
-.btn {
+// 真ん中ボタン
+.showBtn {
   padding: 10px 30px;
 }

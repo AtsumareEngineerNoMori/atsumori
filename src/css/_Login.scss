@@ -1,8 +1,8 @@
 .loginPage{
     background-color: #FFFCF4;
     opacity: .9;
-    // height: 120vh;
-    height: 100%;
+    height: 300vh;
+    height: 300%;
     padding: 13% 0;
     &-logo{
         margin: 0 auto;
@@ -39,4 +39,9 @@
     }
     
     
+}
+
+.alart{
+    color: red;
+    font-size: small;
 }

@@ -1,10 +1,127 @@
+<!-- スカウトする難民を探す -->
+<!-- 初期表示なし、未入力検索はランダムで20件表示 -->
 <template>
-  <AllSearchResult :searchTitle="searchTitle" />
+  <div class="search">
+    <section>
+      <h3 class="search_title">スカウトする難民を探す</h3>
+    </section>
+    
+    <div class="search">
+      <form @submit.prevent="searchUsers">
+        <input
+          type="search"
+          name="search"
+          placeholder="キーワードを入力"
+          class="search_box"
+          v-model="keyword"
+        />
+        <input type="submit" name="submit" value="検索" class="search_btn" />
+      </form>
+    </div>
+
+    <section v-if="results" class="search_list">
+      <div v-if="filteredUsers.length > 0">
+        <div class="search_list">
+          <router-link
+            v-for="user in filteredUsers"
+            :key="user.id"
+            :to="`/mypageforscout/${$route.params.islandId}/${user.id}`"
+          >
+            <!-- <router-link
+          v-for="(user, index) in filteredUsers.slice(0, 5)"
+          :key="user.id"
+          :to="`/mypageforscout/${$route.params.id}/${user.id}`"
+        > -->
+            <img :src="user.icon" alt="user" class="search_iconImg" />
+            <div class="search_recinfo">
+              <p>{{ user.name }}</p>
+            </div>
+          </router-link>
+          <!-- <div v-if="filteredUsers.length > 5" class="search_no">
+          <p>最新のおすすめ20件</p>
+        </div> -->
+        </div>
+      </div>
+      <div v-else class="search_no">
+        <p>検索結果はありません。</p>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import AllSearchResult from "../../components/Search/AllSearchResult.vue";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-const searchTitle = ref("スカウトする難民を探す");
+const route = useRoute();
+const keyword = ref("");
+const users = ref([]);
+const filteredUsers = ref([]);
+const joinIslands = ref([]);
+const results = ref(false);
+
+const fetchUsers = async () => {
+  try {
+    const responce = await fetch(`http://localhost:8000/Users`);
+    const data = await responce.json();
+    users.value = data;
+    console.log("難民", data);
+  } catch (error) {
+    console.log("難民", error);
+  }
+};
+
+//参加している島
+const featchJoinIslands = async () => {
+  try {
+    const responce = await fetch(`http://localhost:8000/JoinIslands`);
+    const data = await responce.json();
+    joinIslands.value = data;
+    console.log("参加島", data);
+  } catch (error) {
+    console.log("参加島", error);
+  }
+};
+
+//paramsのislandId以外のデータを取得
+const searchUsers = () => {
+  console.log("検索:", keyword.value);
+
+  const keywordUser = keyword.value.toLowerCase();
+  if (keywordUser) {
+    if (keyword.value.length > 20) {
+      alert("20文字以内で入力してください");
+      keyword.value = "";
+    } else {
+      filteredUsers.value = users.value
+        .filter((user) => user.name.toLowerCase().includes(keywordUser))
+        .filter(
+          (user) =>
+            !joinIslands.value.some(
+              (join) =>
+                join.userId === user.id &&
+                join.islandId === parseInt(route.params.islandId)
+            )
+        );
+      results.value = true;
+      keyword.value = "";
+    }
+  } else {
+    filteredUsers.value = users.value.filter(
+      (user) =>
+        !joinIslands.value.some(
+          (join) =>
+            join.userId === user.id &&
+            join.islandId === parseInt(route.params.islandId)
+        )
+    );
+    results.value = true;
+    keyword.value = "";
+  }
+};
+
+onMounted(() => {
+  fetchUsers();
+  featchJoinIslands();
+});
 </script>

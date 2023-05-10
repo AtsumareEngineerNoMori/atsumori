@@ -1,5 +1,5 @@
+<!-- ごみ -->
 <template>
-  <!-- TOPからの検索結果 -->
   <div class="search">
     <section>
       <h3 class="search_title">{{ props.searchTitle }}</h3>
@@ -17,8 +17,6 @@
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
     </div>
-
-    <p>検索結果を表示する(初期表示なし)</p>
 
     <section class="search_list">
       <div v-for="searchImage in searchImages" :key="searchImage">

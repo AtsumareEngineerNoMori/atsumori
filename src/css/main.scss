@@ -1,4 +1,7 @@
 @use "./show/islandShow";
+@use "./show/ProjectShow";
+@use "./show//ShowBtn";
+@use "./show/Member";
 @use "./MyPage/Mypage";
 @use "./foundation/base";
 @use "./Request/Request";
@@ -8,7 +11,7 @@
 @use "./chat/chat";
 @use "./Login";
 @use "./register/Register";
-@use "./Header";
+@use "./header/Header";
 @use "./register/IslandRegister";
 @use "./register/ProjectRegister";
 @use "./register/RecruitUserRegister";
@@ -16,3 +19,4 @@
 @use "./Top";
 @use "./loading";
 @use "./chat/date";
+@use "./header/HeaderModal";

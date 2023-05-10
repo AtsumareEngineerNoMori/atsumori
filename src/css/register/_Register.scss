@@ -39,13 +39,34 @@
                 aspect-ratio: 1/1;
 
             }
+            &-icon_form {
+                top: 470px;
+                color: #ffff;
+                padding: 1.5% 3% 2% 1.5%;
+                border: none;
+                border-radius: 50%;
+                width: 20px;
+                aspect-ratio: 1/1;
+                position: absolute;
+              left: 370px;
+                background-color: #4B7031;
+              }
+              &-add_icon {
+                font-size: 27px;
+                font-weight: bold;
+                line-height: 14px;
+              }
+              &-icon_input {
+                display: none;
+              }
+            
         }
         &-detail{
             margin-top: 5%;
             margin-left: 5%;
             &-name{
                     width:70%;
-                    margin-bottom: 4%;
+                    // margin-bottom: 4%;
                 }
             &-hitokoto{
                 margin-top: 4%;
@@ -79,7 +100,7 @@
             margin-top: 4%;
             padding: 1.5%;
             width: 150px;
-            margin-bottom: 5%;
+            margin-bottom: 2%;
         }
         &-button:hover{
             cursor: pointer;
@@ -90,24 +111,55 @@
     }
 }
 
+.val{
+    &-name{
+        color: red;
+        font-size: small;
+        margin-left: 18%;
+        margin-bottom: -4%;
+    }
+    &-job{
+        color: red;
+        font-size: small;
+    }
+    &-comment{
+        color: red;
+        font-size: small;
+        margin-top: -2%;
+    }
+    &-email{
+        color: red;
+        font-size: small; 
+        margin-top: -2%;
+        margin-left: -2%;
+    }
+    &-password{
+        color: red;
+        font-size: small; 
+        margin-top: -2%;
+        margin-left: -4%;
+    }
+    &-password2{
+        color: red;
+        font-size: small; 
+        margin-top: -2%;
+        margin-left: 33%;
+    }
+    &-cpassword{
+        color: red;
+        font-size: small; 
+        margin-top: -2%;
+        margin-left: -1%;
+    }
+    &-cpassword2{
+        color: red;
+        font-size: small; 
+        margin-top: -2%;
+        margin-left: -7%;
+    }
 
-.icon_form {
-    top: 47%;
-    color: #ffff;
-    padding: 1.5% 3% 2% 1.5%;
-    border: none;
-    border-radius: 50%;
-    width: 20px;
-    aspect-ratio: 1/1;
-    position: absolute;
-    right: 59%;
-    background-color: #4B7031;
-  }
-  .add_icon {
-    font-size: 27px;
-    font-weight: bold;
-    line-height: 14px;
-  }
-  .icon_input {
-    display: none;
-  }
+}
+
+.aaa{
+    margin-top: 6%;
+}

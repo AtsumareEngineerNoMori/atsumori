@@ -1,14 +1,13 @@
 <template>
   <div class="kotei">
-  <div class="header">
-    <img
-      src="/atsumori.png"
-      class="header-logo"
-    />
-    <HeaderModal />
-    <!-- <img src="../../../public/operation_menu1.png" class="header-menu" /> -->
+    <div class="header">
+      <RouterLink to="/top" class="header-logo">
+        <img src="../../../public/atsumori.png" />
+      </RouterLink>
+      <HeaderModal class="header-menu" />
+    </div>
+
   </div>
-</div>
 </template>
 
 <script setup>

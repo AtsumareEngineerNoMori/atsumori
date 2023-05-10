@@ -1,90 +1,99 @@
 <script setup>
 // import { onMounted } from "vue";
+// import { promiseImpl } from "ejs";
 import { onMounted, ref } from "vue";
 import "../css/main.css";
+import { auth } from "../../firebase";
+import { useRouter } from 'vue-router';
 
-const islandimgs = [
-  {
-    icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-    name: "島の名前",
-  },
-  // {
-  //   icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-  //   name: "島の名前",
-  // },
-  // {
-  //   icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-  //   name: "島の名前",
-  // },
-  // {
-  //   icon: "https://1.bp.blogspot.com/-4Ng1gNmOhAM/V2ucIdYoIAI/AAAAAAAA7vs/trvOgTP7V30aBo8mAV-d5xlcTyaQHCq3gCLcB/s800/mujintou_kojima.png",
-  //   name: "島の名前",
-  // },
-];
+const router = useRouter();
 
-const projectimgs = [
-  {
-    icon: "https://1.bp.blogspot.com/-EHBItm2ov28/X7zMLiDUlnI/AAAAAAABcZg/Hn1EagLhVecSENp47dA46nL8wXAP4iChQCNcBGAsYHQ/s608/sweets_tarte_strawberry.png",
-    name: "プロジェクトの名前",
-  },
-  {
-    icon: "https://1.bp.blogspot.com/-lo3ZURN60RE/Xhwqu1HEAqI/AAAAAAABXDk/RuSIKIMAJyU8EL7dMQ7pnwzlwPLKTLK0gCNcBGAsYHQ/s1600/sweets_cake_chocomint.png",
-    name: "プロジェクトの名前",
-  },
-  // {
-  //   icon: "https://1.bp.blogspot.com/-ckRQQXz6PjE/XQjuezvDalI/AAAAAAABTSk/NGgomBsGNMwk5leKd59gD7899JjDyTBiACLcBGAs/s800/sweets_chocolate_mousse.png",
-  //   name: "プロジェクトの名前",
-  // },
-  // {
-  //   icon: "https://4.bp.blogspot.com/-vNWAqceM3a4/XLAde7hE1_I/AAAAAAABSY0/x6xuysVAp-c6eyzZk5fDQ_tjgOdiccsiQCLcBGAs/s800/sweets_pafe_parfait_ichigo.png",
-  //   name: "プロジェクトの名前",
-  // },
-];
-
-const Islands = ref({
-  id: 1,
-  icon: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiLuW2xcJlrbLdQDiw-wTCsElgoQIvbaXRZ40pCZX9vxYuLh1W3njnzZ_SZddy3nVpXeTDZqdKX6rI-MQBECmDwL80RPHDA4d5_lBe89Z8YTbBw9LSlnkTYFbKFmLvObN6tMyyCx7kPVQiMVILHoqH-ze4DDH1n6tf6PIo06l_6w95xdmZ40m7X7Bzx9g/s400/rennai_kaeruka.png",
-  islandName: "Vue島",
-  islandDescription: "Vueできる人集まれ",
-  comment: "Vueについて話しましょう",
-  adminId: 1,
-  createDate: "2023-04-17",
-});
 
 const User = ref({
   name: "",
-  icon:"",
+  icon: "",
   job: "",
   comment: "",
 });
-const userId = ref(2); //firebaseでログインしてる人のIDが入る
-const err = ref();
+const userId = ref(); //firebaseでログインしてる人のIDが入る
+// joinIslandsから取得したuserIdが等しいデータを保管
+const joinList = ref([]);
+// islandsから取得したislandIdが等しいデータを保管
+const islandData = ref([]);
 
 onMounted(async () => {
-  try {
-    const response = await fetch(`http://localhost:8000/Users/${userId.value}`);
-    if (!response.ok) {
-      throw new Error(`HTTPエラーです！！！: ${response.status}`);
+  //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
+  auth.onAuthStateChanged(async (loggedInUser) => {
+    if (loggedInUser) {
+      userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
+      await getIsland();
+      await getJoinIsland();
+      try {
+        const response = await fetch(
+          `http://localhost:8000/Users/${userId.value}`
+        );
+        if (!response.ok) {
+          throw new Error(`HTTPエラーです！！！: ${response.status}`);
+        }
+        User.value = await response.json();
+        console.log("User.valueの中身", User.value);
+      } catch (err) {
+        err.value = err;
+        console.log("エラー", err.value);
+      }
+    } else {
+      router.push("/login");
     }
-    User.value = await response.json();
-    console.log("User..valueの中身", User.value.name);
-  } catch (err) {
-    err.value = err;
-    console.log("エラー", err.value);
-  }
+  });
 });
+
+// joinIslandsテーブルからログインユーザーのidに等しいデータを取得
+const getIsland = async () => {
+  const response = await fetch(
+    `http://localhost:8000/joinIslands/?userId=${userId.value}`
+  );
+  const data = await response.json();
+  joinList.value = data;
+  console.log("１つめ", joinList.value);
+};
+
+//ログインユーザーが参加している島IDと同じ島IDの島をIslandsテーブルから取得
+const getJoinIsland = async (island) => {
+  console.log("２つめ", joinList.value);
+  await Promise.all(
+    joinList.value.map(async (element) => {
+      const response = await fetch(
+        `http://localhost:8000/Islands/?id=${element.islandId}`
+      );
+      const data = await response.json();
+      islandData.value.push(...data);
+    })
+  );
+  console.log("islandDATA~~~~", islandData.value);
+};
+
+//もっと見る
+const moreIslands = () => {
+  router.push("/joinIsland");
+}
+
+const userScout  = () => {
+  router.push("/userscout")
+}
 </script>
 
 <template>
   <div class="mypage">
-    <button class="mypage__button">依頼一覧</button>
+    <button class="mypage__button" @click="userScout">依頼一覧</button>
     <div class="mypage__container">
       <div class="mypage__column">
         <span
           ><img :src="User.icon" alt="" class="mypage__profileiconImg"
         /></span>
         <router-link to="/mypageedit"
-          ><button class="mypage__editbutton">マイページ編集</button></router-link
+          ><button class="mypage__editbutton">
+            マイページ編集
+          </button></router-link
         >
       </div>
       <ul class="mypage__column2">
@@ -108,45 +117,24 @@ onMounted(async () => {
     <!-- 島一覧 -->
     <div class="mypage__table">
       <div class="mypage__div">島一覧</div>
-      <ul
-        v-for="islandimg in islandimgs"
-        :key="islandimg"
-        class="mypage__lists"
-      >
+      <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
-            <img
-              v-bind:src="Islands.icon"
-              alt="islandig"
-              class="mypage__iconImg"
-            />
-            <p>島名~~</p>
+            <router-link :to="`/islandShow/${island.id}`">
+              <img
+                v-bind:src="island.icon"
+                alt="islandig"
+                class="mypage__iconImg"
+              />
+            </router-link>
+            <p>{{ island.islandName }}</p>
           </div>
         </li>
-      </ul>
-      <button class="mypage__morebutton">もっと見る</button>
-    </div>
-
-    <!-- プロジェクト一覧 -->
-    <div class="mypage__table">
-      <p>プロジェクト一覧</p>
-      <ul
-        v-for="projectimg in projectimgs"
-        :key="projectimg"
-        class="mypage__lists"
-      >
-        <li>
-          <div class="mypage__spase">
-            <img
-              v-bind:src="projectimg.icon"
-              alt="projecticon"
-              class="mypage__iconImg"
-            />
-            <p>プロジェクト名</p>
-          </div>
-        </li>
-      </ul>
-      <button class="mypage__morebutton">もっと見る</button>
+      </div>
+      <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
+      <button v-if="islandData.length >= 5" class="mypage__morebutton" @click="moreIslands">
+        もっと見る
+      </button>
     </div>
   </div>
 </template>
