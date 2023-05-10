@@ -11,7 +11,7 @@ const props = defineProps({
     alt="userIcon"
     class="chat__messageWrapper-userIcon"
   />
-  <div>
+  <div class="chat__messageWrapper-message">
     <p class="chat__messageWrapper-myMessage-userName">
       {{ props.chat[0].name }}
     </p>

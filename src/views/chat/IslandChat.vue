@@ -33,6 +33,8 @@ const submitToggle = ref(false);
 const moreChatList = ref([]);
 // trueだったら表示(ダミーデータが存在していなかったら表示)
 const loadDisplay = ref(false);
+// 日付比較(trueだったら表示する)
+const compareDate = ref(false);
 
 // 島の情報取得
 const getData = () => {
@@ -57,7 +59,7 @@ const getData = () => {
         chatList.value.findIndex((chat) => chat.userId === "1234567890") === -1
       ) {
         loadDisplay.value = true;
-      }else {
+      } else {
         loadDisplay.value = false;
       }
     })
@@ -72,10 +74,12 @@ const getData = () => {
           // chatテーブルとusersテーブルの情報を結合
           const joinObj = Object.assign(chat, userData);
           displayList.value.push(joinObj);
+
           // 1番下に最新のメッセージが来るように並び替え
           displayList.value.sort((a, b) => {
             return new Date(a.createDate) > new Date(b.createDate) ? 1 : -1;
           });
+          console.log(displayList.value);
           // データ取得終了時に反転させる
           loading.value = false;
         });
@@ -90,52 +94,24 @@ const getData = () => {
 
 // チャット追加
 const submit = async () => {
-  if (message.value.length > 120) {
-    alert("120文字以内で入力してください");
-  } else {
-    // 最初の投稿の場合
-    if (chatList.value.length === 0) {
-      console.log("データがない場合");
-      // デモ追加
-      const firstChat = async () => {
-        const response = await fetch("http://localhost:8000/islandChat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: "1234567890",
-            islandId: 7,
-            createDate: new Date(),
-            message: "0",
-          }),
-        });
-        const firstData = await response.json();
-        console.log(firstData);
-      };
-      firstChat().then(async () => {
-        // 最初のメッセージ追加
-        const response = await fetch("http://localhost:8000/islandChat", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userId: uid.value,
-            islandId: 7,
-            createDate: new Date(),
-            message: message.value,
-          }),
-        });
-        const messageData = await response.json();
-        console.log(messageData);
-
-        // 送信後に入力欄を空に戻す→動いてない
-        message.value = "";
-      });
-    } else {
-      // 2回目以降の投稿
-      console.log("データがある場合");
+  // 最初の投稿の場合
+  if (chatList.value.length === 0) {
+    console.log("データがない場合");
+    // ダミー追加
+    const response = await fetch("http://localhost:8000/islandChat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: "1234567890",
+        islandId: 7,
+        createDate: new Date(),
+        message: "0",
+      }),
+    });
+    const firstData = await response.json().then(async () => {
+      // 最初のメッセージ追加
       const response = await fetch("http://localhost:8000/islandChat", {
         method: "POST",
         headers: {
@@ -150,9 +126,29 @@ const submit = async () => {
       });
       const messageData = await response.json();
       console.log(messageData);
+
       // 送信後に入力欄を空に戻す
       message.value = "";
-    }
+    });
+  } else {
+    // 2回目以降の投稿
+    console.log("データがある場合");
+    const response = await fetch("http://localhost:8000/islandChat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: uid.value,
+        islandId: 7,
+        createDate: new Date(),
+        message: message.value,
+      }),
+    });
+    const messageData = await response.json();
+    console.log(messageData);
+    // 送信後に入力欄を空に戻す
+    message.value = "";
   }
 };
 
@@ -171,33 +167,51 @@ onMounted(() => {
 
 // 送信ボタン
 const submitBtn = () => {
-  // 追加する関数呼び出し
-  submit()
-    // 初めての投稿の場合リアルタイム更新されない！！！！
-    .then(async () => {
-      // 最新のデータ1件取得
-      const response = await fetch(
-        `http://localhost:8000/islandChat/?islandId=${7}&_limit=1&_sort=createDate&_order=desc`
-      );
-      const data = await response.json();
-      chatList.value = data;
-    })
-    .then(() => {
-      // 上で取得したデータのuserIdと等しいデータをusersから取得
-      chatList.value.map(async (chat) => {
-        const response = await fetch(
-          `http://localhost:8000/users/?id=${chat.userId}`
-        );
-        const userData = await response.json();
-        // chatテーブルとusersテーブルの情報を結合
-        const joinObj = Object.assign(chat, userData);
-        displayList.value.push(joinObj);
-        // 1番下に最新のメッセージが来るように並び替え
-        displayList.value.sort((a, b) => {
-          return new Date(a.createDate) > new Date(b.createDate) ? 1 : -1;
+  if (message.value.length > 120) {
+    alert("120文字以内で入力してください");
+  } else {
+    // 追加関数呼び出し
+    submit()
+      .then(async () => {
+        console.log(chatList.value.length);
+        // 初回のみidが新しいデータを取得する
+        if (chatList.value.length === 0) {
+          console.log("初回");
+          // const firstResponse = await fetch(
+          //   `http://localhost:8000/islandChat/?islandId=${7}&_limit=1&_sort=id&_order=desc`
+          // );
+          // const data = await firstResponse.json();
+          // chatList.value = data;
+          location.reload();
+        } else {
+          console.log("2回目以降");
+          // 最新のデータ1件取得
+          const response = await fetch(
+            `http://localhost:8000/islandChat/?islandId=${7}&_limit=1&_sort=createDate&_order=desc`
+          );
+          const data = await response.json();
+          chatList.value = data;
+        }
+      })
+      .then(() => {
+        console.log(chatList.value);
+        // 上で取得したデータのuserIdと等しいデータをusersから取得
+        chatList.value.map(async (chat) => {
+          const response = await fetch(
+            `http://localhost:8000/users/?id=${chat.userId}`
+          );
+          const userData = await response.json();
+          // chatテーブルとusersテーブルの情報を結合
+          const joinObj = Object.assign(chat, userData);
+          displayList.value.push(joinObj);
+          // 1番下に最新のメッセージが来るように並び替え
+          displayList.value.sort((a, b) => {
+            return new Date(a.createDate) > new Date(b.createDate) ? 1 : -1;
+          });
+          console.log(displayList.value);
         });
       });
-    });
+  }
 };
 
 // 10件以上前のデータを取得(さらに10件ごと)
@@ -213,9 +227,12 @@ const loadMore = () => {
     console.log(data);
     moreChatList.value = data;
     // 見つからない場合は-1を返す(ボタンを表示する)
-    if (moreChatList.value.findIndex((chat) => chat.userId === "1234567890") === -1) {
+    if (
+      moreChatList.value.findIndex((chat) => chat.userId === "1234567890") ===
+      -1
+    ) {
       loadDisplay.value = true;
-    }else {
+    } else {
       loadDisplay.value = false;
     }
   };
@@ -274,7 +291,6 @@ onUpdated(() => {
           </div>
         </div>
       </section> -->
-      <!-- これ以上データがない場合表示消す -->
       <template v-if="loadDisplay">
         <div class="chat__messageWrapper-loadMore">
           <button @click="loadMore" class="chat__messageWrapper-loadMoreBtn">
@@ -283,6 +299,13 @@ onUpdated(() => {
         </div>
       </template>
       <div v-for="chat in displayList" :key="chat">
+        <!-- <template v-if="chat.userId !== '1234567890'">
+          <GetDate
+            :createDate="chat.createDate"
+            :displayList="displayList"
+            :id="chat.id"
+          />
+        </template> -->
         <!-- <div v-if="dateTitle">日付</div> -->
         <!-- <GetDate :createDate="chat.createDate" :displayList = displayList /> -->
         <!-- 自分のメッセージか判別する -->
@@ -330,6 +353,13 @@ onUpdated(() => {
             </div>
           </div> -->
         </div>
+        <template v-if="chat.userId !== '1234567890'">
+          <GetDate
+            :createDate="chat.createDate"
+            :displayList="displayList"
+            :id="chat.id"
+          />
+        </template>
       </div>
     </section>
     <form @submit.prevent="submitBtn">
