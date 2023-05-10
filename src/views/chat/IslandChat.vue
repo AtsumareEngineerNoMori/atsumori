@@ -12,8 +12,8 @@ import { useRoute } from "vue-router";
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
-// const islandId = route.params.id;
-// console.log(islandId);
+const islandId = route.params.id;
+console.log(islandId);
 
 // ログインユーザーのid
 const uid = ref("");
@@ -36,10 +36,28 @@ const loadDisplay = ref(false);
 // 日付比較(trueだったら表示する)
 const compareDate = ref(false);
 
+// websocket
+// const socket = io('http://localhost:3000')
+// const socket = new WebSocket.Server({ port: 3000 });
+// const messages = ref([]);
+// const handleMessage = (message) => {
+//   messages.value.push(message);
+// }
+
+
+// メッセージ送信→webソケットに送信される→websocketからdbに追加する→webソケットから他のユーザーにメッセージを送信する→vueで送信されたメッセージを受信して表示する
+
+
+// 今
+// メッセージ送信→dbに追加→vueでdbからデータ取得し表示
+
+
 // 島の情報取得
 const getData = () => {
   const getIsland = async () => {
-    const response = await fetch(`http://localhost:8000/islands/?id=${7}`);
+    const response = await fetch(
+      `http://localhost:8000/islands/?id=${islandId}`
+    );
     const data = await response.json();
     islandData.value = data;
     console.log(data);
@@ -49,7 +67,7 @@ const getData = () => {
       console.log(islandData.value);
       // islandChatからislandIdと等しいデータを取得(日付順で最新から10件)
       const response = await fetch(
-        `http://localhost:8000/islandChat/?islandId=${7}&_limit=10&_sort=createDate&_order=desc`
+        `http://localhost:8000/islandChat/?islandId=${islandId}&_limit=10&_sort=createDate&_order=desc`
       );
       const data = await response.json();
       chatList.value = data;
@@ -105,7 +123,7 @@ const submit = async () => {
       },
       body: JSON.stringify({
         userId: "1234567890",
-        islandId: 7,
+        islandId: islandId,
         createDate: new Date(),
         message: "0",
       }),
@@ -119,7 +137,7 @@ const submit = async () => {
         },
         body: JSON.stringify({
           userId: uid.value,
-          islandId: 7,
+          islandId: islandId,
           createDate: new Date(),
           message: message.value,
         }),
@@ -140,7 +158,7 @@ const submit = async () => {
       },
       body: JSON.stringify({
         userId: uid.value,
-        islandId: 7,
+        islandId: islandId,
         createDate: new Date(),
         message: message.value,
       }),
@@ -161,6 +179,8 @@ onMounted(() => {
       console.log(`ログイン状態 uid:${currentUser.uid}`);
       uid.value = currentUser.uid;
       getData();
+      //  コンポーネントがマウントされた後にWebSocketに接続する
+      // socket.on('message', handleMessage)
     }
   });
 });
@@ -170,6 +190,8 @@ const submitBtn = () => {
   if (message.value.length > 120) {
     alert("120文字以内で入力してください");
   } else {
+    // クライアントからサーバーにメッセージを送信する
+    socket.emit('message', message.value);
     // 追加関数呼び出し
     submit()
       .then(async () => {
@@ -187,7 +209,7 @@ const submitBtn = () => {
           console.log("2回目以降");
           // 最新のデータ1件取得
           const response = await fetch(
-            `http://localhost:8000/islandChat/?islandId=${7}&_limit=1&_sort=createDate&_order=desc`
+            `http://localhost:8000/islandChat/?islandId=${islandId}&_limit=1&_sort=createDate&_order=desc`
           );
           const data = await response.json();
           chatList.value = data;
@@ -219,7 +241,7 @@ const loadMore = () => {
   // displayListの一番古いデータ(下に行くほど新しいから配列の[0]が常に1番古い)のidから新しい順で10件さらに取得する
   const getMoreChat = async () => {
     const response = await fetch(
-      `http://localhost:8000/islandChat/?islandId=${7}&_sort=createDate&_order=desc&_limit=10&id_lte=${
+      `http://localhost:8000/islandChat/?islandId=${islandId}&_sort=createDate&_order=desc&_limit=10&id_lte=${
         displayList.value[0].id - 1
       }`
     );
