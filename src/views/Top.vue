@@ -1,6 +1,8 @@
 <template>
   <div class="top">
-    <div v-if="isShow" class="top-nomal">
+    
+    <TopSearchBox />
+    <!-- <div v-if="isShow" class="top-nomal">
       <div class="top-nomal-select1">
         <p
           class="top-nomal-select1-nomal"
@@ -73,7 +75,7 @@
         />
         <span>プロジェクト</span>
       </div>
-    </div>
+    </div> -->
 
     <div class="top-new">
       <div class="top-new-set">
@@ -106,7 +108,8 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <router-link class ="top-new-set-imgdiv"
+            <router-link
+              class="top-new-set-imgdiv"
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
             >
               <img
@@ -174,6 +177,7 @@
 <script setup>
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
+import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 
 const isShow = ref(false);
 const selectedFilter = ref("filter1");
@@ -194,38 +198,38 @@ function selectFilter(filter) {
 }
 
 // みゆ
-const formAction = computed(() => {
-  if (selectedFilter.value === "filter1" && searchType.value === "island") {
-    return "/searchIslandResult";
-  } else if (
-    selectedFilter.value === "filter1" &&
-    searchType.value === "project"
-  ) {
-    return "/searchProResult";
-  } else if (
-    selectedFilter.value === "filter2" &&
-    searchType.value === "island"
-  ) {
-    return "/searchReqIslandResult";
-  } else if (
-    selectedFilter.value === "filter2" &&
-    searchType.value === "project"
-  ) {
-    return "/projectReqList";
-  } else {
-    return "";
-  }
-});
+// const formAction = computed(() => {
+//   if (selectedFilter.value === "filter1" && searchType.value === "island") {
+//     return "/searchIslandResult";
+//   } else if (
+//     selectedFilter.value === "filter1" &&
+//     searchType.value === "project"
+//   ) {
+//     return "/searchProResult";
+//   } else if (
+//     selectedFilter.value === "filter2" &&
+//     searchType.value === "island"
+//   ) {
+//     return "/searchReqIslandResult";
+//   } else if (
+//     selectedFilter.value === "filter2" &&
+//     searchType.value === "project"
+//   ) {
+//     return "/projectReqList";
+//   } else {
+//     return "";
+//   }
+// });
 
-function handleSubmit() {
-  if (keyword.value.length > 20) {
-    alert("20文字以内で入力してください");
-    return (keyword.value = "");
-  } else {
-    const url = `${formAction.value}?search=${keyword.value}`;
-    router.push(url);
-  }
-}
+// function handleSubmit() {
+//   if (keyword.value.length > 20) {
+//     alert("20文字以内で入力してください");
+//     return (keyword.value = "");
+//   } else {
+//     const url = `${formAction.value}?search=${keyword.value}`;
+//     router.push(url);
+//   }
+// }
 
 // 島
 const getIslands = async () => {

@@ -208,16 +208,6 @@ const router = createRouter({
       name: "joinIsland",
       component: () => import("../views/JoinIsland.vue"),
     },
-    {
-      path: "/islandShow/:id",
-      name: "islandShow",
-      component: IslandShow,
-    },
-    {
-      path: "/projectShow/:id",
-      name: "projectShow",
-      component: ProjectShow,
-    },
   ],
 });
 
