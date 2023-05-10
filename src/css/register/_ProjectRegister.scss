@@ -43,6 +43,10 @@
                 width: 100%;
                 
             }
+            &-input:hover{
+                opacity: 0.6;
+                cursor: pointer;
+            }
         }
         &-information{
             // margin-top: 3%;
@@ -62,10 +66,18 @@
                 height: 8%; 
                 margin-bottom: 6%;
             }
+            &-select:hover{
+                opacity: 0.6;
+                cursor: pointer;
+            }
             &-text{
                 width: 100%;
                 height:62%;
                 border-radius: 3%;
+            }
+            &-text:hover{
+                opacity: 0.6;
+                cursor: pointer;
             }
         }
 

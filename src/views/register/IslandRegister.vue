@@ -245,7 +245,7 @@ const registerIsland = () => {
     island.name.length > 20 ||
     island.description.length > 255
   ) {
-    window.alert("入力が間違っているところがあります");
+    // window.alert("入力が間違っているところがあります");
     console.log("エラーあります");
   } else {
     islandRegisterButton();

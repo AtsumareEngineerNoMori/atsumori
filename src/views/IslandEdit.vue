@@ -97,25 +97,25 @@ async function updateIslands() {
 
 
     // recruitNewUser更新
-    // const updateRecruitNewUser = () => {
-    //   fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       islandId: IslandId.value,
-    //       recruitTitle: data.value.recruitTitle,
-    //       recruitJob: data.value.recruitJob,
-    //       recruitPoint: data.value.recruitPoint,
-    //       createDate: data.value.createDate,
-    //       islandName: Islands.value.islandName,
-    //       islandIcon: Islands.value.icon,
-    //       // id: IslandId,
-    //     }),
-    //   });
-    // };
-    // updateRecruitNewUser();
+    const updateRecruitNewUser = () => {
+      fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          islandId: IslandId.value,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          islandName: Islands.value.islandName,
+          islandIcon: Islands.value.icon,
+          // id: IslandId,
+        }),
+      });
+    };
+    updateRecruitNewUser();
 
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);

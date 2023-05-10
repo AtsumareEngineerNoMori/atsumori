@@ -93,25 +93,25 @@ async function updateProject() {
     );
 
         // recruitNewIsland更新
-    //     const updateRecruitNewUser = () => {
-    //   fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       projectId: Project,
-    //       recruitTitle: data.value.recruitTitle,
-    //       recruitJob: data.value.recruitJob,
-    //       recruitPoint: data.value.recruitPoint,
-    //       createDate: data.value.createDate,
-    //       projectName: Project.value.projectName ,
-    //       projectIcon: Project.value.icon ,
-    //       // id: Project,
-    //     }),
-    //   });
-    // };
-    // updateRecruitNewUser();
+        const updateRecruitNewUser = () => {
+      fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectId: Project,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          projectName: Project.value.projectName ,
+          projectIcon: Project.value.icon ,
+          // id: Project,
+        }),
+      });
+    };
+    updateRecruitNewUser();
 
 
 

@@ -177,32 +177,11 @@ const registerRecruitIsland = () => {
     recruitIsland.recruitPoint.length > 255
   ) {
     console.log("エラーあります");
-    window.alert("入力が間違っているところがあります")
+    // window.alert("入力が間違っているところがあります")
   } else {
     recruitIslandRegisterButton();
     router.push("/top");
   }
 
-
-  // if (recruitIsland.recruitTitle === "") {
-  //   window.alert("募集タイトルを登録してください");
-  // } else if (recruitIsland.recruitJob === "") {
-  //   window.alert("募集職種を登録してください");
-  // } else if (recruitIsland.recruitPoint === "") {
-  //   window.alert("募集要項を登録してください");
-  // } else if (
-  //   recruitIsland.recruitTitle.length < 1 ||
-  //   recruitIsland.recruitTitle.length > 20
-  // ) {
-  //   window.alert("募集タイトルは1文字以上20文字以下で入力してください");
-  // } else if (
-  //   recruitIsland.recruitPoint.length < 1 ||
-  //   recruitIsland.recruitPoint.length > 255
-  // ) {
-  //   window.alert("募集要項は1文字以上255文字以下で入力してください");
-  // } else {
-  //   recruitIslandRegisterButton();
-  //   router.push("/top");
-  // }
 };
 </script>

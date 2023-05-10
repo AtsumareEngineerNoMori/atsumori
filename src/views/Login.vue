@@ -27,8 +27,6 @@ import {
   onAuthStateChanged,
 } from "@firebase/auth";
 
-
-
 const router = useRouter();
 const user = reactive({ email: "", password: "" });
 const input = ref(false)
@@ -55,7 +53,6 @@ const loginButton = async () => {
       () => {
         console.log(auth.currentUser.uid)
         setCookie(auth.currentUser.uid);
-
         router.push("/top");
         console.log("ログインできました");
       }
