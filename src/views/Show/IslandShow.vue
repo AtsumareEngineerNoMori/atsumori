@@ -7,7 +7,6 @@ import Loading from "../../components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { onAuthStateChanged, getAuth } from "@firebase/auth";
 
 const route = useRoute();
 const router = useRouter();
@@ -31,19 +30,8 @@ onMounted(async () => {
   adminId.value = islandData.adminId;
 
   // ログインID取得
-  function auth() {
-    return new Promise((resolve) => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (currentUser) => {
-        myId.value = currentUser?.uid;
-
-        resolve();
-      });
-    });
-  }
-  await auth().then(() => {
-    loading.value = true;
-  });
+  const userId = $cookies.get("myId");
+  myId.value = userId;
 
   // ユーザーの判別
   userJudges.value = adminJudge(adminId.value, myId.value);
@@ -62,6 +50,7 @@ onMounted(async () => {
     RecruitIshow.value = true;
     Recruits.value = Recruit[0];
   }
+  loading.value = true;
 });
 
 const joinProject = () => {
@@ -80,7 +69,7 @@ const joinProject = () => {
         class="detail__user__header"
       />
       <div class="detail__user__icon">
-        <img :src="island.icon" class="icon" alt="icon"/>
+        <img :src="island.icon" class="icon" alt="icon" />
         <div class="detail__user__icon__text">
           <p class="detail__user__icon__text__name">{{ island.islandName }}</p>
           <div>
@@ -104,26 +93,24 @@ const joinProject = () => {
       <ShowBtn :islandId="island.id" :myId="myId" />
     </div>
 
-    <div class="detail__desc">
-      <p class="detail__desc__title">島情報</p>
-      <div class="detail__desc__text">
-        <p class="detail__desc__text__title">【詳細情報】</p>
-        {{ island.islandDescription }}
+    <div class="detail__underContent">
+      <div class="detail__scout">
+        <SideScout :islandId="island.id" :userJudge="userJudges" />
+      </div>
 
+      <div class="detail__desc">
+        <p class="detail__desc__title">【詳細情報】</p>
+        <p>{{ island.islandDescription }}</p>
         <div v-show="RecruitIshow">
-          <p class="detail__desc__text__title">【募集内容】</p>
+          <p class="detail__desc__title">【募集内容】</p>
           <p>{{ Recruits.recruitTitle }}</p>
           <p>{{ Recruits.recruitPoint }}</p>
         </div>
       </div>
-    </div>
-
-    <div class="detail__member">
-      <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
-    </div>
-
-    <div class="detail__scout">
-      <SideScout :islandId="island.id" :userJudge="userJudges" />
+      
+      <div class="detail__member">
+        <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
+      </div>
     </div>
   </div>
 </template>

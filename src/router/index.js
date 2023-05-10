@@ -108,7 +108,6 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
-
       path: "/recruitIslandRegister/:id",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,
@@ -202,11 +201,6 @@ const router = createRouter({
       path: "/top",
       name: "top",
       component: Top,
-    },
-    {
-      path: "/joinIsland",
-      name: "joinIsland",
-      component: () => import("../views/JoinIsland.vue"),
     },
   ],
 });

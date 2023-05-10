@@ -6,7 +6,6 @@ import Loading from "../../components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import { onAuthStateChanged, getAuth } from "@firebase/auth";
 
 const route = useRoute();
 
@@ -24,19 +23,8 @@ onMounted(async () => {
   const id = route.params.id;
 
   // ログインID取得
-  function auth() {
-    return new Promise((resolve) => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (currentUser) => {
-        myId.value = currentUser?.uid;
-
-        resolve();
-      });
-    });
-  }
-  await auth().then(() => {
-    loading.value = true;
-  });
+  const userId = $cookies.get("myId");
+  myId.value = userId;
 
   // プロジェクトデータの取得
   const projectDatas = await fetch(`http://localhost:8000/Projects/${id}`).then(
@@ -79,6 +67,8 @@ onMounted(async () => {
     RecruitIshow.value = true;
     Recruits.value = Recruit[0];
   }
+
+  loading.value = true;
 });
 </script>
 
@@ -114,28 +104,26 @@ onMounted(async () => {
       <ShowBtn :userIds="userIds" :projectId="project.id" :myId="myId" />
     </div>
 
-    <div class="projectDetail__desc">
-      <p class="projectDetail__desc__title">プロジェクト情報</p>
-      <div class="projectDetail__desc__text">
-        <p class="projectDetail__desc__text__title">【詳細情報】</p>
-        {{ project.projectDescription }}
-
+    <div class="projectDetail__underContent">
+      <div class="projectDetail__desc">
+        <p class="projectDetail__desc__title">【詳細情報】</p>
+        <p>{{ project.projectDescription }}</p>
         <div v-show="RecruitIshow">
-          <p class="projectDetail__desc__text__title">【募集内容】</p>
+          <p class="projectDetail__desc__title">【募集内容】</p>
           <p>{{ Recruits.recruitTitle }}</p>
           <p>{{ Recruits.recruitPoint }}</p>
         </div>
       </div>
-    </div>
 
-    <div class="projectDetail__member">
-      <SideMember
-        :projectId="project.id"
-        :adminId="project.adminId"
-        :userIds="userIds"
-        :islandId="islandId"
-        :myId="myId"
-      />
+      <div class="projectDetail__member">
+        <SideMember
+          :projectId="project.id"
+          :adminId="project.adminId"
+          :userIds="userIds"
+          :islandId="islandId"
+          :myId="myId"
+        />
+      </div>
     </div>
   </div>
 </template>

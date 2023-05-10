@@ -18,7 +18,7 @@
   width: 100%;
   margin: 0;
   background-color: #fffcf4;
-  min-height: 100vh;
+  height: auto;
 }
 .detail__user__header {
   position: relative;
@@ -29,12 +29,13 @@
 .detail__user__icon {
   position: absolute;
   top: 250px;
-  left: 50px;
+  left: 60px;
 }
 .detail__user__icon__text {
   margin-top: 10px;
   text-align: center;
   font-weight: bold;
+  width: 170px;
 }
 .detail__user__icon__text__name {
   margin-bottom: 10px;
@@ -60,56 +61,39 @@
   right: 30px;
 }
 .detail__btn {
+  position: absolute;
   text-align: center;
   margin-top: 55px;
-}
-.detail__desc {
-  position: relative;
-  margin: auto;
-  margin-top: 42px;
-  width: 40%;
-}
-.detail__desc__title {
-  position: absolute;
-  top: 0;
+  top: 380px;
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #fffcf4;
-  border: 3px solid green;
-  padding: 5px 25px;
-  text-align: center;
-  z-index: 20;
 }
-.detail__desc__text {
-  position: absolute;
+.detail__underContent {
+  display: flex;
+}
+.detail__desc {
+  margin: auto;
+  margin-top: 200px;
+  margin-bottom: 20px;
+  width: 40%;
   border: 5px dashed lawngreen;
-  top: 30px;
-  padding-top: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  z-index: 10;
 }
-.detail__desc__text__title {
+.detail__desc__title {
+  margin-top: 10px;
   font-size: 16px;
   font-weight: bolder;
 }
 .detail__member {
-  position: absolute;
-  top: 400px;
-  right: 30px;
+  margin: 50px 25px 0 auto;
   width: 25%;
-  border: 3px solid green;
+  margin-bottom: 20px;
 }
 .detail__scout {
-  position: absolute;
-  top: 550px;
-  left: 30px;
+  margin: 200px auto 0 25px;
   width: 25%;
+  margin-bottom: 20px;
 }
 
 .scout {
@@ -200,7 +184,7 @@
   width: 100%;
   margin: 0;
   background-color: #fffcf4;
-  min-height: 100vh;
+  height: auto;
 }
 .projectDetail__user__header {
   position: relative;
@@ -211,12 +195,13 @@
 .projectDetail__user__icon {
   position: absolute;
   top: 250px;
-  left: 50px;
+  left: 60px;
 }
 .projectDetail__user__icon__text {
   margin-top: 20px;
   text-align: center;
   font-weight: bold;
+  width: 170px;
 }
 .projectDetail__user__icon__text__name {
   margin-bottom: 10px;
@@ -233,50 +218,34 @@
   right: 30px;
 }
 .projectDetail__btn {
-  text-align: center;
-  margin-top: 70px;
-}
-.projectDetail__desc {
-  position: relative;
-  margin-left: 100px;
-  margin-top: 80px;
-  width: 60%;
-}
-.projectDetail__desc__title {
   position: absolute;
-  top: 0;
+  text-align: center;
+  margin-top: 55px;
+  top: 380px;
   left: 50%;
   transform: translateX(-50%);
   -webkit-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
-  font-size: 20px;
-  font-weight: bold;
-  background-color: #fffcf4;
-  border: 3px solid green;
-  padding: 5px 25px;
-  text-align: center;
-  z-index: 20;
 }
-.projectDetail__desc__text {
-  position: absolute;
+.projectDetail__underContent {
+  display: flex;
+}
+.projectDetail__desc {
+  width: 60%;
+  margin-left: 100px;
+  margin-top: 200px;
+  margin-bottom: 20px;
   border: 5px dashed lawngreen;
-  top: 30px;
-  padding-top: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
-  width: 100%;
-  z-index: 10;
 }
-.projectDetail__desc__text__title {
+.projectDetail__desc__title {
+  margin-top: 10px;
   font-size: 16px;
   font-weight: bolder;
 }
 .projectDetail__member {
-  position: absolute;
-  top: 370px;
-  right: 20px;
+  margin: 50px 25px 0 auto;
   width: 25%;
-  border: 2px solid green;
+  margin-bottom: 20px;
 }
 
 .material-symbols-outlined.no {
@@ -303,6 +272,9 @@
   outline: 1px solid #4b7031;
 }
 
+.member {
+  border: 3px solid green;
+}
 .member__title {
   text-align: center;
   margin-top: 10px;
@@ -456,11 +428,10 @@
   outline: 1px solid #4b7031;
 }
 .mypage__container {
-  display: grid;
-  grid-template-columns: 40% 50%;
   margin-top: 30px;
   -moz-column-gap: 5%;
        column-gap: 5%;
+  display: flex;
 }
 .mypage__column {
   display: flex;
@@ -476,6 +447,7 @@
   align-items: flex-start;
   flex-direction: column;
   height: 250px;
+  width: 600px;
   padding: 20px;
   padding-top: 50px;
   margin-right: auto;
@@ -511,7 +483,6 @@
   padding-bottom: 40px;
 }
 .edit__container {
-  display: grid;
   grid-template-columns: 50% 40%;
   margin-top: 30px;
   -moz-column-gap: 10%;
@@ -632,7 +603,7 @@ html {
 }
 
 body {
-  background-image: url(../../../public/astumoriIsland.png);
+  background-image: url(astumoriIsland.png);
   /* 画像を常に天地左右の中央に配置 */
   background-position: center center;
   /* 画像をタイル状に繰り返し表示しない */
@@ -755,9 +726,13 @@ button {
   padding: 3%;
   height: 100vh;
 }
+.list__sectionTitle {
+  height: 14%;
+}
 .list__title {
   color: #af7a20;
   font-size: 2.5rem;
+  height: 100%;
 }
 .list__noDataTitle {
   margin-top: 10%;
@@ -797,7 +772,6 @@ button {
   display: flex;
   flex-wrap: wrap;
   gap: 6%;
-  margin-top: 5%;
   text-align: center;
   width: 100%;
   height: auto;
@@ -807,13 +781,14 @@ button {
   aspect-ratio: 1/1;
 }
 .list__item:nth-child(n+6) {
-  margin-top: 8%;
+  margin-top: 5%;
 }
 .list__iconImg {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   border: 1px solid lightgray;
+  background-color: white;
   -o-object-fit: cover;
      object-fit: cover;
 }
@@ -966,23 +941,47 @@ button {
   height: 4%;
   border-radius: 50%;
   border: 1px solid lightgray;
+  background-color: white;
   -o-object-fit: cover;
      object-fit: cover;
   aspect-ratio: 1/1;
 }
 .chat__name {
   font-weight: bold;
+  color: #AF7A20;
 }
 .chat__messageWrapper {
-  overflow: scroll;
-  height: 448px;
+  overflow-y: scroll;
+  height: 434px;
   padding: 1%;
+}
+.chat__messageWrapper-noDataTitle {
+  text-align: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+  margin-top: 10%;
+  color: #AF7A20;
+}
+.chat__messageWrapper-loadMore {
+  width: 11%;
+  height: auto;
+  margin: 0 auto;
+}
+.chat__messageWrapper-loadMoreBtn {
+  width: 100%;
+  height: auto;
+  background: transparent;
+  color: #4B7031;
+  padding: 0;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
 }
 .chat__messageWrapper-myMessage {
   display: flex;
   flex-direction: row-reverse;
-  margin: 10px 10px 10px auto;
-  width: 40%;
+  margin: 10px 10px 25px auto;
+  width: 55%;
 }
 .chat__messageWrapper-myMessage-userName {
   font-size: 1.3rem;
@@ -990,9 +989,14 @@ button {
   padding-right: 5%;
   color: #DE822B;
 }
+.chat__messageWrapper-myMessage-comDate {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end;
+}
 .chat__messageWrapper-otherMessage {
-  margin: 10px auto 10px 10px;
-  width: 40%;
+  margin: 10px auto 25px 10px;
+  width: 55%;
   display: flex;
 }
 .chat__messageWrapper-otherMessage-userName {
@@ -1000,22 +1004,31 @@ button {
   padding-left: 5%;
   color: #DE822B;
 }
+.chat__messageWrapper-otherMessage-comDate {
+  display: flex;
+  align-items: end;
+}
 .chat__messageWrapper-userIcon {
-  width: 10%;
-  height: 10%;
+  width: 7%;
+  height: 7%;
   border-radius: 50%;
   border: 1px solid lightgray;
+  background-color: white;
   -o-object-fit: cover;
      object-fit: cover;
   aspect-ratio: 1/1;
+}
+.chat__messageWrapper-message {
+  width: 90%;
 }
 .chat__messageWrapper-myComment {
   background-color: #FDCD07;
   color: #847154;
   position: relative;
   display: inline-block;
-  margin: 0 15px 1.5em 0;
+  margin: 0 15px 0 5px;
   padding: 7px 10px;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1038,8 +1051,9 @@ button {
   color: #847154;
   position: relative;
   display: inline-block;
-  margin: 0 0 1.5em 15px;
+  margin: 0 5px 0 15px;
   padding: 7px 10px;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1064,15 +1078,31 @@ button {
   border-right: none;
   border-bottom: none;
   border-left: none;
+  border-top: 1px dashed #deb887;
+  color: #847154;
+  font-size: 1.6rem;
 }
 .chat__textarea:focus {
   outline: none;
+}
+.chat__textarea::-moz-placeholder {
+  color: #847154;
+  opacity: 0.7;
+}
+.chat__textarea:-ms-input-placeholder {
+  color: #847154;
+  opacity: 0.7;
+}
+.chat__textarea::placeholder {
+  color: #847154;
+  opacity: 0.7;
 }
 .chat__submitBtn {
   width: 50px;
   height: 30px;
   padding: 0;
   margin-left: 94%;
+  margin-bottom: 1%;
   cursor: pointer;
 }
 
@@ -1116,6 +1146,11 @@ button {
   margin-top: 2%;
 }
 
+.alart {
+  color: red;
+  font-size: small;
+}
+
 .userRegister {
   background-color: #FFFCF4;
   opacity: 0.9;
@@ -1152,7 +1187,7 @@ button {
   aspect-ratio: 1/1;
 }
 .userRegister-details-icon-icon_form {
-  top: 47%;
+  top: 470px;
   color: white;
   padding: 1.5% 3% 2% 1.5%;
   border: none;
@@ -1160,7 +1195,7 @@ button {
   width: 20px;
   aspect-ratio: 1/1;
   position: absolute;
-  right: 59%;
+  left: 370px;
   background-color: #4B7031;
 }
 .userRegister-details-icon-add_icon {
@@ -1177,7 +1212,6 @@ button {
 }
 .userRegister-details-detail-name {
   width: 70%;
-  margin-bottom: 4%;
 }
 .userRegister-details-detail-hitokoto {
   margin-top: 4%;
@@ -1207,13 +1241,63 @@ button {
   margin-top: 4%;
   padding: 1.5%;
   width: 150px;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 }
 .userRegister-details2-button:hover {
   cursor: pointer;
 }
 .userRegister-details2-login {
   color: #AF7A20;
+}
+
+.val-name {
+  color: red;
+  font-size: small;
+  margin-left: 18%;
+  margin-bottom: -4%;
+}
+.val-job {
+  color: red;
+  font-size: small;
+}
+.val-comment {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+}
+.val-email {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -2%;
+}
+.val-password {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -4%;
+}
+.val-password2 {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: 33%;
+}
+.val-cpassword {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -1%;
+}
+.val-cpassword2 {
+  color: red;
+  font-size: small;
+  margin-top: -2%;
+  margin-left: -7%;
+}
+
+.aaa {
+  margin-top: 6%;
 }
 
 .header {
@@ -1299,6 +1383,7 @@ button {
   margin-top: 8%;
   padding: 1.5%;
   width: 150px;
+  margin-bottom: 10%;
 }
 .IslandRegister-set-button:hover {
   cursor: pointer;
@@ -1383,9 +1468,19 @@ button {
 .ProjectRegister-details-information-title {
   text-align: left;
 }
+.ProjectRegister-details-information-selecttitle {
+  text-align: left;
+  margin-top: 10%;
+}
+.ProjectRegister-details-information-select {
+  width: 100%;
+  border-radius: 3%;
+  height: 8%;
+  margin-bottom: 6%;
+}
 .ProjectRegister-details-information-text {
   width: 100%;
-  height: 90%;
+  height: 62%;
   border-radius: 3%;
 }
 .ProjectRegister-set {
@@ -1395,6 +1490,7 @@ button {
   margin-top: 8%;
   padding: 1.5%;
   width: 150px;
+  margin-bottom: 6%;
 }
 .ProjectRegister-set-button:hover {
   cursor: pointer;
@@ -1423,6 +1519,43 @@ button {
 
 .icon_input {
   display: none;
+}
+
+.val-name {
+  color: red;
+  font-size: small;
+  margin-left: 1%;
+}
+.val-select {
+  color: red;
+  font-size: small;
+  margin-left: -55%;
+  margin-top: -6%;
+  margin-bottom: 3%;
+}
+.val-infomation {
+  color: red;
+  font-size: small;
+  margin-left: -53%;
+  margin-top: -1%;
+}
+.val-infomation2 {
+  color: red;
+  font-size: small;
+  margin-left: -36%;
+  margin-top: -4%;
+}
+.val-infomation3 {
+  color: red;
+  font-size: small;
+  margin-left: -64%;
+  margin-top: -1%;
+}
+.val-infomation4 {
+  color: red;
+  font-size: small;
+  margin-left: -60%;
+  margin-top: -1%;
 }
 
 .RecruitUserRegister {
@@ -1471,6 +1604,11 @@ button {
   opacity: 0.6;
 }
 
+.recruitVal {
+  color: red;
+  font-size: small;
+}
+
 .RecruitIslandRegister {
   background-color: #FFFCF4;
 }
@@ -1508,7 +1646,7 @@ button {
   margin-top: 10%;
   padding: 1.5%;
   width: 150px;
-  margin-bottom: 5%;
+  margin-bottom: 8%;
 }
 
 .top {
@@ -1720,8 +1858,36 @@ button {
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;
+  -webkit-animation: load4 1.3s infinite linear;
   animation: load4 1.3s infinite linear;
   transform: translateZ(0);
+}
+
+@-webkit-keyframes load4 {
+  0%, 100% {
+    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
 }
 @keyframes load4 {
   0%, 100% {
@@ -1749,6 +1915,21 @@ button {
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
 }
+.time {
+  font-size: 1.2rem;
+  color: gray;
+}
+
+.date {
+  font-size: 1.3rem;
+  color: #847154;
+  text-align: center;
+  border-radius: 15px;
+  width: 15%;
+  margin: 5% auto;
+  border: 1px solid;
+}
+
 .headerModal__container {
   position: absolute;
   /* top: 4.5%; */

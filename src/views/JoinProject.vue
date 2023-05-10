@@ -1,47 +1,51 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-// joinProjectsから取得したuserIdが等しいデータを保管
+// 島詳細画面からislandIdを受け取る
+
+// joinProjectsから取得したislandIdが等しいデータを保管
 const joinList = ref([]);
 // projectsから取得したprojectIdが等しいデータを保管
 const projectData = ref([]);
 const loading = ref(true);
 
-const getJoinProject = async () => {
-  //joinProjectsからuserIdが等しいデータを取得
-  const response = await fetch(
-    `http://localhost:8000/joinProjects/?userId=${3}`
-  );
-  const data = await response.json();
-  joinList.value = data;
-};
-getJoinProject().then(() => {
-  console.log(joinList.value);
-  // 上で取得したprojectIdと等しいデータをprojectsテーブルから取得
-  if (joinList.value.length > 0) {
-    joinList.value.map(async (pj) => {
-      const response = await fetch(
-        `http://localhost:8000/Projects/?id=${pj.projectId}`
-      );
-      const data = await response.json();
-      projectData.value.push(data);
+onMounted(() => {
+  const getJoinProject = async () => {
+    //joinProjectsからuserIdが等しいデータを取得
+    const response = await fetch(
+      `http://localhost:8000/joinProjects/?islandId=${1}`
+    );
+    const data = await response.json();
+    joinList.value = data;
+  };
+  getJoinProject().then(() => {
+    console.log(joinList.value);
+    // 上で取得したprojectIdと等しいデータをprojectsテーブルから取得
+    if (joinList.value.length > 0) {
+      joinList.value.map(async (pj) => {
+        const response = await fetch(
+          `http://localhost:8000/Projects/?id=${pj.projectId}`
+        );
+        const data = await response.json();
+        projectData.value.push(data);
+        loading.value = false;
+      });
+    } else {
+      console.log("データがありません");
       loading.value = false;
-    });
-  } else {
-    console.log("データがありません");
-    loading.value = false;
-  }
-  console.log(projectData.value);
+    }
+    console.log(projectData.value);
+  });
 });
 
 // データない時に表示するボタン
 const noDataBtn = () => {
-  return router.push("/top")
-}
+  return router.push("/top");
+};
 </script>
 
 <template>
@@ -56,7 +60,7 @@ const noDataBtn = () => {
       <section v-if="projectData.length <= 0">
         <div class="list__noDataTitle">
           <button @click="noDataBtn" class="list__noDataTitle-text">
-            島からプロジェクトに参加してみよう
+            プロジェクトに参加してみよう
           </button>
           <img
             src="https://1.bp.blogspot.com/-SgT2G_vDGwE/XQjt4RWH1TI/AAAAAAABTNc/0He0eUi8-7QAd0RDvxWGA1MBzphu9hvsgCLcBGAs/s800/animal_chara_computer_penguin.png"

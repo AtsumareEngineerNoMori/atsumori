@@ -26,7 +26,7 @@ const approveBtn = async () => {
   const joinData = await joinResponse.json();
   console.log(joinData);
 
-  // userScoutからuserIdが等しいデータを取得し、島idが一致するデータをidを指定して削除する
+  // userScoutからuserIdが等しいデータを取得し、選択した島のislandIdが一致するデータをidを指定して削除する
   const getScoutUser = async () => {
     const response = await fetch(
       `http://localhost:8000/userScout/?userId=${props.userId}`
@@ -45,7 +45,7 @@ const approveBtn = async () => {
         }
       });
     })
-    // 削除後のデータを取得するために強制リロード
+    // 削除後のデータを取得するためにリロード
     .then(() => {
       location.reload();
     });
