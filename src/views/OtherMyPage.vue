@@ -118,7 +118,7 @@ const moreIslands = () => {
                 class="mypage__iconImg"
               />
             </router-link>
-            <p>{{ island.islandName }}</p>
+            <p class="mypage__islandtitle">{{ island.islandName }}</p>
           </div>
         </li>
       </div>

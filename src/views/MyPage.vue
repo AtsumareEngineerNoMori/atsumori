@@ -127,12 +127,12 @@ const userScout  = () => {
                 class="mypage__iconImg"
               />
             </router-link>
-            <p>{{ island.islandName }}</p>
+            <p  class="mypage__islandtitle">{{ island.islandName }}</p>
           </div>
         </li>
       </div>
       <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
-      <button v-if="islandData.length >= 5" class="mypage__morebutton" @click="moreIslands">
+      <button v-if="islandData.length >= 4" class="mypage__morebutton" @click="moreIslands">
         もっと見る
       </button>
     </div>
