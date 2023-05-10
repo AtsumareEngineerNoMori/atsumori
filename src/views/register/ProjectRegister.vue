@@ -35,18 +35,44 @@
                   v-model="project.name"
                   type="text"
                   class="ProjectRegister-details-name-input"
+                  @change="changeName"
                 />
+                <p  class="val-name" v-if=projectNameLength>
+                  プロジェクトの名前を入力してください
+                </p>
+                <p  class="val-name" v-if="project.name.length > 20">
+                  20文字以下で入力してください
+                </p>
               </div>
             </div>
 
             <div class="ProjectRegister-details-information">
+              <p class="ProjectRegister-details-information-selecttitle">最初に参加する島</p>
+              <select name="island" id="island-select" v-model="selectIsland"
+              class="ProjectRegister-details-information-select"
+              @change="changeSelect">
+                <option v-for="island in islands" :value="island.id" selected>
+                  {{ island.islandName }}
+                </option>
+              </select>
+              <p class="val-select" v-if=selectIslandLength>
+                最初に参加する島を選択してください
+              </p>
+
               <p class="ProjectRegister-details-information-title">
                 プロジェクトの情報
               </p>
               <textarea
                 v-model="project.description"
                 class="ProjectRegister-details-information-text"
+                @change="changeInfomation"
               ></textarea>
+              <p  class="val-infomation" v-if=projectDescriptionLength>
+                プロジェクトの情報を入力してください
+              </p>
+              <p class="val-infomation2" v-if="project.description.length > 255">
+                255文字以下で入力してください
+              </p>
             </div>
           </div>
         </div>
@@ -85,8 +111,29 @@ const project = reactive({
   description: "",
 });
 
+const selectIsland = vueref("");
+const projectNameLength = vueref(false)
+const projectDescriptionLength =vueref(false)
+const selectIslandLength = vueref(false)
+
 const auth = getAuth();
 const currentUserId = auth.currentUser?.uid;
+
+const changeName = (e) => {
+  console.log(e)
+  projectNameLength.value = false
+    }
+
+    const changeSelect = (e) => {
+  console.log(e)
+  selectIslandLength.value = false
+    }
+
+
+    const changeInfomation = (e) => {
+  console.log(e)
+  projectDescriptionLength.value = false
+    }
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
@@ -98,6 +145,18 @@ const previewImage = (event) => {
   file.value = event.target.files[0];
   iconFileName.value = event.target.files[0].name;
 };
+
+// 自分が管理している島取得
+const islands = vueref();
+const getFlight = async () => {
+  const response = await fetch(
+    `http://localhost:8000/islands?adminId=${currentUserId}`
+  );
+  const data = await response.json();
+  console.log(data);
+  islands.value = data;
+};
+getFlight();
 
 const projectRegisterButton = () => {
   // Storageにアイコン登録
@@ -139,7 +198,7 @@ const projectRegisterButton = () => {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  userId: currentUserId,
+                  islandId: selectIsland.value,
                   projectId: jsonObj.id,
                 }),
               });
@@ -173,7 +232,7 @@ const projectRegisterButton = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: currentUserId,
+            islandId: selectIsland.value,
             projectId: jsonObj.id,
           }),
         });
@@ -181,21 +240,49 @@ const projectRegisterButton = () => {
   }
 };
 
+
+
 const registerProject = () => {
-  if (project.name === "") {
-    window.alert("プロジェクトの名前を登録してください");
-  } else if (project.description === "") {
-    window.alert("プロジェクトの情報を登録してください");
-  } else if (project.name.length < 1 || project.name.length > 20) {
-    window.alert("プロジェクトの名前は1文字以上20文字以下で入力してください");
-  } else if (
-    project.description.length < 1 ||
-    project.description.length > 255
+  console.log(selectIsland)
+  if(project.name === ""){
+    projectNameLength.value = true
+  }
+  if(project.description === "" ){
+    projectDescriptionLength.value=true
+  }
+  if(selectIsland.value === ""){
+    console.log("ヤッホ！！！！")
+    selectIslandLength.value = true
+  }
+
+
+  if (project.name === "" || 
+  project.description === "" ||
+   project.name.length > 20 ||
+    project.description.length > 255 ||
+    selectIsland === ""
   ) {
-    window.alert("プロジェクトの情報は1文字以上255文字以下で入力してください");
-  } else {
+    window.alert("入力が間違っているところがあります")
+    console.log("yahho~!")
+  }else{
     projectRegisterButton();
     router.push("/top");
   }
+  
+  // if(project.name === ""){
+  //   window.alert("プロジェクトの名前を登録してください");
+  // } else if (project.description === "") {
+  //   window.alert("プロジェクトの情報を登録してください");
+  // } else if (project.name.length < 1 || project.name.length > 20) {
+  //   window.alert("プロジェクトの名前は1文字以上20文字以下で入力してください");
+  // } else if (
+  //   project.description.length < 1 ||
+  //   project.description.length > 255
+  // ) {
+  //   window.alert("プロジェクトの情報は1文字以上255文字以下で入力してください");
+  // } else {
+  //   projectRegisterButton();
+  //   router.push("/top");
+  // }
 };
 </script>

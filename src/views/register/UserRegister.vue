@@ -36,18 +36,28 @@
                 type="text"
                 class="userRegister-details-detail-name"
                 v-model="user.name"
+                @change="changeName"
               />
+              <p v-if=userNameLength class="val-name">
+                お名前を入力してください
+              </p>
+              <p v-if="user.name.length > 20" class="val-name">
+                お名前は20文字以下で入力してください
+              </p>
             </div>
 
-            <div>
+            <div class="aaa">
               <div>職種</div>
               <input type="radio" name="job" value="WEB" v-model="user.job" />
               WEB
-              <input type="radio" name="job" value="FR" v-model="user.job" /> FR
-              <input type="radio" name="job" value="ML" v-model="user.job" /> ML
-              <input type="radio" name="job" value="CL" v-model="user.job" /> CL
-              <input type="radio" name="job" value="QA" v-model="user.job" /> QA
-              <input type="radio" name="job" value="その他" /> その他
+              <input type="radio" name="job" value="FR" v-model="user.job" @change="changeJob"/> FR
+              <input type="radio" name="job" value="ML" v-model="user.job" @change="changeJob"/> ML
+              <input type="radio" name="job" value="CL" v-model="user.job" @change="changeJob"/> CL
+              <input type="radio" name="job" value="QA" v-model="user.job" @change="changeJob"/> QA
+              <input type="radio" name="job" value="その他" @change="changeJob"/> その他
+              <p class="val-job" v-if=userJobLength >
+                職種を選択してください
+              </p>
             </div>
 
             <div class="userRegister-details-detail-hitokoto">
@@ -55,7 +65,14 @@
               <textarea
                 class="userRegister-details-detail-hitokoto-text"
                 v-model="user.comment"
+                @change="changeComment"
               ></textarea>
+              <p class="val-comment" v-if=userCommentLength>
+                ひとことを入力してください
+              </p>
+              <p class="val-comment" v-if="user.comment.length > 255">
+                ひとことは255文字以下で入力してください
+              </p>
             </div>
           </div>
         </div>
@@ -67,29 +84,64 @@
               v-model="user.email"
               type="email"
               class="userRegister-details2-input"
+              @change="changeEmail"
             />
           </div>
+          <p class="val-email" v-if=userEmailLength>
+          メールアドレスを入力してください
+          </p>
+          <p class="val-email" v-if="user.email.length <= 0">&nbsp;</p>
+          <p class="val-email" v-else-if="!emailValid(user.email)">
+            ラクスのドメインにして！！！！！
+          </p>
+          <p class="val-email" v-else-if="!emailerror">
+            既に登録されているメールアドレスです
+          </p>
           <div class="userRegister-details2-inputSet">
             <p class="userRegister-details2-p">パスワード</p>
             <input
               v-model="user.password"
               type="password"
               class="userRegister-details2-input"
+              @change="changePassword"
             />
           </div>
+          <p class="val-password" v-if=userPasswordLength>
+          パスワードを入力してください</p>
+          <p class="val-password" v-if="user.password.length <= 0">&nbsp;</p>
+          <p
+            class="val-password2"
+            v-else-if="
+              !passwordValid(user.password) ||
+              user.password.length < 8 ||
+              user.password.length > 22
+            "
+          >
+            パスワードは、英字小文字、英字大文字、数字を含む8文字以上22文字以内で入力してください
+          </p>
           <div class="userRegister-details2-inputSet">
             <p class="userRegister-details2-p">パスワード(確認)</p>
             <input
               type="password"
               class="userRegister-details2-input"
               v-model="user.cPassword"
+              @change="changecPassword"
             />
           </div>
+          <p class="val-cpassword" v-if="user.cPassword.length <= 0">&nbsp;</p>
+          <p class="val-cpassword" v-if=usercPasswordLength>
+          パスワード(確認)を入力してください</p>
+          <p
+            class="val-cpassword2"
+            v-else-if="user.cPassword !== user.password"
+          >
+            パスワードが一致しません
+          </p>
           <button type="submit" class="userRegister-details2-button">
             登録する
           </button>
           <RouterLink to="/login">
-          <div class="userRegister-details2-login">ログインはこちら！</div>
+            <div class="userRegister-details2-login">ログインはこちら！</div>
           </RouterLink>
         </div>
       </form>
@@ -103,7 +155,6 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   getAuth,
-  fetchSignInMethodsForEmail,
 } from "@firebase/auth";
 import { storage, auth, db } from "../../../firebase";
 import {
@@ -114,6 +165,13 @@ import {
 } from "firebase/storage";
 import { useRouter } from "vue-router";
 
+const userNameLength = vueref(false);
+const userJobLength = vueref(false);
+const userCommentLength = vueref(false);
+const userEmailLength = vueref(false);
+const userPasswordLength = vueref(false);
+const usercPasswordLength = vueref(false);
+const emailerror = vueref(true);
 const iconFileName = vueref("");
 const file = vueref();
 // const haveIcon = vueref(false);
@@ -129,6 +187,30 @@ const user = reactive({
   cPassword: "",
 });
 const router = useRouter();
+
+const changeName = (e) => {
+  userNameLength.value = false;
+};
+
+const changeJob = (e) => {
+  userJobLength.value = false;
+};
+
+const changeComment = (e) => {
+  userCommentLength.value = false;
+};
+
+const changeEmail = (e) => {
+  userEmailLength.value = false;
+};
+
+const changePassword = (e) => {
+  userPasswordLength.value = false;
+};
+
+const changecPassword = (e) => {
+  usercPasswordLength.value = false;
+};
 
 // ログイン状態の場合の処理
 onMounted(() => {
@@ -153,19 +235,20 @@ const previewImage = (event) => {
   iconFileName.value = event.target.files[0].name;
 };
 
-const U = async() => {
+const U = async () => {
   try {
     //Authenticationへのユーザー登録
     await createUserWithEmailAndPassword(auth, user.email, user.password);
-    onAuthStateChanged(auth,  (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) {
-        console.log("ユーザーがいません")
+        console.log("ユーザーがいません");
       } else {
         UserRegisterButton();
       }
     });
   } catch (error) {
-    window.alert("既に登録されているメールアドレスです");
+    // window.alert("既に登録されているメールアドレスです");
+    emailerror.value = false;
   }
 };
 
@@ -248,59 +331,87 @@ const UserRegisterButton = () => {
 // パスワードの入力形式チェック
 const inputCheckSmall = /[a-z]/,
   inputCheckBig = /[A-Z]/,
-  inputCheckNumber = /[0-9]/;
-
-// メールアドレスの入力形式チェック
-const pattern =
-  /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
+  inputCheckNumber = /[0-9]/,
+  passwordPattern = /[^]{8,20}/;
 
 const passwordValid = (password) => {
   return (
     inputCheckSmall.test(password) &&
     inputCheckBig.test(password) &&
-    inputCheckNumber.test(password)
+    inputCheckNumber.test(password) &&
+    passwordPattern.test(password)
   );
 };
 
+// メールアドレスの入力形式チェック
+const emailPattern =
+  /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
 const emailValid = (email) => {
-  return pattern.test(email);
+  return emailPattern.test(email);
 };
 
+// 名前の入力形式チェック
+// const namePattern = /[^]{1,}/;
+// //  namePattern2 = /[^]{,20}/;
+// const nameValid = (name) => {
+//   return namePattern.test(name);
+// };
+
+// 職種
+// const jobPattern = ""
+// const jobValid = (job) => {
+//   return jobPattern.test(job)
+// }
+
+// コメントの入力形式チェック
+// // コメントを入力してください
+// const commentPattern1 = /[^]{1,}/,
+// // 255以内で入力してください
+// commentPattern2 = /[^]{0,255}/;
+// const commentValid = (comment) => {
+//   return commentPattern1.test(comment) && commentPattern2.test(comment);
+// };
+
 const registerUser = () => {
-  passwordValid(user.password);
-  emailValid(user.email);
-  fetchSignInMethodsForEmail(user.email);
-  console.log(fetchSignInMethodsForEmail(user.email));
-  if (user.name === "") {
-    window.alert("お名前を入力してください");
-  } else if (user.job === "") {
-    window.alert("職種を選択してください");
-  } else if (user.comment === "") {
-    window.alert("ひとことを入力してください");
-  } else if (user.email === "") {
-    window.alert("メールアドレスを入力してください");
-  } else if (user.password === "") {
-    window.alert("パスワードを入力してください");
-  } else if (user.cPassword === "") {
-    window.alert("パスワード(確認)を入力してください");
-  } else if (user.name.length < 1 || user.name.length > 20) {
-    window.alert("お名前は1文字以上20文字以下で入力してください");
-  } else if (user.comment.length < 1 || user.comment.length > 255) {
-    window.alert("ひとことは1文字以上255文字以下で入力してください");
-  } else if (
+  if (
+    user.name.length <= 0 ||
+    user.name.length > 20 ||
+    user.job.length === 0 ||
+    user.comment.length <= 0 ||
+    user.comment.length > 255 ||
+    user.email.length <= 0 ||
+    !emailValid(user.email) ||
+    !emailerror ||
+    user.password.length <= 0 ||
     !passwordValid(user.password) ||
     user.password.length < 8 ||
-    user.password.length > 20
+    user.password.length > 22 ||
+    user.cPassword.length <= 0 ||
+    user.cPassword !== user.password
   ) {
-    window.alert(
-      "パスワードは、英字小文字、英字大文字、数字を含む8文字以上22文字以内で入力してください"
-    );
-  } else if (user.password !== user.cPassword) {
-    window.alert("パスワードが一致しません");
-  } else if (!emailValid(user.email)) {
-    window.alert("ラクスのドメインにして！！！！！");
+    window.alert("入力が間違っているところがあります")
+    console.log("やっほ〜〜！");
   } else {
-U();
+    U();
+  }
+
+  if (user.name.length <= 0) {
+    userNameLength.value = true;
+  }
+  if (user.job.length === 0) {
+    userJobLength.value = true;
+  }
+  if (user.comment.length <= 0) {
+    userCommentLength.value = true;
+  }
+  if (user.email.length <= 0) {
+    userEmailLength.value = true;
+  }
+  if (user.password.length <= 0) {
+    userPasswordLength.value = true;
+  }
+  if (user.cPassword.length <= 0) {
+    usercPasswordLength.value = true;
   }
 };
 </script>
