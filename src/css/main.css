@@ -518,8 +518,10 @@
 }
 .mypage__islandtitle {
   text-align: center;
-  padding-left: 20px;
+  margin: auto;
+  margin-left: 20px;
   width: 170px;
+  font-size: 16px;
 }
 .mypage__table {
   margin-top: 60px;
@@ -529,6 +531,15 @@
 .mypage__check {
   color: red;
   font-size: 12px;
+}
+.mypage__comment {
+  color: red;
+  font-size: 12px;
+  width: 600px;
+  margin: auto;
+}
+.mypage__details {
+  margin-top: 10%;
 }
 
 .edit {
@@ -575,7 +586,6 @@
   border-radius: 0.3rem;
   background: #e0e0e0;
   color: #7a7a7a;
-  margin-bottom: 40px;
 }
 .edit__textarea {
   float: left;
@@ -592,6 +602,7 @@
   width: 30%;
   float: left;
   margin-left: 50px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -612,7 +623,7 @@
 }
 .edit__button {
   padding: 1% 2%;
-  margin: auto;
+  margin-left: auto;
   width: 100px;
 }
 .edit__button:hover {
@@ -623,7 +634,6 @@
 }
 .edit__button_cansel {
   padding: 1% 2%;
-  margin: auto;
   width: 100px;
   background-color: rgb(167, 167, 167);
 }
@@ -635,9 +645,9 @@
 }
 .edit__buttoncontainer {
   display: flex;
-  width: 400px;
+  width: 300px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .edit__label {
   margin: 8px;

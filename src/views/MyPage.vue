@@ -107,7 +107,7 @@ const userScout  = () => {
         </li>
         <li class="mypage__item">
           <span>ひとこと：</span>
-          <p class="mypage__comment">
+          <p>
             {{ User.comment }}
           </p>
         </li>

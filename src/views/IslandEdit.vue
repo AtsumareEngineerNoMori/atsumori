@@ -1,13 +1,11 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRoute , useRouter} from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 import "../css/main.css";
 
 const route = useRoute();
 const router = useRouter();
-
-
 
 //島情報取得
 const IslandId = ref(route.params.id);
@@ -27,7 +25,6 @@ const data = ref({
   recruitPoint: "",
   createDate: "",
 });
-
 
 onMounted(async () => {
   try {
@@ -76,12 +73,13 @@ function convertToBase64(file) {
 // getFlight();
 
 //デフォルトの画像
-const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
+const defaultIconURL =
+  "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png";
 
 //画像削除
 const removeIcon = () => {
   Island.value.icon = defaultIconURL;
-}
+};
 
 //Island更新
 async function updateIslands() {
@@ -100,36 +98,36 @@ async function updateIslands() {
       }
     );
 
-
-
     // recruitNewUser更新
     async function updateRecruitNewUser() {
-  try {
-    const response = await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`);
-    if (!response.ok) {
-      console.log(`RecruitNewUser/${Island.value.id}は存在しません`);
-      return;
+      try {
+        const response = await fetch(
+          `http://localhost:8000/RecruitNewUser/${Island.value.id}`
+        );
+        if (!response.ok) {
+          console.log(`RecruitNewUser/${Island.value.id}は存在しません`);
+          return;
+        }
+        // const recruitNewUserData = await response.json();
+        await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            islandId: IslandId.value,
+            recruitTitle: data.value.recruitTitle,
+            recruitJob: data.value.recruitJob,
+            recruitPoint: data.value.recruitPoint,
+            createDate: data.value.createDate,
+            islandName: Island.value.islandName,
+            islandIcon: Island.value.icon,
+          }),
+        });
+      } catch (error) {
+        console.error("エラーが発生しました:", error);
+      }
     }
-    // const recruitNewUserData = await response.json();
-    await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        islandId: IslandId.value,
-        recruitTitle: data.value.recruitTitle,
-        recruitJob: data.value.recruitJob,
-        recruitPoint: data.value.recruitPoint,
-        createDate: data.value.createDate,
-        islandName: Island.value.islandName,
-        islandIcon: Island.value.icon,
-      }),
-    });
-  } catch (error) {
-    console.error('エラーが発生しました:', error);
-  }
-}
 
     updateRecruitNewUser();
 
@@ -138,8 +136,6 @@ async function updateIslands() {
     }
     console.log("更新！！！！");
     router.push(`/islandShow/${Island.value.id}`);
-
-    
   } catch (err) {
     console.log("更新できません", err);
   }
@@ -147,28 +143,35 @@ async function updateIslands() {
 
 const back = () => {
   router.push(`/islandShow/${IslandId.value.id}`);
-
-}
+};
 
 // バリデーションチェック
 function check() {
-  let isValid = true; 
+  let isValid = true;
 
   const maxName = 20;
-  if (Island.value.islandName.length > maxName || Island.value.islandName.length === 0) {
+  if (
+    Island.value.islandName.length > maxName ||
+    Island.value.islandName.length === 0
+  ) {
     overName.value = "島名は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
     overName.value = "";
   }
-  
+
   const maxDescription = 20;
-  if (Island.value.islandDescription.length > maxDescription || Island.value.islandDescription.length === 0) {
+  if (
+    Island.value.islandDescription.length > maxDescription ||
+    Island.value.islandDescription.length === 0
+  ) {
     overDescription.value = "詳細は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
-    overDescription.value = ""; 
+    overDescription.value = "";
+  }
 
+  // Island.commentに関するバリデーション
   const maxComment = 255;
   if (Island.value.comment.length > maxComment) {
     overComment.value = "ひとことは255文字以内で入力してください";
@@ -179,8 +182,6 @@ function check() {
 
   return isValid; // すべて成功
 }
-}
-
 </script>
 
 <template>
@@ -197,41 +198,56 @@ function check() {
           id="icon_file"
           style="display: none"
         />
-        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
+        <button @click="removeIcon" class="edit__button_cansel">
+          画像を削除
+        </button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
           <p>島名：</p>
-          <span v-if="overName" class="mypage__check">{{ overName }}</span>
-          <div
-            ><input
+
+          <div>
+            <input
               type="text"
               v-model="Island.islandName"
               class="edit__input"
-          /></div>
-          <p>島詳細：</p>
-          <span v-if="overDescription"  class="mypage__check">{{ overDescription }}</span>
-          <p
-            ><input
-              type="text"
-              v-model="Island.islandDescription"
-              class="edit__input"
-          /></p>
+            />
+          </div>
+          <div style="height: 40px">
+            <span v-show="overName" class="mypage__check">{{ overName }}</span>
+          </div>
+          <p  class="mypage__details">島詳細：</p>
+          
+          <div>
+            <input
+            type="text"
+            v-model="Island.islandDescription"
+            class="edit__input"
+            />
+          </div>
+          <div style="height: 40px;">
+             <span v-show="overDescription" class="mypage__check">{{
+            overDescription
+          }}</span>
+          </div>
         </li>
       </ul>
     </div>
     <div class="edit__item">
       <span>ひとこと：</span>
-      <span v-if="overComment"  class="mypage__check">{{ overComment }}</span>
       <p>
         <textarea
-          cols="30"
-          rows="10"
-          class="edit__textarea"
-          v-model="Island.comment"
+        cols="30"
+        rows="10"
+        class="edit__textarea"
+        v-model="Island.comment"
         ></textarea>
       </p>
+      <div style="height: 40px;">
+        <span v-show="overComment" class="mypage__check">{{ overComment }}</span>
+      </div>
     </div>
+    
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">戻る</button>
       <button class="edit__button" @click="updateIslands">更新</button>

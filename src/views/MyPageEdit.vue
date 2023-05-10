@@ -6,7 +6,7 @@ import "../css/main.css";
 import { auth } from "../../firebase";
 
 //会員情報取得
-const userId = ref(); //firebaseでログインしてる人のIDが入る
+const userId = ref(); //firebaseでログインしてる人のID
 const err = ref();
 const User = ref({
   icon: "",
@@ -105,10 +105,12 @@ async function updateUser() {
 
 // バリデーションチェック
 function check() {
+  let isValid = true;
+
   const maxName = 20;
   if (User.value.name.length > maxName || User.value.name.length === 0) {
     overName.value = "名前は1文字以上20文字以内で入力してください";
-    return false;
+    isValid = false;
   } else {
     overName.value = "";
   }
@@ -116,9 +118,12 @@ function check() {
   const maxComment = 255;
   if (User.value.comment.length > maxComment) {
     overComment.value = "ひとことは255文字以内で入力してください";
-    return false;
+    isValid = false;
+  } else {
+    overComment.value = "";
   }
-  return true;
+
+  return isValid;
 }
 
 </script>
@@ -142,14 +147,17 @@ function check() {
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
-          <sp>なまえ：</sp>
-          <span v-if="overName" class="mypage__check">{{ overName }}</span>
+          <div>なまえ：</div>
+    
+         
           <span
             ><input
               type="text"
               v-model="User.name"
               class="edit__input"
-          /></span>
+          /></span>      <div style="height: 40px;">
+             <span v-if="overName" class="mypage__check">{{ overName }}</span>
+          </div>
         </li>
         <li class="mypage__item">
           <span>職種：</span>
@@ -179,18 +187,22 @@ function check() {
           </label>
         </li>
         <li class="mypage__item">
-          <span>ひとこと：</span><span v-if="overComment"  class="mypage__check">{{ overComment }}</span>
-          <p>
+    
+          <span>ひとこと：</span>
+      
             <textarea
               cols="30"
               rows="10"
               class="edit__input"
               v-model="User.comment"
-                  ></textarea>
-          </p>
+                  ></textarea>   
+                     <div  style="height: 40px;">
+            <span v-if="overComment"  class="mypage__check">{{ overComment }}</span>
+          </div>
         </li>
       </ul>
     </div>
+    <div style="height: 40px;"></div>
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">戻る</button>
       <button class="edit__button" @click="updateUser">更新</button>

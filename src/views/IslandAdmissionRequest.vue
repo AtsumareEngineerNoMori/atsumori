@@ -11,7 +11,6 @@ const islandData = ref({});
 const comment = ref();
 const overComment = ref("");
 
-
 onMounted(async () => {
   try {
     const response = await fetch(`http://localhost:8000/Islands/${islandId}`);
@@ -46,7 +45,7 @@ async function Request() {
       console.log(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("申請しました");
-    router.push("/show")
+    router.push("/show");
   } catch {
     console.log("更新できませんでした");
   }
@@ -67,7 +66,6 @@ function check() {
 
   return isValid;
 }
-
 </script>
 <template>
   <div class="request">
@@ -80,9 +78,11 @@ function check() {
     </div>
     <div>
       <h1 class="request__item">ひとこと</h1>
-      <div v-if="overComment"  class="mypage__check">{{ overComment }}</div>
-      <input type="text" class="request__input" v-model="comment" />
 
+      <input type="text" class="request__input" v-model="comment" />
+      <div style="height: 30px;">
+        <div v-if="overComment" class="mypage__check">{{ overComment }}</div>
+      </div>
     </div>
 
     <div class="request__agree">

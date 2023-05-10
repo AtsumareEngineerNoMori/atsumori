@@ -77,7 +77,7 @@ getFlight();
 
 //デフォルトの画像
 const defaultIconURL =
-  "https://1.bp.blogspot.com/-LZL7jGWmL3Q/X-FcwoOnE2I/AAAAAAABdEs/qUrY1ClrQrMukkdaEnZK8-Bdob7mOdmQgCNcBGAsYHQ/s400/onepiece13_crocodile.png";
+  "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308";
 
 //画像削除
 const removeIcon = () => {
@@ -121,28 +121,29 @@ async function updateRecruitNewUser() {
       console.log(`RecruitNewIsland/${Project.value.id}は存在しません`);
       return;
     }
-    const result = await fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        projectId: Project,
-        recruitTitle: data.value.recruitTitle,
-        recruitJob: data.value.recruitJob,
-        recruitPoint: data.value.recruitPoint,
-        createDate: data.value.createDate,
-        projectName: Project.value.projectName,
-        projectIcon: Project.value.icon,
-        // id: Project,
-      }),
-    });
-
+    const result = await fetch(
+      `http://localhost:8000/RecruitNewIsland/${Project.value.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectId: Project,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          projectName: Project.value.projectName,
+          projectIcon: Project.value.icon,
+          // id: Project,
+        }),
+      }
+    );
   } catch (error) {
     console.error("エラーが発生しました:", error);
   }
 }
-
 
 const back = () => {
   router.push(`/projectShow/${Project.value}`);
@@ -153,7 +154,10 @@ function check() {
   let isValid = true;
 
   const maxName = 20;
-  if (Project.value.projectName.length > maxName || Project.value.projectName.length === 0) {
+  if (
+    Project.value.projectName.length > maxName ||
+    Project.value.projectName.length === 0
+  ) {
     overName.value = "プロジェクト名は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
@@ -161,7 +165,10 @@ function check() {
   }
 
   const maxDescription = 20;
-  if (Project.value.projectDescription.length > maxDescription || Project.value.projectDescription.length === 0) {
+  if (
+    Project.value.projectDescription.length > maxDescription ||
+    Project.value.projectDescription.length === 0
+  ) {
     overDescription.value = "詳細は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
@@ -201,7 +208,6 @@ function check() {
       <ul class="edit__column2">
         <li class="mypage__item_name">
           <p>プロジェクト名：</p>
-          <span v-if="overName" class="mypage__check">{{ overName }}</span>
 
           <div>
             <input
@@ -210,36 +216,46 @@ function check() {
               class="edit__input"
             />
           </div>
-          <p>プロジェクト詳細：</p>
-          <span v-if="overDescription" class="mypage__check">{{
-            overDescription
-          }}</span>
+          <div style="height: 40px;">
+             <span v-show="overName" class="mypage__check">{{ overName }}</span>
+          </div>
 
+          <p class="mypage__details">プロジェクト詳細：</p>
+        
+         
           <div>
             <input
               type="text"
               v-model="Project.projectDescription"
               class="edit__input"
             />
-          </div>
+          </div> 
+          <div style="height: 40px;">
+            <span v-show="overDescription" class="mypage__check">{{
+            overDescription
+          }}</span>
+          </div> 
         </li>
       </ul>
     </div>
     <div class="edit__item">
       <span>ひとこと：</span>
-      <span v-if="overComment" class="mypage__check">{{ overComment }}</span>
-
+      
       <p>
         <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="edit__textarea"
-          v-model="Project.comment"
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        class="edit__textarea"
+        v-model="Project.comment"
         ></textarea>
       </p>
     </div>
+    <div style="height: 20px;">
+      <div v-show="overComment" class="mypage__comment">{{ overComment }}</div>
+    </div>
+    
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">キャンセル</button>
       <button class="edit__button" @click="updateProject">更新</button>
