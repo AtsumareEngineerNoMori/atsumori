@@ -106,7 +106,7 @@ async function updateUser() {
 // バリデーションチェック
 function check() {
   const maxName = 20;
-  if (User.value.name.length > maxName) {
+  if (User.value.name.length > maxName || User.value.name.length === 0) {
     overName.value = "名前は1文字以上20文字以内で入力してください";
     return false;
   } else {
@@ -115,7 +115,7 @@ function check() {
 
   const maxComment = 255;
   if (User.value.comment.length > maxComment) {
-    overComment.value = "コメントは255文字以内で入力してください";
+    overComment.value = "ひとことは255文字以内で入力してください";
     return false;
   }
   return true;

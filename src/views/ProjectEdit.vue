@@ -105,7 +105,7 @@ async function updateProject() {
     }
     console.log("更新！！！！");
     await updateRecruitNewUser();
-    // router.push(`/projectShow/${Project.value.id}`);
+    router.push(`/projectShow/${Project.value.id}`);
   } catch (err) {
     console.log("更新できません", err);
   }
@@ -153,7 +153,7 @@ function check() {
   let isValid = true;
 
   const maxName = 20;
-  if (Project.value.projectName.length > maxName) {
+  if (Project.value.projectName.length > maxName || Project.value.projectName.length === 0) {
     overName.value = "プロジェクト名は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
@@ -161,7 +161,7 @@ function check() {
   }
 
   const maxDescription = 20;
-  if (Project.value.projectDescription.length > maxDescription) {
+  if (Project.value.projectDescription.length > maxDescription || Project.value.projectDescription.length === 0) {
     overDescription.value = "詳細は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {

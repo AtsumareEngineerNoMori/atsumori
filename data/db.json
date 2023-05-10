@@ -19,8 +19,8 @@
   ],
   "Islands": [
     {
-      "islandName": "パイナップルかわいいなあ☆☆☆☆☆☆☆☆☆☆☆",
-      "islandDescription": "パイナップルがかわいいと思います",
+      "islandName": "パイナップルかわいいなあ☆☆☆☆☆☆☆☆",
+      "islandDescription": "パイナップルがかわいい",
       "adminId": "uoV6uMjl4QSQFaglaGwtJm63Us72",
       "createDate": "2023-05-08T00:35:12.000Z",
       "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2FPinia.logo.png?alt=media&token=881f0f15-3ce9-4c03-bafc-6e9ba5746ce4",
@@ -64,8 +64,8 @@
       "id": 2
     },
     {
-      "projectName": "クロコダイル",
-      "projectDescription": "JS",
+      "projectName": "ccc",
+      "projectDescription": "ccc",
       "adminId": "JfQX1lxWxmW3WZx8BErXpTRNFLb2",
       "createDate": "2023-05-08T01:46:16.872Z",
       "icon": "https://1.bp.blogspot.com/-LZL7jGWmL3Q/X-FcwoOnE2I/AAAAAAABdEs/qUrY1ClrQrMukkdaEnZK8-Bdob7mOdmQgCNcBGAsYHQ/s400/onepiece13_crocodile.png",
@@ -74,12 +74,12 @@
     },
     {
       "projectName": "っっっf",
-      "projectDescription": "oo",
+      "projectDescription": "ooああ",
       "adminId": "JfQX1lxWxmW3WZx8BErXpTRNFLb2",
       "createDate": "2023-05-08T05:21:29.993Z",
       "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
       "id": 4,
-      "comment": "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
+      "comment": "あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"
     }
   ],
   "RecruitNewUser": [],
@@ -203,16 +203,6 @@
       "userId": "uoV6uMjl4QSQFaglaGwtJm63Us72",
       "islandId": 2,
       "id": 2
-    },
-    {
-      "userId": "JfQX1lxWxmW3WZx8BErXpTRNFLb2",
-      "islandId": 3,
-      "id": 3
-    },
-    {
-      "userId": "JfQX1lxWxmW3WZx8BErXpTRNFLb2",
-      "islandId": 2,
-      "id": 3
     },
     {
       "userId": "JfQX1lxWxmW3WZx8BErXpTRNFLb2",
