@@ -10,7 +10,7 @@ const scoutList = ref([]);
 
 // 退会ボタン
 const deleteBtn = async () => {
-  // userScoutからuserIdが等しいデータを取得し、島idが一致するデータをidを指定して削除する
+  // userScoutからuserIdが等しいデータを取得し、選択した島のislandIdが一致するデータをidを指定して削除する
   const getUserScout = async () => {
     const response = await fetch(
       `http://localhost:8000/userScout/?userId=${props.userId}`
@@ -19,7 +19,6 @@ const deleteBtn = async () => {
     scoutList.value = data;
     console.log(data);
   };
-  // 島idと一致するもの消す
   getUserScout()
     .then(() => {
       scoutList.value.map(async (scout) => {
