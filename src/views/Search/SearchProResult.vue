@@ -2,10 +2,14 @@
 <template>
   <div class="search">
     <TopSearchBox />
-    <section class="search_list">
+    <section>
       <div v-if="projects.length > 0">
         <div class="search_list">
-          <div v-for="project in projects" :key="project.id" class="search_result">
+          <div
+            v-for="project in projects"
+            :key="project.id"
+            class="search_result"
+          >
             <router-link :to="'/projectshow/' + project.id">
               <img :src="project.icon" alt="project" class="search_iconImg" />
               <div class="search_recinfo">
@@ -16,7 +20,7 @@
         </div>
       </div>
       <div v-else class="search_no">
-        <p>検索結果はありません。</p>
+        <p>検索結果はありません</p>
       </div>
     </section>
   </div>
@@ -37,8 +41,8 @@ async function fetchData() {
   const response = await fetch(url);
   projects.value = await response.json();
 
-  console.log("検索内容",searchKeyword);
-  console.log("レスポンス",response);
+  console.log("検索内容", searchKeyword);
+  console.log("レスポンス", response);
 }
 
 onMounted(() => {
