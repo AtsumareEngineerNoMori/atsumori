@@ -18,7 +18,12 @@
             class="RecruitIslandRegister-details-recruitTitleSet-input"
             type="text"
             v-model="recruitIsland.recruitTitle"
+            @change="changeTitle"
           />
+          <p class="recruitVal" v-if="titleLength">募集タイトルを入力してください</p>
+          <p class="recruitVal"  v-if="recruitIsland.recruitTitle.length > 20">
+            20文字以下で入力してください
+          </p>
         </div>
         <div class="RecruitIslandRegister-details-jobSet-job">
           <p>募集職種</p>
@@ -27,6 +32,7 @@
             name="job"
             value="WEB"
             v-model="recruitIsland.recruitJob"
+            @change="changeSelect"
           />
           WEB
           <input
@@ -34,6 +40,7 @@
             name="job"
             value="FR"
             v-model="recruitIsland.recruitJob"
+            @change="changeSelect"
           />
           FR
           <input
@@ -41,6 +48,7 @@
             name="job"
             value="ML"
             v-model="recruitIsland.recruitJob"
+            @change="changeSelect"
           />
           ML
           <input
@@ -48,6 +56,7 @@
             name="job"
             value="CL"
             v-model="recruitIsland.recruitJob"
+            @change="changeSelect"
           />
           CL
           <input
@@ -55,6 +64,7 @@
             name="job"
             value="QA"
             v-model="recruitIsland.recruitJob"
+            @change="changeSelect"
           />
           QA
           <input
@@ -62,8 +72,10 @@
             name="job"
             value="その他"
             v-model="recruitIsland.recruitJob"
+            @change="changeSelect"
           />
           その他
+          <p class="recruitVal"  v-if="selectLength">募集職種を選択してください</p>
         </div>
         <div>
           <p class="RecruitIslandRegister-details-infomationSet-infomation">
@@ -72,7 +84,10 @@
           <textarea
             class="RecruitIslandRegister-details-infomationSet-text"
             v-model="recruitIsland.recruitPoint"
+            @change="changeInfomation"
           ></textarea>
+          <p class="recruitVal" v-if="infomationLength">募集要項を入力してください</p>
+          <p class="recruitVal"  v-if="recruitIsland.recruitPoint.length >255">255文字以下で入力してください</p>
         </div>
         <div class="RecruitIslandRegister-buttonset">
           <button class="RecruitIslandRegister-button">登録する</button>
@@ -102,8 +117,22 @@ const recruitIsland = reactive({
 });
 const projects = vueref();
 
+const titleLength = vueref(false);
+const selectLength = vueref(false);
+const infomationLength = vueref(false);
+
+const changeTitle = (e) => {
+  titleLength.value = false;
+};
+const changeSelect = (e) => {
+  selectLength.value = false;
+};
+const changeInfomation = (e) => {
+  infomationLength.value = false;
+};
+
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/Projects/4`);
+  const response = await fetch(`http://localhost:8000/Projects/${projectId}`);
   const data = await response.json();
   console.log(data);
   projects.value = data;
@@ -131,24 +160,49 @@ const recruitIslandRegisterButton = () => {
 
 const registerRecruitIsland = () => {
   if (recruitIsland.recruitTitle === "") {
-    window.alert("募集タイトルを登録してください");
-  } else if (recruitIsland.recruitJob === "") {
-    window.alert("募集職種を登録してください");
-  } else if (recruitIsland.recruitPoint === "") {
-    window.alert("募集要項を登録してください");
-  } else if (
-    recruitIsland.recruitTitle.length < 1 ||
-    recruitIsland.recruitTitle.length > 20
-  ) {
-    window.alert("募集タイトルは1文字以上20文字以下で入力してください");
-  } else if (
-    recruitIsland.recruitPoint.length < 1 ||
+    titleLength.value = true;
+  }
+  if (recruitIsland.recruitJob === "") {
+    selectLength.value = true;
+  }
+  if (recruitIsland.recruitPoint === "") {
+    infomationLength.value = true;
+  }
+
+  if (
+    recruitIsland.recruitTitle === "" ||
+    recruitIsland.recruitJob === "" ||
+    recruitIsland.recruitPoint === "" ||
+    recruitIsland.recruitTitle.length > 20 ||
     recruitIsland.recruitPoint.length > 255
   ) {
-    window.alert("募集要項は1文字以上255文字以下で入力してください");
+    console.log("エラーあります");
+    window.alert("入力が間違っているところがあります")
   } else {
     recruitIslandRegisterButton();
     router.push("/top");
   }
+
+
+  // if (recruitIsland.recruitTitle === "") {
+  //   window.alert("募集タイトルを登録してください");
+  // } else if (recruitIsland.recruitJob === "") {
+  //   window.alert("募集職種を登録してください");
+  // } else if (recruitIsland.recruitPoint === "") {
+  //   window.alert("募集要項を登録してください");
+  // } else if (
+  //   recruitIsland.recruitTitle.length < 1 ||
+  //   recruitIsland.recruitTitle.length > 20
+  // ) {
+  //   window.alert("募集タイトルは1文字以上20文字以下で入力してください");
+  // } else if (
+  //   recruitIsland.recruitPoint.length < 1 ||
+  //   recruitIsland.recruitPoint.length > 255
+  // ) {
+  //   window.alert("募集要項は1文字以上255文字以下で入力してください");
+  // } else {
+  //   recruitIslandRegisterButton();
+  //   router.push("/top");
+  // }
 };
 </script>

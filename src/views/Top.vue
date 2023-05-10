@@ -131,7 +131,7 @@
             class="top-new-set-item"
           >
             <router-link
-              :to="{ name: 'islandShow', params: { id: infomation.id } }"
+              :to="{ name: 'islandShow', params: { id: infomation.islandId } }"
             >
               <img
                 v-bind:src="infomation.islandIcon"
@@ -155,7 +155,7 @@
             class="top-new-set-item"
           >
             <router-link
-              :to="{ name: 'projectShow', params: { id: infomation.id } }"
+              :to="{ name: 'projectShow', params: { id: infomation.projectId } }"
             >
               <img
                 v-bind:src="infomation.projectIcon"
