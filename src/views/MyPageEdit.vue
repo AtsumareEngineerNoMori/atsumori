@@ -5,7 +5,6 @@ import { useRouter } from "vue-router";
 import "../css/main.css";
 import { auth } from "../../firebase";
 
-
 //会員情報取得
 const userId = ref(); //firebaseでログインしてる人のIDが入る
 const err = ref();
@@ -17,7 +16,8 @@ const User = ref({
   comment: "",
 });
 const router = useRouter();
-
+const overName = ref("");
+const overComment = ref("");
 
 const back = () => {
   router.push("/mypage");
@@ -70,14 +70,18 @@ function convertToBase64(file) {
 }
 
 //デフォルトの画像
-const defaultIconURL = "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png"
+const defaultIconURL =
+  "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png";
 
 //画像削除
 const removeIcon = () => {
   User.value.icon = defaultIconURL;
-}
+};
 //User更新
 async function updateUser() {
+  if (!check()) {
+    return;
+  }
   try {
     const response = await fetch(
       `http://localhost:8000/Users/${userId.value}`,
@@ -99,7 +103,24 @@ async function updateUser() {
   }
 }
 
-//アイコン編集
+// バリデーションチェック
+function check() {
+  const maxName = 20;
+  if (User.value.name.length > maxName) {
+    overName.value = "名前は1文字以上20文字以内で入力してください";
+    return false;
+  } else {
+    overName.value = "";
+  }
+
+  const maxComment = 255;
+  if (User.value.comment.length > maxComment) {
+    overComment.value = "コメントは255文字以内で入力してください";
+    return false;
+  }
+  return true;
+}
+
 </script>
 
 <template>
@@ -115,14 +136,19 @@ async function updateUser() {
           id="icon_file"
           style="display: none"
         />
-        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
-
+        <button @click="removeIcon" class="edit__button_cansel">
+          画像を削除
+        </button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
-          <p>なまえ：</p>
+          <sp>なまえ：</sp>
+          <span v-if="overName" class="mypage__check">{{ overName }}</span>
           <span
-            ><input type="text" v-model="User.name" class="edit__input"
+            ><input
+              type="text"
+              v-model="User.name"
+              class="edit__input"
           /></span>
         </li>
         <li class="mypage__item">
@@ -153,21 +179,21 @@ async function updateUser() {
           </label>
         </li>
         <li class="mypage__item">
-          <span>ひとこと：</span>
+          <span>ひとこと：</span><span v-if="overComment"  class="mypage__check">{{ overComment }}</span>
           <p>
             <textarea
               cols="30"
               rows="10"
               class="edit__input"
               v-model="User.comment"
-            ></textarea>
+                  ></textarea>
           </p>
         </li>
       </ul>
     </div>
     <div class="edit__buttoncontainer">
-          <button class="edit__button_cansel" @click="back">戻る</button>
-          <button class="edit__button" @click="updateUser">更新</button>
+      <button class="edit__button_cansel" @click="back">戻る</button>
+      <button class="edit__button" @click="updateUser">更新</button>
     </div>
   </div>
 </template>

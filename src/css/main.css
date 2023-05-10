@@ -381,6 +381,9 @@
 .mypage__list {
   display: flex;
 }
+.mypage__lists {
+  display: flex;
+}
 .mypage__profileiconImg {
   width: 170px;
   height: 170px;
@@ -394,14 +397,18 @@
   opacity: 0.8;
 }
 .mypage__item {
-  padding: 0 20px;
+  width: 450px;
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
 .mypage__item_name {
-  padding: 0 20px;
+  padding: 0 40px;
   margin-bottom: 10px;
   padding-bottom: 40px;
+}
+.mypage__comment {
+  width: 450px;
+  word-wrap: break-word;
 }
 .mypage__button {
   padding: 1% 2%;
@@ -467,6 +474,7 @@
   align-items: center;
   flex-direction: column;
   padding-left: 100px;
+  padding-right: 100px;
   height: 250px;
 }
 .mypage__column2 {
@@ -476,30 +484,50 @@
   flex-direction: column;
   height: 250px;
   width: 600px;
-  padding: 20px;
+  padding: 0px;
   padding-top: 50px;
   margin-right: auto;
   flex-grow: 1;
 }
 .mypage__lists {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  width: 170px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 .mypage__space {
-  margin: 5%;
-  position: relative;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .mypage__iconImg {
-  width: 200px;
-  height: 200px;
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+  margin: 40px 0 10px 20px;
 }
 .mypage__iconImg:hover {
   cursor: pointer;
   opacity: 0.7;
 }
+.mypage__islandtitle {
+  text-align: center;
+  padding-left: 20px;
+  width: 170px;
+}
 .mypage__table {
   margin-top: 60px;
   margin-left: 4%;
   position: relative;
+}
+.mypage__check {
+  color: red;
+  font-size: 12px;
 }
 
 .edit {

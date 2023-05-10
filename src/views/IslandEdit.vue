@@ -8,15 +8,19 @@ const route = useRoute();
 const router = useRouter();
 
 
-const Islands = ref(route.params.id);
 
 //島情報取得
-const IslandId = ref(1); //firebaseでログインしてる人のIDが入る
+const IslandId = ref(route.params.id);
 const Island = ref({
   icon: "",
   islandName: "",
   comment: "",
 });
+
+const overName = ref("");
+const overDescription = ref("");
+const overComment = ref("");
+
 const data = ref({
   recruitTitle: "",
   recruitJob: "",
@@ -28,13 +32,13 @@ const data = ref({
 onMounted(async () => {
   try {
     const response = await fetch(
-      `http://localhost:8000/Islands/${Islands.value}`
+      `http://localhost:8000/Islands/${IslandId.value}`
     );
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
-    Islands.value = await response.json();
-    console.log("Islands.valueの中身", Islands.value);
+    Island.value = await response.json();
+    console.log("IslandId.valueの中身", IslandId.value);
   } catch (err) {
     err.value = err;
     console.log("エラー", err.value);
@@ -47,7 +51,7 @@ async function iconEdit(event) {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
     const base64String = await convertToBase64(file);
-    Islands.value.icon = base64String;
+    Island.value.icon = base64String;
   } catch (error) {
     console.error(error);
   }
@@ -62,66 +66,78 @@ function convertToBase64(file) {
 }
 
 //RecruitNewUser取得
-const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
-  const recruitNewUserData = await response.json();
-  console.log(recruitNewUserData);
-  data.value = recruitNewUserData;
-  console.log(data.value);
-};
-getFlight();
+// const getFlight = async () => {
+//   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+//   const recruitNewUserData = await response.json();
+//   console.log(recruitNewUserData);
+//   data.value = recruitNewUserData;
+//   console.log(data.value);
+// };
+// getFlight();
 
 //デフォルトの画像
 const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
 
 //画像削除
 const removeIcon = () => {
-  Islands.value.icon = defaultIconURL;
+  Island.value.icon = defaultIconURL;
 }
 
 //Island更新
 async function updateIslands() {
-
+  if (!check()) {
+    return;
+  }
   try {
     const response = await fetch(
-      `http://localhost:8000/Islands/${Islands.value.id}`,
+      `http://localhost:8000/Islands/${Island.value.id}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(Islands.value),
+        body: JSON.stringify(Island.value),
       }
     );
 
 
 
     // recruitNewUser更新
-    // const updateRecruitNewUser = () => {
-    //   fetch(`http://localhost:8000/RecruitNewUser/${Islands.value.id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       islandId: IslandId.value,
-    //       recruitTitle: data.value.recruitTitle,
-    //       recruitJob: data.value.recruitJob,
-    //       recruitPoint: data.value.recruitPoint,
-    //       createDate: data.value.createDate,
-    //       islandName: Islands.value.islandName,
-    //       islandIcon: Islands.value.icon,
-    //       // id: IslandId,
-    //     }),
-    //   });
-    // };
-    // updateRecruitNewUser();
+    async function updateRecruitNewUser() {
+  try {
+    const response = await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`);
+    if (!response.ok) {
+      console.log(`RecruitNewUser/${Island.value.id}は存在しません`);
+      return;
+    }
+    // const recruitNewUserData = await response.json();
+    await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        islandId: IslandId.value,
+        recruitTitle: data.value.recruitTitle,
+        recruitJob: data.value.recruitJob,
+        recruitPoint: data.value.recruitPoint,
+        createDate: data.value.createDate,
+        islandName: Island.value.islandName,
+        islandIcon: Island.value.icon,
+      }),
+    });
+  } catch (error) {
+    console.error('エラーが発生しました:', error);
+  }
+}
+
+    updateRecruitNewUser();
 
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
-    router.push(`/islandShow/${Islands.value.id}`);
+    router.push(`/islandShow/${Island.value.id}`);
 
     
   } catch (err) {
@@ -130,9 +146,41 @@ async function updateIslands() {
 }
 
 const back = () => {
-  router.push(`/islandShow/${Islands.value.id}`);
+  router.push(`/islandShow/${IslandId.value.id}`);
 
 }
+
+// バリデーションチェック
+function check() {
+  let isValid = true; 
+
+  const maxName = 20;
+  if (Island.value.islandName.length > maxName) {
+    overName.value = "島名は1文字以上20文字以内で入力してください";
+    isValid = false;
+  } else {
+    overName.value = "";
+  }
+  
+  const maxDescription = 20;
+  if (Island.value.islandDescription.length > maxDescription) {
+    overDescription.value = "詳細は1文字以上20文字以内で入力してください";
+    isValid = false;
+  } else {
+    overDescription.value = ""; 
+
+  const maxComment = 255;
+  if (Island.value.comment.length > maxComment) {
+    overComment.value = "ひとことは255文字以内で入力してください";
+    isValid = false;
+  } else {
+    overComment.value = "";
+  }
+
+  return isValid; // すべて成功
+}
+}
+
 </script>
 
 <template>
@@ -141,7 +189,7 @@ const back = () => {
     <div class="mypage__container">
       <div class="edit__column">
         <label for="icon_file">
-          <img :src="Islands.icon" alt="" class="mypage__profileiconImg" />
+          <img :src="Island.icon" alt="" class="mypage__profileiconImg" />
         </label>
         <input
           type="file"
@@ -154,30 +202,33 @@ const back = () => {
       <ul class="edit__column2">
         <li class="mypage__item_name">
           <p>島名：</p>
-          <span
+          <span v-if="overName" class="mypage__check">{{ overName }}</span>
+          <div
             ><input
               type="text"
-              v-model="Islands.islandName"
+              v-model="Island.islandName"
               class="edit__input"
-          /></span>
+          /></div>
           <p>島詳細：</p>
-          <span
+          <span v-if="overDescription"  class="mypage__check">{{ overDescription }}</span>
+          <p
             ><input
               type="text"
-              v-model="Islands.islandDescription"
+              v-model="Island.islandDescription"
               class="edit__input"
-          /></span>
+          /></p>
         </li>
       </ul>
     </div>
     <div class="edit__item">
       <span>ひとこと：</span>
+      <span v-if="overComment"  class="mypage__check">{{ overComment }}</span>
       <p>
         <textarea
           cols="30"
           rows="10"
           class="edit__textarea"
-          v-model="Islands.comment"
+          v-model="Island.comment"
         ></textarea>
       </p>
     </div>

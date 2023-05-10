@@ -9,6 +9,8 @@ const userId = route.params.userId;
 const islandId = route.params.islandId;
 const islandData = ref({});
 const comment = ref();
+const overComment = ref("");
+
 
 onMounted(async () => {
   try {
@@ -25,6 +27,9 @@ onMounted(async () => {
 
 //申請ボタン
 async function Request() {
+  if (!check()) {
+    return;
+  }
   try {
     const response = await fetch(`http://localhost:8000/RequestIsland`, {
       method: "POST",
@@ -45,7 +50,24 @@ async function Request() {
   } catch {
     console.log("更新できませんでした");
   }
+  router.push(`/islandShow/${islandId}`);
 }
+
+// バリデーションチェック
+function check() {
+  let isValid = true;
+
+  const maxComment = 255;
+  if (comment.value.length > maxComment) {
+    overComment.value = "ひとことは255文字以内で入力してください";
+    isValid = false;
+  } else {
+    overComment.value = "";
+  }
+
+  return isValid;
+}
+
 </script>
 <template>
   <div class="request">
@@ -56,16 +78,11 @@ async function Request() {
         {{ islandData.islandDescription }}
       </p>
     </div>
-    <!-- <div>
-      <h1 class="request__item">募集要項</h1>
-      <p class="request__detail">
-        情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報
-      </p>
-    </div> -->
-
     <div>
       <h1 class="request__item">ひとこと</h1>
+      <div v-if="overComment"  class="mypage__check">{{ overComment }}</div>
       <input type="text" class="request__input" v-model="comment" />
+
     </div>
 
     <div class="request__agree">
