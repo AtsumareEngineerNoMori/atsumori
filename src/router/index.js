@@ -7,11 +7,9 @@ import SearchReqIslandResult from "../views/Search/SearchReqIslandResult.vue";
 import SearchReqProResult from "../views/Search/SearchReqProResult.vue";
 import ScoutIsland from "../views/Scout/ScoutIsland.vue";
 import ScoutPeople from "../views/Scout/ScoutPeople.vue";
-import IslandShow from "../views/Show/IslandShow.vue";
+import ScoutShow from "../views/Show/ScoutShow.vue";
 import Top from "../views/Top.vue";
 import ProjectRegisterView from "../views/register/ProjectRegister.vue";
-import SearchBox from "../components/Search/SearchBox.vue";
-import ScoutShow from "../views/Show/ScoutShow.vue";
 import LoginView from "../views/Login.vue";
 import MyPage from "../views/MyPage.vue";
 import MyPageEdit from "../views/MyPageEdit.vue";
@@ -92,11 +90,13 @@ const router = createRouter({
       name: "userRegister",
       component: UserRegisterView,
     },
+
     {
       path: "/islandRegister",
       name: "islandRegister",
       component: IslandRegisterView,
     },
+
     {
       path: "/recruitUserRegister/:id",
       name: "recruitUserRegister",
@@ -108,6 +108,7 @@ const router = createRouter({
       component: ProjectRegisterView,
     },
     {
+
       path: "/recruitIslandRegister/:id",
       name: "recruitIslandRegister",
       component: RecruitIslandRegister,
