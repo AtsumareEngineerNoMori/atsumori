@@ -204,11 +204,6 @@ const router = createRouter({
       component: Top,
     },
     {
-      path: "/joinIsland",
-      name: "joinIsland",
-      component: () => import("../views/JoinIsland.vue"),
-    },
-    {
       path: "/islandShow/:id",
       name: "islandShow",
       component: IslandShow,

@@ -256,7 +256,7 @@ const registerProject = () => {
   }
 
 
-  if (project.name === "" || 
+  if (project.name === "" ||
   project.description === "" ||
    project.name.length > 20 ||
     project.description.length > 255 ||
@@ -268,7 +268,7 @@ const registerProject = () => {
     projectRegisterButton();
     router.push("/top");
   }
-  
+
   // if(project.name === ""){
   //   window.alert("プロジェクトの名前を登録してください");
   // } else if (project.description === "") {

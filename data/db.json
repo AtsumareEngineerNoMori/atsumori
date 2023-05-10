@@ -1,25 +1,13 @@
 {
-  "Users": [
-
-  ],
-  "Islands": [
-
-  ],
-  "Projects": [
-  
-   
- 
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
-  "RecruitNewIsland": [
-
-  ],
+  "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-  ],
-  "JoinProjects": [
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "IslandChat": [],
   "ProjectChat": [],
   "UserScout": [],

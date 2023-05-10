@@ -10,7 +10,7 @@ const joinList = ref([]);
 
 // 退会ボタン
 const deleteBtn = async () => {
-  // joinIslandsからuserIdが等しいデータを取得し、島idが一致するデータをidを指定して削除する
+  // joinIslandsからuserIdが等しいデータを取得し、選択したislandIdが一致するデータをidを指定して削除する
   const getJoinIsland = async () => {
     const response = await fetch(
       `http://localhost:8000/joinIslands/?userId=${props.userId}`
