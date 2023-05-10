@@ -128,7 +128,7 @@ const scoutRouter = () => {
     </div>
 
     <!-- 管理者のみ -->
-    <div v-show="userJudges === 1">
+    <div v-show="userJudges === 1 && requestIslands.length >= 1">
       <p class="member__title">参加希望の島</p>
       <div v-for="requestIsland in requestIslands" class="member__content">
         <router-link

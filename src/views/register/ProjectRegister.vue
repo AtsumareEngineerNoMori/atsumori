@@ -291,6 +291,7 @@ const registerProject = () => {
     project.name === "" ||
     project.description === "" ||
     project.name.length > 20 ||
+
     project.description.length > 255 ||
     selectIsland === ""
   ) {

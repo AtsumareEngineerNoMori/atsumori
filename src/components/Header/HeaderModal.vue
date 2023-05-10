@@ -54,7 +54,7 @@ const logout = async () => {
             </div>
           </RouterLink>
 
-          <!-- <div class="headerModal__listdiv"><p @click="toggleStatus" 
+          <!-- <div class="headerModal__listdiv"><p @click="toggleStatus"
             data-micromodal-close
             aria-label="Close this dialog window"
             class="headerModal__tojiru">メニューを閉じる</p></div> -->

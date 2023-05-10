@@ -38,7 +38,7 @@
                 v-model="user.name"
                 @change="changeName"
               />
-              <p v-if=userNameLength class="val-name">
+              <p v-if="userNameLength" class="val-name">
                 お名前を入力してください
               </p>
               <p v-if="user.name.length > 20" class="val-name">
@@ -50,6 +50,7 @@
               <div>職種</div>
               <input type="radio" name="job" value="WEB" v-model="user.job"  class="userRegister-details-detail-job"/>
               WEB
+
               <input type="radio" name="job" value="FR" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> FR
               <input type="radio" name="job" value="ML" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> ML
               <input type="radio" name="job" value="CL" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> CL
@@ -58,6 +59,47 @@
               <p class="val-job" v-if=userJobLength >
                 職種を選択してください
               </p>
+
+              <input
+                type="radio"
+                name="job"
+                value="FR"
+                v-model="user.job"
+                @change="changeJob"
+              />
+              FR
+              <input
+                type="radio"
+                name="job"
+                value="ML"
+                v-model="user.job"
+                @change="changeJob"
+              />
+              ML
+              <input
+                type="radio"
+                name="job"
+                value="CL"
+                v-model="user.job"
+                @change="changeJob"
+              />
+              CL
+              <input
+                type="radio"
+                name="job"
+                value="QA"
+                v-model="user.job"
+                @change="changeJob"
+              />
+              QA
+              <input
+                type="radio"
+                name="job"
+                value="その他"
+                @change="changeJob"
+              />
+              その他
+              <p class="val-job" v-if="userJobLength">職種を選択してください</p>
             </div>
 
             <div class="userRegister-details-detail-hitokoto">
@@ -67,7 +109,7 @@
                 v-model="user.comment"
                 @change="changeComment"
               ></textarea>
-              <p class="val-comment" v-if=userCommentLength>
+              <p class="val-comment" v-if="userCommentLength">
                 ひとことを入力してください
               </p>
               <p class="val-comment" v-if="user.comment.length > 255">
@@ -87,8 +129,8 @@
               @change="changeEmail"
             />
           </div>
-          <p class="val-email" v-if=userEmailLength>
-          メールアドレスを入力してください
+          <p class="val-email" v-if="userEmailLength">
+            メールアドレスを入力してください
           </p>
           <p class="val-email" v-if="user.email.length <= 0">&nbsp;</p>
           <p class="val-email" v-else-if="!emailValid(user.email)">
@@ -106,8 +148,9 @@
               @change="changePassword"
             />
           </div>
-          <p class="val-password" v-if=userPasswordLength>
-          パスワードを入力してください</p>
+          <p class="val-password" v-if="userPasswordLength">
+            パスワードを入力してください
+          </p>
           <p class="val-password" v-if="user.password.length <= 0">&nbsp;</p>
           <p
             class="val-password2"
@@ -129,8 +172,9 @@
             />
           </div>
           <p class="val-cpassword" v-if="user.cPassword.length <= 0">&nbsp;</p>
-          <p class="val-cpassword" v-if=usercPasswordLength>
-          パスワード(確認)を入力してください</p>
+          <p class="val-cpassword" v-if="usercPasswordLength">
+            パスワード(確認)を入力してください
+          </p>
           <p
             class="val-cpassword2"
             v-else-if="user.cPassword !== user.password"
@@ -235,6 +279,11 @@ const previewImage = (event) => {
   iconFileName.value = event.target.files[0].name;
 };
 
+// cookieに登録
+const setCookie = (myId) => {
+  $cookies.set("myId", myId);
+};
+
 const U = async () => {
   try {
     //Authenticationへのユーザー登録
@@ -243,6 +292,7 @@ const U = async () => {
       if (!user) {
         console.log("ユーザーがいません");
       } else {
+        setCookie(auth.currentUser.uid);
         UserRegisterButton();
       }
     });
@@ -389,7 +439,10 @@ const registerUser = () => {
     user.cPassword.length <= 0 ||
     user.cPassword !== user.password
   ) {
+
     // window.alert("入力が間違っているところがあります")
+
+
     console.log("やっほ〜〜！");
   } else {
     U();

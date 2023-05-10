@@ -17,7 +17,7 @@
   width: 100%;
   margin: 0;
   background-color: #fffcf4;
-  min-height: 100vh;
+  height: auto;
 
   &__user {
     &__header {
@@ -37,6 +37,7 @@
         text-align: center;
         font-weight: bold;
         width: 170px;
+
         &__name {
           margin-bottom: 10px;
         }
@@ -66,61 +67,44 @@
   }
 
   &__btn {
+    position: absolute;
     text-align: center;
     margin-top: 55px;
+    top: 380px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+  }
+
+  &__underContent {
+    display: flex;
   }
 
   &__desc {
-    position: relative;
     margin: auto;
-    margin-top: 65px;
+    margin-top: 200px;
+    margin-bottom: 20px;
     width: 40%;
+    border: 5px dashed lawngreen;
 
     &__title {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-      font-size: 20px;
-      font-weight: bold;
-      background-color: #fffcf4;
-      border: 3px solid green;
-      padding: 5px 25px;
-      text-align: center;
-      z-index: 20;
-    }
-    &__text {
-      position: absolute;
-      border: 5px dashed lawngreen;
-      top: 30px;
-      padding-top: 40px;
-      padding-left: 10px;
-      padding-right: 10px;
-      width: 100%;
-      z-index: 10;
-
-      &__title {
-        font-size: 16px;
-        font-weight: bolder;
-      }
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bolder;
     }
   }
 
   &__member {
-    position: absolute;
-    top: 400px;
-    right: 30px;
+    margin: 50px 25px 0 auto;
     width: 25%;
-    border: 3px solid green;
+    margin-bottom: 20px;
   }
 
   &__scout {
-    position: absolute;
-    top: 600px;
-    left: 30px;
+    margin: 200px auto 0 25px;
     width: 25%;
+    margin-bottom: 20px;
   }
 }
 
