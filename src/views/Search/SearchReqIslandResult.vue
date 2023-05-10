@@ -2,7 +2,7 @@
 <template>
   <div class="search">
     <TopSearchBox />
-    <section class="search_list">
+    <section>
       <div v-if="filteredRecruitNewUsers.length > 0">
         <div class="search_list">
           <div
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div v-else class="search_no">
-        <p>検索結果はありません。</p>
+        <p>検索結果はありません</p>
       </div>
     </section>
   </div>
