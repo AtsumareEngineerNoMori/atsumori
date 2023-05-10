@@ -45,6 +45,7 @@ const deleteRecruit = () => {
 
 // プロジェクト解散
 const deleteProject = () => {
+  alert("本当に削除してもよろしいですか？");
   try {
     // プロジェクトの削除
     const projectId = props.projectId;

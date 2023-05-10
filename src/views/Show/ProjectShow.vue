@@ -24,19 +24,8 @@ onMounted(async () => {
   const id = route.params.id;
 
   // ログインID取得
-  function auth() {
-    return new Promise((resolve) => {
-      const auth = getAuth();
-      onAuthStateChanged(auth, (currentUser) => {
-        myId.value = currentUser?.uid;
-
-        resolve();
-      });
-    });
-  }
-  await auth().then(() => {
-    loading.value = true;
-  });
+  const userId = $cookies.get("myId");
+  myId.value = userId;
 
   // プロジェクトデータの取得
   const projectDatas = await fetch(`http://localhost:8000/Projects/${id}`).then(
@@ -79,6 +68,8 @@ onMounted(async () => {
     RecruitIshow.value = true;
     Recruits.value = Recruit[0];
   }
+
+  loading.value = true;
 });
 </script>
 
