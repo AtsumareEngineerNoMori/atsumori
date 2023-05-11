@@ -122,7 +122,9 @@ const moreIslands = () => {
           </div>
         </li>
       </div>
-      <button v-if="islandData.length >=5 " class="mypage__morebutton" @click="moreIslands">もっと見る</button>
+      <button class="mypage__morebutton" @click="moreIslands">
+        島一覧へ
+      </button>
     </div>
   </div>
 </template>

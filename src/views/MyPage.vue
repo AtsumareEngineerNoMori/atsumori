@@ -132,8 +132,9 @@ const userScout  = () => {
         </li>
       </div>
       <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
-      <button v-if="islandData.length >= 4" class="mypage__morebutton" @click="moreIslands">
-        もっと見る
+      <!-- <button v-if="islandData.length >= 4" class="mypage__morebutton" @click="moreIslands"> -->
+      <button class="mypage__morebutton" @click="moreIslands">
+        島一覧へ
       </button>
     </div>
   </div>
