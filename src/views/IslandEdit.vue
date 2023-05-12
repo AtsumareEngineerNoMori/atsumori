@@ -126,7 +126,7 @@ async function updateIslands() {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
-    // router.push(`/islandShow/${Island.value.id}`);
+    router.push(`/islandShow/${Island.value.id}`);
   } catch (err) {
     console.log("更新できません", err);
   }
@@ -162,15 +162,13 @@ function check() {
     overDescription.value = "";
   }
 
-  // Island.commentに関するバリデーション
   const maxComment = 255;
-  if (Island.value.comment.length > maxComment) {
-    overComment.value = "ひとことは255文字以内で入力してください";
-    isValid = false;
-  } else {
-    overComment.value = "";
-  }
-
+if (Island.value.comment && Island.value.comment.length > maxComment) {
+  overComment.value = "ひとことは255文字以内で入力してください";
+  isValid = false;
+} else {
+  overComment.value = "";
+}
   return isValid; // すべて成功
 }
 </script>
