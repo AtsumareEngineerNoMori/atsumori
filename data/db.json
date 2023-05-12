@@ -1,119 +1,15 @@
 {
-  "Users": [
-    {
-      "id": "l2grEtYt0AYMZ9bY1BDxjNZpR0b2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "たぬきち",
-      "job": "CL",
-      "comment": "あああああああああ",
-      "email": "toto@rakus-partners.co.jp"
-    },
-    {
-      "id": "FwH7l7e749MZ8tYyQSwSWCagtpD3",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "ああああああああああああああああああああ",
-      "job": "QA",
-      "comment": "あああああああ",
-      "email": "aaaaa@rakus-partners.co.jp"
-    },
-    {
-      "id": "FwH7l7e749MZ8tYyQSwSWCagtpD2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "田中太郎",
-      "job": "QA",
-      "comment": "いいいいいい",
-      "email": "bbb@rakus-partners.co.jp"
-    },
-    {
-      "id": "FwH7l7e749MZ8tYyQSwSWCagtpD1",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "うううううう",
-      "job": "QA",
-      "comment": "ううううう",
-      "email": "cccc@rakus-partners.co.jp"
-    }
-  ],
-  "Islands": [
-    {
-      "islandName": "vue島",
-      "islandDescription": "ああ",
-      "adminId": "l2grEtYt0AYMZ9bY1BDxjNZpR0b2",
-      "createDate": "2023-05-08T06:09:23.016Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fbooks-3482286_1920.jpg?alt=media&token=0c082180-99e6-45d9-9c3d-886b1eea99fe",
-      "id": 1
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "あああああああああああ",
-      "projectDescription": "kkkkkk",
-      "adminId": "l2grEtYt0AYMZ9bY1BDxjNZpR0b2",
-      "createDate": "2023-05-08T06:19:19.051Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fchair-1840011_1920.jpg?alt=media&token=89e31790-e595-4e24-8f13-1295917fdc00",
-      "id": 1
-    }
-  ],
-  "RecruitNewUser": [
-    {
-      "islandId": "1",
-      "recruitTitle": "タイトル",
-      "recruitJob": "FR",
-      "recruitPoint": "あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
-      "createDate": "2023-05-10T00:42:18.596Z",
-      "islandName": "vue島",
-      "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fbooks-3482286_1920.jpg?alt=media&token=0c082180-99e6-45d9-9c3d-886b1eea99fe",
-      "id": "1"
-    }
-  ],
-  "RecruitNewIsland": [
-    {
-      "projectId": "1",
-      "recruitTitle": "おおおおおおおおおおおおおおおおおおおお",
-      "recruitJob": "ML",
-      "recruitPoint": "おおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおおお",
-      "createDate": "2023-05-08T08:24:56.570Z",
-      "id": 1
-    }
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
+  "RecruitNewUser": [],
+  "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "l2grEtYt0AYMZ9bY1BDxjNZpR0b2",
-      "islandId": 1,
-      "id": 1
-    },
-    {
-      "userId": "FwH7l7e749MZ8tYyQSwSWCagtpD3",
-      "islandId": 1,
-      "id": 2
-    },
-    {
-      "userId": "FwH7l7e749MZ8tYyQSwSWCagtpD2",
-      "islandId": 1,
-      "id": 3
-    },
-    {
-      "userId": "FwH7l7e749MZ8tYyQSwSWCagtpD1",
-      "islandId": 1,
-      "id": 4
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": "1",
-      "projectId": 1,
-      "id": 1
-    }
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "IslandChat": [],
   "ProjectChat": [],
   "UserScout": [],
-  "IslandScout": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    }
-  ]
+  "IslandScout": []
 }

@@ -30,7 +30,7 @@
           <router-link
             v-for="island in randomIslands"
             :key="island.id"
-            :to="`/projectShow/${$route.params.projectId}/${island.id}`"
+            :to="`/scoutShow/${$route.params.projectId}/${island.id}`"
             class="search_result"
           >
             <div class="search_flex">
@@ -88,7 +88,14 @@ const fetchJoinProjects = async () => {
 const searchIslands = () => {
   console.log("検索:", keyword.value);
 
-  const keywordIsland = keyword.value.toLowerCase();
+  const keywordIsland = keyword.value
+    .toLowerCase()
+    .replace(/[ぁ-ん]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) + 0x60)
+    )
+    .replace(/[ァ-ン]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) - 0x60)
+    );
   if (keywordIsland) {
     if (keyword.value.length > 20) {
       errorMessage.value = "20文字以内で入力してください";
@@ -97,7 +104,15 @@ const searchIslands = () => {
     } else {
       filteredIslands.value = islands.value
         .filter((island) =>
-          island.islandName.toLowerCase().includes(keywordIsland)
+          island.islandName
+            .toLowerCase()
+            .replace(/[ぁ-ん]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) + 0x60)
+            )
+            .replace(/[ァ-ン]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) - 0x60)
+            )
+            .includes(keywordIsland)
         )
         .filter(
           (island) =>
