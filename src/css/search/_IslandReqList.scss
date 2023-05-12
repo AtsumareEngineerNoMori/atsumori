@@ -6,37 +6,52 @@ $basecolor_brown: #af7a20;
 .search {
   width: 1000px;
   background-color: #fffcf4;
+  // padding-bottom: 4%;
   &_title {
-    margin-bottom: 5%;
+    padding: 4%;
   }
   &_select {
     background-color: #fff;
     color: #ccc;
     border: none;
     padding: 10px 20px;
+  }
+  &_select:hover {
+    opacity: 0.6;
     cursor: pointer;
   }
-  
+
   &_select.active {
-    background-color:  $basecolor_green;
-    color:  #fff;
+    background-color: $basecolor_green;
+    color: #fff;
     font-weight: bold;
     text-decoration: underline;
   }
-  &_selects4{
-    width: 80%;
+  &_selects4 {
+    width: 60%;
     margin: 0 auto;
+    padding-top: 4%;
   }
-  
-  .all_search {
-    margin: 2%;
-  }
+  // &_flex{
+  //   display: flex;
+  // }
+
   &_box {
     width: 80%;
     margin: 5%;
   }
   &_no {
-    margin: auto;
+    margin: 0 auto;
+    padding: 4%;
+    display: flex;
+    width: 25%;
+  }
+  &_recommend {
+    width: 90%;
+    text-align: center;
+  }
+  &_col {
+    margin-right: 15%;
   }
   // &_btn {
   //   &:hover {
@@ -47,12 +62,11 @@ $basecolor_brown: #af7a20;
   // }
   &_btn {
     padding: 1%;
-    border: 3px dashed  $basecolor_green;
-    background-color:  $basecolor_green;
+    border: 3px dashed $basecolor_green;
+    background-color: $basecolor_green;
     color: white;
     font-weight: bold;
     border-radius: 20%;
-
   }
   &_btn:hover {
     opacity: 0.6;
@@ -61,7 +75,15 @@ $basecolor_brown: #af7a20;
   &_list {
     display: flex;
     flex-wrap: wrap;
-    margin: 7%;
+    width: 100%;
+    margin: 1.5%;
+  }
+  &_result {
+    margin: 1%;
+  }
+  &_result:hover {
+    opacity: 0.6;
+    cursor: pointer;
   }
   &_recinfo {
     text-align: center;
@@ -70,14 +92,18 @@ $basecolor_brown: #af7a20;
     width: 170px;
     height: 170px;
     border: 2px solid;
-    border-color:  $basecolor_green;
+    border-color: $basecolor_green;
     border-radius: 50%;
   }
-  &_set{
+  &_set {
     border: 3px dashed $basecolor_green;
     width: 80%;
     margin: 0 auto;
-    background-color:#ffff;
+    background-color: #ffff;
     padding: 3%;
+  }
+  &_errmsg {
+    text-align: center;
+    color: red;
   }
 }

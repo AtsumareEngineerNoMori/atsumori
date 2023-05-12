@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import { useRoute , useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router";
 import "../css/main.css";
 
 const img = {
@@ -11,7 +11,12 @@ const img = {
 const route = useRoute();
 const router = useRouter();
 
-const Project = ref(route.params.id); //?????
+const ProjectId = ref(route.params.id);
+const Project = ref("");
+
+const overName = ref("");
+const overDescription = ref("");
+const overComment = ref("");
 
 const data = ref({
   recruitTitle: "",
@@ -24,14 +29,14 @@ const data = ref({
 onMounted(async () => {
   try {
     const response = await fetch(
-      `http://localhost:8000/Projects/${Project.value}`
+      `http://localhost:8000/Projects/${ProjectId.value}`
     );
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     Project.value = await response.json();
-    console.log("Islands.valueの中身", Project.value);
-    console.log( Project.value)
+    console.log("Project.valueの中身", Project.value);
+    console.log(Project.value);
   } catch (err) {
     err.value = err;
     console.log("エラー", err.value);
@@ -60,7 +65,9 @@ function convertToBase64(file) {
 
 //RecruitNewUser取得
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`);
+  const response = await fetch(
+    `http://localhost:8000/RecruitNewIsland/${Project.value.id}`
+  );
   const recruitNewIslandData = await response.json();
   console.log(recruitNewIslandData);
   data.value = recruitNewIslandData;
@@ -68,18 +75,20 @@ const getFlight = async () => {
 };
 getFlight();
 
-
 //デフォルトの画像
-const defaultIconURL = "https://1.bp.blogspot.com/-LZL7jGWmL3Q/X-FcwoOnE2I/AAAAAAABdEs/qUrY1ClrQrMukkdaEnZK8-Bdob7mOdmQgCNcBGAsYHQ/s400/onepiece13_crocodile.png"
+const defaultIconURL =
+  "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308";
 
 //画像削除
 const removeIcon = () => {
   Project.value.icon = defaultIconURL;
-}
+};
 
-
-//Projects更新
+// Projects更新
 async function updateProject() {
+  if (!check()) {
+    return;
+  }
   try {
     const response = await fetch(
       `http://localhost:8000/Projects/${Project.value.id}`,
@@ -91,45 +100,90 @@ async function updateProject() {
         body: JSON.stringify(Project.value),
       }
     );
-
-        // recruitNewIsland更新
-    //     const updateRecruitNewUser = () => {
-    //   fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       projectId: Project,
-    //       recruitTitle: data.value.recruitTitle,
-    //       recruitJob: data.value.recruitJob,
-    //       recruitPoint: data.value.recruitPoint,
-    //       createDate: data.value.createDate,
-    //       projectName: Project.value.projectName ,
-    //       projectIcon: Project.value.icon ,
-    //       // id: Project,
-    //     }),
-    //   });
-    // };
-    // updateRecruitNewUser();
-
-
-
-
-
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
+    await updateRecruitNewUser();
     router.push(`/projectShow/${Project.value.id}`);
-
   } catch (err) {
     console.log("更新できません", err);
   }
 }
 
+// recruitNewIsland更新
+async function updateRecruitNewUser() {
+  try {
+    const response = await fetch(
+      `http://localhost:8000/RecruitNewIsland/${Project.value.id}`
+    );
+    if (!response.ok) {
+      console.log(`RecruitNewIsland/${Project.value.id}は存在しません`);
+      return;
+    }
+    const result = await fetch(
+      `http://localhost:8000/RecruitNewIsland/${Project.value.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectId: Project,
+          recruitTitle: data.value.recruitTitle,
+          recruitJob: data.value.recruitJob,
+          recruitPoint: data.value.recruitPoint,
+          createDate: data.value.createDate,
+          projectName: Project.value.projectName,
+          projectIcon: Project.value.icon,
+          // id: Project,
+        }),
+      }
+    );
+  } catch (error) {
+    console.error("エラーが発生しました:", error);
+  }
+}
+
 const back = () => {
-  router.push(`/projectShow/${Project.value.id}`)
+  router.push(`/projectShow/${Project.value}`);
+};
+
+// バリデーションチェック
+function check() {
+  let isValid = true;
+
+  const maxName = 20;
+  if (
+    Project.value.projectName.length > maxName ||
+    Project.value.projectName.length === 0
+  ) {
+    overName.value = "プロジェクト名は1文字以上20文字以内で入力してください";
+    isValid = false;
+  } else {
+    overName.value = "";
+  }
+
+  const maxDescription = 20;
+  if (
+    Project.value.projectDescription.length > maxDescription ||
+    Project.value.projectDescription.length === 0
+  ) {
+    overDescription.value = "詳細は1文字以上20文字以内で入力してください";
+    isValid = false;
+  } else {
+    overDescription.value = "";
+  }
+
+  const maxComment = 255;
+  if (Project.value.comment.length > maxComment) {
+    overComment.value = "ひとことは255文字以内で入力してください";
+    isValid = false;
+  } else {
+    overComment.value = "";
+  }
+
+  return isValid;
 }
 </script>
 
@@ -147,46 +201,64 @@ const back = () => {
           id="icon_file"
           style="display: none"
         />
-        <button @click="removeIcon"  class="edit__button_cansel">画像を削除</button>
-
+        <button @click="removeIcon" class="edit__button_cansel">
+          画像を削除
+        </button>
       </div>
       <ul class="edit__column2">
         <li class="mypage__item_name">
           <p>プロジェクト名：</p>
-          <span
-            ><input
+
+          <div>
+            <input
               type="text"
               v-model="Project.projectName"
               class="edit__input"
-          /></span>
-          <p>プロジェクト詳細：</p>
-          <span
-            ><input
+            />
+          </div>
+          <div style="height: 40px;">
+             <span v-show="overName" class="mypage__check">{{ overName }}</span>
+          </div>
+
+          <p class="mypage__details">プロジェクト詳細：</p>
+        
+         
+          <div>
+            <input
               type="text"
               v-model="Project.projectDescription"
               class="edit__input"
-          /></span>
+            />
+          </div> 
+          <div style="height: 40px;">
+            <span v-show="overDescription" class="mypage__check">{{
+            overDescription
+          }}</span>
+          </div> 
         </li>
       </ul>
     </div>
     <div class="edit__item">
       <span>ひとこと：</span>
+      
       <p>
         <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="edit__textarea"
-          v-model="Project.comment"
-
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        class="edit__textarea"
+        v-model="Project.comment"
         ></textarea>
       </p>
     </div>
+    <div style="height: 20px;">
+      <div v-show="overComment" class="mypage__comment">{{ overComment }}</div>
+    </div>
+    
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">キャンセル</button>
       <button class="edit__button" @click="updateProject">更新</button>
-
     </div>
   </div>
 </template>

@@ -358,6 +358,9 @@
 .mypage__list {
   display: flex;
 }
+.mypage__lists {
+  display: flex;
+}
 .mypage__profileiconImg {
   width: 170px;
   height: 170px;
@@ -370,15 +373,27 @@
   cursor: pointer;
   opacity: 0.8;
 }
+.mypage__mypageprofileiconImg {
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+  margin-bottom: 40px;
+}
 .mypage__item {
-  padding: 0 20px;
+  width: 450px;
   margin-bottom: 10px;
   padding-bottom: 10px;
 }
 .mypage__item_name {
-  padding: 0 20px;
+  padding: 0 40px;
   margin-bottom: 10px;
   padding-bottom: 40px;
+}
+.mypage__comment {
+  width: 450px;
+  word-wrap: break-word;
 }
 .mypage__button {
   padding: 1% 2%;
@@ -421,9 +436,8 @@
 }
 .mypage__morebutton {
   padding: 1% 2%;
-  margin-left: auto;
+  margin: 0 0 40px 40px;
   position: absolute;
-  right: 35px;
   bottom: 100px;
 }
 .mypage__morebutton:hover {
@@ -444,6 +458,7 @@
   align-items: center;
   flex-direction: column;
   padding-left: 100px;
+  padding-right: 100px;
   height: 250px;
 }
 .mypage__column2 {
@@ -453,30 +468,61 @@
   flex-direction: column;
   height: 250px;
   width: 600px;
-  padding: 20px;
+  padding: 0px;
   padding-top: 50px;
   margin-right: auto;
   flex-grow: 1;
 }
 .mypage__lists {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  width: 170px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 .mypage__space {
-  margin: 5%;
-  position: relative;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
 .mypage__iconImg {
-  width: 200px;
-  height: 200px;
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+  margin: 40px 0 10px 20px;
 }
 .mypage__iconImg:hover {
   cursor: pointer;
   opacity: 0.7;
 }
+.mypage__islandtitle {
+  text-align: center;
+  margin: auto;
+  margin-left: 20px;
+  width: 170px;
+  font-size: 16px;
+}
 .mypage__table {
   margin-top: 60px;
   margin-left: 4%;
   position: relative;
+}
+.mypage__check {
+  color: red;
+  font-size: 12px;
+}
+.mypage__comment {
+  color: red;
+  font-size: 12px;
+  width: 600px;
+  margin: auto;
+}
+.mypage__details {
+  margin-top: 10%;
 }
 
 .edit {
@@ -523,7 +569,6 @@
   border-radius: 0.3rem;
   background: #e0e0e0;
   color: #7a7a7a;
-  margin-bottom: 40px;
 }
 .edit__textarea {
   float: left;
@@ -540,6 +585,7 @@
   width: 30%;
   float: left;
   margin-left: 50px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -560,7 +606,7 @@
 }
 .edit__button {
   padding: 1% 2%;
-  margin: auto;
+  margin-left: auto;
   width: 100px;
 }
 .edit__button:hover {
@@ -571,7 +617,6 @@
 }
 .edit__button_cansel {
   padding: 1% 2%;
-  margin: auto;
   width: 100px;
   background-color: rgb(167, 167, 167);
 }
@@ -583,9 +628,9 @@
 }
 .edit__buttoncontainer {
   display: flex;
-  width: 400px;
+  width: 300px;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .edit__label {
   margin: 8px;
@@ -843,13 +888,16 @@ button {
   background-color: #fffcf4;
 }
 .search_title {
-  margin-bottom: 5%;
+  padding: 4%;
 }
 .search_select {
   background-color: #fff;
   color: #ccc;
   border: none;
   padding: 10px 20px;
+}
+.search_select:hover {
+  opacity: 0.6;
   cursor: pointer;
 }
 .search_select.active {
@@ -859,18 +907,26 @@ button {
   text-decoration: underline;
 }
 .search_selects4 {
-  width: 80%;
+  width: 60%;
   margin: 0 auto;
-}
-.search .all_search {
-  margin: 2%;
+  padding-top: 4%;
 }
 .search_box {
   width: 80%;
   margin: 5%;
 }
 .search_no {
-  margin: auto;
+  margin: 0 auto;
+  padding: 4%;
+  display: flex;
+  width: 25%;
+}
+.search_recommend {
+  width: 90%;
+  text-align: center;
+}
+.search_col {
+  margin-right: 15%;
 }
 .search_btn {
   padding: 1%;
@@ -887,7 +943,15 @@ button {
 .search_list {
   display: flex;
   flex-wrap: wrap;
-  margin: 7%;
+  width: 100%;
+  margin: 1.5%;
+}
+.search_result {
+  margin: 1%;
+}
+.search_result:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 .search_recinfo {
   text-align: center;
@@ -905,6 +969,10 @@ button {
   margin: 0 auto;
   background-color: white;
   padding: 3%;
+}
+.search_errmsg {
+  text-align: center;
+  color: red;
 }
 
 .chat {

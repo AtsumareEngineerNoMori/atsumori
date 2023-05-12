@@ -9,6 +9,8 @@ const userId = route.params.userId;
 const projectId = route.params.projectId;
 const projectData = ref({});
 const comment = ref();
+const overComment = ref("");
+
 
 onMounted(async () => {
   try {
@@ -24,6 +26,9 @@ onMounted(async () => {
 });
 //申請ボタン
 async function Request() {
+  if(!check()){
+    return;
+  }
   try {
     const response = await fetch(`http://localhost:8000/RequestProject`, {
       method: "POST",
@@ -40,11 +45,29 @@ async function Request() {
       console.log(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("申請しました");
-    router.push("/show")
+    router.push(`/projectShow/${projectId}`);
+
   } catch(err) {
     console.log("更新できませんでした",err);
   }
 }
+
+
+// バリデーションチェック
+function check() {
+  let isValid = true;
+
+  const maxComment = 255;
+  if (comment.value.length > maxComment) {
+    overComment.value = "ひとことは255文字以内で入力してください";
+    isValid = false;
+  } else {
+    overComment.value = "";
+  }
+
+  return isValid;
+}
+
 </script>
 <template>
   <div class="request">
@@ -55,15 +78,10 @@ async function Request() {
         {{ projectData.projectDescription }}
       </p>
     </div>
-    <!-- <div>
-      <h1 class="request__item">募集要項</h1>
-      <p class="request__detail">
-        情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報情報
-      </p>
-    </div> -->
-
     <div>
       <h1 class="request__item">ひとこと</h1>
+      <div v-if="overComment"  class="mypage__check">{{ overComment }}</div>
+
       <input type="text" class="request__input" v-model="comment
       " />
     </div>

@@ -5,7 +5,7 @@
     <section>
       <h3 class="search_title">スカウトする難民を探す</h3>
     </section>
-    
+
     <div class="search">
       <form @submit.prevent="searchUsers">
         <input
@@ -17,40 +17,53 @@
         />
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
+      <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
     </div>
 
-    <section v-if="results" class="search_list">
+    <section v-if="results">
       <div v-if="filteredUsers.length > 0">
+        <div v-if="filteredUsers.length > 20" class="search_no">
+          <p class="search_recommend">おすすめの難民</p>
+        </div>
         <div class="search_list">
-          <router-link
+          <!-- <router-link
             v-for="user in filteredUsers"
             :key="user.id"
             :to="`/mypageforscout/${$route.params.islandId}/${user.id}`"
+            class="search_result"
+          > -->
+
+          <!-- <router-link
+            v-for="user in filteredUsers.slice(0, 20)"
+            :key="user.id"
+            :to="`/mypageforscout/${$route.params.id}/${user.id}`"
+            class="search_result"
+          > -->
+
+          <router-link
+            v-for="user in randomUsers"
+            :key="user.id"
+            :to="`/mypageforscout/${$route.params.islandId}/${user.id}`"
+            class="search_result"
           >
-            <!-- <router-link
-          v-for="(user, index) in filteredUsers.slice(0, 5)"
-          :key="user.id"
-          :to="`/mypageforscout/${$route.params.id}/${user.id}`"
-        > -->
-            <img :src="user.icon" alt="user" class="search_iconImg" />
-            <div class="search_recinfo">
-              <p>{{ user.name }}</p>
+            <div class="search_flex">
+              <img :src="user.icon" alt="user" class="search_iconImg" />
+              <div class="search_recinfo">
+                <p>{{ user.name }}</p>
+              </div>
             </div>
           </router-link>
-          <!-- <div v-if="filteredUsers.length > 5" class="search_no">
-          <p>最新のおすすめ20件</p>
-        </div> -->
         </div>
       </div>
       <div v-else class="search_no">
-        <p>検索結果はありません。</p>
+        <p>検索結果はありません</p>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
@@ -59,6 +72,7 @@ const users = ref([]);
 const filteredUsers = ref([]);
 const joinIslands = ref([]);
 const results = ref(false);
+const errorMessage = ref("");
 
 const fetchUsers = async () => {
   try {
@@ -72,7 +86,7 @@ const fetchUsers = async () => {
 };
 
 //参加している島
-const featchJoinIslands = async () => {
+const fetchJoinIslands = async () => {
   try {
     const responce = await fetch(`http://localhost:8000/JoinIslands`);
     const data = await responce.json();
@@ -90,7 +104,8 @@ const searchUsers = () => {
   const keywordUser = keyword.value.toLowerCase();
   if (keywordUser) {
     if (keyword.value.length > 20) {
-      alert("20文字以内で入力してください");
+      errorMessage.value = "20文字以内で入力してください";
+      // alert("20文字以内で入力してください");
       keyword.value = "";
     } else {
       filteredUsers.value = users.value
@@ -105,6 +120,7 @@ const searchUsers = () => {
         );
       results.value = true;
       keyword.value = "";
+      errorMessage.value = "";
     }
   } else {
     filteredUsers.value = users.value.filter(
@@ -117,11 +133,36 @@ const searchUsers = () => {
     );
     results.value = true;
     keyword.value = "";
+    errorMessage.value = "";
   }
 };
 
+//未入力で検索ボタンを押下した際ランダムで20件選出
+const randomUsers = computed(() => {
+  if (filteredUsers.value.length <= 20) {
+    return filteredUsers.value;
+  } else {
+    const randomArray = [];
+    while (randomArray.length < 20) {
+      const random = Math.floor(Math.random() * filteredUsers.value.length);
+      if (!randomArray.includes(random)) {
+        randomArray.push(random);
+      }
+    }
+    // for (let i = 0; i < 20; i++) {
+    //   const random = Math.floor(Math.random() * filteredUsers.value.length);
+    //   if (!randomArray.includes(random)) {
+    //     randomArray.push(random);
+    //   } else {
+    //     i--;
+    //   }
+    // }
+    return randomArray.map((index) => filteredUsers.value[index]);
+  }
+});
+
 onMounted(() => {
   fetchUsers();
-  featchJoinIslands();
+  fetchJoinIslands();
 });
 </script>

@@ -1,82 +1,13 @@
 {
-  "Users": [
-    {
-      "id": "TkpnKAt9rZO9oZEGicHJ3TlF0b23",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "たぬき",
-      "job": "CL",
-      "comment": "あああああああああああああ",
-      "email": "takuto@rakus-partners.co.jp"
-    }
-  ],
-  "Islands": [
-    {
-      "islandName": "vue島",
-      "islandDescription": "ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ\n",
-      "adminId": "TkpnKAt9rZO9oZEGicHJ3TlF0b23",
-      "createDate": "2023-05-12T02:21:35.245Z",
-      "icon": "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png",
-      "id": 1
-    },
-    {
-      "islandName": "React島",
-      "islandDescription": "あああああ",
-      "adminId": "TkpnKAt9rZO9oZEGicHJ3TlF0b23",
-      "createDate": "2023-05-12T03:04:40.771Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 2
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "pj",
-      "projectDescription": "あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ\n",
-      "adminId": "TkpnKAt9rZO9oZEGicHJ3TlF0b23",
-      "createDate": "2023-05-12T02:22:42.195Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "id": 1
-    }
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
-  "RecruitNewIsland": [
-    {
-      "projectId": "1",
-      "recruitTitle": "募集",
-      "recruitJob": "ML",
-      "recruitPoint": "ああ",
-      "createDate": "2023-05-12T02:23:27.260Z",
-      "projectName": "pj",
-      "projectIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "id": 1
-    }
-  ],
+  "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "TkpnKAt9rZO9oZEGicHJ3TlF0b23",
-      "islandId": 1,
-      "id": 1
-    },
-    {
-      "userId": "TkpnKAt9rZO9oZEGicHJ3TlF0b23",
-      "islandId": 2,
-      "id": 2
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    }
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "UserScout": [],
-  "IslandScout": [
-    {
-      "islandId": 2,
-      "projectId": 1,
-      "id": 1
-    }
-  ]
+  "IslandScout": []
 }
