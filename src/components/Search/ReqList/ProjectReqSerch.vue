@@ -7,7 +7,6 @@
 
     <div class="island_search">
       <form @submit.prevent="searchProjects">
-        <p>キーワードを入力してください。</p>
         <input
           type="search"
           name="search"
@@ -17,11 +16,12 @@
         />
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
+      <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
     </div>
 
     <section class="search_list">
       <div v-if="filteredRecruitNewIslands.length === 0" class="search_no">
-        検索結果がありません
+        <p class="search_col">検索結果がありません</p>
         <input
           type="submit"
           name="submit"
@@ -34,6 +34,7 @@
         v-for="recruitNewIsland in filteredRecruitNewIslands"
         :key="recruitNewIsland.id"
         :to="'/projectshow/' + recruitNewIsland.project.id"
+        class="search_result"
       >
         <img
           :src="recruitNewIsland.project.icon"
@@ -62,6 +63,7 @@ console.log("登録されたプロ", props.fetchUrlIs);
 const originalRecruitNewIslands = ref([]); //データ配列
 const filteredRecruitNewIslands = ref([]); //検索結果に基づくデータの配列
 const keyword = ref("");
+const errorMessage = ref("");
 
 //募集中のデータ
 const fetchRecruitNewIslands = async () => {
@@ -127,10 +129,13 @@ onMounted(async () => {
 const searchProjects = () => {
   console.log(keyword.value);
   if (keyword.value.length > 20) {
-    alert("20文字以内で入力してください");
+    errorMessage.value = "20文字以内で入力してください";
+    // alert("20文字以内で入力してください");
+    keyword.value = "";
   } else {
     filteredRecruitNewIslands.value = filterRecruitNewIslands(keyword.value);
     keyword.value = "";
+    errorMessage.value = "";
   }
 };
 </script>

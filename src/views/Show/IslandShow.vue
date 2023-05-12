@@ -93,26 +93,24 @@ const joinProject = () => {
       <ShowBtn :islandId="island.id" :myId="myId" />
     </div>
 
-    <div class="detail__desc">
-      <p class="detail__desc__title">島情報</p>
-      <div class="detail__desc__text">
-        <p class="detail__desc__text__title">【詳細情報】</p>
-        {{ island.islandDescription }}
+    <div class="detail__underContent">
+      <div class="detail__scout">
+        <SideScout :islandId="island.id" :userJudge="userJudges" />
+      </div>
 
+      <div class="detail__desc">
+        <p class="detail__desc__title">【詳細情報】</p>
+        <p>{{ island.islandDescription }}</p>
         <div v-show="RecruitIshow">
-          <p class="detail__desc__text__title">【募集内容】</p>
+          <p class="detail__desc__title">【募集内容】</p>
           <p>{{ Recruits.recruitTitle }}</p>
           <p>{{ Recruits.recruitPoint }}</p>
         </div>
       </div>
-    </div>
-
-    <div class="detail__member">
-      <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
-    </div>
-
-    <div class="detail__scout">
-      <SideScout :islandId="island.id" :userJudge="userJudges" />
+      
+      <div class="detail__member">
+        <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
+      </div>
     </div>
   </div>
 </template>
