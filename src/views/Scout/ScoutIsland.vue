@@ -7,6 +7,7 @@
     </section>
 
     <!-- <div class="search"> -->
+    <div class="search_set">
       <form @submit.prevent="searchIslands">
         <input
           type="search"
@@ -18,7 +19,7 @@
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
       <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
-    <!-- </div> -->
+    </div>
 
     <section v-if="results">
       <div v-if="filteredIslands.length > 0">
