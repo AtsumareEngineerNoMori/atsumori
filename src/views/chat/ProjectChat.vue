@@ -14,12 +14,11 @@ import {
   query,
   startAt,
   endAt,
-  remove,
-  get
 } from "firebase/database";
 import Loading from "../../components/Loading.vue";
 import MyChat from "../../components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
+import { myIdJudge } from "../../userJudge";
 
 // プロジェクト詳細からprojectIdを受け取る
 const route = useRoute();
@@ -66,19 +65,15 @@ const getData = () => {
   };
   getProject().then(() => {
     const q = query(
-      dbRef(realtimeDB, "chat"),
+      dbRef(realtimeDB, myIdJudge()),
       orderByChild("projectId"),
       limitToLast(10),
       startAt(projectId),
       endAt(projectId)
     );
-    // const dataArray = [];
     onValue(q, (snapshot) => {
-      // const data = snapshot.val();
       realList.value = snapshot.val();
-      // dataArray.push(data);
-      // console.log(dataArray);
-      console.log(realList.value)
+      console.log(realList.value);
     });
     loading.value = false;
   });
@@ -87,7 +82,7 @@ const getData = () => {
 // チャットデータ全件取得
 const getAllData = () => {
   const q = query(
-    dbRef(realtimeDB, "chat"),
+    dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
     startAt(projectId),
     endAt(projectId)
@@ -104,7 +99,7 @@ const getAllData = () => {
 // 初回表示用にデータ全件取得
 const firstGetAllData = () => {
   const q = query(
-    dbRef(realtimeDB, "chat"),
+    dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
     startAt(projectId),
     endAt(projectId)
@@ -112,36 +107,42 @@ const firstGetAllData = () => {
   onValue(q, (snapshot) => {
     const data = snapshot.val();
     console.log(data);
-    if(data !== null){
-    allDataLength.value = Object.keys(data).length;
-    console.log(allDataLength.value);
+    if (data !== null) {
+      allDataLength.value = Object.keys(data).length;
+      console.log(allDataLength.value);
     }
   });
 };
 
 // リアルタイムデータベース参照
-const chatRef = dbRef(realtimeDB, "chat");
+const chatRef = dbRef(realtimeDB, myIdJudge());
 
 // 追加
 const submit = async () => {
-  // ログインユーザーの情報取得
-  const response = await fetch(`http://localhost:8000/users/?id=${uid.value}`);
-  const userData = await response.json();
-  console.log(userData);
+  if (message.value.length > 120) {
+    alert("120文字以内で入力してください");
+  } else {
+    // ログインユーザーの情報取得
+    const response = await fetch(
+      `http://localhost:8000/users/?id=${uid.value}`
+    );
+    const userData = await response.json();
+    console.log(userData);
 
-  // realtimeDBに追加
-  const newData = push(chatRef, {
-    userId: uid.value,
-    name: userData[0].name,
-    icon: userData[0].icon,
-    projectId: projectId,
-    createDate: serverTimestamp(),
-    message: message.value,
-  });
-  console.log("追加");
-  console.log(newData.key);
-  // 空の状態に戻す
-  message.value = "";
+    // realtimeDBに追加
+    const newData = push(chatRef, {
+      userId: uid.value,
+      name: userData[0].name,
+      icon: userData[0].icon,
+      projectId: projectId,
+      createDate: serverTimestamp(),
+      message: message.value,
+    });
+    console.log("追加");
+    console.log(newData.key);
+    // 空の状態に戻す
+    message.value = "";
+  }
 };
 
 // さらに読み込むボタン
@@ -151,24 +152,10 @@ const loadMore = () => {
 
 // 最新メッセージへ自動スクロール(DOM更新後に呼び出される)
 onUpdated(() => {
-  if(realList.value !== null){
-  messageScreen.value.scrollTop = 800;
+  if (realList.value !== null) {
+    messageScreen.value.scrollTop = 1000;
   }
 });
-
-const deleteBtn = () => {
-  const q = query(
-    dbRef(realtimeDB, "chat"),
-    orderByChild("projectId"),
-    startAt(projectId),
-    endAt(projectId)
-  );
-  get(q).then((snapshot)=>{
-snapshot.forEach((a)=>{
-  remove(a.ref);
-})
-  })
-}
 </script>
 
 <template>
@@ -217,6 +204,5 @@ snapshot.forEach((a)=>{
       v-model="message"
     ></textarea>
     <button class="chat__submitBtn" @click="submit">送信</button>
-    <button @click="deleteBtn">削除</button>
   </div>
 </template>

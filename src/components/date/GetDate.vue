@@ -18,7 +18,7 @@ import {
 } from "firebase/database";
 const props = defineProps({
   createDate: Number,
-  displayList: Object,
+  chatList: Object,
   chat:Object
 });
 
@@ -45,36 +45,45 @@ console.log(timestamp)
 // 一意なキーだけ取得できた
 // props.chatの内容をもとにdbから条件指定して探す？
 const qMessage = query(
-  dbRef(realtimeDB, "chat"),
+  dbRef(realtimeDB, "chat2"),
   orderByChild("message"),
   startAt(props.chat.message),
   endAt(props.chat.message)
 )
 const qCreateDate = query(
-  dbRef(realtimeDB, "chat"),
+  dbRef(realtimeDB, "chat2"),
   orderByChild("createDate"),
   startAt(props.chat.createDate),
   endAt(props.chat.createDate)
 )
 const qUserId = query(
-  dbRef(realtimeDB, "chat"),
+  dbRef(realtimeDB, "chat2"),
   orderByChild("userId"),
   startAt(props.chat.userId),
   endAt(props.chat.userId)
 )
-// const q = query(
-//   dbRef(realtimeDB, "chat"),
-//   [qMessage,
-//   qCreateDate,
-//   qUserId]
-// )
-onValue(qMessage, (snapshot) => {
+const q = query(
+  dbRef(realtimeDB, "chat2"),
+  orderByChild("message").equalTo("こんにちは"),
+  orderByChild("createDate").equalTo(props.createDate),
+  orderByChild("userId").equalTo("20FZ8Rur4Je4NvLmrYryp8xn3Hi2")
+)
+onValue(q, (snapshot) => {
   const data = snapshot.val();
   console.log(data);
 })
+
+const keyArray = [];
 for(let data in props.displayList){
   console.log(data)
+  keyArray.push(data);
 }
+console.log(keyArray)
+// for(let i of keyArray){
+//   console.log(props.displayList.key("-NVDdV9uU_GKg9nu-0os").userId);
+// }
+// const a = [props.displayList]
+// console.log(a)
 
 console.log(Object.keys(props.displayList).length)
 // propsのデータが後のデータと異なっていたら表示する
