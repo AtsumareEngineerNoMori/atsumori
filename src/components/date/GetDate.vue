@@ -1,10 +1,30 @@
 <script setup>
 import { reactive, ref } from "vue";
+import { realtimeDB } from "../../../firebase";
+import {
+  ref as dbRef,
+  set,
+  push,
+  onValue,
+  onChildAdded,
+  serverTimestamp,
+  orderByChild,
+  equalTo,
+  limitToLast,
+  query,
+  startAt,
+  endAt,
+  child,
+} from "firebase/database";
 const props = defineProps({
-  createDate: String,
-  displayList: Array,
-  id: Number,
+  createDate: Number,
+  displayList: Object,
+  chat:Object
 });
+
+console.log(props.createDate);
+console.log(props.displayList)
+console.log(props.chat.createDate)
 
 const date = reactive({
   year: "",
@@ -17,18 +37,54 @@ const timestamp = new Date(props.createDate);
 const propsYear = timestamp.getFullYear();
 const propsMonth = timestamp.getMonth() + 1;
 const propsDate = timestamp.getDate().toString().padStart(2, "0");
+console.log(timestamp)
 
 // console.log(props.displayList);
 // console.log(props.createDate);
 // console.log(props.id);
+// 一意なキーだけ取得できた
+// props.chatの内容をもとにdbから条件指定して探す？
+const qMessage = query(
+  dbRef(realtimeDB, "chat"),
+  orderByChild("message"),
+  startAt(props.chat.message),
+  endAt(props.chat.message)
+)
+const qCreateDate = query(
+  dbRef(realtimeDB, "chat"),
+  orderByChild("createDate"),
+  startAt(props.chat.createDate),
+  endAt(props.chat.createDate)
+)
+const qUserId = query(
+  dbRef(realtimeDB, "chat"),
+  orderByChild("userId"),
+  startAt(props.chat.userId),
+  endAt(props.chat.userId)
+)
+// const q = query(
+//   dbRef(realtimeDB, "chat"),
+//   [qMessage,
+//   qCreateDate,
+//   qUserId]
+// )
+onValue(qMessage, (snapshot) => {
+  const data = snapshot.val();
+  console.log(data);
+})
+for(let data in props.displayList){
+  console.log(data)
+}
 
+console.log(Object.keys(props.displayList).length)
 // propsのデータが後のデータと異なっていたら表示する
-for (let i = 0; i < props.displayList.length - 1; i++) {
+for (let i = 0; i < Object.keys(props.displayList).length - 1; i++) {
   // console.log(`id${props.id}`);
   // console.log(`i番目のid${props.displayList[i].id}`);
+  console.log(props.displayList[i])
 
   // まるごと渡されたデータの中から該当データとその前後を比較
-  if (props.displayList[i].id === props.id) {
+  if (props.displayList[i] === props.chat) {
     // i番目が同じデータだからその次のデータと比べる
     const time1 = new Date(props.displayList[i + 1].createDate);
     date.year = time1.getFullYear();

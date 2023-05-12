@@ -10,7 +10,7 @@
     "mock-api": "json-server --watch data/db.json --port 8000"
   },
   "dependencies": {
-    "firebase": "^9.19.1",
+    "firebase": "^9.21.0",
     "micromodal": "^0.4.10",
     "vue": "^3.2.47",
     "vue-cookies": "^1.8.3",
