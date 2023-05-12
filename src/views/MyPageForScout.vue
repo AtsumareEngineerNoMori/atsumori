@@ -189,7 +189,7 @@ async function ScoutCansel(id) {
           </div>
         </li>
       </div>
-      <button class="mypage__morebutton" @click="moreIslands">
+      <button v-if="islandData.length >= 1" class="mypage__morebutton" @click="moreIslands">
         島一覧へ
       </button>
     </div>
