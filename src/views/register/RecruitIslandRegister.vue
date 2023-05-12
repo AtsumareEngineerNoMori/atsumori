@@ -147,7 +147,7 @@ const recruitIslandRegisterButton = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      projectId: projectId,
+      projectId: Number(projectId),
       recruitTitle: recruitIsland.recruitTitle,
       recruitJob: recruitIsland.recruitJob,
       recruitPoint: recruitIsland.recruitPoint,

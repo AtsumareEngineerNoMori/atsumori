@@ -46,23 +46,6 @@
         </div>
       </router-link>
     </section>
-    <!-- <section :class="{ search_list: true, hidden: !results }">
-      <div v-if="filteredUsers.length > 0">
-        <router-link
-          v-for="user in filteredUsers"
-          :key="user.id"
-          :to="`/mypageforscout/${$route.params.id}/${user.id}`"
-        >
-          <img :src="user.icon" alt="user" class="search_iconImg" />
-          <div class="search_recinfo">
-            <p>{{ user.name }}</p>
-          </div>
-        </router-link>
-      </div>
-      <div v-else class="search_no">
-        <p>検索結果はありません。</p>
-      </div>
-    </section> -->
   </div>
 </template>
 
@@ -121,7 +104,8 @@ const filterRecruitNewUsers = (query) => {
   const textChange = query.toLowerCase(); // 入力されたキーワードを小文字に変換
   const hiragana = textChange.replace(/[\u30a1-\u30f6]/g, (match) =>
     String.fromCharCode(match.charCodeAt(0) - 0x60)
-  ); // カタカナをひらがなに変換
+  );
+  // カタカナをひらがなに変換
   return originalRecruitNewUsers.value.filter((recruitNewUser) =>
     recruitNewUser.island.islandName
       .toLowerCase()

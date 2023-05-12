@@ -222,7 +222,6 @@ function check() {
 
           <p class="mypage__details">プロジェクト詳細：</p>
         
-         
           <div>
             <input
               type="text"
@@ -239,8 +238,7 @@ function check() {
       </ul>
     </div>
     <div class="edit__item">
-      <span>ひとこと：</span>
-      
+      <span>ひとこと：</span> 
       <p>
         <textarea
         name=""
@@ -255,7 +253,6 @@ function check() {
     <div style="height: 20px;">
       <div v-show="overComment" class="mypage__comment">{{ overComment }}</div>
     </div>
-    
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">キャンセル</button>
       <button class="edit__button" @click="updateProject">更新</button>
