@@ -67,41 +67,6 @@ async function iconEdit(event) {
 }
 
 
-// function convertToBase64(file) {
-//   return new Promise((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.onload = () => {
-//       resolve(reader.result);
-//       console.log("どない？", reader.result);
-//     };
-//     reader.onerror = (error) => reject(error);
-//     reader.readAsDataURL(file);
-//   });
-// }
-
-
-// async function uploadImageToFirebase(file) {
-//   const storageRef = storage.ref();
-//   const fileRef = storageRef.child(file.name);
-//   await fileRef.put(file);
-
-//   // Get URL of the image and return it
-//   const fileURL = await fileRef.getDownloadURL();
-//   return fileURL;
-// }
-
-
-//RecruitNewUser取得
-// const getFlight = async () => {
-//   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
-//   const recruitNewUserData = await response.json();
-//   console.log(recruitNewUserData);
-//   data.value = recruitNewUserData;
-//   console.log(data.value);
-// };
-// getFlight();
-
-
 //画像削除
 const removeIcon = () => {
   Island.value.icon = defaultIconURL;
