@@ -4,6 +4,8 @@ import { onMounted, ref as vueref } from "vue";
 import { useRouter } from "vue-router";
 import "../css/main.css";
 import { auth } from "../../firebase";
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 
 //会員情報取得
 const userId = vueref(); //firebaseでログインしてる人のID
@@ -53,8 +55,11 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
-    const base64String = await convertToBase64(file);
-    User.value.icon = base64String;
+    const storage = getStorage();
+    const storageRef = firebaseRef(storage, `icon/${file.name}`);
+    await uploadBytesResumable(storageRef, file);
+    const fileURL = await getDownloadURL(storageRef);
+    User.value.icon = fileURL;
   } catch (error) {
     console.error(error);
   }
