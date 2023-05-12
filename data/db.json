@@ -1,98 +1,15 @@
 {
-  "Users": [
-    {
-      "id": "8hw4tpAqiVeGxY3TOAdP8h9BkBa2",
-      "icon": "https://3.bp.blogspot.com/-n0PpkJL1BxE/VCIitXhWwpI/AAAAAAAAmfE/xLraJLXXrgk/s170/animal_hamster.png",
-      "name": "いくり",
-      "job": "CL",
-      "comment": "q",
-      "email": "ikuri@rakus-partners.co.jp"
-    },
-    {
-      "id": "PAC85dAi0HONgm10tWYXZYFH5Rp1",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Ffirebase-logo.png?alt=media&token=c37be35b-61bc-41de-9ef4-5f39437174fb",
-      "name": "テスト人間",
-      "job": "FR",
-      "comment": "テスト人間",
-      "email": "test@rakus-partners.co.jp"
-    },
-    {
-      "id": "qJCtop0RqTXjyW8JSb8LfYYbXMF2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Ffirebase-logo.png?alt=media&token=c5219687-302f-433d-a634-6ddd967199c7",
-      "name": "テスト人間",
-      "job": "FR",
-      "comment": "テスト人間",
-      "email": "test@rakus-partners.co.jp"
-    },
-    {
-      "id": "1lysXm3cajNV7zfMMWw7GGdOjo42",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "ぜろ",
-      "job": "ML",
-      "comment": "０",
-      "email": "0@rakus-partners.co.jp"
-    }
-  ],
-  "Islands": [
-    {
-      "islandName": "expressいくり",
-      "islandDescription": "エクスプレスいくり・・・・",
-      "adminId": "8hw4tpAqiVeGxY3TOAdP8h9BkBa2",
-      "createDate": "2023-05-12T02:37:10.734Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2FPinia.logo.png?alt=media&token=f841a9c8-71bc-428c-8c63-0d49026a7824",
-      "id": 1,
-      "comment": "フェふぇw"
-    },
-    {
-      "islandName": "piniaテスト人間",
-      "islandDescription": "piniaテスト人間",
-      "adminId": "PAC85dAi0HONgm10tWYXZYFH5Rp1",
-      "createDate": "2023-05-12T02:39:23.342Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2FPinia.logo.png?alt=media&token=a31a60aa-37e7-4bcd-8e23-b945e2dfe7d2",
-      "id": 2
-    },
-    {
-      "islandName": "TSきじま",
-      "islandDescription": "TSkizima",
-      "adminId": "qJCtop0RqTXjyW8JSb8LfYYbXMF2",
-      "createDate": "2023-05-12T02:41:37.772Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2FTypeScript.jpg?alt=media&token=61281226-2f39-4349-baa2-8667140e8c11",
-      "id": 3
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "ポスグレいくり",
-      "projectDescription": "ポスぐれ郁莉",
-      "adminId": "8hw4tpAqiVeGxY3TOAdP8h9BkBa2",
-      "createDate": "2023-05-12T02:37:40.878Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fcss-logo.png?alt=media&token=c21fd260-a8ba-4d9b-a350-6bb40f54235d",
-      "id": 1,
-      "comment": "だsだ"
-    },
-    {
-      "projectName": "人影テスト人間",
-      "projectDescription": "人影テスト人間",
-      "adminId": "PAC85dAi0HONgm10tWYXZYFH5Rp1",
-      "createDate": "2023-05-12T02:39:49.979Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2F%E4%BA%BA%E5%BD%B1.png?alt=media&token=43771b1d-615f-44da-ad06-d854748745df",
-      "id": 2
-    },
-    {
-      "projectName": "VUEきじま",
-      "projectDescription": "VUEきじま",
-      "adminId": "qJCtop0RqTXjyW8JSb8LfYYbXMF2",
-      "createDate": "2023-05-12T02:42:04.534Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fvue-logo.png?alt=media&token=d0858863-b579-4c4d-acbf-880605d6bfc9",
-      "id": 3
-    }
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
   "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
   "JoinIslands": [],
   "JoinProjects": [],
+  "IslandChat": [],
+  "ProjectChat": [],
   "UserScout": [],
   "IslandScout": []
 }
