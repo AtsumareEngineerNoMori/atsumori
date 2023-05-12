@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <!-- <div class="search"> -->
     <div class="all">
       <div class="search_selects4">
         <button
@@ -45,7 +45,7 @@
         <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
