@@ -128,7 +128,7 @@ const router = createRouter({
       component: ProjectShow,
     },
     {
-      path: "/scoutShow/:islandId/:projectId",
+      path: "/scoutShow/:projectId/:islandId",
       name: "scoutShow",
       component: ScoutShow,
     },

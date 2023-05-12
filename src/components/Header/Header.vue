@@ -6,7 +6,6 @@
       </RouterLink>
       <HeaderModal />
     </div>
-
   </div>
 </template>
 

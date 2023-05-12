@@ -5,9 +5,10 @@ import ShowBtn from "../../components/projectShow/ShowBtn.vue";
 import Loading from "../../components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 const project = ref([]);
 const adminName = ref();
@@ -30,45 +31,49 @@ onMounted(async () => {
   const projectDatas = await fetch(`http://localhost:8000/Projects/${id}`).then(
     (res) => res.json()
   );
-  project.value = projectDatas;
+  if (Object.keys(projectDatas).length === 0) {
+    router.push("/top");
+  } else {
+    project.value = projectDatas;
 
-  // 管理者かの判別
-  userJudges.value = adminJudge(project.value.adminId, myId.value);
-  // 管理者の名前取得
-  const adminData = await fetch(
-    `http://localhost:8000/Users/${project.value.adminId}`
-  ).then((res) => res.json());
-  adminName.value = adminData.name;
-
-  // 参加者か未参加者かの判別
-  const joinProjects = await fetch(
-    `http://localhost:8000/JoinProjects?projectId=${id}`
-  ).then((res) => res.json());
-
-  const islandIds = joinProjects.map((joinProject) => joinProject.islandId);
-  islandId.value = islandIds;
-
-  // 島idから島の参加者データを取得
-  for (let islandId of islandIds) {
-    const joinIslands = await fetch(
-      `http://localhost:8000/JoinIslands?islandId=${islandId}`
+    // 管理者かの判別
+    userJudges.value = adminJudge(project.value.adminId, myId.value);
+    // 管理者の名前取得
+    const adminData = await fetch(
+      `http://localhost:8000/Users/${project.value.adminId}`
     ).then((res) => res.json());
-    for (let joinIsland of joinIslands) {
-      userIds.value.push(joinIsland.userId);
+    adminName.value = adminData.name;
+
+    // 参加者か未参加者かの判別
+    const joinProjects = await fetch(
+      `http://localhost:8000/JoinProjects?projectId=${id}`
+    ).then((res) => res.json());
+
+    const islandIds = joinProjects.map((joinProject) => joinProject.islandId);
+    islandId.value = islandIds;
+
+    // 島idから島の参加者データを取得
+    for (let islandId of islandIds) {
+      const joinIslands = await fetch(
+        `http://localhost:8000/JoinIslands?islandId=${islandId}`
+      ).then((res) => res.json());
+      for (let joinIsland of joinIslands) {
+        userIds.value.push(joinIsland.userId);
+      }
     }
+
+    // 募集要項取得
+    const Recruit = await fetch(
+      `http://localhost:8000/RecruitNewIsland?projectId=${id}`
+    ).then((res) => res.json());
+
+    if (Recruit.length >= 1) {
+      RecruitIshow.value = true;
+      Recruits.value = Recruit[0];
+    }
+
+    loading.value = true;
   }
-
-  // 募集要項取得
-  const Recruit = await fetch(
-    `http://localhost:8000/RecruitNewIsland?projectId=${id}`
-  ).then((res) => res.json());
-
-  if (Recruit.length >= 1) {
-    RecruitIshow.value = true;
-    Recruits.value = Recruit[0];
-  }
-
-  loading.value = true;
 });
 </script>
 
