@@ -25,7 +25,7 @@
           <router-link
             v-for="island in filteredIslands"
             :key="island.id"
-            :to="`/projectShow/${$route.params.projectId}/${island.id}`"
+            :to="`/scoutShow/${$route.params.projectId}/${island.id}`"
           >
             <!-- <router-link
           v-for="(island, index) in filteredIslands.slice(0, 5)"
