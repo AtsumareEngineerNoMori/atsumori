@@ -2,7 +2,7 @@
 import { reactive } from "vue";
 
 const props = defineProps({
-  createDate: String,
+  createDate: Number,
 });
 
 const date = reactive({

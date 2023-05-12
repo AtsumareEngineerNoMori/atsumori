@@ -73,9 +73,8 @@ const noDataBtn = () => {
         </div>
       </section>
       <section class="list__list" v-else>
-        <!-- リンク先かえる -->
         <div v-for="project in projectData" :key="project" class="list__item">
-          <RouterLink v-bind:to="{ name: 'joinProject' }">
+          <RouterLink v-bind:to="{ name: 'projectShow', params: { id: project[0].id } }">
             <img
               v-bind:src="project[0].icon"
               alt="project"

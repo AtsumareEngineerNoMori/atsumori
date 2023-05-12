@@ -6,15 +6,19 @@ const props = defineProps({
 </script>
 
 <template>
-  <img
-    :src="props.chat[0].icon"
-    alt="userIcon"
-    class="chat__messageWrapper-userIcon"
-  />
+  <RouterLink v-bind:to="{ name: 'mypage' }" class="chat__messageWrapper-userIcon">
+    <img
+      :src="props.chat.icon"
+      alt="userIcon"
+      class="chat__messageWrapper-userIcon-img"
+    />
+  </RouterLink>
   <div class="chat__messageWrapper-message">
-    <p class="chat__messageWrapper-myMessage-userName">
-      {{ props.chat[0].name }}
-    </p>
+    <RouterLink v-bind:to="{ name: 'mypage' }">
+      <p class="chat__messageWrapper-myMessage-userName">
+        {{ props.chat.name }}
+      </p>
+    </RouterLink>
     <div class="chat__messageWrapper-myMessage-comDate">
       <div class="chat__messageWrapper-myComment">
         <p class="chat__messageWrapper-myComment-text">
