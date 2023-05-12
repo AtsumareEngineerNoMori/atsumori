@@ -1,9 +1,11 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+// import { storage } from '../../firebase'; 
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import "../css/main.css";
-
+// const storageRef = storage.ref();
 const route = useRoute();
 const router = useRouter();
 
@@ -12,6 +14,7 @@ const IslandId = ref(route.params.id);
 const Island = ref({
   icon: "",
   islandName: "",
+  islandDescription: "", 
   comment: "",
 });
 
@@ -47,20 +50,43 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
-    const base64String = await convertToBase64(file);
-    Island.value.icon = base64String;
+    
+    const storage = getStorage(); // Firebase Storage instance
+    const storageRef = firebaseRef(storage, `island/${file.name}`); // Firebase Storageに保存するパスを指定
+    await uploadBytesResumable(storageRef, file); // ファイルをFirebase Storageにアップロード
+
+    // アップロードした画像のURLを取得して、Island.iconにセット
+    const fileURL = await getDownloadURL(storageRef);
+    Island.value.icon = fileURL;
   } catch (error) {
     console.error(error);
   }
 }
+
+
 function convertToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
+    reader.onload = () => {
+      resolve(reader.result);
+      console.log("どない？", reader.result);
+    };
     reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
   });
 }
+
+
+async function uploadImageToFirebase(file) {
+  const storageRef = storage.ref();
+  const fileRef = storageRef.child(file.name);
+  await fileRef.put(file);
+
+  // Get URL of the image and return it
+  const fileURL = await fileRef.getDownloadURL();
+  return fileURL;
+}
+
 
 //RecruitNewUser取得
 // const getFlight = async () => {
@@ -135,7 +161,7 @@ async function updateIslands() {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
-    router.push(`/islandShow/${Island.value.id}`);
+    // router.push(`/islandShow/${Island.value.id}`);
   } catch (err) {
     console.log("更新できません", err);
   }
