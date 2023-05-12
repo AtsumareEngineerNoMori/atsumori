@@ -20,8 +20,10 @@
             v-model="recruitUser.recruitTitle"
             @change="changeTitle"
           />
-          <p class="recruitVal" v-if="titleLength">募集タイトルを入力してください</p>
-          <p class="recruitVal"  v-if="recruitUser.recruitTitle.length > 20">
+          <p class="recruitVal" v-if="titleLength">
+            募集タイトルを入力してください
+          </p>
+          <p class="recruitVal" v-if="recruitUser.recruitTitle.length > 20">
             20文字以下で入力してください
           </p>
         </div>
@@ -75,7 +77,9 @@
             @change="changeSelect"
           />
           その他
-          <p class="recruitVal"  v-if="selectLength">募集職種を選択してください</p>
+          <p class="recruitVal" v-if="selectLength">
+            募集職種を選択してください
+          </p>
         </div>
         <div>
           <p class="RecruitUserRegister-details-infomationSet-infomation">
@@ -86,8 +90,12 @@
             v-model="recruitUser.recruitPoint"
             @change="changeInfomation"
           ></textarea>
-          <p class="recruitVal" v-if="infomationLength">募集要項を入力してください</p>
-          <p class="recruitVal"  v-if="recruitUser.recruitPoint.length >255">255文字以下で入力してください</p>
+          <p class="recruitVal" v-if="infomationLength">
+            募集要項を入力してください
+          </p>
+          <p class="recruitVal" v-if="recruitUser.recruitPoint.length > 255">
+            255文字以下で入力してください
+          </p>
         </div>
         <div class="RecruitUserRegister-buttonset">
           <button class="RecruitUserRegister-button">登録する</button>
@@ -149,38 +157,37 @@ const recruitUserRegisterButton = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      islandId: islandId,
+      islandId: Number(islandId),
       recruitTitle: recruitUser.recruitTitle,
       recruitJob: recruitUser.recruitJob,
       recruitPoint: recruitUser.recruitPoint,
       createDate: new Date(),
       islandName: islands.value.islandName,
       islandIcon: islands.value.icon,
-      id: islandId,
     }),
   });
 };
 
 const registerRecruitUser = () => {
   if (recruitUser.recruitTitle === "") {
-    titleLength.value=true
+    titleLength.value = true;
   }
-  if (recruitUser.recruitJob === ""){
-    selectLength.value=true
+  if (recruitUser.recruitJob === "") {
+    selectLength.value = true;
   }
-  if(recruitUser.recruitPoint === ""){
-    infomationLength.value=true
+  if (recruitUser.recruitPoint === "") {
+    infomationLength.value = true;
   }
 
-
-  if (recruitUser.recruitTitle === "" ||
-  recruitUser.recruitJob === "" ||
-  recruitUser.recruitPoint === "" ||
-  recruitUser.recruitTitle.length > 20 ||
-  recruitUser.recruitPoint.length > 255
+  if (
+    recruitUser.recruitTitle === "" ||
+    recruitUser.recruitJob === "" ||
+    recruitUser.recruitPoint === "" ||
+    recruitUser.recruitTitle.length > 20 ||
+    recruitUser.recruitPoint.length > 255
   ) {
-    window.alert("入力が間違っているところがあります")
-   console.log("エラーあります")
+    window.alert("入力が間違っているところがあります");
+    console.log("エラーあります");
   } else {
     recruitUserRegisterButton();
     router.push("/top");
