@@ -88,7 +88,7 @@ const userScout  = () => {
     <div class="mypage__container">
       <div class="mypage__column">
         <span
-          ><img :src="User.icon" alt="" class="mypage__profileiconImg"
+          ><img :src="User.icon" alt="" class="mypage__mypageprofileiconImg"
         /></span>
         <router-link to="/mypageedit"
           ><button class="mypage__editbutton">
@@ -132,8 +132,9 @@ const userScout  = () => {
         </li>
       </div>
       <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
-      <button v-if="islandData.length >= 4" class="mypage__morebutton" @click="moreIslands">
-        もっと見る
+      <!-- <button v-if="islandData.length >= 4" class="mypage__morebutton" @click="moreIslands"> -->
+      <button v-if="islandData.length >= 1" class="mypage__morebutton" @click="moreIslands">
+        島一覧へ
       </button>
     </div>
   </div>

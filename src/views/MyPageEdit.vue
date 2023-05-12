@@ -1,14 +1,14 @@
 <script setup>
 // import { placeholder } from "@babel/types";
-import { onMounted, ref } from "vue";
+import { onMounted, ref as vueref } from "vue";
 import { useRouter } from "vue-router";
 import "../css/main.css";
 import { auth } from "../../firebase";
 
 //会員情報取得
-const userId = ref(); //firebaseでログインしてる人のID
-const err = ref();
-const User = ref({
+const userId = vueref(); //firebaseでログインしてる人のID
+const err = vueref();
+const User = vueref({
   icon: "",
   name: "",
   icon: "",
@@ -16,8 +16,8 @@ const User = ref({
   comment: "",
 });
 const router = useRouter();
-const overName = ref("");
-const overComment = ref("");
+const overName = vueref("");
+const overComment = vueref("");
 
 const back = () => {
   router.push("/mypage");

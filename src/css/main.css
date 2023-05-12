@@ -368,6 +368,14 @@
   cursor: pointer;
   opacity: 0.8;
 }
+.mypage__mypageprofileiconImg {
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+  margin-bottom: 40px;
+}
 .mypage__item {
   width: 450px;
   margin-bottom: 10px;
@@ -423,9 +431,8 @@
 }
 .mypage__morebutton {
   padding: 1% 2%;
-  margin-left: auto;
+  margin: 0 0 40px 40px;
   position: absolute;
-  right: 35px;
   bottom: 100px;
 }
 .mypage__morebutton:hover {
@@ -1066,7 +1073,6 @@ button {
   display: inline-block;
   margin: 0 15px 0 5px;
   padding: 7px 10px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1091,7 +1097,6 @@ button {
   display: inline-block;
   margin: 0 5px 0 15px;
   padding: 7px 10px;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   border-radius: 8px;
@@ -1124,10 +1129,6 @@ button {
   outline: none;
 }
 .chat__textarea::-moz-placeholder {
-  color: #847154;
-  opacity: 0.7;
-}
-.chat__textarea:-ms-input-placeholder {
   color: #847154;
   opacity: 0.7;
 }
@@ -1896,36 +1897,8 @@ button {
   border-radius: 50%;
   position: relative;
   text-indent: -9999em;
-  -webkit-animation: load4 1.3s infinite linear;
   animation: load4 1.3s infinite linear;
   transform: translateZ(0);
-}
-
-@-webkit-keyframes load4 {
-  0%, 100% {
-    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
-  }
-  12.5% {
-    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
-  }
-  25% {
-    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
-  }
-  37.5% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
-  }
-  50% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
-  }
-  62.5% {
-    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
-  }
-  75% {
-    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
-  }
-  87.5% {
-    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
-  }
 }
 @keyframes load4 {
   0%, 100% {

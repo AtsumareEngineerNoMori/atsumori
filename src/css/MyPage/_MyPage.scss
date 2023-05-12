@@ -25,6 +25,15 @@
     cursor: pointer;
     opacity: 0.8;
   }
+  &__mypageprofileiconImg {
+    width: 170px;
+    height: 170px;
+    border: 2px solid;
+    border-color: green;
+    border-radius: 50%;
+    margin-bottom: 40px;
+  }
+
   &__item {
     width: 450px;
     margin-bottom: 10px;
@@ -80,9 +89,10 @@
   }
   &__morebutton {
     padding: 1% 2%;
-    margin-left: auto;
+    margin: 0 0 40px 40px;
+    // margin-left: auto;
     position: absolute;
-    right: 35px;
+    // right: 35px;
     bottom: 100px;
   }
 
