@@ -107,7 +107,7 @@ const joinProject = () => {
           <p>{{ Recruits.recruitPoint }}</p>
         </div>
       </div>
-      
+
       <div class="detail__member">
         <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
       </div>
