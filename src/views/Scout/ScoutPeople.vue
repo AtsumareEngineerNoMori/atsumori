@@ -6,7 +6,7 @@
       <h3 class="search_title">スカウトする難民を探す</h3>
     </section>
 
-    <div class="search">
+    <div>
       <form @submit.prevent="searchUsers">
         <input
           type="search"

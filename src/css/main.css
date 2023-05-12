@@ -886,6 +886,7 @@ button {
 .search {
   width: 1000px;
   background-color: #fffcf4;
+  min-height: 90vh;
 }
 .search_title {
   padding: 4%;
@@ -967,6 +968,7 @@ button {
 .search_set {
   border: 3px dashed #4b7031;
   width: 80%;
+  height: 180px;
   margin: 0 auto;
   background-color: white;
   padding: 3%;
