@@ -89,51 +89,10 @@
   ],
   "RecruitNewUser": [],
   "RecruitNewIsland": [],
-  "RequestIsland": [
-    {
-      "userId": "PAC85dAi0HONgm10tWYXZYFH5Rp1",
-      "islandId": "1",
-      "comment": "あああ",
-      "id": 1
-    }
-  ],
+  "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "8hw4tpAqiVeGxY3TOAdP8h9BkBa2",
-      "islandId": 1,
-      "id": 1
-    },
-    {
-      "userId": "PAC85dAi0HONgm10tWYXZYFH5Rp1",
-      "islandId": 2,
-      "id": 2
-    },
-    {
-      "userId": "qJCtop0RqTXjyW8JSb8LfYYbXMF2",
-      "islandId": 3,
-      "id": 3
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    },
-    {
-      "islandId": 2,
-      "projectId": 2,
-      "id": 2
-    },
-    {
-      "islandId": 3,
-      "projectId": 3,
-      "id": 3
-    }
-  ],
-  "IslandChat": [],
-  "ProjectChat": [],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "UserScout": [],
   "IslandScout": []
 }

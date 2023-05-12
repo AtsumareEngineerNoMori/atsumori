@@ -30,7 +30,7 @@
           <router-link
             v-for="island in randomIslands"
             :key="island.id"
-            :to="`/projectShow/${$route.params.projectId}/${island.id}`"
+            :to="`/scoutShow/${$route.params.projectId}/${island.id}`"
             class="search_result"
           >
             <div class="search_flex">

@@ -44,22 +44,57 @@ const deleteRecruit = () => {
 };
 
 // プロジェクト解散
-const deleteProject = () => {
+const deleteProject = async () => {
   alert("本当に削除してもよろしいですか？");
   try {
-    // プロジェクトの削除
     const projectId = props.projectId;
-    fetch(`http://localhost:8000/projects/${projectId}`, {
+
+    const db = ["RequestProject", "JoinProjects", "IslandScout"];
+    const ids = [];
+
+    //削除するプロジェクトの関連データのidを取得
+    for (let i of db) {
+      const datas = await fetch(
+        `http://localhost:8000/${i}?projectId=${projectId}`
+      ).then((res) => res.json());
+      const dataIds = datas.map((dataId) => dataId.id);
+      ids.push(dataIds);
+    }
+
+    // 削除するプロジェクトの関連データの削除
+    for (let i = 0; i < db.length; i++) {
+      if (ids[i].length > 0) {
+        for (let id of ids[i]) {
+          await fetch(`http://localhost:8000/${db[i]}/${id}`, {
+            method: "delete",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+      }
+    }
+
+    // 募集削除（あったら）
+    if (recruitIsShow.value) {
+      await fetch(
+        `http://localhost:8000/RecruitNewIsland/${recruitData.value.id}`,
+        {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    // プロジェクトの削除
+    await fetch(`http://localhost:8000/projects/${projectId}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    // 募集削除（あったら）
-    if (recruitIsShow.value) {
-      deleteRecruit();
-    }
 
     router.push("/top");
   } catch (e) {
