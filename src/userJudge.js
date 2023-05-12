@@ -28,4 +28,18 @@ function joinJudge(joinIds, myId) {
   }
 }
 
-export { userJudge, adminJudge, joinJudge };
+function myIdJudge() {
+  if (import.meta.env.VITE_MYID == 1) {
+    return "chat1";
+  } else if (import.meta.env.VITE_MYID == 2) {
+    return "chat2";
+  } else if (import.meta.env.VITE_MYID == 3) {
+    return "chat3";
+  } else if (import.meta.env.VITE_MYID == 4) {
+    return "chat4";
+  } else {
+    return "chat5";
+  }
+}
+
+export { userJudge, adminJudge, joinJudge, myIdJudge };
