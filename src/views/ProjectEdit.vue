@@ -176,15 +176,13 @@ function check() {
   } else {
     overDescription.value = "";
   }
-
   const maxComment = 255;
-  if (Project.value.comment.length > maxComment) {
-    overComment.value = "ひとことは255文字以内で入力してください";
-    isValid = false;
-  } else {
-    overComment.value = "";
-  }
-
+if (Project.value.comment && Project.value.comment.length > maxComment) {
+  overComment.value = "ひとことは255文字以内で入力してください";
+  isValid = false;
+} else {
+  overComment.value = "";
+}
   return isValid;
 }
 </script>
