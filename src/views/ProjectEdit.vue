@@ -48,6 +48,7 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
+    
     const base64String = await convertToBase64(file);
     Project.value.icon = base64String;
   } catch (error) {

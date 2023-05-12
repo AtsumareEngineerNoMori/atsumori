@@ -161,7 +161,7 @@ async function updateIslands() {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
     console.log("更新！！！！");
-    // router.push(`/islandShow/${Island.value.id}`);
+    router.push(`/islandShow/${Island.value.id}`);
   } catch (err) {
     console.log("更新できません", err);
   }

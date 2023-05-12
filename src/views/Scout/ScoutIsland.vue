@@ -6,7 +6,7 @@
       <h3 class="search_title">スカウトする島を探す</h3>
     </section>
 
-    <div class="search">
+    <!-- <div class="search"> -->
       <form @submit.prevent="searchIslands">
         <input
           type="search"
@@ -18,7 +18,7 @@
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
       <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
-    </div>
+    <!-- </div> -->
 
     <section v-if="results">
       <div v-if="filteredIslands.length > 0">
