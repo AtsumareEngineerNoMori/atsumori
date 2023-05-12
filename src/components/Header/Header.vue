@@ -4,7 +4,7 @@
       <RouterLink to="/top" class="header-logo">
         <img src="../../../public/atsumori.png" />
       </RouterLink>
-      <HeaderModal class="header-menu" />
+      <HeaderModal />
     </div>
 
   </div>

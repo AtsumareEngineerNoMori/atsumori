@@ -87,8 +87,7 @@ const noDataBtn = () => {
       </section>
       <section class="list__list" v-else>
         <div v-for="island in islandData" :key="island" class="list__item">
-          <!-- リンク先変える -->
-          <RouterLink v-bind:to="{ name: 'joinIsland' }">
+          <RouterLink v-bind:to="{ name: 'islandShow',params: { id: island[0].id } }">
             <img
               v-bind:src="island[0].icon"
               alt="island"
