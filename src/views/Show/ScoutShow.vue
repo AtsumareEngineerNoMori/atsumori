@@ -1,24 +1,13 @@
 <script setup>
-import AdminModal from "../../components/modal/Island-AdminModal.vue";
 import SideMember from "../../components/islandShow/SideMember.vue";
-import SideScout from "../../components/islandShow/SideScout.vue";
-import ShowBtn from "../../components/islandShow/ShowBtn.vue";
 import Loading from "../../components/Loading.vue";
-import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { onAuthStateChanged, getAuth } from "@firebase/auth";
 
 const route = useRoute();
 const router = useRouter();
-
 const island = ref([]);
-const adminId = ref("X");
-const myId = ref();
 const adminName = ref();
-const Recruits = ref([]);
-const RecruitIshow = ref(false);
-
 const loading = ref(false);
 
 onMounted(async () => {
@@ -28,24 +17,10 @@ onMounted(async () => {
   );
   island.value = islandData;
 
-  // ログインID取得
-  const userId = $cookies.get("myId");
-  myId.value = userId;
-
   const adminData = await fetch(
     `http://localhost:8000/Users/${islandData.adminId}`
   ).then((res) => res.json());
   adminName.value = adminData.name;
-
-  // 募集要項取得
-  const Recruit = await fetch(
-    `http://localhost:8000/RecruitNewUser?islandId=${id}`
-  ).then((res) => res.json());
-
-  if (Recruit.length >= 1) {
-    RecruitIshow.value = true;
-    Recruits.value = Recruit[0];
-  }
 
   loading.value = true;
 });
@@ -105,22 +80,15 @@ const joinProject = () => {
       <button @click="scoutRouter" class="showBtn showScout">スカウト</button>
     </div>
 
-    <div class="detail__desc">
-      <p class="detail__desc__title">島情報</p>
-      <div class="detail__desc__text">
-        <p class="detail__desc__text__title">【詳細情報】</p>
-        {{ island.islandDescription }}
-
-        <div v-show="RecruitIshow">
-          <p class="detail__desc__text__title">【募集内容】</p>
-          <p>{{ Recruits.recruitTitle }}</p>
-          <p>{{ Recruits.recruitPoint }}</p>
-        </div>
+    <div class="projectDetail__underContent">
+      <div class="projectDetail__desc">
+        <p class="projectDetail__desc__title">【詳細情報】</p>
+        <p>{{ island.islandDescription }}</p>
       </div>
-    </div>
 
-    <div class="detail__member">
-      <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
+      <div class="detail__member">
+        <SideMember :islandId="island.id" :adminId="'x'" :myId="'a'" />
+      </div>
     </div>
   </div>
 </template>

@@ -129,9 +129,11 @@ const scoutRouter = () => {
   <div class="member">
     <p class="member__title">メンバー</p>
     <div v-for="user in users" class="member__content">
-      <a @click="userRouter(user.id)">
+      <!-- <a @click="userRouter(user.id)"> -->
+      <router-link :to="{ name: 'othermypage', params: { id: user.id } }">
         <img :src="user.icon" class="member__content__icon" />
-      </a>
+      </router-link>
+      <!-- </a> -->
 
       <span class="member__content__name">{{ user.name }}</span>
     </div>
