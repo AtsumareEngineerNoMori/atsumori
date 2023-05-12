@@ -1,11 +1,14 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-// import { storage } from '../../firebase'; 
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import "../css/main.css";
-// const storageRef = storage.ref();
+
+//デフォルトの画像
+const defaultIconURL =
+  "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png";
+
 const route = useRoute();
 const router = useRouter();
 
@@ -63,44 +66,6 @@ async function iconEdit(event) {
   }
 }
 
-
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      resolve(reader.result);
-      console.log("どない？", reader.result);
-    };
-    reader.onerror = (error) => reject(error);
-    reader.readAsDataURL(file);
-  });
-}
-
-
-async function uploadImageToFirebase(file) {
-  const storageRef = storage.ref();
-  const fileRef = storageRef.child(file.name);
-  await fileRef.put(file);
-
-  // Get URL of the image and return it
-  const fileURL = await fileRef.getDownloadURL();
-  return fileURL;
-}
-
-
-//RecruitNewUser取得
-// const getFlight = async () => {
-//   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
-//   const recruitNewUserData = await response.json();
-//   console.log(recruitNewUserData);
-//   data.value = recruitNewUserData;
-//   console.log(data.value);
-// };
-// getFlight();
-
-//デフォルトの画像
-const defaultIconURL =
-  "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png";
 
 //画像削除
 const removeIcon = () => {
@@ -197,15 +162,13 @@ function check() {
     overDescription.value = "";
   }
 
-  // Island.commentに関するバリデーション
   const maxComment = 255;
-  if (Island.value.comment.length > maxComment) {
-    overComment.value = "ひとことは255文字以内で入力してください";
-    isValid = false;
-  } else {
-    overComment.value = "";
-  }
-
+if (Island.value.comment && Island.value.comment.length > maxComment) {
+  overComment.value = "ひとことは255文字以内で入力してください";
+  isValid = false;
+} else {
+  overComment.value = "";
+}
   return isValid; // すべて成功
 }
 </script>

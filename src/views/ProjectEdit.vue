@@ -1,8 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 import "../css/main.css";
 
+
+//デフォルトの画像
 const img = {
   icon: "https://1.bp.blogspot.com/-EHBItm2ov28/X7zMLiDUlnI/AAAAAAABcZg/Hn1EagLhVecSENp47dA46nL8wXAP4iChQCNcBGAsYHQ/s608/sweets_tarte_strawberry.png",
   name: "アイコン",
@@ -11,6 +15,7 @@ const img = {
 const route = useRoute();
 const router = useRouter();
 
+//プロジェクト情報取得
 const ProjectId = ref(route.params.id);
 const Project = ref("");
 
@@ -48,21 +53,16 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
-    
-    const base64String = await convertToBase64(file);
-    Project.value.icon = base64String;
+    const storage = getStorage();
+    const storageRef = firebaseRef(storage, `project/${file.name}`);
+    await uploadBytesResumable(storageRef, file);
+    const fileURL = await getDownloadURL(storageRef);
+    Project.value.icon = fileURL;
   } catch (error) {
     console.error(error);
   }
 }
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
+
 
 //RecruitNewUser取得
 const getFlight = async () => {
@@ -175,15 +175,13 @@ function check() {
   } else {
     overDescription.value = "";
   }
-
   const maxComment = 255;
-  if (Project.value.comment.length > maxComment) {
-    overComment.value = "ひとことは255文字以内で入力してください";
-    isValid = false;
-  } else {
-    overComment.value = "";
-  }
-
+if (Project.value.comment && Project.value.comment.length > maxComment) {
+  overComment.value = "ひとことは255文字以内で入力してください";
+  isValid = false;
+} else {
+  overComment.value = "";
+}
   return isValid;
 }
 </script>
