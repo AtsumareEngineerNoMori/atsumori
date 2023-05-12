@@ -216,45 +216,43 @@ function check() {
               class="edit__input"
             />
           </div>
-          <div style="height: 40px">
-            <span v-show="overName" class="mypage__check">{{ overName }}</span>
+          <div style="height: 40px;">
+             <span v-show="overName" class="mypage__check">{{ overName }}</span>
           </div>
 
           <p class="mypage__details">プロジェクト詳細：</p>
-
+        
           <div>
             <input
               type="text"
               v-model="Project.projectDescription"
               class="edit__input"
             />
-          </div>
-          <div style="height: 40px">
+          </div> 
+          <div style="height: 40px;">
             <span v-show="overDescription" class="mypage__check">{{
-              overDescription
-            }}</span>
-          </div>
+            overDescription
+          }}</span>
+          </div> 
         </li>
       </ul>
     </div>
     <div class="edit__item">
-      <span>ひとこと：</span>
-
+      <span>ひとこと：</span> 
       <p>
         <textarea
-          name=""
-          id=""
-          cols="30"
-          rows="10"
-          class="edit__textarea"
-          v-model="Project.comment"
+        name=""
+        id=""
+        cols="30"
+        rows="10"
+        class="edit__textarea"
+        v-model="Project.comment"
         ></textarea>
       </p>
     </div>
-    <div style="height: 20px">
+    <div style="height: 20px;">
       <div v-show="overComment" class="mypage__comment">{{ overComment }}</div>
     </div>
-
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">キャンセル</button>
       <button class="edit__button" @click="updateProject">更新</button>

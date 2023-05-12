@@ -43,6 +43,7 @@ onMounted(() => {
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
       router.push("/top");
+      console.log("ログイン中")
     } else {
       console.log("ログインしてないです");
     }

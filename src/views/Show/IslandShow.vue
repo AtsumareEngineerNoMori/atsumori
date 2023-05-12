@@ -26,31 +26,35 @@ onMounted(async () => {
   const islandData = await fetch(`http://localhost:8000/Islands/${id}`).then(
     (res) => res.json()
   );
-  island.value = islandData;
-  adminId.value = islandData.adminId;
+  if (Object.keys(islandData).length === 0) {
+    router.push("/top");
+  } else {
+    island.value = islandData;
+    adminId.value = islandData.adminId;
 
-  // ログインID取得
-  const userId = $cookies.get("myId");
-  myId.value = userId;
+    // ログインID取得
+    const userId = $cookies.get("myId");
+    myId.value = userId;
 
-  // ユーザーの判別
-  userJudges.value = adminJudge(adminId.value, myId.value);
+    // ユーザーの判別
+    userJudges.value = adminJudge(adminId.value, myId.value);
 
-  const adminData = await fetch(
-    `http://localhost:8000/Users/${islandData.adminId}`
-  ).then((res) => res.json());
-  adminName.value = adminData.name;
+    const adminData = await fetch(
+      `http://localhost:8000/Users/${islandData.adminId}`
+    ).then((res) => res.json());
+    adminName.value = adminData.name;
 
-  // 募集要項取得
-  const Recruit = await fetch(
-    `http://localhost:8000/RecruitNewUser?islandId=${id}`
-  ).then((res) => res.json());
+    // 募集要項取得
+    const Recruit = await fetch(
+      `http://localhost:8000/RecruitNewUser?islandId=${id}`
+    ).then((res) => res.json());
 
-  if (Recruit.length >= 1) {
-    RecruitIshow.value = true;
-    Recruits.value = Recruit[0];
+    if (Recruit.length >= 1) {
+      RecruitIshow.value = true;
+      Recruits.value = Recruit[0];
+    }
+    loading.value = true;
   }
-  loading.value = true;
 });
 
 const joinProject = () => {

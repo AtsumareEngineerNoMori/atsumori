@@ -2,10 +2,13 @@
 import { onMounted, ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
 // 島詳細画面からislandIdを受け取る
+const route = useRoute();
+const islandId = route.params.id;
+console.log(islandId);
 
 // joinProjectsから取得したislandIdが等しいデータを保管
 const joinList = ref([]);
@@ -17,7 +20,7 @@ onMounted(() => {
   const getJoinProject = async () => {
     //joinProjectsからuserIdが等しいデータを取得
     const response = await fetch(
-      `http://localhost:8000/joinProjects/?islandId=${1}`
+      `http://localhost:8000/joinProjects/?islandId=${islandId}`
     );
     const data = await response.json();
     joinList.value = data;
@@ -70,9 +73,8 @@ const noDataBtn = () => {
         </div>
       </section>
       <section class="list__list" v-else>
-        <!-- リンク先かえる -->
         <div v-for="project in projectData" :key="project" class="list__item">
-          <RouterLink v-bind:to="{ name: 'joinProject' }">
+          <RouterLink v-bind:to="{ name: 'projectShow', params: { id: project[0].id } }">
             <img
               v-bind:src="project[0].icon"
               alt="project"
