@@ -60,7 +60,7 @@ function convertToBase64(file) {
 
 //RecruitNewUser取得
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/RecruitNewIsland/${Project.value.id}`);
+  const response = await fetch(`http://localhost:8000/RecruitNewIsland/${Project.value}`);
   const recruitNewIslandData = await response.json();
   console.log(recruitNewIslandData);
   data.value = recruitNewIslandData;
@@ -100,7 +100,7 @@ async function updateProject() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          projectId: Project,
+          projectId: Project.value.id,
           recruitTitle: data.value.recruitTitle,
           recruitJob: data.value.recruitJob,
           recruitPoint: data.value.recruitPoint,

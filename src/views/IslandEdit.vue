@@ -8,7 +8,10 @@ const route = useRoute();
 const router = useRouter();
 
 
-const Islands = ref(route.params.id);
+const id = route.params.id
+const Islands = ref(id);
+// console.log(Islands.value.id)
+
 
 //島情報取得
 const IslandId = ref(1); //firebaseでログインしてる人のIDが入る
@@ -63,7 +66,7 @@ function convertToBase64(file) {
 
 //RecruitNewUser取得
 const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${Islands.value}`);
   const recruitNewUserData = await response.json();
   console.log(recruitNewUserData);
   data.value = recruitNewUserData;
@@ -104,7 +107,7 @@ async function updateIslands() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          islandId: IslandId.value,
+          islandId: Islands.value.id,
           recruitTitle: data.value.recruitTitle,
           recruitJob: data.value.recruitJob,
           recruitPoint: data.value.recruitPoint,
