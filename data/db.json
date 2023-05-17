@@ -1,59 +1,13 @@
 {
   "Users": [],
-  "Islands": [
-    {
-      "islandName": "ぶたテストしま",
-      "islandDescription": "ぶたテストしま",
-      "adminId": "EbMq1W7yPUWtHCF4ch6U79YhAe52",
-      "createDate": "2023-05-17T07:52:51.951Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fbuta.png?alt=media&token=119ec969-802e-4d62-9538-4e446cf485af",
-      "id": 1
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "ぶたテスとPJ",
-      "projectDescription": "ぶたテストPJ",
-      "adminId": "EbMq1W7yPUWtHCF4ch6U79YhAe52",
-      "createDate": "2023-05-17T07:53:12.165Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fbuta.png?alt=media&token=f1635232-0a86-414b-aa86-62af0019a2da",
-      "id": 1
-    },
-    {
-      "projectName": "ぶたテストPJ",
-      "projectDescription": "ぶたテストPJ",
-      "adminId": "EbMq1W7yPUWtHCF4ch6U79YhAe52",
-      "createDate": "2023-05-17T07:57:46.532Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "adminIslandId": 1,
-      "id": 2
-    }
-  ],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
   "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "EbMq1W7yPUWtHCF4ch6U79YhAe52",
-      "islandId": 1,
-      "id": 1
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    },
-    {
-      "islandId": 1,
-      "projectId": 2,
-      "id": 2
-    }
-  ],
-  "IslandChat": [],
-  "ProjectChat": [],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "UserScout": [],
   "IslandScout": []
 }

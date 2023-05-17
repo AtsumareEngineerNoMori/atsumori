@@ -92,18 +92,7 @@
                   class="val-infomation2"
                   v-if="project.description.length > 255"
                 >
-<<<<<<< HEAD
-
-                  <option  v-for="island in islands" :value="island.id" :key="island.id" selected >
-
-                    {{ island.islandName }}
-                  </option>
-                </select>
-                <p class="val-select" v-if="selectIslandLength">
-                  最初に参加する島を選択してください
-=======
                   255文字以下で入力してください
->>>>>>> 11ab503c6928ce3a04e5662d77d7d7030553ab34
                 </p>
               </div>
             </div>
