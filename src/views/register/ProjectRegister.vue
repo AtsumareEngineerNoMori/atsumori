@@ -68,7 +68,7 @@
                   @change="changeSelect"
                 >
 
-                  <option v-for="island in islands" :value="island.id" :key="island.id" selected>
+                  <option  v-for="island in islands" :value="island.id" :key="island.id" selected >
 
                     {{ island.islandName }}
                   </option>
@@ -140,6 +140,8 @@ const projectNameLength = vueref(false);
 const projectDescriptionLength = vueref(false);
 const selectIslandLength = vueref(false);
 const islands = vueref([]);
+
+
 
 const changeName = (e) => {
   console.log(e);
@@ -233,6 +235,7 @@ const projectRegisterButton = () => {
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
+              adminIslandId:selectIsland.value
             }),
           })
             .then(function (response) {
@@ -267,6 +270,7 @@ const projectRegisterButton = () => {
         adminId: currentUserId,
         createDate: new Date(),
         icon: iconImg.value,
+        adminIslandId:selectIsland.value
       }),
     })
       .then(function (response) {
