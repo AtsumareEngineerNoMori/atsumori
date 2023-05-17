@@ -6,7 +6,6 @@
       <h3 class="search_title">スカウトする島を探す</h3>
     </section>
 
-    <!-- <div class="search"> -->
     <div class="search_set">
       <form @submit.prevent="searchIslands">
         <input
