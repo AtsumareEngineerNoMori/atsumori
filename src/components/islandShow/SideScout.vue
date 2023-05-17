@@ -77,7 +77,7 @@ const scout = async (projectId) => {
     <p class="scout__title" v-if="projects.length >= 1">
       スカウトが来ています！
     </p>
-    <p class="scout__title" v-if="projects.length === 0">
+    <p class="scout__title" v-else>
       スカウトは来ていません
     </p>
     <div v-for="project in projects">

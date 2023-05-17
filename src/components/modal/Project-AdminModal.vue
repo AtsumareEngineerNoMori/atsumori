@@ -1,6 +1,17 @@
 <script setup>
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
+import { realtimeDB } from "../../../firebase";
+import {
+  ref as dbRef,
+  orderByChild,
+  query,
+  startAt,
+  endAt,
+  remove,
+  get,
+} from "firebase/database";
+import { myIdJudge } from "../../userJudge";
 
 const router = useRouter();
 
@@ -74,6 +85,19 @@ const deleteProject = async () => {
         }
       }
     }
+
+    // チャット削除
+    const q = query(
+      dbRef(realtimeDB, myIdJudge()),
+      orderByChild("projectId"),
+      startAt(String(projectId)),
+      endAt(String(projectId))
+    );
+    await get(q).then((snapshot) => {
+      snapshot.forEach((a) => {
+        remove(a.ref);
+      });
+    });
 
     // 募集削除（あったら）
     if (recruitIsShow.value) {

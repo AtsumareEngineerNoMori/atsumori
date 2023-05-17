@@ -15,15 +15,18 @@ import {
   startAt,
   endAt,
   remove,
-  get
+  get,
 } from "firebase/database";
 import Loading from "../../components/Loading.vue";
 import MyChat from "../../components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
+import { myIdJudge } from "../../userJudge";
 
 // プロジェクト詳細からprojectIdを受け取る
 const route = useRoute();
 const projectId = route.params.id;
+
+console.log(myIdJudge());
 
 // ログインユーザーのid
 const uid = ref("");
@@ -66,7 +69,7 @@ const getData = () => {
   };
   getProject().then(() => {
     const q = query(
-      dbRef(realtimeDB, "chat"),
+      dbRef(realtimeDB, myIdJudge()),
       orderByChild("projectId"),
       limitToLast(10),
       startAt(projectId),
@@ -78,7 +81,7 @@ const getData = () => {
       realList.value = snapshot.val();
       // dataArray.push(data);
       // console.log(dataArray);
-      console.log(realList.value)
+      console.log(realList.value);
     });
     loading.value = false;
   });
@@ -87,7 +90,7 @@ const getData = () => {
 // チャットデータ全件取得
 const getAllData = () => {
   const q = query(
-    dbRef(realtimeDB, "chat"),
+    dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
     startAt(projectId),
     endAt(projectId)
@@ -104,7 +107,7 @@ const getAllData = () => {
 // 初回表示用にデータ全件取得
 const firstGetAllData = () => {
   const q = query(
-    dbRef(realtimeDB, "chat"),
+    dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
     startAt(projectId),
     endAt(projectId)
@@ -112,15 +115,15 @@ const firstGetAllData = () => {
   onValue(q, (snapshot) => {
     const data = snapshot.val();
     console.log(data);
-    if(data !== null){
-    allDataLength.value = Object.keys(data).length;
-    console.log(allDataLength.value);
+    if (data !== null) {
+      allDataLength.value = Object.keys(data).length;
+      console.log(allDataLength.value);
     }
   });
 };
 
 // リアルタイムデータベース参照
-const chatRef = dbRef(realtimeDB, "chat");
+const chatRef = dbRef(realtimeDB, myIdJudge());
 
 // 追加
 const submit = async () => {
@@ -151,24 +154,24 @@ const loadMore = () => {
 
 // 最新メッセージへ自動スクロール(DOM更新後に呼び出される)
 onUpdated(() => {
-  if(realList.value !== null){
-  messageScreen.value.scrollTop = 800;
+  if (realList.value !== null) {
+    messageScreen.value.scrollTop = 800;
   }
 });
 
 const deleteBtn = () => {
   const q = query(
-    dbRef(realtimeDB, "chat"),
+    dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
     startAt(projectId),
     endAt(projectId)
   );
-  get(q).then((snapshot)=>{
-snapshot.forEach((a)=>{
-  remove(a.ref);
-})
-  })
-}
+  get(q).then((snapshot) => {
+    snapshot.forEach((a) => {
+      remove(a.ref);
+    });
+  });
+};
 </script>
 
 <template>
