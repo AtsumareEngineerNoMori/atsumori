@@ -4,7 +4,7 @@ import router from "./router";
 import "./micromodal";
 import "./assets/main.css";
 import "./css/micromodal.css";
-// import "./css/header/Header.css";
+import "./css/header/Header.css";
 
 import "./css/main.css";
 import VueCookies from "vue-cookies";

@@ -1,126 +1,6 @@
-<!-- TOPの検索ボックス -->
-<!-- <template>
-  <div class="search">
-    <section>
-      <h3 class="search_title">TOPの検索</h3>
-    </section>
-
-    <div class="all_search">
-      <div>
-        <button
-          class="search_select"
-          :class="{ active: selectedFilter === 'filter1' }"
-          @click="selectFilter('filter1')"
-        >
-          島/プロジェクト検索
-        </button>
-        <button
-          class="search_select"
-          :class="{ active: selectedFilter === 'filter2' }"
-          @click="selectFilter('filter2')"
-        >
-          募集中の島/プロジェクト検索
-        </button>
-      </div>
-
-      <div class="which_radio">
-        <label>
-          <input
-            type="radio"
-            name="whichSearch"
-            value="island"
-            v-model="searchType"
-          />島
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="whichSearch"
-            value="project"
-            v-model="searchType"
-          />プロジェクト
-        </label>
-      </div>
-
-      <div class="search_set">
-        <form :action="formAction" @submit.prevent="handleSubmit">
-          <input
-            type="search"
-            name="search"
-            placeholder="キーワードを入力"
-            class="search_box"
-            v-model="keyword"
-          />
-          <input type="submit" name="submit" value="検索" class="search_btn" />
-        </form>
-      </div>
-    </div>
-  </div>
-</template> -->
-<!-- <script setup>
-import { computed, ref } from "vue";
-import { useRouter } from "vue-router";
-
-const selectedFilter = ref("filter1");
-const searchType = ref("island");
-const keyword = ref("");
-const router = useRouter();
-
-//selectedFilterの値を変更
-function selectFilter(filter) {
-  selectedFilter.value = filter;
-  console.log("変更しています", filter);
-}
-
-const formAction = computed(() => {
-  if (selectedFilter.value === "filter1" && searchType.value === "island") {
-    return "/searchIslandResult";
-  } else if (
-    selectedFilter.value === "filter1" &&
-    searchType.value === "project"
-  ) {
-    return "/searchProResult";
-  } else if (
-    selectedFilter.value === "filter2" &&
-    searchType.value === "island"
-  ) {
-    return "/searchReqIslandResult";
-  } else if (
-    selectedFilter.value === "filter2" &&
-    searchType.value === "project"
-  ) {
-    return "/searchReqProResult";
-  } else {
-    return "";
-  }
-});
-
-function handleSubmit() {
-  if (keyword.value.length > 20) {
-    alert("20文字以内で入力してください");
-    return (keyword.value = "");
-  } else {
-    // ひらがなとカタカナに変換する
-    // const hiraganaKatakana = keyword.value
-    //   .replace(/[ぁ-ん]/g, (match) => {
-    //     return String.fromCharCode(match.charCodeAt(0) + 0x60);
-    //   })
-    //   .replace(/[ァ-ン]/g, (match) => {
-    //     return String.fromCharCode(match.charCodeAt(0) + 0x60);
-    //   });
-
-    // const regex = new RegExp(keyword.value.replace(/[ぁ-んァ-ン]/g, "[ぁ-んァ-ン]"));
-
-    const url = `${formAction.value}?search=${keyword.value}`;
-    // const url = `${formAction.value}?search=${encodeURIComponent(regex.source)}`;
-
-    router.push(url);
-  }
-}
-</script> -->
 <template>
-  <div class="search">
-    <div class="all_search">
+  <!-- <div class="search"> -->
+    <div class="all">
       <div class="search_selects4">
         <button
           class="search_select"
@@ -162,9 +42,10 @@ function handleSubmit() {
           />
           <input type="submit" name="submit" value="検索" class="search_btn" />
         </form>
+        <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -175,6 +56,7 @@ const selectedFilter = ref("filter1");
 const searchType = ref("island");
 const keyword = ref("");
 const router = useRouter();
+const errorMessage = ref("");
 
 //selectedFilterの値を変更
 function selectFilter(filter) {
@@ -198,62 +80,36 @@ function selectFilter(filter) {
 
 const formAction = computed(() => {
   switch (selectedFilter.value) {
-    case 'filter1':
-      return searchType.value === 'island' ? '/searchIslandResult' : '/searchProResult';
-    case 'filter2':
-      return searchType.value === 'island' ? '/searchReqIslandResult' : '/searchReqProResult';
-    case 'filter3':
-      return '/searchReqIslandResult';
-    case 'filter4':
-      return '/searchReqProResult';
+    case "filter1":
+      return "/searchIslandResult";
+    case "filter2":
+      return "/searchProResult";
+    case "filter3":
+      return "/searchReqIslandResult";
+    case "filter4":
+      return "/searchReqProResult";
     default:
-      return '';
+      return "";
   }
 });
 
-
+//ひらがなカタカナ曖昧検索
 function handleSubmit() {
   if (keyword.value.length > 20) {
-    alert("20文字以内で入力してください");
-    return (keyword.value = "");
+    errorMessage.value = "20文字以内で入力してください";
+    // alert("20文字以内で入力してください");
+    keyword.value = "";
   } else {
-    // ひらがなとカタカナに変換する
-    // const hiraganaKatakana = keyword.value
-    //   .replace(/[ぁ-ん]/g, (match) => {
-    //     return String.fromCharCode(match.charCodeAt(0) + 0x60);
-    //   })
-    //   .replace(/[ァ-ン]/g, (match) => {
-    //     return String.fromCharCode(match.charCodeAt(0) + 0x60);
-    //   });
-
-    // const regex = new RegExp(keyword.value.replace(/[ぁ-んァ-ン]/g, "[ぁ-んァ-ン]"));
-
-    const url = `${formAction.value}?search=${keyword.value}`;
-    // const url = `${formAction.value}?search=${encodeURIComponent(regex.source)}`;
+    const searchQuery = keyword.value
+      .replace(/[ぁ-ん]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
+      .replace(/[\u30a1-\u30f6]/g, (c) =>
+        String.fromCharCode(c.charCodeAt(0) - 0x60)
+      );
+    const url = `${formAction.value}?search=${searchQuery}`;
+    keyword.value = "";
+    errorMessage.value = "";
 
     router.push(url);
   }
 }
 </script>
-
-<!-- <style>
-.select {
-  background-color: #fff;
-  color: #ccc;
-  border: none;
-  padding: 10px 20px;
-  /* margin-right: 10px; */
-  /* cursor: pointer; */
-}
-
-.select.active {
-  background-color: #ccc;
-  color: #333;
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.all_search {
-  margin: 2%;
-}
-</style> -->

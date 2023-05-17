@@ -6,7 +6,8 @@
       <h3 class="search_title">スカウトする島を探す</h3>
     </section>
 
-    <div class="search">
+    <!-- <div class="search"> -->
+    <div class="search_set">
       <form @submit.prevent="searchIslands">
         <input
           type="search"
@@ -17,48 +18,49 @@
         />
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
+      <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
     </div>
 
-    <section v-if="results" class="search_list">
+    <section v-if="results">
       <div v-if="filteredIslands.length > 0">
+        <div v-if="filteredIslands.length > 20" class="search_no">
+          <p class="search_recommend">おすすめの島</p>
+        </div>
+
         <div class="search_list">
           <router-link
-            v-for="island in filteredIslands"
+            v-for="island in randomIslands"
             :key="island.id"
-            :to="`/projectShow/${$route.params.projectId}/${island.id}`"
+            :to="`/scoutShow/${$route.params.projectId}/${island.id}`"
+            class="search_result"
           >
-            <!-- <router-link
-          v-for="(island, index) in filteredIslands.slice(0, 5)"
-          :key="island.id"
-          :to="`/mypageforscout/${$route.params.id}/${island.id}`"
-        > -->
-            <img :src="island.icon" alt="island" class="search_iconImg" />
-            <div class="search_recinfo">
-              <p>{{ island.islandName }}</p>
+            <div class="search_flex">
+              <img :src="island.icon" alt="island" class="search_iconImg" />
+              <div class="search_recinfo">
+                <p>{{ island.islandName }}</p>
+              </div>
             </div>
           </router-link>
-          <!-- <div v-if="filteredIslands.length > 5" class="search_no">
-          <p>最新のおすすめ20件</p>
-        </div> -->
         </div>
       </div>
       <div v-else class="search_no">
-        <p>検索結果はありません。</p>
+        <p>検索結果はありません</p>
       </div>
     </section>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
-const route = useRouter();
+const route = useRoute();
 const keyword = ref("");
 const islands = ref([]);
 const filteredIslands = ref([]);
 const joinProjects = ref([]);
 const results = ref(false);
+const errorMessage = ref("");
 
 const fetchIslands = async () => {
   try {
@@ -87,15 +89,31 @@ const fetchJoinProjects = async () => {
 const searchIslands = () => {
   console.log("検索:", keyword.value);
 
-  const keywordIsland = keyword.value.toLowerCase();
+  const keywordIsland = keyword.value
+    .toLowerCase()
+    .replace(/[ぁ-ん]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) + 0x60)
+    )
+    .replace(/[ァ-ン]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) - 0x60)
+    );
   if (keywordIsland) {
     if (keyword.value.length > 20) {
-      alert("20文字以内で入力してください");
+      errorMessage.value = "20文字以内で入力してください";
+      // alert("20文字以内で入力してください");
       keyword.value = "";
     } else {
       filteredIslands.value = islands.value
         .filter((island) =>
-          island.islandName.toLowerCase().includes(keywordIsland)
+          island.islandName
+            .toLowerCase()
+            .replace(/[ぁ-ん]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) + 0x60)
+            )
+            .replace(/[ァ-ン]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) - 0x60)
+            )
+            .includes(keywordIsland)
         )
         .filter(
           (island) =>
@@ -107,6 +125,7 @@ const searchIslands = () => {
         );
       results.value = true;
       keyword.value = "";
+      errorMessage.value = "";
     }
   } else {
     filteredIslands.value = islands.value.filter(
@@ -119,8 +138,25 @@ const searchIslands = () => {
     );
     results.value = true;
     keyword.value = "";
+    errorMessage.value = "";
   }
 };
+
+//未入力で検索ボタンを押下した際ランダムで20件選出
+const randomIslands = computed(() => {
+  if (filteredIslands.value.length <= 20) {
+    return filteredIslands.value;
+  } else {
+    const randomArray = [];
+    while (randomArray.length < 20) {
+      const random = Math.floor(Math.random() * filteredIslands.value.length);
+      if (!randomArray.includes(random)) {
+        randomArray.push(random);
+      }
+    }
+    return randomArray.map((index) => filteredIslands.value[index]);
+  }
+});
 
 onMounted(() => {
   fetchIslands();

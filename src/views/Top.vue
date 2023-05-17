@@ -34,7 +34,8 @@
             :key="infomation"
             class="top-new-set-item"
           >
-            <router-link class ="top-new-set-imgdiv"
+            <router-link
+              class="top-new-set-imgdiv"
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
             >
               <img
@@ -102,6 +103,7 @@
 <script setup>
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 import {  ref } from "vue";
+
 
 const newIslandArray = ref();
 const newProjectArray = ref();

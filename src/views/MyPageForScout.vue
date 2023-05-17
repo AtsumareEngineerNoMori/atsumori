@@ -178,18 +178,21 @@ async function ScoutCansel(id) {
       <div v-for="island in islandData.slice(0, 4)" :key="island.id" class="mypage__lists">
         <li>
           <div class="mypage__space">
-            <router-link to="/">
+            <router-link :to="`/islandShow/${island.id}`">
               <img
                 v-bind:src="island.icon"
                 alt="islandig"
                 class="mypage__iconImg"
               />
             </router-link>
-            <p>{{ island.islandName }}</p>
+            <p  class="mypage__islandtitle">{{ island.islandName }}</p>
           </div>
         </li>
       </div>
-      <button v-if="islandData.length >=5 " class="mypage__morebutton">もっと見る</button>
+      <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
+      <button v-if="islandData.length >= 1" class="mypage__morebutton" @click="moreIslands">
+        島一覧へ
+      </button>
     </div>
   </div>
 </template>

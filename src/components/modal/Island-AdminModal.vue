@@ -45,22 +45,64 @@ const deleteRecruit = () => {
 };
 
 // 島解散
-const deleteIsland = () => {
+const deleteIsland = async () => {
   alert("本当に削除してもよろしいですか？");
   try {
-    // 島の削除
     const islandId = props.islandId;
-    fetch(`http://localhost:8000/Islands/${islandId}`, {
+    const db = [
+      "RequestIsland",
+      "RequestProject",
+      "JoinIslands",
+      "JoinProjects",
+      "UserScout",
+      "IslandScout",
+    ];
+    const ids = [];
+
+    //削除する島の関連データのidを取得
+    for (let i of db) {
+      const datas = await fetch(
+        `http://localhost:8000/${i}?islandId=${islandId}`
+      ).then((res) => res.json());
+      const dataIds = datas.map((dataId) => dataId.id);
+      ids.push(dataIds);
+    }
+
+    // 削除する島の関連データの削除
+    for (let i = 0; i < db.length; i++) {
+      if (ids[i].length > 0) {
+        for (let id of ids[i]) {
+          console.log(db[i], id);
+          await fetch(`http://localhost:8000/${db[i]}/${id}`, {
+            method: "delete",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+        }
+      }
+    }
+
+    // 募集削除（あったら）
+    if (recruitIsShow.value) {
+      await fetch(
+        `http://localhost:8000/RecruitNewUser/${recruitData.value.id}`,
+        {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    // 島の削除
+    await fetch(`http://localhost:8000/Islands/${islandId}`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    // 募集削除（あったら）
-    if (recruitIsShow.value) {
-      deleteRecruit();
-    }
 
     router.push("/top");
   } catch (e) {

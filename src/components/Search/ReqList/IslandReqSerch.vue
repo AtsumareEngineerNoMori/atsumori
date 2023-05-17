@@ -7,7 +7,6 @@
 
     <div class="island_search">
       <form @submit.prevent="searchIslands">
-        <p>キーワードを入力してください。</p>
         <input
           type="search"
           name="search"
@@ -17,11 +16,12 @@
         />
         <input type="submit" name="submit" value="検索" class="search_btn" />
       </form>
+      <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
     </div>
 
-    <!-- <section class="search_list">
+    <section class="search_list">
       <div v-if="filteredRecruitNewUsers.length === 0" class="search_no">
-        検索結果がありません
+        <p class="search_col">検索結果がありません</p>
         <input
           type="submit"
           name="submit"
@@ -34,6 +34,7 @@
         v-for="recruitNewUser in filteredRecruitNewUsers"
         :key="recruitNewUser.id"
         :to="'/islands/' + recruitNewUser.island.id"
+        class="search_result"
       >
         <img
           :src="recruitNewUser.island.icon"
@@ -44,23 +45,6 @@
           <p>{{ recruitNewUser.island.islandName }}</p>
         </div>
       </router-link>
-    </section> -->
-    <section :class="{ search_list: true, hidden: !results }">
-      <div v-if="filteredUsers.length > 0">
-        <router-link
-          v-for="user in filteredUsers"
-          :key="user.id"
-          :to="`/mypageforscout/${$route.params.id}/${user.id}`"
-        >
-          <img :src="user.icon" alt="user" class="search_iconImg" />
-          <div class="search_recinfo">
-            <p>{{ user.name }}</p>
-          </div>
-        </router-link>
-      </div>
-      <div v-else class="search_no">
-        <p>検索結果はありません。</p>
-      </div>
     </section>
   </div>
 </template>
@@ -79,6 +63,7 @@ console.log("登録された島", props.fetchUrlIs);
 const originalRecruitNewUsers = ref([]); //データ配列
 const filteredRecruitNewUsers = ref([]); //検索結果に基づくデータの配列
 const keyword = ref("");
+const errorMessage = ref("");
 
 //募集中のデータ
 const fetchRecruitNewUsers = async () => {
@@ -119,7 +104,8 @@ const filterRecruitNewUsers = (query) => {
   const textChange = query.toLowerCase(); // 入力されたキーワードを小文字に変換
   const hiragana = textChange.replace(/[\u30a1-\u30f6]/g, (match) =>
     String.fromCharCode(match.charCodeAt(0) - 0x60)
-  ); // カタカナをひらがなに変換
+  );
+  // カタカナをひらがなに変換
   return originalRecruitNewUsers.value.filter((recruitNewUser) =>
     recruitNewUser.island.islandName
       .toLowerCase()
@@ -144,10 +130,13 @@ onMounted(async () => {
 const searchIslands = () => {
   console.log("検索:", keyword.value);
   if (keyword.value.length > 20) {
-    alert("20文字以内で入力してください");
+    errorMessage.value = "20文字以内で入力してください";
+    // alert("20文字以内で入力してください");
+    keyword.value = "";
   } else {
     filteredRecruitNewUsers.value = filterRecruitNewUsers(keyword.value);
     keyword.value = "";
+    errorMessage.value = "";
   }
 };
 </script>

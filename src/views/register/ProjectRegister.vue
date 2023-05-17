@@ -5,6 +5,8 @@
 
     <div v-if="islands.length === 0">
 <If :moji="`まずは島を登録しよう`" :pageLink="`/IslandRegister`"/>
+
+
     </div>
 
     <div v-else>
@@ -65,7 +67,9 @@
                   class="ProjectRegister-details-information-select"
                   @change="changeSelect"
                 >
+
                   <option v-for="island in islands" :value="island.id" :key="island.id" selected>
+
                     {{ island.islandName }}
                   </option>
                 </select>
@@ -155,6 +159,7 @@ const changeInfomation = (e) => {
 // const getFlight = async () => {
 //   const response = await fetch(
 //     `http://localhost:8000/islands?adminId=${currentUserId}`
+
 //   );
 //   const data = await response.json();
 //   console.log(data);
@@ -291,7 +296,6 @@ const registerProject = () => {
     project.name === "" ||
     project.description === "" ||
     project.name.length > 20 ||
-
     project.description.length > 255 ||
     selectIsland === ""
   ) {
