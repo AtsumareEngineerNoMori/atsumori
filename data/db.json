@@ -1,22 +1,5 @@
 {
-  "Users": [
-    {
-      "id": "wEon7CdSYDPln9chxnsFDapG8IT2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "ayaka",
-      "job": "FR",
-      "comment": "ayaka",
-      "email": "ayaka@rakus-partners.co.jp"
-    },
-    {
-      "id": "xAhQmZQrSicgoryAQoqoUpwqsQV2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "mizuno",
-      "job": "FR",
-      "comment": "こんにちは",
-      "email": "mizuno@rakus-partners.co.jp"
-    }
-  ],
+  "Users": [],
   "Islands": [],
   "Projects": [],
   "RecruitNewUser": [],
