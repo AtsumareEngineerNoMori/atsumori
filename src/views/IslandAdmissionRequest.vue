@@ -84,6 +84,10 @@ function check() {
         <div v-if="overComment" class="mypage__check">{{ overComment }}</div>
       </div>
     </div>
+    <div>
+      <h1>注意事項</h1>
+      <p>一度行った申請は取り消しができません</p>
+    </div>
 
     <div class="request__agree">
       <!-- <input type="checkbox" id="agree" v-model="checked.value"/> -->

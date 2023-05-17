@@ -108,13 +108,14 @@
 import If from "../../components/If/If.vue";
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
-import { storage } from "../../../firebase";
+import { auth, storage } from "../../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
   ref,
   getStorage,
 } from "firebase/storage";
+import { onAuthStateChanged } from "@firebase/auth";
 
 const router = useRouter();
 const iconFileName = vueref("");
@@ -153,6 +154,16 @@ const changeInfomation = (e) => {
   console.log(e);
   projectDescriptionLength.value = false;
 };
+
+// ログイン状態の場合の処理
+onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+   console.log("ログインしています")
+    } else {
+      router.push("/login");
+    }
+  });
+
 
 // 自分が管理している島取得
 // const getFlight = async () => {

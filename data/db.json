@@ -51,6 +51,8 @@
     }
   ],
   "JoinProjects": [],
+  "IslandChat": [],
+  "ProjectChat": [],
   "UserScout": [],
   "IslandScout": []
 }

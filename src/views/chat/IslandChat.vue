@@ -110,8 +110,8 @@ const firstGetAllData = () => {
 const chatRef = dbRef(realtimeDB, myIdJudge());
 // 送信
 const submit = async () => {
-  if (message.value.length > 120) {
-    alert("120文字以内で入力してください");
+  if (message.value.length > 120 || message.value.length === 0) {
+    alert("1文字以上120文字以内で入力してください");
   } else {
     // ログインユーザーの情報取得
     const response = await fetch(
