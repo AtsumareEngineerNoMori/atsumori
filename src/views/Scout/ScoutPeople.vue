@@ -26,19 +26,6 @@
           <p class="search_recommend">おすすめの難民</p>
         </div>
         <div class="search_list">
-          <!-- <router-link
-            v-for="user in filteredUsers"
-            :key="user.id"
-            :to="`/mypageforscout/${$route.params.islandId}/${user.id}`"
-            class="search_result"
-          > -->
-
-          <!-- <router-link
-            v-for="user in filteredUsers.slice(0, 20)"
-            :key="user.id"
-            :to="`/mypageforscout/${$route.params.id}/${user.id}`"
-            class="search_result"
-          > -->
           <router-link
             v-for="user in randomUsers"
             :key="user.id"
@@ -165,14 +152,6 @@ const randomUsers = computed(() => {
         randomArray.push(random);
       }
     }
-    // for (let i = 0; i < 20; i++) {
-    //   const random = Math.floor(Math.random() * filteredUsers.value.length);
-    //   if (!randomArray.includes(random)) {
-    //     randomArray.push(random);
-    //   } else {
-    //     i--;
-    //   }
-    // }
     return randomArray.map((index) => filteredUsers.value[index]);
   }
 });
