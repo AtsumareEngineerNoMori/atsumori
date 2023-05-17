@@ -174,7 +174,7 @@ function check() {
     Project.value.projectDescription.length > maxDescription ||
     Project.value.projectDescription.length === 0
   ) {
-    overDescription.value = "詳細は1文字以上20文字以内で入力してください";
+    overDescription.value = "プロジェクト詳細は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
     overDescription.value = "";

@@ -165,7 +165,7 @@ function check() {
     Island.value.islandDescription.length > maxDescription ||
     Island.value.islandDescription.length === 0
   ) {
-    overDescription.value = "詳細は1文字以上20文字以内で入力してください";
+    overDescription.value = "島詳細は1文字以上20文字以内で入力してください";
     isValid = false;
   } else {
     overDescription.value = "";

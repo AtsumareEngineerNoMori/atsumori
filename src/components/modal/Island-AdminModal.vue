@@ -120,6 +120,23 @@ const deleteIsland = async () => {
       );
     }
 
+    // 管理島のプロジェクト削除
+    const projects = await fetch(
+      `http://localhost:8000/Projects?adminIslandId=${islandId}`
+    ).then((res) => res.json());
+    
+    if (projects.length > 0) {
+      const projectIds = projects.map((project) => project.id);
+      for (let projectId of projectIds) {
+        await fetch(`http://localhost:8000/Projects/${projectId}`, {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+    }
+
     // 島の削除
     await fetch(`http://localhost:8000/Islands/${islandId}`, {
       method: "delete",
