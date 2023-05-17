@@ -50,6 +50,11 @@
     cursor: pointer;
 }
 
+.entryModal__text {
+    font-weight: bold;
+    font-size: 20px;
+}
+
 
 
 /**************************\
