@@ -57,7 +57,7 @@ const noDataBtn = () => {
   </div>
   <template v-else>
     <div class="list">
-      <section>
+      <section class="list__sectionTitle">
         <p class="list__title">参加しているプロジェクト</p>
       </section>
       <section v-if="projectData.length <= 0">

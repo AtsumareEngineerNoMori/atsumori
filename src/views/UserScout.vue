@@ -5,8 +5,6 @@ import UserScoutApproveButton from "../components/button/UserScoutApproveButton.
 import Loading from "../components/Loading.vue";
 import DeleteUserScoutButton from "../components/button/DeleteUserScoutButton.vue";
 import { useRouter } from "vue-router";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
 
 const router = useRouter();
 
@@ -18,17 +16,16 @@ const islandData = ref([]);
 const loading = ref(true);
 
 onMounted(() => {
-  onAuthStateChanged(auth, (currentUser) => {
-    if (!currentUser) {
+  const currentUserId = $cookies.get("myId");
+  uid.value = currentUserId;
+    if (!uid.value) {
       console.log("ログアウト状態");
     } else {
-      console.log(`ログイン状態 uid:${currentUser.uid}`);
-      uid.value = currentUser.uid;
-
+      console.log(`ログイン状態 uid:${uid.value}`);
       // userScoutからuserIdが一致するデータを取得
       const getScoutUser = async () => {
         const response = await fetch(
-          `http://localhost:8000/userScout/?userId=${currentUser.uid}`
+          `http://localhost:8000/userScout/?userId=${uid.value}`
         );
         const data = await response.json();
         scoutList.value = data;
@@ -52,7 +49,6 @@ onMounted(() => {
         }
       });
     }
-  });
 });
 const noDataBtn = () => {
   return router.push("/mypage");
@@ -65,7 +61,7 @@ const noDataBtn = () => {
   </div>
   <template v-else>
     <div class="list">
-      <section>
+      <section class="list__sectionTitle">
         <p class="list__title">承認待ちの島</p>
       </section>
       <section v-if="islandData.length <= 0">

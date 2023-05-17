@@ -1,7 +1,6 @@
 <script setup>
-import { onAuthStateChanged } from "firebase/auth";
 import { onMounted, onUpdated, ref } from "vue";
-import { realtimeDB, auth } from "../../../firebase";
+import { realtimeDB } from "../../../firebase";
 import "../../css/main.css";
 import GetDate from "../../components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
@@ -42,56 +41,55 @@ const islandId = route.params.id;
 
 // 初期表示のデータ取得
 onMounted(() => {
-  onAuthStateChanged(auth, (currentUser) => {
-    if (!currentUser) {
-      console.log("ログアウト状態");
-    } else {
-      console.log(`ログイン状態 uid:${currentUser.uid}`);
-      uid.value = currentUser.uid;
-      getData();
-      firstGetAllData();
-    }
-  });
+  const currentUserId = $cookies.get("myId");
+  uid.value = currentUserId;
+  if (!uid.value) {
+    console.log("ログアウト状態");
+  } else {
+    console.log(`ログイン状態 uid:${uid.value}`);
+    getData();
+    firstGetAllData();
+  }
 });
 
-// 島の情報取得
+// 初期データの取得
 const getData = () => {
+  // 島の情報取得
   const getIsland = async () => {
     const response = await fetch(
       `http://localhost:8000/islands/?id=${islandId}`
     );
     const data = await response.json();
     islandData.value = data;
-    console.log(data);
   };
-  getIsland()
-    .then(() => {
-      // realtimeDBから島idと等しいデータを取得
-      const q = query(
-        dbRef(realtimeDB, myIdJudge()),
-        orderByChild("islandId"),
-        limitToLast(10),
-        startAt(islandId),
-        endAt(islandId)
-      );
-      onValue(q, (snapshot) => {
-        chatList.value = snapshot.val();
-      });
-      loading.value = false;
-    })
+  getIsland().then(() => {
+    // realtimeDBから島idと等しいデータを取得
+    const q = query(
+      dbRef(realtimeDB, myIdJudge()),
+      orderByChild("islandId"),
+      limitToLast(10),
+      startAt(islandId),
+      endAt(islandId)
+    );
+    onValue(q, (snapshot) => {
+      chatList.value = snapshot.val();
+    });
+    loading.value = false;
+  });
 };
+
+// 全件取得参照先
+const q = query(
+  dbRef(realtimeDB, myIdJudge()),
+  orderByChild("islandId"),
+  startAt(islandId),
+  endAt(islandId)
+);
 
 // 全件取得
 const getAllData = () => {
-  const q = query(
-    dbRef(realtimeDB, myIdJudge()),
-    orderByChild("islandId"),
-    startAt(islandId),
-    endAt(islandId)
-  );
   onValue(q, (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
     chatList.value = data;
     allDataLength.value = Object.keys(data).length;
     console.log(allDataLength.value);
@@ -99,15 +97,8 @@ const getAllData = () => {
 };
 // 初回表示用にデータ全件取得
 const firstGetAllData = () => {
-  const q = query(
-    dbRef(realtimeDB, myIdJudge()),
-    orderByChild("islandId"),
-    startAt(islandId),
-    endAt(islandId)
-  );
   onValue(q, (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
       console.log(allDataLength.value);
@@ -162,8 +153,17 @@ onUpdated(() => {
   </div>
   <div class="chat" v-else>
     <section class="chat__header">
-      <img :src="islandData[0].icon" alt="icon" class="chat__icon" />
-      <p class="chat__name">{{ islandData[0].islandName }}</p>
+      <RouterLink
+        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        class="chat__icon"
+      >
+        <img :src="islandData[0].icon" alt="icon" class="chat__icon-img" />
+      </RouterLink>
+      <RouterLink
+        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+      >
+        <p class="chat__name">{{ islandData[0].islandName }}</p>
+      </RouterLink>
     </section>
     <section v-if="chatList === null" class="chat__messageWrapper">
       <p class="chat__messageWrapper-noDataTitle">メッセージがありません</p>
@@ -195,7 +195,6 @@ onUpdated(() => {
         </template>
       </div>
     </section>
-    <!-- <form @submit.prevent="submit2"> -->
     <textarea
       name=""
       id=""
@@ -204,6 +203,5 @@ onUpdated(() => {
       v-model="message"
     ></textarea>
     <button class="chat__submitBtn" @click="submit">送信</button>
-    <!-- </form> -->
   </div>
 </template>
