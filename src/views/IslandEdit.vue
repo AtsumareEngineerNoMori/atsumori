@@ -5,13 +5,10 @@ import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } 
 
 import "../css/main.css";
 
-//デフォルトの画像
-const defaultIconURL =
-  "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png";
+
 
 const route = useRoute();
 const router = useRouter();
-
 //島情報取得
 const IslandId = ref(route.params.id);
 const Island = ref({
@@ -67,6 +64,19 @@ async function iconEdit(event) {
 }
 
 
+//RecruitNewUser取得
+const getFlight = async () => {
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+  const recruitNewUserData = await response.json();
+  console.log(recruitNewUserData);
+  data.value = recruitNewUserData;
+  console.log(data.value);
+};
+getFlight();
+
+//デフォルトの画像
+const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
+
 //画像削除
 const removeIcon = () => {
   Island.value.icon = defaultIconURL;
@@ -99,7 +109,6 @@ async function updateIslands() {
           console.log(`RecruitNewUser/${Island.value.id}は存在しません`);
           return;
         }
-        // const recruitNewUserData = await response.json();
         await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`, {
           method: "PUT",
           headers: {

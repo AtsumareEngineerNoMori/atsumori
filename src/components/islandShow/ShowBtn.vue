@@ -3,7 +3,6 @@ import { watch, ref } from "vue";
 import { joinJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
 
-// 1.参加者　2.未参加者　3.スカウト
 const props = defineProps({
   islandId: Number,
   myId: String,

@@ -8,6 +8,9 @@
   // height: 100%;
   // width: inherit;
   // z-index: -1;
+  // &-search{
+  //   padding-top: 3000px;
+  // }
   &-nomal{
     &-select1 {
         display: flex;
@@ -71,9 +74,9 @@
     
 }
   &-search {
-    display: flex;
-    gap: 0.5%;
-    justify-content: center;
+    // display: flex;
+    // gap: 0.5%;
+    // justify-content: center;
     // margin-top: 2%;
     padding-top: 3%;
 
@@ -150,7 +153,7 @@
         // width: 90%;
         // height: 90%;
         border-radius: 50%;
-        border: 1px solid gray;
+        border: 1px solid #4B7031;
         object-fit: cover;
         margin-left: 4%;
       }
@@ -201,7 +204,7 @@
         width: 90%;
         height: 90%;
         border-radius: 50%;
-        border: 1px solid gray;
+        border: 1px solid #4B7031;
         object-fit: cover;
         height: 110px;
       }

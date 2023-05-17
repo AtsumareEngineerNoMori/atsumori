@@ -76,7 +76,7 @@
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";
-// import { storage } from "../../../firebase";
+import { storage } from "../../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
@@ -210,13 +210,30 @@ const islandRegisterButton = () => {
 
 const registerIsland = () => {
   if (island.name === "") {
-    window.alert("島の名前を登録してください");
-  } else if (island.description === "") {
-    window.alert("島の情報を登録してください");
-  } else if (island.name.length < 1 || island.name.length > 20){
-    window.alert("島の名前は1文字以上20文字以下で入力してください");
-  }else if (island.description.length < 1 || island.description.length > 255 ){
-  window.alert("島の情報は1文字以上255文字以下で入力してください");
+// <<<<<<< HEAD
+    islandNameLength.value = true;
+  }
+  if (island.description === "") {
+    islandDescriptionLength.value = true;
+  }
+
+  if (
+    island.name === "" ||
+    island.description === "" ||
+    island.name.length > 20 ||
+    island.description.length > 255
+  ) {
+    // window.alert("入力が間違っているところがあります");
+    console.log("エラーあります");
+// =======
+//     window.alert("島の名前を登録してください");
+//   } else if (island.description === "") {
+//     window.alert("島の情報を登録してください");
+//   } else if (island.name.length < 1 || island.name.length > 20){
+//     window.alert("島の名前は1文字以上20文字以下で入力してください");
+//   }else if (island.description.length < 1 || island.description.length > 255 ){
+//   window.alert("島の情報は1文字以上255文字以下で入力してください");
+// >>>>>>> f25c66cd30a28ef94b5e6824f5284e87a4d1afc7
   } else {
     islandRegisterButton();
     router.push("/top");
