@@ -85,6 +85,10 @@ function check() {
       <input type="text" class="request__input" v-model="comment
       " />
     </div>
+    <div>
+      <h1>注意事項</h1>
+      <p>一度行った申請は取り消しできません</p>
+    </div>
 
     <div class="request__agree">
       <!-- <input type="checkbox" id="agree" v-model="checked.value"/> -->
