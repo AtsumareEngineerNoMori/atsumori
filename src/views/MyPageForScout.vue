@@ -86,7 +86,7 @@ async function Scout() {
         },
         body: JSON.stringify({
           userId: userId,
-          islandId: islandId,
+          islandId: Number(islandId),
         })
       }
     );
@@ -190,9 +190,9 @@ async function ScoutCansel(id) {
         </li>
       </div>
       <div v-if="islandData.length === 0" class="mypage__NOisland">まだ島に入会していません！</div>
-      <button v-if="islandData.length >= 1" class="mypage__morebutton" @click="moreIslands">
+      <!-- <button v-if="islandData.length >= 1" class="mypage__morebutton" @click="moreIslands">
         島一覧へ
-      </button>
+      </button> -->
     </div>
   </div>
 </template>
