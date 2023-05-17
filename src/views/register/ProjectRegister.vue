@@ -1,112 +1,111 @@
 <template>
   <div class="ProjectRegister">
-
     <h1 class="ProjectRegister-title">プロジェクト登録</h1>
 
     <div v-if="islands.length === 0">
-<If :moji="`まずは島を登録しよう`" :pageLink="`/IslandRegister`"/>
-
-
+      <If :moji="`まずは島を登録しよう`" :pageLink="`/IslandRegister`" />
     </div>
 
     <div v-else>
+      <form @submit.prevent="registerProject">
+        <div class="ProjectRegister-set">
+          <div>
+            <div class="ProjectRegister-details">
+              <div class="ProjectRegister-details-icon">
+                <div class="ProjectRegister-details-icon-imgdiv">
+                  <img
+                    :src="iconImg"
+                    alt="ユーザーアイコン"
+                    v-if="iconImg !== undefined"
+                    class="ProjectRegister-details-icon-img"
+                  />
+                </div>
+                <div class="icon_form-project">
+                  <label htmlFor="iconPreview">
+                    <p class="add_icon">+</p>
+                  </label>
+                  <input
+                    type="file"
+                    name="iconPreview"
+                    @change="previewImage"
+                    accept=".png, .jpeg, .jpg"
+                    id="iconPreview"
+                    class="icon_input"
+                  />
+                </div>
 
-    <form @submit.prevent="registerProject">
-      <div class="ProjectRegister-set">
-        <div>
-          <div class="ProjectRegister-details">
-            <div class="ProjectRegister-details-icon">
-              <div class="ProjectRegister-details-icon-imgdiv">
-                <img
-                  :src="iconImg"
-                  alt="ユーザーアイコン"
-                  v-if="iconImg !== undefined"
-                  class="ProjectRegister-details-icon-img"
-                />
-              </div>
-              <div class="icon_form-project">
-                <label htmlFor="iconPreview">
-                  <p class="add_icon">+</p>
-                </label>
-                <input
-                  type="file"
-                  name="iconPreview"
-                  @change="previewImage"
-                  accept=".png, .jpeg, .jpg"
-                  id="iconPreview"
-                  class="icon_input"
-                />
+                <div class="ProjectRegister-details-name">
+                  プロジェクトの名前
+                  <input
+                    v-model="project.name"
+                    type="text"
+                    class="ProjectRegister-details-name-input"
+                    @change="changeName"
+                  />
+                  <p class="val-name" v-if="projectNameLength">
+                    プロジェクトの名前を入力してください
+                  </p>
+                  <p class="val-name" v-if="project.name.length > 20">
+                    20文字以下で入力してください
+                  </p>
+                </div>
               </div>
 
-              <div class="ProjectRegister-details-name">
-                プロジェクトの名前
-                <input
-                  v-model="project.name"
-                  type="text"
-                  class="ProjectRegister-details-name-input"
-                  @change="changeName"
-                />
-                <p class="val-name" v-if="projectNameLength">
-                  プロジェクトの名前を入力してください
-                </p>
-                <p class="val-name" v-if="project.name.length > 20">
-                  20文字以下で入力してください
-                </p>
-              </div>
-            </div>
+              <div class="ProjectRegister-details-information">
+                <div>
+                  <p class="ProjectRegister-details-information-selecttitle">
+                    最初に参加する島
+                  </p>
+                  <select
+                    name="island"
+                    id="island-select"
+                    v-model="selectIsland"
+                    class="ProjectRegister-details-information-select"
+                    @change="changeSelect"
+                  >
+                    <option
+                      v-for="island in islands"
+                      :value="island.id"
+                      :key="island.id"
+                      selected
+                    >
+                      {{ island.islandName }}
+                    </option>
+                  </select>
+                  <p class="val-select" v-if="selectIslandLength">
+                    最初に参加する島を選択してください
+                  </p>
+                </div>
 
-            <div class="ProjectRegister-details-information">
-              <div>
-                <p class="ProjectRegister-details-information-selecttitle">
-                  最初に参加する島
+                <p class="ProjectRegister-details-information-title">
+                  プロジェクトの情報
                 </p>
-                <select
-                  name="island"
-                  id="island-select"
-                  v-model="selectIsland"
-                  class="ProjectRegister-details-information-select"
-                  @change="changeSelect"
+                <textarea
+                  v-model="project.description"
+                  class="ProjectRegister-details-information-text"
+                  @change="changeInfomation"
+                ></textarea>
+                <p class="val-infomation" v-if="projectDescriptionLength">
+                  プロジェクトの情報を入力してください
+                </p>
+                <p
+                  class="val-infomation2"
+                  v-if="project.description.length > 255"
                 >
-
-                  <option v-for="island in islands" :value="island.id" :key="island.id" selected>
-
-                    {{ island.islandName }}
-                  </option>
-                </select>
-                <p class="val-select" v-if="selectIslandLength">
-                  最初に参加する島を選択してください
+                  255文字以下で入力してください
                 </p>
               </div>
-
-              <p class="ProjectRegister-details-information-title">
-                プロジェクトの情報
-              </p>
-              <textarea
-                v-model="project.description"
-                class="ProjectRegister-details-information-text"
-                @change="changeInfomation"
-              ></textarea>
-              <p class="val-infomation" v-if="projectDescriptionLength">
-                プロジェクトの情報を入力してください
-              </p>
-              <p
-                class="val-infomation2"
-                v-if="project.description.length > 255"
-              >
-                255文字以下で入力してください
-              </p>
             </div>
           </div>
+          <button class="ProjectRegister-set-button">登録する</button>
         </div>
-        <button class="ProjectRegister-set-button">登録する</button>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script setup>
-import  If from "../../components/If/If.vue"
+import If from "../../components/If/If.vue";
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { storage } from "../../../firebase";
@@ -171,11 +170,9 @@ const changeInfomation = (e) => {
 // const auth = getAuth();
 //   const currentUserId = auth.currentUser?.uid;
 
-
-const currentUserId = $cookies.get("myId")
+const currentUserId = $cookies.get("myId");
 
 const getFlight = async () => {
-
   const response = await fetch(
     `http://localhost:8000/islands?adminId=${currentUserId}`
   ).then((response) => response.json());
@@ -184,7 +181,6 @@ const getFlight = async () => {
 };
 getFlight();
 // )
-
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
@@ -222,6 +218,7 @@ const projectRegisterButton = () => {
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
+              adminIslandId: selectIsland.value,
             }),
           })
             .then(function (response) {
@@ -256,6 +253,7 @@ const projectRegisterButton = () => {
         adminId: currentUserId,
         createDate: new Date(),
         icon: iconImg.value,
+        adminIslandId: selectIsland.value,
       }),
     })
       .then(function (response) {
