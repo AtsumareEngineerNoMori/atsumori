@@ -48,48 +48,16 @@
 
             <div class="aaa">
               <div>職種</div>
-              <input type="radio" name="job" value="WEB" v-model="user.job" />
-              WEB
-              <input
-                type="radio"
-                name="job"
-                value="FR"
-                v-model="user.job"
-                @change="changeJob"
-              />
-              FR
-              <input
-                type="radio"
-                name="job"
-                value="ML"
-                v-model="user.job"
-                @change="changeJob"
-              />
-              ML
-              <input
-                type="radio"
-                name="job"
-                value="CL"
-                v-model="user.job"
-                @change="changeJob"
-              />
-              CL
-              <input
-                type="radio"
-                name="job"
-                value="QA"
-                v-model="user.job"
-                @change="changeJob"
-              />
-              QA
-              <input
-                type="radio"
-                name="job"
-                value="その他"
-                @change="changeJob"
-              />
-              その他
-              <p class="val-job" v-if="userJobLength">職種を選択してください</p>
+              <input type="radio" name="job" value="WEB" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/>WEB
+              <input type="radio" name="job" value="FR" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> FR
+              <input type="radio" name="job" value="ML" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> ML
+              <input type="radio" name="job" value="CL" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> CL
+              <input type="radio" name="job" value="QA" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> QA
+              <input type="radio" name="job" value="その他" v-model="user.job" @change="changeJob"  class="userRegister-details-detail-job"/> その他
+              <p class="val-job" v-if=userJobLength >
+                職種を選択してください
+              </p>
+
             </div>
 
             <div class="userRegister-details-detail-hitokoto">
@@ -226,6 +194,7 @@ const changeName = (e) => {
   userNameLength.value = false;
 };
 
+// これ使いたい
 const changeJob = (e) => {
   userJobLength.value = false;
 };
@@ -429,7 +398,10 @@ const registerUser = () => {
     user.cPassword.length <= 0 ||
     user.cPassword !== user.password
   ) {
-    window.alert("入力が間違っているところがあります");
+
+    // window.alert("入力が間違っているところがあります")
+
+
     console.log("やっほ〜〜！");
   } else {
     U();

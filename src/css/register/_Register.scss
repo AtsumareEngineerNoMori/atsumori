@@ -56,6 +56,10 @@
                 font-weight: bold;
                 line-height: 14px;
               }
+              &-add_icon:hover{
+                cursor: pointer;
+                opacity: 0.6;
+              }
               &-icon_input {
                 display: none;
               }
@@ -68,13 +72,26 @@
                     width:70%;
                     // margin-bottom: 4%;
                 }
+            &-name:hover{
+                cursor: pointer;
+                opacity: 0.6;
+            }
+            &-job:hover{
+                cursor: pointer;
+                opacity: 0.6;
+            }
             &-hitokoto{
                 margin-top: 4%;
                 &-text{
                     width: 100%;
                     height: 100%;
                 }
+                &-text:hover{
+                    cursor: pointer;
+                    opacity: 0.6;
+                }
             }
+     
             }
         }
     &-details2{
@@ -96,6 +113,10 @@
         &-input{
             width: 400px;
         }
+        &-input:hover{
+            cursor: pointer;
+            opacity: 0.6;
+        }
         &-button{
             margin-top: 4%;
             padding: 1.5%;
@@ -104,9 +125,14 @@
         }
         &-button:hover{
             cursor: pointer;
+            opacity: 0.6;
         }
         &-login{
             color: #AF7A20;
+        }
+        &-login:hover{
+            cursor: pointer;
+            opacity: 0.6;
         }
     }
 }

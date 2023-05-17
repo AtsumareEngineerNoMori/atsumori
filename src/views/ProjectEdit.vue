@@ -69,6 +69,7 @@ const getFlight = async () => {
   const response = await fetch(
     `http://localhost:8000/RecruitNewIsland/${Project.value.id}`
   );
+
   const recruitNewIslandData = await response.json();
   console.log(recruitNewIslandData);
   data.value = recruitNewIslandData;
@@ -113,6 +114,9 @@ async function updateProject() {
 }
 
 // recruitNewIsland更新
+
+
+
 async function updateRecruitNewUser() {
   try {
     const response = await fetch(
@@ -130,7 +134,7 @@ async function updateRecruitNewUser() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          projectId: Project,
+          projectId: Project.value.id,
           recruitTitle: data.value.recruitTitle,
           recruitJob: data.value.recruitJob,
           recruitPoint: data.value.recruitPoint,
