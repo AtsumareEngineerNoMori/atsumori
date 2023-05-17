@@ -1,0 +1,186 @@
+.icon {
+  width: 170px;
+  height: 170px;
+  border: 2px solid;
+  border-color: green;
+  border-radius: 50%;
+  background-color: white;
+}
+// 管理者専用モーダル
+.material-symbols-rounded {
+  color: white;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.detail {
+  width: 100%;
+  margin: 0;
+  background-color: #fffcf4;
+  min-height: 90vh;
+  height: auto;
+
+  &__user {
+    &__header {
+      position: relative;
+      background-color: beige;
+      height: 250px;
+      width: 100%;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 250px;
+      left: 60px;
+
+      &__text {
+        margin-top: 10px;
+        text-align: center;
+        font-weight: bold;
+        width: 170px;
+
+        &__name {
+          margin-bottom: 10px;
+        }
+        &__admin {
+          font-size: small;
+          color: rgba(169, 169, 169, 1);
+          line-height: 7px;
+          margin: 10px;
+        }
+        &__asign {
+          margin-top: 15px;
+          &__a {
+            font-size: small;
+            color: #1e90ff;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    &__setting {
+      position: absolute;
+      top: 120px;
+      right: 30px;
+    }
+  }
+
+  &__btn {
+    position: absolute;
+    text-align: center;
+    margin-top: 55px;
+    top: 380px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+  }
+
+  &__underContent {
+    display: flex;
+  }
+
+  &__desc {
+    margin: auto;
+    margin-top: 200px;
+    margin-bottom: 20px;
+    width: 40%;
+    border: 5px dashed lawngreen;
+
+    &__title {
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bolder;
+    }
+  }
+
+  &__member {
+    margin: 50px 25px 0 auto;
+    width: 25%;
+    margin-bottom: 20px;
+  }
+
+  &__scout {
+    margin: 200px auto 0 25px;
+    width: 25%;
+    margin-bottom: 20px;
+  }
+}
+
+// サイドバー（左）
+.scout {
+  border: 3px solid green;
+  &__title {
+    text-align: center;
+    margin: 5px;
+    font-weight: bold;
+  }
+  &__content {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+    &__icon {
+      width: 50px;
+      height: 50px;
+      border: 2px solid;
+      border-color: green;
+      border-radius: 50%;
+      background-color: white;
+      margin: 0 20px 0 10px;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+    &__name {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40%;
+    }
+  }
+  &__btn {
+    margin: 10px 0 20px;
+    display: flex;
+    justify-content: center;
+
+    &__yes {
+      padding: 5px 10px;
+      margin-right: 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #ffff;
+        color: #4b7031;
+        outline: 1px solid #4b7031;
+      }
+    }
+    & a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 10px;
+    }
+  }
+}
+.material-symbols-outlined {
+  &.no {
+    color: red;
+    margin-left: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// 真ん中ボタン
+.showBtn {
+  padding: 10px 30px;
+}

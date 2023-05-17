@@ -1,0 +1,55 @@
+/* .headerModal {
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+} */
+
+/* .headerModal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: right;
+    z-index: 2;
+} */
+
+/* .headerModal__container {
+    background-color: #fff;
+    padding: 40px;
+    max-width: 500px;
+    max-height: 100vh;
+    border-radius: 4px;
+    overflow-y: auto;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 3;
+} */
+
+
+/* .headerModal__list{
+    margin: 20% 0 0 0;
+   
+} */
+
+/* .headerModal__tojiru{
+    margin: 250% 0 0 0;
+} */
+/* 
+.headerModal__tojiru:hover {
+    color: #4B7031;
+    cursor: pointer;
+    cursor: hand;
+    
+    }
+
+.headerModal__listdiv{
+    border-bottom:1px solid lightgray;
+}
+
+.headerModal__list:hover {
+    color: #4B7031;
+    cursor: pointer;
+    cursor: hand;
+    
+    } */

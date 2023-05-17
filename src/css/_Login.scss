@@ -1,0 +1,63 @@
+.loginPage{
+    background-color: #FFFCF4;
+    opacity: .9;
+    height: 300vh;
+    height: 300%;
+    padding: 13% 0;
+    &-logo{
+        margin: 0 auto;
+        width: 50%;
+        height: 50%;
+        // padding-top: -40px;
+    }
+    &-text{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+        margin-top: -40px;
+    }
+    &-email{
+        padding:  10px;
+        width: 35%;
+    }
+    &-email:hover{
+        opacity: 0.6;
+        cursor: pointer;
+    }
+    &-password{
+        padding: 10px;
+        width: 35%;
+        margin: 3%;
+    }
+    &-password:hover{
+        opacity: 0.6;
+        cursor: pointer;
+    }
+    &-button{
+        width: 15%; 
+        padding: 1%;
+        margin-top: 3%;
+    }
+    &-button:hover{
+        opacity: 0.6;
+        cursor: pointer;
+    }
+    &-register{
+        color:#AF7A20;
+        &-margin{
+            margin-top: 2%;
+        }
+        &-margin:hover{
+                opacity: 0.6;
+                cursor: pointer;
+        }
+    }
+    
+    
+}
+
+.alart{
+    color: red;
+    font-size: small;
+}
