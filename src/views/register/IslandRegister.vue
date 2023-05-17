@@ -83,8 +83,10 @@ import {
   ref,
   getStorage,
 } from "firebase/storage";
-
+import { onAuthStateChanged } from "@firebase/auth";
 const router = useRouter();
+
+
 const iconFileName = vueref("");
 const file = vueref();
 const iconImg = vueref(
@@ -105,6 +107,16 @@ const island = reactive({
 
 const auth = getAuth();
 const currentUserId = auth.currentUser?.uid;
+
+// ログイン状態の場合の処理
+onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+   console.log("ログインしています")
+    } else {
+      router.push("/login");
+    }
+  });
+
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
