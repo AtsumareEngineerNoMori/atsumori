@@ -103,12 +103,28 @@
 <script setup>
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 import {  ref } from "vue";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../../firebase";
+import { useRouter } from "vue-router";
 
 
 const newIslandArray = ref();
 const newProjectArray = ref();
 const newRecruitIslandArray = ref();
 const newRecruitProjectArray = ref();
+const router = useRouter();
+
+
+// ログイン状態の場合の処理
+  onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+   console.log("ログインしています")
+    } else {
+      router.push("/login");
+    }
+  });
+
+
 
 // 島
 const getIslands = async () => {
