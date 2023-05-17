@@ -4,32 +4,32 @@ import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
 import { useRouter } from "vue-router";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
 
 const router = useRouter();
 
+// ログインユーザーのid保管
 const uid = ref("");
 // joinIslandsから取得したuserIdが等しいデータを保管
 const joinList = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
 const islandData = ref([]);
+// データ取得判別
 const loading = ref(true);
 
 // ログイン認証
 onMounted(() => {
-  onAuthStateChanged(auth, (currentUser) => {
-    if (!currentUser) {
+  // クッキーからログインユーザーのid取得
+  const currentUserId = $cookies.get("myId");
+  uid.value = currentUserId;
+
+    if (!uid.value) {
       console.log("ログアウト状態");
     } else {
-      console.log(`ログイン状態 uid:${currentUser.uid}`);
-      uid.value = currentUser.uid;
+      console.log("ログイン状態");
       // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
-      // idが一致するか(元と新しいもの)
-      // 差分だけ取得できるようにする
       const getJoinIsland = async () => {
         const response = await fetch(
-          `http://localhost:8000/joinIslands/?userId=${currentUser.uid}`
+          `http://localhost:8000/joinIslands/?userId=${uid.value}`
         );
         const data = await response.json();
         joinList.value = data;
@@ -55,7 +55,6 @@ onMounted(() => {
         console.log(islandData.value);
       });
     }
-  });
 });
 
 // データがない場合に表示するボタン

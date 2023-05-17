@@ -1,8 +1,7 @@
 <script setup>
-import { onAuthStateChanged } from "firebase/auth";
 import { onMounted, onUpdated, ref } from "vue";
 import { useRoute } from "vue-router";
-import { realtimeDB, auth } from "../../../firebase";
+import { realtimeDB } from "../../../firebase";
 import "../../css/main.css";
 import {
   ref as dbRef,
@@ -14,8 +13,11 @@ import {
   query,
   startAt,
   endAt,
+<<<<<<< HEAD
   remove,
   get,
+=======
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
 } from "firebase/database";
 import Loading from "../../components/Loading.vue";
 import MyChat from "../../components/chat/MyChat.vue";
@@ -30,12 +32,13 @@ console.log(myIdJudge());
 
 // ログインユーザーのid
 const uid = ref("");
+const uid1 = ref("");
 // データ取得判別
 const loading = ref(true);
 // プロジェクト情報保管
 const projectData = ref();
 // チャット情報保管
-const realList = ref([]);
+const chatList = ref([]);
 // 全データの数
 const allDataLength = ref(0);
 // 入力内容保持
@@ -44,16 +47,15 @@ const message = ref("");
 const messageScreen = ref(null);
 
 onMounted(() => {
-  onAuthStateChanged(auth, (currentUser) => {
-    if (!currentUser) {
-      console.log("ログアウト状態");
-    } else {
-      console.log(`ログイン状態${currentUser.uid}`);
-      uid.value = currentUser.uid;
-      getData();
-      firstGetAllData();
-    }
-  });
+  const currentUserId = $cookies.get("myId");
+  uid1.value = currentUserId;
+  if (!uid1.value) {
+    console.log("ログアウト状態");
+  } else {
+    console.log("ログイン状態");
+    getData();
+    firstGetAllData();
+  }
 });
 
 // 初期表示のデータ取得
@@ -65,7 +67,6 @@ const getData = () => {
     );
     const data = await response.json();
     projectData.value = data;
-    console.log(data);
   };
   getProject().then(() => {
     const q = query(
@@ -75,30 +76,43 @@ const getData = () => {
       startAt(projectId),
       endAt(projectId)
     );
-    // const dataArray = [];
     onValue(q, (snapshot) => {
+<<<<<<< HEAD
       // const data = snapshot.val();
       realList.value = snapshot.val();
       // dataArray.push(data);
       // console.log(dataArray);
       console.log(realList.value);
+=======
+      chatList.value = snapshot.val();
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
     });
     loading.value = false;
   });
 };
 
+// 全件取得参照先
+const q = query(
+  dbRef(realtimeDB, myIdJudge()),
+  orderByChild("projectId"),
+  startAt(projectId),
+  endAt(projectId)
+);
+
 // チャットデータ全件取得
 const getAllData = () => {
+<<<<<<< HEAD
   const q = query(
     dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
     startAt(projectId),
     endAt(projectId)
   );
+=======
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
   onValue(q, (snapshot) => {
     const data = snapshot.val();
-    console.log(data);
-    realList.value = data;
+    chatList.value = data;
     allDataLength.value = Object.keys(data).length;
     console.log(allDataLength.value);
   });
@@ -106,6 +120,7 @@ const getAllData = () => {
 
 // 初回表示用にデータ全件取得
 const firstGetAllData = () => {
+<<<<<<< HEAD
   const q = query(
     dbRef(realtimeDB, myIdJudge()),
     orderByChild("projectId"),
@@ -118,6 +133,12 @@ const firstGetAllData = () => {
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
       console.log(allDataLength.value);
+=======
+  onValue(q, (snapshot) => {
+    const data = snapshot.val();
+    if (data !== null) {
+      allDataLength.value = Object.keys(data).length;
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
     }
   });
 };
@@ -127,24 +148,29 @@ const chatRef = dbRef(realtimeDB, myIdJudge());
 
 // 追加
 const submit = async () => {
-  // ログインユーザーの情報取得
-  const response = await fetch(`http://localhost:8000/users/?id=${uid.value}`);
-  const userData = await response.json();
-  console.log(userData);
+  if (message.value.length > 120) {
+    alert("120文字以内で入力してください");
+  } else {
+    // ログインユーザーの情報取得
+    const response = await fetch(
+      `http://localhost:8000/users/?id=${uid1.value}`
+    );
+    const userData = await response.json();
 
-  // realtimeDBに追加
-  const newData = push(chatRef, {
-    userId: uid.value,
-    name: userData[0].name,
-    icon: userData[0].icon,
-    projectId: projectId,
-    createDate: serverTimestamp(),
-    message: message.value,
-  });
-  console.log("追加");
-  console.log(newData.key);
-  // 空の状態に戻す
-  message.value = "";
+    // realtimeDBに追加
+    const newData = push(chatRef, {
+      userId: uid1.value,
+      name: userData[0].name,
+      icon: userData[0].icon,
+      projectId: projectId,
+      createDate: serverTimestamp(),
+      message: message.value,
+    });
+    console.log("追加");
+    console.log(newData.key);
+    // 空の状態に戻す
+    message.value = "";
+  }
 };
 
 // さらに読み込むボタン
@@ -154,24 +180,10 @@ const loadMore = () => {
 
 // 最新メッセージへ自動スクロール(DOM更新後に呼び出される)
 onUpdated(() => {
-  if (realList.value !== null) {
-    messageScreen.value.scrollTop = 800;
+  if (chatList.value !== null) {
+    messageScreen.value.scrollTop = 1000;
   }
 });
-
-const deleteBtn = () => {
-  const q = query(
-    dbRef(realtimeDB, myIdJudge()),
-    orderByChild("projectId"),
-    startAt(projectId),
-    endAt(projectId)
-  );
-  get(q).then((snapshot) => {
-    snapshot.forEach((a) => {
-      remove(a.ref);
-    });
-  });
-};
 </script>
 
 <template>
@@ -180,22 +192,31 @@ const deleteBtn = () => {
   </div>
   <div class="chat" v-else>
     <section class="chat__header">
-      <img :src="projectData[0].icon" alt="icon" class="chat__icon" />
-      <p class="chat__name">{{ projectData[0].projectName }}</p>
+      <RouterLink
+        v-bind:to="{ name: 'projectShow', params: { id: projectData[0].id } }"
+        class="chat__icon"
+      >
+        <img :src="projectData[0].icon" alt="icon" class="chat__icon-img" />
+      </RouterLink>
+      <RouterLink
+        v-bind:to="{ name: 'projectShow', params: { id: projectData[0].id } }"
+      >
+        <p class="chat__name">{{ projectData[0].projectName }}</p>
+      </RouterLink>
     </section>
-    <section v-if="realList === null" class="chat__messageWrapper">
+    <section v-if="chatList === null" class="chat__messageWrapper">
       <p class="chat__messageWrapper-noDataTitle">メッセージがありません</p>
     </section>
     <section class="chat__messageWrapper" ref="messageScreen" v-else>
-      <template v-if="Object.keys(realList).length !== allDataLength">
+      <template v-if="Object.keys(chatList).length !== allDataLength">
         <div class="chat__messageWrapper-loadMore">
           <button @click="loadMore" class="chat__messageWrapper-loadMoreBtn">
             さらに読み込む
           </button>
         </div>
       </template>
-      <div v-for="chat in realList" :key="chat">
-        <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
+      <div v-for="chat in chatList" :key="chat">
+        <div v-if="chat.userId === uid1" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />
         </div>
 
@@ -213,13 +234,12 @@ const deleteBtn = () => {
       </div>
     </section>
     <textarea
-      name=""
-      id=""
+      name="messageText"
+      id="messageText"
       placeholder="入力してください"
       class="chat__textarea"
       v-model="message"
     ></textarea>
     <button class="chat__submitBtn" @click="submit">送信</button>
-    <button @click="deleteBtn">削除</button>
   </div>
 </template>

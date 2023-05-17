@@ -49,7 +49,7 @@ const fetchRecruitNewUsers = async () => {
       island: {},
     }));
     console.log("募集中の島", data);
-    await fetchIslands();
+    await fetchIslands(); 
     filterRecruitNewUsers(""); // 初期表示時にすべてのデータを表示するように検索を実行
   } catch (error) {
     console.log("募集中の島", error);

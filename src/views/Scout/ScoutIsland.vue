@@ -6,7 +6,8 @@
       <h3 class="search_title">スカウトする島を探す</h3>
     </section>
 
-    <div class="search">
+    <!-- <div class="search"> -->
+    <div class="search_set">
       <form @submit.prevent="searchIslands">
         <input
           type="search"
@@ -88,7 +89,14 @@ const fetchJoinProjects = async () => {
 const searchIslands = () => {
   console.log("検索:", keyword.value);
 
-  const keywordIsland = keyword.value.toLowerCase();
+  const keywordIsland = keyword.value
+    .toLowerCase()
+    .replace(/[ぁ-ん]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) + 0x60)
+    )
+    .replace(/[ァ-ン]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) - 0x60)
+    );
   if (keywordIsland) {
     if (keyword.value.length > 20) {
       errorMessage.value = "20文字以内で入力してください";
@@ -97,7 +105,15 @@ const searchIslands = () => {
     } else {
       filteredIslands.value = islands.value
         .filter((island) =>
-          island.islandName.toLowerCase().includes(keywordIsland)
+          island.islandName
+            .toLowerCase()
+            .replace(/[ぁ-ん]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) + 0x60)
+            )
+            .replace(/[ァ-ン]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) - 0x60)
+            )
+            .includes(keywordIsland)
         )
         .filter(
           (island) =>

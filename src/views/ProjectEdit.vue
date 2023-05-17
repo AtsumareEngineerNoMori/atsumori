@@ -1,8 +1,12 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
 import "../css/main.css";
 
+
+//デフォルトの画像
 const img = {
   icon: "https://1.bp.blogspot.com/-EHBItm2ov28/X7zMLiDUlnI/AAAAAAABcZg/Hn1EagLhVecSENp47dA46nL8wXAP4iChQCNcBGAsYHQ/s608/sweets_tarte_strawberry.png",
   name: "アイコン",
@@ -11,6 +15,7 @@ const img = {
 const route = useRoute();
 const router = useRouter();
 
+//プロジェクト情報取得
 const ProjectId = ref(route.params.id);
 const Project = ref("");
 
@@ -48,26 +53,23 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
-    const base64String = await convertToBase64(file);
-    Project.value.icon = base64String;
+    const storage = getStorage();
+    const storageRef = firebaseRef(storage, `project/${file.name}`);
+    await uploadBytesResumable(storageRef, file);
+    const fileURL = await getDownloadURL(storageRef);
+    Project.value.icon = fileURL;
   } catch (error) {
     console.error(error);
   }
 }
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
+
 
 //RecruitNewUser取得
 const getFlight = async () => {
   const response = await fetch(
     `http://localhost:8000/RecruitNewIsland/${Project.value.id}`
   );
+
   const recruitNewIslandData = await response.json();
   console.log(recruitNewIslandData);
   data.value = recruitNewIslandData;
@@ -112,6 +114,9 @@ async function updateProject() {
 }
 
 // recruitNewIsland更新
+
+
+
 async function updateRecruitNewUser() {
   try {
     const response = await fetch(
@@ -129,7 +134,7 @@ async function updateRecruitNewUser() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          projectId: Project,
+          projectId: Project.value.id,
           recruitTitle: data.value.recruitTitle,
           recruitJob: data.value.recruitJob,
           recruitPoint: data.value.recruitPoint,
@@ -174,15 +179,13 @@ function check() {
   } else {
     overDescription.value = "";
   }
-
   const maxComment = 255;
-  if (Project.value.comment.length > maxComment) {
-    overComment.value = "ひとことは255文字以内で入力してください";
-    isValid = false;
-  } else {
-    overComment.value = "";
-  }
-
+if (Project.value.comment && Project.value.comment.length > maxComment) {
+  overComment.value = "ひとことは255文字以内で入力してください";
+  isValid = false;
+} else {
+  overComment.value = "";
+}
   return isValid;
 }
 </script>
@@ -222,7 +225,6 @@ function check() {
 
           <p class="mypage__details">プロジェクト詳細：</p>
         
-         
           <div>
             <input
               type="text"
@@ -239,8 +241,7 @@ function check() {
       </ul>
     </div>
     <div class="edit__item">
-      <span>ひとこと：</span>
-      
+      <span>ひとこと：</span> 
       <p>
         <textarea
         name=""
@@ -255,7 +256,6 @@ function check() {
     <div style="height: 20px;">
       <div v-show="overComment" class="mypage__comment">{{ overComment }}</div>
     </div>
-    
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">キャンセル</button>
       <button class="edit__button" @click="updateProject">更新</button>

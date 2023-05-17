@@ -6,7 +6,7 @@
       <h3 class="search_title">スカウトする難民を探す</h3>
     </section>
 
-    <div class="search">
+    <div class="search_set">
       <form @submit.prevent="searchUsers">
         <input
           type="search"
@@ -39,7 +39,6 @@
             :to="`/mypageforscout/${$route.params.id}/${user.id}`"
             class="search_result"
           > -->
-
           <router-link
             v-for="user in randomUsers"
             :key="user.id"
@@ -101,7 +100,14 @@ const fetchJoinIslands = async () => {
 const searchUsers = () => {
   console.log("検索:", keyword.value);
 
-  const keywordUser = keyword.value.toLowerCase();
+  const keywordUser = keyword.value
+    .toLowerCase()
+    .replace(/[ぁ-ん]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) + 0x60)
+    )
+    .replace(/[\u30a1-\u30f6]/g, (match) =>
+      String.fromCharCode(match.charCodeAt(0) - 0x60)
+    );
   if (keywordUser) {
     if (keyword.value.length > 20) {
       errorMessage.value = "20文字以内で入力してください";
@@ -109,7 +115,17 @@ const searchUsers = () => {
       keyword.value = "";
     } else {
       filteredUsers.value = users.value
-        .filter((user) => user.name.toLowerCase().includes(keywordUser))
+        .filter((user) =>
+          user.name
+            .toLowerCase()
+            .replace(/[ぁ-ん]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) + 0x60)
+            )
+            .replace(/[\u30a1-\u30f6]/g, (match) =>
+              String.fromCharCode(match.charCodeAt(0) - 0x60)
+            )
+            .includes(keywordUser)
+        )
         .filter(
           (user) =>
             !joinIslands.value.some(

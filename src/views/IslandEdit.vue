@@ -1,17 +1,20 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import "../css/main.css";
 
+
+
 const route = useRoute();
 const router = useRouter();
-
 //島情報取得
 const IslandId = ref(route.params.id);
 const Island = ref({
   icon: "",
   islandName: "",
+  islandDescription: "", 
   comment: "",
 });
 
@@ -47,34 +50,32 @@ async function iconEdit(event) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
-    const base64String = await convertToBase64(file);
-    Island.value.icon = base64String;
+    
+    const storage = getStorage(); // Firebase Storage instance
+    const storageRef = firebaseRef(storage, `island/${file.name}`); // Firebase Storageに保存するパスを指定
+    await uploadBytesResumable(storageRef, file); // ファイルをFirebase Storageにアップロード
+
+    // アップロードした画像のURLを取得して、Island.iconにセット
+    const fileURL = await getDownloadURL(storageRef);
+    Island.value.icon = fileURL;
   } catch (error) {
     console.error(error);
   }
 }
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
+
 
 //RecruitNewUser取得
-// const getFlight = async () => {
-//   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
-//   const recruitNewUserData = await response.json();
-//   console.log(recruitNewUserData);
-//   data.value = recruitNewUserData;
-//   console.log(data.value);
-// };
-// getFlight();
+const getFlight = async () => {
+  const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
+  const recruitNewUserData = await response.json();
+  console.log(recruitNewUserData);
+  data.value = recruitNewUserData;
+  console.log(data.value);
+};
+getFlight();
 
 //デフォルトの画像
-const defaultIconURL =
-  "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png";
+const defaultIconURL = "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png"
 
 //画像削除
 const removeIcon = () => {
@@ -108,7 +109,6 @@ async function updateIslands() {
           console.log(`RecruitNewUser/${Island.value.id}は存在しません`);
           return;
         }
-        // const recruitNewUserData = await response.json();
         await fetch(`http://localhost:8000/RecruitNewUser/${Island.value.id}`, {
           method: "PUT",
           headers: {
@@ -171,15 +171,13 @@ function check() {
     overDescription.value = "";
   }
 
-  // Island.commentに関するバリデーション
   const maxComment = 255;
-  if (Island.value.comment.length > maxComment) {
-    overComment.value = "ひとことは255文字以内で入力してください";
-    isValid = false;
-  } else {
-    overComment.value = "";
-  }
-
+if (Island.value.comment && Island.value.comment.length > maxComment) {
+  overComment.value = "ひとことは255文字以内で入力してください";
+  isValid = false;
+} else {
+  overComment.value = "";
+}
   return isValid; // すべて成功
 }
 </script>

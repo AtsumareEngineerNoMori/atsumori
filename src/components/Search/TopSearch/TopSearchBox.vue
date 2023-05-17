@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <!-- <div class="search"> -->
     <div class="all">
       <div class="search_selects4">
         <button
@@ -45,7 +45,7 @@
         <p v-if="errorMessage" class="search_errmsg">{{ errorMessage }}</p>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script setup>
@@ -93,27 +93,19 @@ const formAction = computed(() => {
   }
 });
 
+//ひらがなカタカナ曖昧検索
 function handleSubmit() {
   if (keyword.value.length > 20) {
     errorMessage.value = "20文字以内で入力してください";
     // alert("20文字以内で入力してください");
     keyword.value = "";
   } else {
-    // ひらがなとカタカナに変換する
-    const hiraganaKatakana = keyword.value
-      .replace(/[ぁ-ん]/g, (match) => {
-        return String.fromCharCode(match.charCodeAt(0) + 0x60);
-      })
-      .replace(/[ァ-ン]/g, (match) => {
-        return String.fromCharCode(match.charCodeAt(0) + 0x60);
-      });
-
-    const regex = new RegExp(
-      keyword.value.replace(/[ぁ-んァ-ン]/g, "[ぁ-んァ-ン]")
-    );
-
-    const url = `${formAction.value}?search=${keyword.value}`;
-    //  const url = `${formAction.value}?search=${encodeURIComponent(regex.source)}`;
+    const searchQuery = keyword.value
+      .replace(/[ぁ-ん]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
+      .replace(/[\u30a1-\u30f6]/g, (c) =>
+        String.fromCharCode(c.charCodeAt(0) - 0x60)
+      );
+    const url = `${formAction.value}?search=${searchQuery}`;
     keyword.value = "";
     errorMessage.value = "";
 
