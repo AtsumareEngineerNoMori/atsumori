@@ -13,6 +13,11 @@ import {
   query,
   startAt,
   endAt,
+<<<<<<< HEAD
+  remove,
+  get,
+=======
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
 } from "firebase/database";
 import Loading from "../../components/Loading.vue";
 import MyChat from "../../components/chat/MyChat.vue";
@@ -22,6 +27,8 @@ import { myIdJudge } from "../../userJudge";
 // プロジェクト詳細からprojectIdを受け取る
 const route = useRoute();
 const projectId = route.params.id;
+
+console.log(myIdJudge());
 
 // ログインユーザーのid
 const uid = ref("");
@@ -70,7 +77,15 @@ const getData = () => {
       endAt(projectId)
     );
     onValue(q, (snapshot) => {
+<<<<<<< HEAD
+      // const data = snapshot.val();
+      realList.value = snapshot.val();
+      // dataArray.push(data);
+      // console.log(dataArray);
+      console.log(realList.value);
+=======
       chatList.value = snapshot.val();
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
     });
     loading.value = false;
   });
@@ -86,6 +101,15 @@ const q = query(
 
 // チャットデータ全件取得
 const getAllData = () => {
+<<<<<<< HEAD
+  const q = query(
+    dbRef(realtimeDB, myIdJudge()),
+    orderByChild("projectId"),
+    startAt(projectId),
+    endAt(projectId)
+  );
+=======
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
   onValue(q, (snapshot) => {
     const data = snapshot.val();
     chatList.value = data;
@@ -96,10 +120,25 @@ const getAllData = () => {
 
 // 初回表示用にデータ全件取得
 const firstGetAllData = () => {
+<<<<<<< HEAD
+  const q = query(
+    dbRef(realtimeDB, myIdJudge()),
+    orderByChild("projectId"),
+    startAt(projectId),
+    endAt(projectId)
+  );
+  onValue(q, (snapshot) => {
+    const data = snapshot.val();
+    console.log(data);
+    if (data !== null) {
+      allDataLength.value = Object.keys(data).length;
+      console.log(allDataLength.value);
+=======
   onValue(q, (snapshot) => {
     const data = snapshot.val();
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
+>>>>>>> aba657be37f3025603fc093a1f71fba2cee21570
     }
   });
 };

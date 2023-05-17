@@ -10,15 +10,14 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const myId = ref();
 
+const myId = ref();
 const island = ref([]);
 const adminId = ref();
 const adminName = ref();
 const userJudges = ref(null);
 const Recruits = ref([]);
 const RecruitIshow = ref(false);
-
 const loading = ref(false);
 
 onMounted(async () => {
@@ -39,6 +38,7 @@ onMounted(async () => {
     // ユーザーの判別
     userJudges.value = adminJudge(adminId.value, myId.value);
 
+    // 管理者の名前取得
     const adminData = await fetch(
       `http://localhost:8000/Users/${islandData.adminId}`
     ).then((res) => res.json());
@@ -81,8 +81,8 @@ const joinProject = () => {
             <span>{{ adminName }}</span>
           </div>
           <div class="detail__user__icon__text__asign">
-            <a @click="joinProject" class="detail__user__icon__text__asign__a"
-              >参加プロジェクト一覧へ
+            <a @click="joinProject" class="detail__user__icon__text__asign__a">
+              参加プロジェクト一覧へ
             </a>
           </div>
         </div>

@@ -114,9 +114,6 @@ const Asign = async (userId) => {
 };
 
 //遷移
-const userRouter = (userId) => {
-  router.push({ name: "othermypage", params: { id: userId } });
-};
 const scoutRouter = () => {
   router.push({
     name: "scoutPeople",
@@ -129,23 +126,22 @@ const scoutRouter = () => {
   <div class="member">
     <p class="member__title">メンバー</p>
     <div v-for="user in users" class="member__content">
-      <!-- <a @click="userRouter(user.id)"> -->
       <router-link :to="{ name: 'othermypage', params: { id: user.id } }">
         <img :src="user.icon" class="member__content__icon" />
       </router-link>
-      <!-- </a> -->
 
       <span class="member__content__name">{{ user.name }}</span>
     </div>
 
-    <!-- v-showで切り替え -->
+    <!-- 管理者のみ -->
     <div v-show="userJudges === 1 && requestUsers.length >= 1">
       <p class="member__title">許可待ちメンバー</p>
       <div v-for="requestUser in requestUsers" class="member__content">
-        <a @click="userRouter(requestUser.id)">
+        <router-link
+          :to="{ name: 'othermypage', params: { id: requestUser.id } }"
+        >
           <img :src="requestUser.icon" class="member__content__icon asign" />
-        </a>
-
+        </router-link>
         <span class="member__content__name">{{ requestUser.name }}</span>
         <div class="member__content__btn">
           <button
@@ -161,7 +157,7 @@ const scoutRouter = () => {
       </div>
     </div>
 
-    <!-- v-showで切り替え -->
+    <!-- 参加者のみ -->
     <div v-show="userJudges === 1 || userJudges === 2" class="member__btn">
       <button @click="scoutRouter" class="member__btn__scout">スカウト</button>
     </div>
