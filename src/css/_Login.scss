@@ -21,20 +21,36 @@
         padding:  10px;
         width: 35%;
     }
+    &-email:hover{
+        opacity: 0.6;
+        cursor: pointer;
+    }
     &-password{
         padding: 10px;
         width: 35%;
         margin: 3%;
+    }
+    &-password:hover{
+        opacity: 0.6;
+        cursor: pointer;
     }
     &-button{
         width: 15%; 
         padding: 1%;
         margin-top: 3%;
     }
+    &-button:hover{
+        opacity: 0.6;
+        cursor: pointer;
+    }
     &-register{
         color:#AF7A20;
         &-margin{
             margin-top: 2%;
+        }
+        &-margin:hover{
+                opacity: 0.6;
+                cursor: pointer;
         }
     }
     

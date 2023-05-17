@@ -4,7 +4,9 @@
     <h1 class="ProjectRegister-title">プロジェクト登録</h1>
 
     <div v-if="islands.length === 0">
-      まずは島の管理者になろう！
+<If :moji="`まずは島を登録しよう`" :pageLink="`/IslandRegister`"/>
+
+
     </div>
 
     <div v-else>
@@ -65,7 +67,9 @@
                   class="ProjectRegister-details-information-select"
                   @change="changeSelect"
                 >
-                  <option v-for="island in islands" :value="island.id" :key = "island.id" selected>
+
+                  <option v-for="island in islands" :value="island.id" :key="island.id" selected>
+
                     {{ island.islandName }}
                   </option>
                 </select>
@@ -102,6 +106,7 @@
 </template>
 
 <script setup>
+import  If from "../../components/If/If.vue"
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { storage } from "../../../firebase";
@@ -153,7 +158,8 @@ const changeInfomation = (e) => {
 // 自分が管理している島取得
 // const getFlight = async () => {
 //   const response = await fetch(
-//     http://localhost:8000/islands?adminId=${currentUserId}
+//     `http://localhost:8000/islands?adminId=${currentUserId}`
+
 //   );
 //   const data = await response.json();
 //   console.log(data);
@@ -167,7 +173,6 @@ const changeInfomation = (e) => {
 
 
 const currentUserId = $cookies.get("myId")
-  console.log(currentUserId);
 
 const getFlight = async () => {
 

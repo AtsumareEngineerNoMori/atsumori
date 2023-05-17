@@ -6,7 +6,7 @@ $basecolor_brown: #af7a20;
 .search {
   width: 1000px;
   background-color: #fffcf4;
-  // padding-bottom: 4%;
+  min-height: 90vh;
   &_title {
     padding: 4%;
   }
@@ -99,6 +99,7 @@ $basecolor_brown: #af7a20;
   &_set {
     border: 3px dashed $basecolor_green;
     width: 80%;
+    height: 180px;
     margin: 0 auto;
     background-color: #ffff;
     padding: 3%;
