@@ -203,13 +203,12 @@ const recruitRegister = () => {
         },
         body: JSON.stringify({
           islandId: Id,
-          recruitTitle: recruitUser.recruitTitle,
-          recruitJob: recruitUser.recruitJob,
-          recruitPoint: recruitUser.recruitPoint,
+          recruitTitle: recruit.recruitTitle,
+          recruitJob: recruit.recruitJob,
+          recruitPoint: recruit.recruitPoint,
           createDate: new Date(),
           islandName: Data.value.islandName,
           islandIcon: Data.value.icon,
-          id: islandId,
         }),
       });
     }
