@@ -38,6 +38,8 @@ const approveBtn = async () => {
   getScoutUser()
     .then(() => {
       scoutList.value.map(async (scout) => {
+        console.log(props.islandId)
+        console.log(scout.islandId)
         if (props.islandId === scout.islandId) {
           await fetch(`http://localhost:8000/userScout/${scout.id}`, {
             method: "DELETE",
