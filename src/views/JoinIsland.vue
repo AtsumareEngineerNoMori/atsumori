@@ -22,39 +22,39 @@ onMounted(() => {
   const currentUserId = $cookies.get("myId");
   uid.value = currentUserId;
 
-    if (!uid.value) {
-      console.log("ログアウト状態");
-    } else {
-      console.log("ログイン状態");
-      // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
-      const getJoinIsland = async () => {
-        const response = await fetch(
-          `http://localhost:8000/joinIslands/?userId=${uid.value}`
-        );
-        const data = await response.json();
-        joinList.value = data;
-      };
-      getJoinIsland().then(() => {
-        console.log(joinList.value);
-        // 上で取得したデータのislandIdと等しいデータをIslandsテーブルから取得
-        // 上の情報に差分がないならここの処理やらなくていい
-        if (joinList.value.length > 0) {
-          joinList.value.map(async (island) => {
-            const response = await fetch(
-              `http://localhost:8000/Islands/?id=${island.islandId}`
-            );
-            const data = await response.json();
-            islandData.value.push(data);
-            // データ取得後反転
-            loading.value = false;
-          });
-        } else {
-          console.log("データがありません");
+  if (!uid.value) {
+    console.log("ログアウト状態");
+  } else {
+    console.log("ログイン状態");
+    // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
+    const getJoinIsland = async () => {
+      const response = await fetch(
+        `http://localhost:8000/joinIslands/?userId=${uid.value}`
+      );
+      const data = await response.json();
+      joinList.value = data;
+    };
+    getJoinIsland().then(() => {
+      console.log(joinList.value);
+      // 上で取得したデータのislandIdと等しいデータをIslandsテーブルから取得
+      // 上の情報に差分がないならここの処理やらなくていい
+      if (joinList.value.length > 0) {
+        joinList.value.map(async (island) => {
+          const response = await fetch(
+            `http://localhost:8000/Islands/?id=${island.islandId}`
+          );
+          const data = await response.json();
+          islandData.value.push(data);
+          // データ取得後反転
           loading.value = false;
-        }
-        console.log(islandData.value);
-      });
-    }
+        });
+      } else {
+        console.log("データがありません");
+        loading.value = false;
+      }
+      console.log(islandData.value);
+    });
+  }
 });
 
 // データがない場合に表示するボタン
@@ -86,7 +86,9 @@ const noDataBtn = () => {
       </section>
       <section class="list__list" v-else>
         <div v-for="island in islandData" :key="island" class="list__item">
-          <RouterLink v-bind:to="{ name: 'islandShow',params: { id: island[0].id } }">
+          <RouterLink
+            v-bind:to="{ name: 'islandShow', params: { id: island[0].id } }"
+          >
             <img
               v-bind:src="island[0].icon"
               alt="island"
@@ -94,7 +96,9 @@ const noDataBtn = () => {
             />
             <p class="list__name">{{ island[0].islandName }}</p>
           </RouterLink>
-          <DeleteMemberButton :userId="uid" :islandId="island[0].id" />
+          <template v-if="island[0].adminId !== uid">
+            <DeleteMemberButton :userId="uid" :islandId="island[0].id" />
+          </template>
         </div>
       </section>
     </div>
