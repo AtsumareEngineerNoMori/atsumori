@@ -78,7 +78,7 @@ const noDataBtn = () => {
             <img
               v-bind:src="project[0].icon"
               alt="project"
-              class="list__pjIconImg"
+              class="list__iconImg"
             />
             <p class="list__name">{{ project[0].projectName }}</p>
           </RouterLink>
