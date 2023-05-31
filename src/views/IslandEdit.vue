@@ -2,7 +2,12 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+import {
+  onAuthStateChanged,
+  // createUserWithEmailAndPassword,
+  // getAuth,
+} from "@firebase/auth";
+import { storage, auth, db } from "../../firebase";
 import "../css/main.css";
 
 
@@ -30,6 +35,10 @@ const data = ref({
 });
 
 onMounted(async () => {
+      // ログイン状態のチェック
+      onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser) {
+      console.log("ログインしています");
   try {
     const response = await fetch(
       `http://localhost:8000/Islands/${IslandId.value}`
@@ -43,6 +52,10 @@ onMounted(async () => {
     err.value = err;
     console.log("エラー", err.value);
   }
+} else {
+      router.push("/login");
+    }
+  });
 });
 
 //icon選択
@@ -142,7 +155,7 @@ async function updateIslands() {
 }
 
 const back = () => {
-  router.push(`/islandShow/${IslandId.value.id}`);
+  router.push(`/islandShow/${Island.value.id}`);
 };
 
 // バリデーションチェック
