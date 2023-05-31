@@ -164,6 +164,9 @@
           >
             パスワードは、英字小文字、英字大文字、数字を含む8文字以上22文字以内で入力してください
           </p>
+          <p class="val-password2" v-else-if="emojiRegex.test(user.password)">
+            パスワードに絵文字は使用できません
+          </p>
           <div class="userRegister-details2-inputSet">
             <p class="userRegister-details2-p">パスワード(確認)</p>
             <input
@@ -210,6 +213,9 @@ import {
   getStorage,
 } from "firebase/storage";
 import { useRouter } from "vue-router";
+
+const emojiRegex =
+  /[\uD800-\uDBFF][\uDC00-\uDFFF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/;
 
 const userNameLength = vueref(false);
 const userJobLength = vueref(false);
@@ -259,6 +265,7 @@ const changecPassword = (e) => {
   usercPasswordLength.value = false;
 };
 
+
 // ログイン状態の場合の処理
 onMounted(() => {
   onAuthStateChanged(auth, (currentUser) => {
@@ -272,7 +279,6 @@ onMounted(() => {
 
 // アイコン画像プレビュー処理
 const previewImage = (event) => {
-  // haveIcon.value = true;
   let reader = new FileReader();
   reader.onload = function (e) {
     iconImg.value = e.target.result;
@@ -300,14 +306,12 @@ const U = async () => {
       }
     });
   } catch (error) {
-    // window.alert("既に登録されているメールアドレスです");
     emailerror.value = false;
   }
 };
 
 // 登録ボタンの処理
 const UserRegisterButton = () => {
-  // createUserWithEmailAndPassword(auth, user.email, user.password);
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
@@ -387,6 +391,9 @@ const inputCheckSmall = /[a-z]/,
   inputCheckNumber = /[0-9]/,
   passwordPattern = /[^]{8,20}/;
 
+const emojiPattern =
+  /[\uD800-\uDBFF][\uDC00-\uDFFF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/g;
+
 const passwordValid = (password) => {
   return (
     inputCheckSmall.test(password) &&
@@ -440,11 +447,11 @@ const registerUser = () => {
     user.password.length < 8 ||
     user.password.length > 22 ||
     user.cPassword.length <= 0 ||
-    user.cPassword !== user.password
+    user.cPassword !== user.password ||
+    emojiRegex.test(user.password)
+    // !emojiPattern.test(password)
   ) {
     // window.alert("入力が間違っているところがあります")
-
-    console.log("やっほ〜〜！");
   } else {
     U();
   }

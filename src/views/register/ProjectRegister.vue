@@ -308,7 +308,7 @@ const registerProject = () => {
     project.description === "" ||
     project.name.length > 20 ||
     project.description.length > 255 ||
-    selectIsland === ""
+    selectIsland.value === ""
   ) {
     // window.alert("入力が間違っているところがあります")
     console.log("yahho~!");
