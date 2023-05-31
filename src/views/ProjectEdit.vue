@@ -2,6 +2,13 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import {
+  onAuthStateChanged,
+  // createUserWithEmailAndPassword,
+  // getAuth,
+} from "@firebase/auth";
+import { storage, auth, db } from "../../firebase";
+
 
 import "../css/main.css";
 
@@ -32,6 +39,10 @@ const data = ref({
 
 //プロジェクト情報取得
 onMounted(async () => {
+      // ログイン状態のチェック
+      onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser) {
+      console.log("ログインしています");
   try {
     const response = await fetch(
       `http://localhost:8000/Projects/${ProjectId.value}`
@@ -46,6 +57,10 @@ onMounted(async () => {
     err.value = err;
     console.log("エラー", err.value);
   }
+} else {
+      router.push("/login");
+    }
+  });
 });
 
 //icon選択
@@ -151,7 +166,7 @@ async function updateRecruitNewUser() {
 }
 
 const back = () => {
-  router.push(`/projectShow/${Project.value}`);
+  router.push(`/projectShow/${Project.value.id}`);
 };
 
 // バリデーションチェック

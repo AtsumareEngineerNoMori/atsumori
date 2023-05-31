@@ -22,6 +22,21 @@ const joinList = ref([]);
 const islandData = ref([]);
 
 onMounted(async () => {
+  function greeting(name, callback){
+    console.log(name + " HELLO");
+    // callback();
+  }
+
+  function hello() {
+    console.log("BYE");
+  }
+  // const hamaoka () {
+  //   console.log("HAMAOKA");
+  // }
+
+  greeting("IKURI", hello);
+  // greeting("IKURI", hamaoka);
+
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
   auth.onAuthStateChanged(async (loggedInUser) => {
     if (loggedInUser) {
