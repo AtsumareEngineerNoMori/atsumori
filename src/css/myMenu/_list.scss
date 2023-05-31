@@ -55,6 +55,7 @@
   }
   &__item {
     width: calc((100% - 6% * 4) / 5);
+    // aspect-ratio: 1/1;
   }
   // 6個目以降に上の余白
   &__item:nth-child(n + 6) {
