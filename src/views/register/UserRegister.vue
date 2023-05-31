@@ -124,7 +124,7 @@
           </p>
           <p class="val-email" v-if="user.email.length <= 0">&nbsp;</p>
           <p class="val-email" v-else-if="!emailValid(user.email)">
-            ラクスのドメインにして！！！！！
+            メールアドレスの形式が不正です。rakus.co.jpまたはrakus-partners.co.jpのドメインを使用してください
           </p>
           <p class="val-email" v-else-if="!emailerror">
             既に登録されているメールアドレスです
