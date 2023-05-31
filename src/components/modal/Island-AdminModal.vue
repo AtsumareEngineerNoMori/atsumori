@@ -120,6 +120,71 @@ const deleteIsland = async () => {
       );
     }
 
+    // 管理島のプロジェクト削除
+    const projects = await fetch(
+      `http://localhost:8000/Projects?adminIslandId=${islandId}`
+    ).then((res) => res.json());
+
+    if (projects.length > 0) {
+      const projectIds = projects.map((project) => project.id);
+      const projectDb = [
+        "RequestProject",
+        "JoinProjects",
+        "IslandScout",
+        "RecruitNewIsland",
+      ];
+      let ids = [];
+
+      for (let projectId of projectIds) {
+        console.log(projectId);
+        ids = [];
+        //削除するプロジェクトの関連データのidを取得
+        for (let i of projectDb) {
+          const datas = await fetch(
+            `http://localhost:8000/${i}?projectId=${projectId}`
+          ).then((res) => res.json());
+          const dataIds = datas.map((dataId) => dataId.id);
+          ids.push(dataIds);
+        }
+
+        // 削除するプロジェクトの関連データの削除
+        for (let i = 0; i < projectDb.length; i++) {
+          if (ids[i].length > 0) {
+            for (let id of ids[i]) {
+              console.log(projectDb[i], id);
+              await fetch(`http://localhost:8000/${projectDb[i]}/${id}`, {
+                method: "delete",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+              });
+            }
+          }
+        }
+
+        // チャット削除
+        const q = query(
+          dbRef(realtimeDB, myIdJudge()),
+          orderByChild("projectId"),
+          startAt(String(projectId)),
+          endAt(String(projectId))
+        );
+        await get(q).then((snapshot) => {
+          snapshot.forEach((a) => {
+            remove(a.ref);
+          });
+        });
+
+        // プロジェクト削除
+        await fetch(`http://localhost:8000/Projects/${projectId}`, {
+          method: "delete",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+    }
+
     // 島の削除
     await fetch(`http://localhost:8000/Islands/${islandId}`, {
       method: "delete",
@@ -128,7 +193,7 @@ const deleteIsland = async () => {
       },
     });
 
-    router.push("/top");
+    await router.push("/top");
   } catch (e) {
     console.log(e);
   }

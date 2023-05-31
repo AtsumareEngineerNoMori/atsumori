@@ -50,6 +50,18 @@
     cursor: pointer;
 }
 
+.entryModal__text {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.entryModal__error {
+    font-size: 14px;
+    font-weight: lighter;
+    color: red;
+    margin-top: 10px;
+}
+
 
 
 /**************************\

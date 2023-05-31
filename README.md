@@ -1,35 +1,50 @@
-# atsumoriProject
+# AtsumareEngineerNoMori
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## 環境構築
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Webサーバー起動
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### モックサーバー起動
 
 ```sh
-npm run build
+npm run mock-api
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## 概要
+* ログイン、ユーザー登録、ユーザー同士のやりとりが出来るシステムの新規開発
+     * 仮想の島やプロジェクトに所属し、依頼やスカウト・チャットなどができる
 
-```sh
-npm run test:unit
-```
+[島民(ユーザー)]
+* ユーザー登録
+* ログイン/ログアウト
+* 島作成(管理者となる)
+* プロジェクト作成(1つ以上島を作成している必要があり、管理者となる)
+* マイページ閲覧/編集
+* 参加依頼の許可/拒否
+* 島/プロジェクト検索
+
+[島(ユーザー同士が集まったコミュニティ)]
+* チャット
+* 島編集(管理者のみ)
+* ユーザー募集作成(管理者のみ)
+* 島削除(管理者のみ)
+* ユーザーを招待
+* プロジェクトへの参加依頼
+
+[プロジェクト(島同士が集まったコミュニティ)]
+* チャット
+* プロジェクト編集(管理者のみ)
+* ユーザー募集作成(管理者のみ)
+* プロジェクト削除(管理者のみ)
+* 島を招待
+
+## 画面遷移図
+![画面遷移図](./public/picture.png)

@@ -1,9 +1,11 @@
 <script setup>
-import { watch, ref } from "vue";
+import { watch, ref, computed } from "vue";
 
 const isShow = ref(false);
 const joinIsland = ref([]);
 const selectIsland = ref();
+const pageShow = ref(false);
+const errorIsShow = ref(false);
 
 const props = defineProps({
   projectId: Number,
@@ -14,11 +16,19 @@ const props = defineProps({
 const toggleStatus = () => {
   isShow.value = !isShow.value;
 };
+// エラーメッセージ
+const errorMessage = computed(() => {
+  return errorIsShow.value === true && selectIsland.value === undefined;
+});
 
 watch(props, async () => {
   const joinIslandDatas = await fetch(
     `http://localhost:8000/JoinIslands?userId=${props.myId}`
   ).then((res) => res.json());
+
+  if (joinIslandDatas.length > 0) {
+    pageShow.value = true;
+  }
 
   for (let joinIslandData of joinIslandDatas) {
     const island = await fetch(
@@ -52,6 +62,8 @@ const asign = () => {
       }),
     });
     toggleStatus();
+  } else {
+    errorIsShow.value = true;
   }
 };
 </script>
@@ -63,6 +75,29 @@ const asign = () => {
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-1-title"
+        v-show="!pageShow"
+      >
+        <main class="modal__content" id="modal-1-content">
+          <p class="entryModal__text">まずは島に参加しよう！</p>
+        </main>
+
+        <footer class="modal__footer">
+          <button
+            @click="toggleStatus"
+            class="modal__btn"
+            data-micromodal-close
+            aria-label="Close this dialog window"
+          >
+            Close
+          </button>
+        </footer>
+      </div>
+      <div
+        class="modal__container"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-1-title"
+        v-show="pageShow"
       >
         <header class="modal__header">
           <h2 class="modal__title" id="modal-1-title">
@@ -80,6 +115,9 @@ const asign = () => {
               {{ island.islandName }}
             </option>
           </select>
+          <p v-if="errorMessage" class="entryModal__error">
+            参加する島を選択してください。
+          </p>
         </main>
 
         <footer class="modal__footer">

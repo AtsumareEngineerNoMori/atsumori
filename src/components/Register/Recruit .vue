@@ -149,6 +149,16 @@ const changeInfomation = (e) => {
   infomationLength.value = false;
 };
 
+// // ログイン状態の場合の処理
+// onAuthStateChanged(auth, (currentUser) => {
+//     if (currentUser) {
+//    console.log("ログインしています")
+//     } else {
+//       console.log("ログインしてないです")
+//       router.push("/login");
+//     }
+//   });
+
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/${props.witch}/${Id}`);
   const data = await response.json();
@@ -186,7 +196,7 @@ const recruitRegister = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          projectId: Id,
+          projectId: Number(Id),
           recruitTitle: recruit.recruitTitle,
           recruitJob: recruit.recruitJob,
           recruitPoint: recruit.recruitPoint,
@@ -202,7 +212,7 @@ const recruitRegister = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          islandId: Id,
+          islandId: Number(Id),
           recruitTitle: recruit.recruitTitle,
           recruitJob: recruit.recruitJob,
           recruitPoint: recruit.recruitPoint,
