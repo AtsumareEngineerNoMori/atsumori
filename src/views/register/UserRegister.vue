@@ -48,21 +48,14 @@
 
             <div class="aaa">
               <div>職種</div>
-              <input
-                type="radio"
-                name="job"
-                value="WEB"
-                v-model="user.job"
-                @change="changeJob"
-                class="userRegister-details-detail-job"
-              />WEB
+              <input type="radio" name="job" value="WEB" v-model="user.job" />
+              WEB
               <input
                 type="radio"
                 name="job"
                 value="FR"
                 v-model="user.job"
                 @change="changeJob"
-                class="userRegister-details-detail-job"
               />
               FR
               <input
@@ -71,7 +64,6 @@
                 value="ML"
                 v-model="user.job"
                 @change="changeJob"
-                class="userRegister-details-detail-job"
               />
               ML
               <input
@@ -80,7 +72,6 @@
                 value="CL"
                 v-model="user.job"
                 @change="changeJob"
-                class="userRegister-details-detail-job"
               />
               CL
               <input
@@ -89,16 +80,13 @@
                 value="QA"
                 v-model="user.job"
                 @change="changeJob"
-                class="userRegister-details-detail-job"
               />
               QA
               <input
                 type="radio"
                 name="job"
                 value="その他"
-                v-model="user.job"
                 @change="changeJob"
-                class="userRegister-details-detail-job"
               />
               その他
               <p class="val-job" v-if="userJobLength">職種を選択してください</p>
@@ -136,7 +124,7 @@
           </p>
           <p class="val-email" v-if="user.email.length <= 0">&nbsp;</p>
           <p class="val-email" v-else-if="!emailValid(user.email)">
-            rakus.co.jp/rakus-partners.co.jpを使用してください
+            ラクスのドメインにして！！！！！
           </p>
           <p class="val-email" v-else-if="!emailerror">
             既に登録されているメールアドレスです
@@ -244,7 +232,6 @@ const changeName = (e) => {
   userNameLength.value = false;
 };
 
-// これ使いたい
 const changeJob = (e) => {
   userJobLength.value = false;
 };
@@ -451,7 +438,10 @@ const registerUser = () => {
     emojiRegex.test(user.password)
     // !emojiPattern.test(password)
   ) {
+    window.alert("入力が間違っているところがあります");
+    console.log("やっほ〜〜！");
     // window.alert("入力が間違っているところがあります")
+
   } else {
     U();
   }
