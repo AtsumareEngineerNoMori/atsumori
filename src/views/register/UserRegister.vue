@@ -48,7 +48,7 @@
 
             <div class="aaa">
               <div>職種</div>
-              <input type="radio" name="job" value="WEB" v-model="user.job" />
+              <input type="radio" name="job" value="WEB" v-model="user.job" @change="changeJob"/>
               WEB
               <input
                 type="radio"
@@ -87,6 +87,7 @@
                 name="job"
                 value="その他"
                 @change="changeJob"
+                v-model="user.job" 
               />
               その他
               <p class="val-job" v-if="userJobLength">職種を選択してください</p>
