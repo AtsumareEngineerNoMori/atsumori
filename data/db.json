@@ -1,64 +1,13 @@
 {
-  "Users": [
-    {
-      "id": "JzUKA8RXM3ep11t3aM6fuqVNrcH2",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "rokugatu",
-      "job": "WEB",
-      "comment": "rokugatu",
-      "email": "rokugatu@rakus.co.jp"
-    }
-  ],
-  "Islands": [
-    {
-      "islandName": "テスト",
-      "islandDescription": "テスト",
-      "adminId": "xuKAu9lEkUbdKk6ifoHw2BdYKmS2",
-      "createDate": "2023-05-31T05:51:51.981Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "テスト変更",
-      "projectDescription": "テスト変更",
-      "adminId": "xuKAu9lEkUbdKk6ifoHw2BdYKmS2",
-      "createDate": "2023-05-31T05:52:04.463Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "adminIslandId": 1,
-      "id": 1
-    }
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
-  "RecruitNewIsland": [
-    {
-      "projectId": 1,
-      "recruitTitle": "a",
-      "recruitJob": "WEB",
-      "recruitPoint": "a",
-      "createDate": "2023-05-31T05:54:56.138Z",
-      "projectName": "テスト変更",
-      "projectIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "id": 1
-    }
-  ],
+  "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "xuKAu9lEkUbdKk6ifoHw2BdYKmS2",
-      "islandId": 1,
-      "id": 1
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    }
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "UserScout": [],
   "IslandScout": []
 }
