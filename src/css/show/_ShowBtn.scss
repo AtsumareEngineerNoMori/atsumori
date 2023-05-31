@@ -5,4 +5,22 @@
     color: #4b7031;
     outline: 1px solid #4b7031;
   }
+
+  &.showChat {
+    background-color: orange;
+    &:hover {
+      background-color: #ffff;
+      color: orange;
+      outline: 1px solid orange;
+    }
+  }
+
+  &.showScout {
+    background-color: plum;
+    &:hover {
+      background-color: #ffff;
+      color: plum;
+      outline: 1px solid plum;
+    }
+  }
 }
