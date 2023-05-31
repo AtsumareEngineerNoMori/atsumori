@@ -1,6 +1,13 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import {
+  onAuthStateChanged,
+  // createUserWithEmailAndPassword,
+  // getAuth,
+} from "@firebase/auth";
+import { storage, auth, db } from "../../firebase";
+
 
 const checked = ref(false);
 const route = useRoute();
@@ -8,10 +15,14 @@ const router = useRouter();
 const userId = route.params.userId;
 const islandId = route.params.islandId;
 const islandData = ref({});
-const comment = ref();
+const comment = ref("");
 const overComment = ref("");
 
 onMounted(async () => {
+      // ログイン状態のチェック
+      onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser) {
+      console.log("ログインしています");
   try {
     const response = await fetch(`http://localhost:8000/Islands/${islandId}`);
     if (!response.ok) {
@@ -22,6 +33,10 @@ onMounted(async () => {
   } catch {
     console.log("エラーーーーー");
   }
+} else {
+      router.push("/login");
+    }
+  });
 });
 
 //申請ボタン

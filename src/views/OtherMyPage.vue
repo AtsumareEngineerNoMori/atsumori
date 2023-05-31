@@ -3,6 +3,13 @@
 import { onMounted, ref } from "vue";
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
+import {
+  onAuthStateChanged,
+  // createUserWithEmailAndPassword,
+  // getAuth,
+} from "@firebase/auth";
+import { storage, auth, db } from "../../firebase";
+
 
 import "../css/main.css";
 
@@ -30,20 +37,31 @@ const islandId = route.params.islandId;
 onMounted(async () => {
   console.log("prame-ta---", userId);
   console.log("prame-ta---", islandId);
-  try {
-    const response = await fetch(`http://localhost:8000/Users/${userId}`);
-    await getIsland();
-    // await getJoinIsland();
-    if (!response.ok) {
-      throw new Error(`HTTPエラーです！！！: ${response.status}`);
+
+    // ログイン状態のチェック
+    onAuthStateChanged(auth, async (currentUser) => {
+    if (currentUser) {
+      console.log("ログインしています");
+      try {
+        const response = await fetch(`http://localhost:8000/Users/${userId}`);
+        await getIsland();
+        if (!response.ok) {
+          throw new Error(`HTTPエラーです！！！: ${response.status}`);
+        }
+        User.value = await response.json();
+        console.log("User.valueの中身", User.value.name);
+      } catch (err) {
+        err.value = err;
+        console.log("エラー", err.value);
+      }
+    } else {
+      router.push("/login");
     }
-    User.value = await response.json();
-    console.log("User.valueの中身", User.value.name);
-  } catch (err) {
-    err.value = err;
-    console.log("エラー", err.value);
-  }
+  });
 });
+
+
+
 
 // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
 const getIsland = async () => {
