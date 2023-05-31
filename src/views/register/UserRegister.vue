@@ -438,8 +438,7 @@ const registerUser = () => {
     emojiRegex.test(user.password)
     // !emojiPattern.test(password)
   ) {
-    window.alert("入力が間違っているところがあります");
-    console.log("やっほ〜〜！");
+  console.log("入力が間違っているところがあります")
     // window.alert("入力が間違っているところがあります")
 
   } else {
