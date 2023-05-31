@@ -21,6 +21,13 @@ const RecruitIshow = ref(false);
 const loading = ref(false);
 
 onMounted(async () => {
+  // ログインID取得
+  const userId = $cookies.get("myId");
+  if (userId == null) {
+    router.push("/login");
+  }
+  myId.value = userId;
+
   const id = route.params.id;
   const islandData = await fetch(`http://localhost:8000/Islands/${id}`).then(
     (res) => res.json()
@@ -30,10 +37,6 @@ onMounted(async () => {
   } else {
     island.value = islandData;
     adminId.value = islandData.adminId;
-
-    // ログインID取得
-    const userId = $cookies.get("myId");
-    myId.value = userId;
 
     // ユーザーの判別
     userJudges.value = adminJudge(adminId.value, myId.value);

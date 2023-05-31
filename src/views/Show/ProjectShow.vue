@@ -25,6 +25,9 @@ onMounted(async () => {
 
   // ログインID取得
   const userId = $cookies.get("myId");
+  if (userId == null) {
+    router.push("/login");
+  }
   myId.value = userId;
 
   // プロジェクトデータの取得
