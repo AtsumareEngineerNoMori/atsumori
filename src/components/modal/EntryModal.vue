@@ -1,10 +1,11 @@
 <script setup>
-import { watch, ref } from "vue";
+import { watch, ref, computed } from "vue";
 
 const isShow = ref(false);
 const joinIsland = ref([]);
 const selectIsland = ref();
 const pageShow = ref(false);
+const errorIsShow = ref(false);
 
 const props = defineProps({
   projectId: Number,
@@ -15,6 +16,10 @@ const props = defineProps({
 const toggleStatus = () => {
   isShow.value = !isShow.value;
 };
+// エラーメッセージ
+const errorMessage = computed(() => {
+  return errorIsShow.value === true && selectIsland.value === undefined;
+});
 
 watch(props, async () => {
   const joinIslandDatas = await fetch(
@@ -57,6 +62,8 @@ const asign = () => {
       }),
     });
     toggleStatus();
+  } else {
+    errorIsShow.value = true;
   }
 };
 </script>
@@ -108,6 +115,9 @@ const asign = () => {
               {{ island.islandName }}
             </option>
           </select>
+          <p v-if="errorMessage" class="entryModal__error">
+            参加する島を選択してください。
+          </p>
         </main>
 
         <footer class="modal__footer">
