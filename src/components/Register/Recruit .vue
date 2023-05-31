@@ -186,7 +186,7 @@ const recruitRegister = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          projectId: Id,
+          projectId: Number(Id),
           recruitTitle: recruit.recruitTitle,
           recruitJob: recruit.recruitJob,
           recruitPoint: recruit.recruitPoint,
@@ -202,7 +202,7 @@ const recruitRegister = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          islandId: Id,
+          islandId: Number(Id),
           recruitTitle: recruit.recruitTitle,
           recruitJob: recruit.recruitJob,
           recruitPoint: recruit.recruitPoint,
