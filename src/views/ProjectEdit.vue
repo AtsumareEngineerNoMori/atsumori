@@ -89,6 +89,7 @@ const getFlight = async () => {
   console.log(recruitNewIslandData);
   data.value = recruitNewIslandData;
   console.log(data);
+  console.log(data.value.recruitTitle)
 };
 getFlight();
 
@@ -129,9 +130,6 @@ async function updateProject() {
 }
 
 // recruitNewIsland更新
-
-
-
 async function updateRecruitNewUser() {
   try {
     const response = await fetch(
