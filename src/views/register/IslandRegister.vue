@@ -84,7 +84,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";

@@ -104,7 +104,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import If from "../../components/If/If.vue";
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
