@@ -82,13 +82,14 @@ async function iconEdit(event) {
 //RecruitNewUser取得
 const getFlight = async () => {
   const response = await fetch(
-    `http://localhost:8000/RecruitNewIsland/${Project.value.id}`
+    `http://localhost:8000/RecruitNewIsland/${ProjectId.value}`
   );
 
   const recruitNewIslandData = await response.json();
   console.log(recruitNewIslandData);
   data.value = recruitNewIslandData;
   console.log(data);
+  console.log(data.value.recruitTitle)
 };
 getFlight();
 
@@ -129,9 +130,6 @@ async function updateProject() {
 }
 
 // recruitNewIsland更新
-
-
-
 async function updateRecruitNewUser() {
   try {
     const response = await fetch(

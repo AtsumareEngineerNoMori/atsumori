@@ -104,7 +104,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import If from "../../components/If/If.vue";
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
@@ -124,7 +124,11 @@ const iconImg = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
 );
 
-const project = reactive({
+const project:{id:Number,projectName:String,  projectDescription:String ,
+  adminId: String,
+  createDate: Date,
+  name: String,
+  description: String} = reactive({
   id: "",
   projectName: "",
   projectDescription: "",
@@ -158,7 +162,7 @@ const changeInfomation = (e) => {
 };
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth, (currentUser) => {
+onAuthStateChanged(auth, (currentUser:String) => {
     if (currentUser) {
    console.log("ログインしています")
     } else {
