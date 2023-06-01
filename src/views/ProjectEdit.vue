@@ -82,7 +82,7 @@ async function iconEdit(event) {
 //RecruitNewUser取得
 const getFlight = async () => {
   const response = await fetch(
-    `http://localhost:8000/RecruitNewIsland/${Project.value.id}`
+    `http://localhost:8000/RecruitNewIsland/${ProjectId.value}`
   );
 
   const recruitNewIslandData = await response.json();
