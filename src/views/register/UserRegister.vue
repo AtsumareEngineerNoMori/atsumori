@@ -124,7 +124,7 @@
           </p>
           <p class="val-email" v-if="user.email.length <= 0">&nbsp;</p>
           <p class="val-email" v-else-if="!emailValid(user.email)">
-            ラクスのドメインにして！！！！！
+            メールアドレスの形式が不正です。rakus.co.jpまたはrakus-partners.co.jpのドメインを使用してください
           </p>
           <p class="val-email" v-else-if="!emailerror">
             既に登録されているメールアドレスです
@@ -251,7 +251,6 @@ const changePassword = (e) => {
 const changecPassword = (e) => {
   usercPasswordLength.value = false;
 };
-
 
 // ログイン状態の場合の処理
 onMounted(() => {
@@ -441,7 +440,6 @@ const registerUser = () => {
     window.alert("入力が間違っているところがあります");
     console.log("やっほ〜〜！");
     // window.alert("入力が間違っているところがあります")
-
   } else {
     U();
   }
