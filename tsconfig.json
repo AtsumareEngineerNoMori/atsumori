@@ -3,18 +3,17 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
-    "jsx": "preserve",
-
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
-
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.vue",
-
+    "src/views/**/*.vue",
+    "src/components/**/*.vue"
   ],
+
   "exclude": ["node_modules"]
 }
