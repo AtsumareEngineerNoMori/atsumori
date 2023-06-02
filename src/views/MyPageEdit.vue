@@ -143,7 +143,7 @@ function check() {
 }
 
 // realtimeDB更新関数
-const updateDB = (userId, newName, newIcon) => {
+const updateDB = (userId:string, newName:string, newIcon:string) => {
   // userIdが等しいデータ参照先
   const queryRef = query(
     dbRef(realtimeDB, myIdJudge()),
