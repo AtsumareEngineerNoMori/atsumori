@@ -201,12 +201,7 @@ const router = createRouter({
       path: "/top",
       name: "top",
       component: Top,
-    },
-    {
-      path: "/chatTest",
-      name: "chatTest",
-      component: () => import("../views/chat/ChatTest.vue"),
-    },
+    }
   ],
 });
 
