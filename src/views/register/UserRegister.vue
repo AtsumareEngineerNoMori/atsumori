@@ -402,7 +402,6 @@ const registerUser = () => {
     emojiRegex.test(user.password)
   ) {
     console.log("入力が間違っているところがあります");
-  } else {
     U();
   }
 

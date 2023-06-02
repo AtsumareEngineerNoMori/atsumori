@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink, RouterView, useRoute } from "vue-router";
 import Header from "../src/components/Header/Header.vue";
 

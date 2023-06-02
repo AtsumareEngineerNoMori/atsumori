@@ -1,22 +1,42 @@
-<script setup>
-import AdminModal from "../../components/modal/Island-AdminModal.vue";
-import SideMember from "../../components/islandShow/SideMember.vue";
-import SideScout from "../../components/islandShow/SideScout.vue";
-import ShowBtn from "../../components/islandShow/ShowBtn.vue";
-import Loading from "../../components/Loading.vue";
+<script setup lang="ts">
+import AdminModal from "@/components/modal/Island-AdminModal.vue";
+import SideMember from "@/components/islandShow/SideMember.vue";
+import SideScout from "@/components/islandShow/SideScout.vue";
+import ShowBtn from "@/components/islandShow/ShowBtn.vue";
+import Loading from "@/components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+
+type RecruitNewUser = {
+  projectId: number;
+  recruitTitle: string;
+  recruitJob: string;
+  recruitPoint: string;
+  createDate: Date;
+  projectName: string;
+  projectIcon: string;
+  id: number;
+};
+
+type Islands = {
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  id: number;
+};
 
 const route = useRoute();
 const router = useRouter();
 
 const myId = ref();
-const island = ref([]);
-const adminId = ref();
-const adminName = ref();
-const userJudges = ref(null);
-const Recruits = ref([]);
+const island = ref<any>([]);
+const adminId = ref<string>();
+const adminName = ref<string>();
+const userJudges = ref<number>();
+const Recruits = ref<any>([]);
 const RecruitIshow = ref(false);
 const loading = ref(false);
 
