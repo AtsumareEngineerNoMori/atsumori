@@ -33,7 +33,6 @@
         </div>
         <div class="RecruitIslandRegister-details-jobSet-job">
           <p>募集職種</p>
-          <!-- <JobSelect :vmodel="`recruit.recruitJob`" /> -->
           <input
             type="radio"
             name="job"
@@ -110,11 +109,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { useRoute } from "vue-router";
-import JobSelect from "./JobSelect.vue";
+import type { Ref } from "vue";
 
 const props = defineProps({
   kansu: String,
@@ -122,42 +121,37 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const loading = vueref(false);
-
-const Id = route.params.id;
-
 const router = useRouter();
-const recruit = reactive({
+const loading: Ref<boolean> = vueref(false);
+
+const Id= route.params.id;
+
+const recruit: {
+  recruitTitle: string,
+  recruitJob: string,
+  recruitPoint: string,
+  createDate: Date,
+} = reactive({
   recruitTitle: "",
   recruitJob: "",
   recruitPoint: "",
-  createDate: "",
+  createDate: new Date(),
 });
 const Data = vueref();
 
-const titleLength = vueref(false);
-const selectLength = vueref(false);
-const infomationLength = vueref(false);
+const titleLength :Ref<boolean>= vueref(false);
+const selectLength:Ref<boolean> = vueref(false);
+const infomationLength:Ref<boolean> = vueref(false);
 
-const changeTitle = (e) => {
+const changeTitle = (e: any) => {
   titleLength.value = false;
 };
-const changeSelect = (e) => {
+const changeSelect = (e: any) => {
   selectLength.value = false;
 };
-const changeInfomation = (e) => {
+const changeInfomation = (e: any) => {
   infomationLength.value = false;
 };
-
-// // ログイン状態の場合の処理
-// onAuthStateChanged(auth, (currentUser) => {
-//     if (currentUser) {
-//    console.log("ログインしています")
-//     } else {
-//       console.log("ログインしてないです")
-//       router.push("/login");
-//     }
-//   });
 
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/${props.witch}/${Id}`);
