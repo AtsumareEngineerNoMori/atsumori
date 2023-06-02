@@ -140,6 +140,8 @@ const projectDescriptionLength = vueref(false);
 const selectIslandLength = vueref(false);
 const islands = vueref([]);
 
+
+
 const changeName = (e) => {
   console.log(e);
   projectNameLength.value = false;
@@ -229,7 +231,7 @@ const projectRegisterButton = () => {
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
-              adminIslandId: selectIsland.value,
+              adminIslandId:selectIsland.value
             }),
           })
             .then(function (response) {
@@ -264,7 +266,7 @@ const projectRegisterButton = () => {
         adminId: currentUserId,
         createDate: new Date(),
         icon: iconImg.value,
-        adminIslandId: selectIsland.value,
+        adminIslandId:selectIsland.value
       }),
     })
       .then(function (response) {
@@ -306,7 +308,7 @@ const registerProject = () => {
     project.description === "" ||
     project.name.length > 20 ||
     project.description.length > 255 ||
-    selectIsland === ""
+    selectIsland.value === ""
   ) {
     // window.alert("入力が間違っているところがあります")
     console.log("yahho~!");

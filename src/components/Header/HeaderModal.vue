@@ -1,7 +1,11 @@
 <script setup>
 import { signOut } from "@firebase/auth";
 import { ref } from "vue";
+import { routerKey } from "vue-router";
 import { auth } from "../../../firebase";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const isShow = ref(false);
 const toggleStatus = () => {
@@ -11,6 +15,7 @@ const toggleStatus = () => {
 const logout = async () => {
   await signOut(auth);
   $cookies.remove("myId");
+  router.go();
 };
 </script>
 

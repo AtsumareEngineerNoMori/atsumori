@@ -239,7 +239,7 @@ const updateDB = (userId, newName, newIcon) => {
             QA
           </label>
           <label class="edit__label">
-            <input type="radio" name="job" value="その他" />
+            <input type="radio" name="job" value="その他" v-model="User.job"/>
             その他
           </label>
         </li>
