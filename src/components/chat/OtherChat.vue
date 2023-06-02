@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import GetTime from "../date/GetTime.vue";
 const props = defineProps({
   chat: Object,

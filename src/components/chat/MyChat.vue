@@ -1,5 +1,5 @@
-<script setup>
-import GetTime from "../date/GetTime.vue";
+<script setup lang="ts">
+import GetTime from "@/components/date/GetTime.vue";
 const props = defineProps({
   chat: Object,
 });

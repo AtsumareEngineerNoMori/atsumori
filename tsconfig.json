@@ -4,6 +4,7 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
+    "moduleResolution": "node",
 
     "baseUrl": ".",
     "paths": {
@@ -14,6 +15,8 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
+    "src/components/**/*.vue",
+    "src/components/date/*.vue",
 
   ],
   "exclude": ["node_modules"]

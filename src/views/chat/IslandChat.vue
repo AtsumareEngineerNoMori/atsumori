@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUpdated, ref } from "vue";
+import type { Ref } from "vue";
 import { realtimeDB } from "../../../firebase";
 import "../../css/main.css";
-import GetDate from "../../components/date/GetDate.vue";
+// import GetDate from "@/components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
-import MyChat from "../../components/chat/MyChat.vue";
+import MyChat from "@/components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
 import { useRoute } from "vue-router";
 import {
@@ -20,12 +21,21 @@ import {
 } from "firebase/database";
 import { myIdJudge } from "../../userJudge";
 
+interface Islands {
+  id: number,
+  icon: string,
+  islandName: string,
+  islandDescription: string,
+  adminId: number,
+  createDate: Date
+}
+
 // ログインユーザーのid
 const uid = ref("");
 // データ取得判別
 const loading = ref(true);
 // 島情報保管
-const islandData = ref();
+const islandData:Ref<Islands | undefined> = ref();
 // チャット情報保管
 const chatList = ref([]);
 // 入力内容保持
@@ -37,7 +47,7 @@ const messageScreen = ref(null);
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
-const islandId = route.params.id;
+const islandId:string | string[] = route.params.id;
 
 // 初期表示のデータ取得
 onMounted(() => {
@@ -68,8 +78,8 @@ const getData = () => {
       dbRef(realtimeDB, myIdJudge()),
       orderByChild("islandId"),
       limitToLast(10),
-      startAt(islandId),
-      endAt(islandId)
+      startAt(String(islandId)),
+      endAt(String(islandId))
     );
     onValue(q, (snapshot) => {
       chatList.value = snapshot.val();
@@ -82,8 +92,8 @@ const getData = () => {
 const q = query(
   dbRef(realtimeDB, myIdJudge()),
   orderByChild("islandId"),
-  startAt(islandId),
-  endAt(islandId)
+  startAt(String(islandId)),
+  endAt(String(islandId))
 );
 
 // 全件取得
