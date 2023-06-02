@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 
-interface Date {
+interface GetDate {
   year: string,
   month: string,
   date: string,
@@ -10,10 +10,10 @@ interface Date {
 }
 
 const props = defineProps({
-  createDate: Number,
+  createDate: Date,
 });
 
-const date = reactive<Date>({
+const date = reactive<GetDate>({
   year: "",
   month: "",
   date: "",

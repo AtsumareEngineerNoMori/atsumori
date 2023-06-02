@@ -1,6 +1,10 @@
 // 引数：管理者idと参加者id
 // 管理者、参加者、その他
-function userJudge(adminId, joinIds, myId) {
+function userJudge(
+  adminId: string | undefined,
+  joinIds: Array<string | undefined>,
+  myId: string | undefined
+) {
   if (myId === adminId) {
     return 1;
   } else if (joinIds.includes(myId)) {
@@ -11,7 +15,7 @@ function userJudge(adminId, joinIds, myId) {
 }
 
 // 管理者か否か
-function adminJudge(adminId, myId) {
+function adminJudge(adminId: string | undefined, myId: string | undefined) {
   if (myId === adminId) {
     return 1;
   } else {
@@ -20,7 +24,10 @@ function adminJudge(adminId, myId) {
 }
 
 // 参加者か否か
-function joinJudge(joinIds, myId) {
+function joinJudge(
+  joinIds: Array<string | undefined>,
+  myId: string | undefined
+) {
   if (joinIds.includes(myId)) {
     return 1;
   } else {

@@ -100,7 +100,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 import {  ref } from "vue";
 import { onAuthStateChanged } from "@firebase/auth";
@@ -108,7 +108,8 @@ import { auth } from "../../firebase";
 import { useRouter } from "vue-router";
 
 
-const newIslandArray = ref();
+
+const newIslandArray= ref();
 const newProjectArray = ref();
 const newRecruitIslandArray = ref();
 const newRecruitProjectArray = ref();
@@ -116,7 +117,7 @@ const router = useRouter();
 
 
 // ログイン状態の場合の処理
-  onAuthStateChanged(auth, (currentUser) => {
+  onAuthStateChanged(auth, (currentUser:any) => {
     if (currentUser) {
    console.log("ログインしています")
     } else {

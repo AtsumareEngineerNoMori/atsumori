@@ -171,15 +171,15 @@ onUpdated(() => {
   <div class="chat" v-else>
     <section class="chat__header">
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
         class="chat__icon"
       >
-        <img :src="islandData[0].icon" alt="icon" class="chat__icon-img" />
+        <img :src="islandData?.icon" alt="icon" class="chat__icon-img" />
       </RouterLink>
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
       >
-        <p class="chat__name">{{ islandData[0].islandName }}</p>
+        <p class="chat__name">{{ islandData?.islandName }}</p>
       </RouterLink>
     </section>
     <section v-if="chatList === null" class="chat__messageWrapper">
