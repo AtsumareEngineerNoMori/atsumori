@@ -29,6 +29,13 @@ interface Islands {
   adminId: number,
   createDate: Date
 }
+interface Chat {
+  createDate: Date,
+  icon: string,
+  islandId: number,
+  message: string,
+  userId: string
+}
 
 // ログインユーザーのid
 const uid = ref("");
@@ -37,13 +44,13 @@ const loading = ref(true);
 // 島情報保管
 const islandData:Ref<Islands | undefined> = ref();
 // チャット情報保管
-const chatList = ref([]);
+const chatList:Ref<Chat[]> = ref([]);
 // 入力内容保持
-const message = ref("");
+const message:Ref<string> = ref("");
 // 全データ数
-const allDataLength = ref(0);
+const allDataLength:Ref<number> = ref(0);
 // 画面スクロール用
-const messageScreen = ref(null);
+const messageScreen:Ref<any> = ref(null);
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
