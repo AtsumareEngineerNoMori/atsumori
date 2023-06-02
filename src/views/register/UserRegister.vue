@@ -252,7 +252,6 @@ const changecPassword = (e) => {
   usercPasswordLength.value = false;
 };
 
-
 // ログイン状態の場合の処理
 onMounted(() => {
   onAuthStateChanged(auth, (currentUser) => {
@@ -440,7 +439,6 @@ const registerUser = () => {
   ) {
   console.log("入力が間違っているところがあります")
     // window.alert("入力が間違っているところがあります")
-
   } else {
     U();
   }
