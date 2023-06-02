@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 // import { placeholder } from "@babel/types";
 import { onMounted, ref as vueref } from "vue";
 import { useRouter } from "vue-router";
@@ -9,11 +9,9 @@ import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } 
 
 //会員情報取得
 const userId = vueref(); //firebaseでログインしてる人のID
-const err = vueref();
 const User = vueref({
   icon: "",
   name: "",
-  icon: "",
   job: "",
   comment: "",
 });
@@ -27,7 +25,7 @@ const back = () => {
 //会員情報取得
 onMounted(async () => {
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
-  auth.onAuthStateChanged(async (loggedInUser) => {
+  auth.onAuthStateChanged(async (loggedInUser: any) => {
     if (loggedInUser) {
       userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
 
@@ -40,7 +38,7 @@ onMounted(async () => {
         }
         User.value = await response.json();
         console.log("User.valueの中身", User.value);
-      } catch (err) {
+      } catch (err:any) {
         err.value = err;
         console.log("エラー", err.value);
       }
@@ -51,7 +49,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event) {
+async function iconEdit(event:any) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
@@ -63,15 +61,7 @@ async function iconEdit(event) {
   } catch (error) {
     console.error(error);
   }
-}
 
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
 }
 
 //デフォルトの画像

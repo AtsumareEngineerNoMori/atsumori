@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import "../css/main.css";
@@ -17,10 +17,23 @@ const User = ref({
 });
 
 // joinIslandsから取得したuserIdが等しいデータを保管
-const joinList = ref([]);
-// islandsから取得したislandIdが等しいデータを保管
-const islandData = ref([]);
+const joinList = ref<Join[]>([]);
+type Join = {
+  userId :string;
+  islandId:number;
+  id:number;
+}
 
+// islandsから取得したislandIdが等しいデータを保管
+const islandData = ref<Island[]>([]);
+type Island = {
+  islandName: string,
+  islandDescription: string,
+  adminId:string,
+  createDate:Date,
+  icon:string,
+  id:number
+}
 const route = useRoute();
 const router = useRouter();
 //パラメーターからuserId取得
@@ -44,7 +57,7 @@ onMounted(async () => {
         }
         User.value = await response.json();
         console.log("User.valueの中身", User.value.name);
-      } catch (err) {
+      } catch (err:any) {
         err.value = err;
         console.log("エラー", err.value);
       }
@@ -66,7 +79,7 @@ const getIsland = async () => {
 };
 
 //ログインユーザーが参加している島IDと同じ島IDの島をIslandsテーブルから取得
-const getJoinIsland = async (island) => {
+const getJoinIsland = async () => {
   console.log("２つめ", joinList.value);
   await Promise.all(
     joinList.value.map(async (element) => {
@@ -116,7 +129,7 @@ async function findScout() {
     const data = await response.json();
 
     const matchingId = data.find(
-      (item) => item.userId === userId && item.islandId === islandId
+      (item:any) => item.userId === userId && item.islandId === islandId
     )?.id;
 
     if (!matchingId) {
@@ -130,7 +143,7 @@ async function findScout() {
   }
 }
 
-async function ScoutCansel(id) {
+async function ScoutCansel(id:number) {
   scouted.value = false;
   try {
     const response = await fetch(`http://localhost:8000/UserScout/${id}`, {
