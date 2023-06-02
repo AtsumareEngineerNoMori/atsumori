@@ -1,12 +1,36 @@
 {
-  "Users": [],
-  "Islands": [],
+  "Users": [
+    {
+      "id": "VymAU0evLhMbXK5LdA7qKgY8kKt2",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
+      "name": "emi",
+      "job": "WEB",
+      "comment": "emi",
+      "email": "emi@rakus.co.jp"
+    }
+  ],
+  "Islands": [
+    {
+      "islandName": "島",
+      "islandDescription": "島",
+      "adminId": "VymAU0evLhMbXK5LdA7qKgY8kKt2",
+      "createDate": "2023-06-02T02:38:33.963Z",
+      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
+      "id": 1
+    }
+  ],
   "Projects": [],
   "RecruitNewUser": [],
   "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [],
+  "JoinIslands": [
+    {
+      "userId": "VymAU0evLhMbXK5LdA7qKgY8kKt2",
+      "islandId": 1,
+      "id": 1
+    }
+  ],
   "JoinProjects": [],
   "UserScout": [],
   "IslandScout": []

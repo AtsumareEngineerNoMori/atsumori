@@ -1,11 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { signOut } from "@firebase/auth";
 import { ref } from "vue";
-import { routerKey } from "vue-router";
+import { Router, routerKey } from "vue-router";
 import { auth } from "../../../firebase";
 import { useRouter } from "vue-router";
+// import  Vue from 'vue';
+import {$cookies} from 'vue-cookies';
 
-const router = useRouter();
+// Vue.use(VueCookies);
+// Vue.$cookies.set('key', 'value');
+// const value = Vue.$cookies.get('key');
+// Vue.$cookies.remove('key');
+
+const router: Router = useRouter();
 
 const isShow = ref(false);
 const toggleStatus = () => {
@@ -15,7 +22,7 @@ const toggleStatus = () => {
 const logout = async () => {
   await signOut(auth);
   $cookies.remove("myId");
-  router.go();
+  router.go(0);
 };
 </script>
 
@@ -58,11 +65,6 @@ const logout = async () => {
               <p class="headerModal__list">ログアウト</p>
             </div>
           </RouterLink>
-
-          <!-- <div class="headerModal__listdiv"><p @click="toggleStatus"
-            data-micromodal-close
-            aria-label="Close this dialog window"
-            class="headerModal__tojiru">メニューを閉じる</p></div> -->
         </main>
       </div>
     </div>
