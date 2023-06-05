@@ -15,10 +15,11 @@
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const props = defineProps({
-  moji: String,
-  pageLink: String,
-});
+const props = defineProps<{
+  moji: string,
+  pageLink: string ,
+}>();
+
 
 // データがない場合に表示するボタン
 const noDataBtn = () => {

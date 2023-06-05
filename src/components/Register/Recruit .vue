@@ -117,7 +117,7 @@ import type { Ref } from "vue";
 import { defineProps } from "vue";
 
 const props = defineProps({
-  kansu: String,
+  kansu: String ,
   witch: String,
 });
 
@@ -157,7 +157,6 @@ const changeInfomation = (e:  Event) => {
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/${props.witch}/${Id}`);
   const data = await response.json();
-  console.log(data);
   Data.value = data;
   loading.value = true;
 };

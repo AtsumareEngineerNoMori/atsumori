@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { signOut } from "@firebase/auth";
 import { ref } from "vue";
-import { Router, routerKey } from "vue-router";
+import { Router} from "vue-router";
 import { auth } from "../../firebase"
 import { useRouter } from "vue-router";
+import {app} from "../../main"
+import type { Ref } from "vue";
 
 const router: Router = useRouter();
 
-const isShow = ref(false);
+const isShow :Ref<boolean>= ref(false);
 const toggleStatus = () => {
   isShow.value = !isShow.value;
 };
 
-const logout = async () => {
+const  logout: () => Promise<void> = async () => {
   await signOut(auth);
-  $cookies.remove("myId");
+  app.$cookies.remove("myId");
   router.go(0);
 };
 </script>
