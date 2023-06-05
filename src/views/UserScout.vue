@@ -1,19 +1,34 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
+import type { Ref } from "vue";
 import "../css/main.css";
 import UserScoutApproveButton from "../components/button/UserScoutApproveButton.vue";
 import Loading from "../components/Loading.vue";
 import DeleteUserScoutButton from "../components/button/DeleteUserScoutButton.vue";
 import { useRouter } from "vue-router";
 
+interface UserScout {
+  id:number,
+  userId: string,
+  islandId: number
+}
+interface Islands {
+  id: number,
+  icon: string,
+  islandName: string,
+  islandDescription: string,
+  adminId: string,
+  createDate: Date
+}
+
 const router = useRouter();
 
-const uid = ref("");
+const uid:Ref<string> = ref("");
 // userScoutから取得したuserIdが等しいデータを保管
-const scoutList = ref([]);
+const scoutList:Ref<UserScout[]> = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
-const islandData = ref([]);
-const loading = ref(true);
+const islandData:Ref<Islands[]> = ref([]);
+const loading:Ref<boolean> = ref(true);
 
 onMounted(() => {
   const currentUserId = $cookies.get("myId");
@@ -39,7 +54,7 @@ onMounted(() => {
               `http://localhost:8000/Islands/?id=${island.islandId}`
             );
             const data = await response.json();
-            islandData.value.push(data);
+            islandData.value.push(...data);
             // データ取得後に反転させる
             loading.value = false;
           });
@@ -79,18 +94,18 @@ const noDataBtn = () => {
         </div>
       </section>
       <section class="list__list" v-else>
-        <div v-for="island in islandData" :key="island" class="list__item">
-          <RouterLink v-bind:to="{ name: 'islandShow', params: { id: island[0].id } }">
+        <div v-for="island in islandData" :key="island.id" class="list__item">
+          <RouterLink v-bind:to="{ name: 'islandShow', params: { id: island.id } }">
             <img
-              v-bind:src="island[0].icon"
+              v-bind:src="island.icon"
               alt="island"
               class="list__iconImg"
             />
-            <p class="list__name">{{ island[0].islandName }}</p>
+            <p class="list__name">{{ island.islandName }}</p>
           </RouterLink>
           <div class="scout__buttons">
-            <UserScoutApproveButton :userId="uid" :islandId="island[0].id" />
-            <DeleteUserScoutButton :userId="uid" :islandId="island[0].id" />
+            <UserScoutApproveButton :userId="uid" :islandId="island.id" />
+            <DeleteUserScoutButton :userId="uid" :islandId="island.id" />
           </div>
         </div>
       </section>

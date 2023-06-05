@@ -26,25 +26,26 @@ interface Islands {
   icon: string,
   islandName: string,
   islandDescription: string,
-  adminId: number,
+  adminId: string,
   createDate: Date
 }
-interface Chat {
-  createDate: Date,
+interface ChatData {
+  createDate: number,
   icon: string,
   islandId: number,
   message: string,
-  userId: string
+  userId: string,
+  name: string,
 }
 
 // ログインユーザーのid
-const uid = ref("");
+const uid:Ref<string> = ref("");
 // データ取得判別
-const loading = ref(true);
+const loading:Ref<boolean> = ref(true);
 // 島情報保管
-const islandData:Ref<Islands | undefined> = ref();
+const islandData:Ref<Islands[]> = ref([]);
 // チャット情報保管
-const chatList:Ref<Chat[]> = ref([]);
+const chatList:Ref<ChatData[]> = ref([]);
 // 入力内容保持
 const message:Ref<string> = ref("");
 // 全データ数
@@ -77,7 +78,7 @@ const getData = () => {
       `http://localhost:8000/islands/?id=${islandId}`
     );
     const data = await response.json();
-    islandData.value = data;
+    islandData.value.push(...data);
   };
   getIsland().then(() => {
     // realtimeDBから島idと等しいデータを取得
@@ -171,15 +172,15 @@ onUpdated(() => {
   <div class="chat" v-else>
     <section class="chat__header">
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
         class="chat__icon"
       >
-        <img :src="islandData?.icon" alt="icon" class="chat__icon-img" />
+        <img :src="islandData[0].icon" alt="icon" class="chat__icon-img" />
       </RouterLink>
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
       >
-        <p class="chat__name">{{ islandData?.islandName }}</p>
+        <p class="chat__name">{{ islandData[0].islandName }}</p>
       </RouterLink>
     </section>
     <section v-if="chatList === null" class="chat__messageWrapper">
@@ -193,7 +194,7 @@ onUpdated(() => {
           </button>
         </div>
       </template>
-      <div v-for="chat in chatList" :key="chat">
+      <div v-for="chat in chatList">
         <!-- 自分のメッセージか判別する -->
         <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />

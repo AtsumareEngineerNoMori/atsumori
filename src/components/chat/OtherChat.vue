@@ -1,8 +1,18 @@
 <script setup lang="ts">
 import GetTime from "../date/GetTime.vue";
-const props = defineProps({
-  chat: Object,
-});
+
+interface Chat {
+  createDate: number,
+  icon: string,
+  islandId?: number,
+  projectId?: number,
+  message: string,
+  userId: string,
+  name: string,
+}
+const props = defineProps<{
+  chat: Chat,
+}>();
 </script>
 
 <template>

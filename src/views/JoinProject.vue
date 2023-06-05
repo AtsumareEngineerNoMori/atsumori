@@ -1,8 +1,23 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
+import type { Ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import { useRoute, useRouter } from "vue-router";
+
+interface joinProjects {
+  id: number,
+  islandId: number,
+  projectId: number,
+}
+interface Projects {
+  id: number,
+  icon: string,
+  projectName: string,
+  projectDescription: string,
+  adminId: string,
+  createDate: Date
+}
 
 const router = useRouter();
 // 島詳細画面からislandIdを受け取る
@@ -11,10 +26,10 @@ const islandId = route.params.id;
 console.log(islandId);
 
 // joinProjectsから取得したislandIdが等しいデータを保管
-const joinList = ref([]);
+const joinList:Ref<joinProjects[]> = ref([]);
 // projectsから取得したprojectIdが等しいデータを保管
-const projectData = ref([]);
-const loading = ref(true);
+const projectData:Ref<Projects[]> = ref([]);
+const loading:Ref<boolean> = ref(true);
 
 onMounted(() => {
   const getJoinProject = async () => {
@@ -34,7 +49,7 @@ onMounted(() => {
           `http://localhost:8000/Projects/?id=${pj.projectId}`
         );
         const data = await response.json();
-        projectData.value.push(data);
+        projectData.value.push(...data);
         loading.value = false;
       });
     } else {
@@ -73,14 +88,14 @@ const noDataBtn = () => {
         </div>
       </section>
       <section class="list__list" v-else>
-        <div v-for="project in projectData" :key="project" class="list__item">
-          <RouterLink v-bind:to="{ name: 'projectShow', params: { id: project[0].id } }">
+        <div v-for="project in projectData" :key="project.id" class="list__item">
+          <RouterLink v-bind:to="{ name: 'projectShow', params: { id: project.id } }">
             <img
-              v-bind:src="project[0].icon"
+              v-bind:src="project.icon"
               alt="project"
               class="list__iconImg"
             />
-            <p class="list__name">{{ project[0].projectName }}</p>
+            <p class="list__name">{{ project.projectName }}</p>
           </RouterLink>
         </div>
       </section>
