@@ -30,26 +30,36 @@
   </div>
 </template>
 
-<script setup>
-import { onMounted, ref, watchEffect } from "vue";
-import TopSearchBox from "../../components/Search/TopSearch/TopSearchBox.vue";
+<script setup lang="ts">
+import { onMounted, ref, watchEffect, Ref } from "vue";
+import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 import { useRoute } from "vue-router";
 
-const route = useRoute();
+//型
+type RecruitNewUser = {
+  id: number;
+  islandId: number;
+  island: {
+    id: number;
+    islandName: string;
+    icon: string;
+  };
+};
 
-const originalRecruitNewUsers = ref([]); //データ配列
-const filteredRecruitNewUsers = ref([]); //検索結果に基づくデータの配列
+const route = useRoute();
+const originalRecruitNewUsers: Ref<RecruitNewUser[]> = ref([]); //データ配列
+const filteredRecruitNewUsers: Ref<RecruitNewUser[]> = ref([]); //検索結果に基づくデータの配列
 
 const fetchRecruitNewUsers = async () => {
   try {
     const response = await fetch(`http://localhost:8000/RecruitNewUser`);
     const data = await response.json();
-    originalRecruitNewUsers.value = data.map((recruitNewUser) => ({
+    originalRecruitNewUsers.value = data.map((recruitNewUser:any) => ({
       ...recruitNewUser,
       island: {},
     }));
     console.log("募集中の島", data);
-    await fetchIslands(); 
+    await fetchIslands();
     filterRecruitNewUsers(""); // 初期表示時にすべてのデータを表示するように検索を実行
   } catch (error) {
     console.log("募集中の島", error);
@@ -62,7 +72,7 @@ const fetchIslands = async () => {
     const data = await response.json();
     originalRecruitNewUsers.value.forEach((recruitNewUser) => {
       recruitNewUser.island = data.find(
-        (island) => island.id === recruitNewUser.islandId
+        (island:any) => island.id === recruitNewUser.islandId
       );
     });
     console.log("島", data);
@@ -71,7 +81,7 @@ const fetchIslands = async () => {
   }
 };
 
-const filterRecruitNewUsers = (query) => {
+const filterRecruitNewUsers = (query:any) => {
   filteredRecruitNewUsers.value = originalRecruitNewUsers.value.filter(
     (recruitNewUser) => {
       const islandName = recruitNewUser.island.islandName.toLowerCase();

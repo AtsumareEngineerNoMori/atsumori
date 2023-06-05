@@ -10,8 +10,8 @@
   </div>
 </template>
 
-<script setup>
-import SearchBox from "../../components/Search/ReqList/ProjectReqSerch.vue";
+<script setup lang="ts">
+import SearchBox from "@/components/Search/ReqList/ProjectReqSerch.vue"
 import { ref, onMounted } from "vue";
 
 const fetchUrlRec = "http://localhost:8000/RecruitNewIsland";

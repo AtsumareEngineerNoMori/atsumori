@@ -27,13 +27,12 @@
 <script setup lang="ts">
 import "../css/main.css";
 import { useRouter } from "vue-router";
-import { reactive,onMounted,ref } from "vue";
-import { signInWithEmailAndPassword} from "@firebase/auth";
-import {  auth } from "../firebase";
-import {
-  onAuthStateChanged,
-} from "@firebase/auth";
-import {app} from "../main"
+import { reactive, onMounted, ref } from "vue";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../firebase";
+import { onAuthStateChanged } from "@firebase/auth";
+import { app } from "../main";
+
 
 interface User {
   uid: string;
@@ -41,7 +40,7 @@ interface User {
 
 const router = useRouter();
 const user = reactive({ email: "", password: "" });
-const input = ref(false)
+const input = ref(false);
 
 // cookieに登録
 const setCookie = (myId: string) => {
@@ -53,6 +52,7 @@ onMounted(() => {
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
       router.push("/top");
+      console.log("ログイン中");
     } else {
     {}
     }
@@ -61,7 +61,11 @@ onMounted(() => {
 
 const loginButton = async () => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, user.email, user.password);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
     const currentUser: User | null = userCredential.user;
     if (currentUser) {
       setCookie(currentUser.uid);
