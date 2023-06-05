@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUpdated, ref } from "vue";
 import type { Ref } from "vue";
-import { realtimeDB } from "../../../firebase";
+import { realtimeDB } from "../../firebase";
 import "../../css/main.css";
 // import GetDate from "@/components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
@@ -20,46 +20,47 @@ import {
   endAt,
 } from "firebase/database";
 import { myIdJudge } from "../../userJudge";
+import { app } from "../../main";
 
 interface Islands {
-  id: number,
-  icon: string,
-  islandName: string,
-  islandDescription: string,
-  adminId: string,
-  createDate: Date
+  id: number;
+  icon: string;
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
 }
 interface ChatData {
-  createDate: number,
-  icon: string,
-  islandId: number,
-  message: string,
-  userId: string,
-  name: string,
+  createDate: number;
+  icon: string;
+  islandId: number;
+  message: string;
+  userId: string;
+  name: string;
 }
 
 // ログインユーザーのid
-const uid:Ref<string> = ref("");
+const uid: Ref<string> = ref("");
 // データ取得判別
-const loading:Ref<boolean> = ref(true);
+const loading: Ref<boolean> = ref(true);
 // 島情報保管
-const islandData:Ref<Islands[]> = ref([]);
+const islandData: Ref<Islands[]> = ref([]);
 // チャット情報保管
-const chatList:Ref<ChatData[]> = ref([]);
+const chatList: Ref<ChatData[]> = ref([]);
 // 入力内容保持
-const message:Ref<string> = ref("");
+const message: Ref<string> = ref("");
 // 全データ数
-const allDataLength:Ref<number> = ref(0);
+const allDataLength: Ref<number> = ref(0);
 // 画面スクロール用
-const messageScreen:Ref<any> = ref(null);
+const messageScreen: Ref<any> = ref(null);
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
-const islandId:string | string[] = route.params.id;
+const islandId: string | string[] = route.params.id;
 
 // 初期表示のデータ取得
 onMounted(() => {
-  const currentUserId = $cookies.get("myId");
+  const currentUserId = app.$cookies.get("myId");
   uid.value = currentUserId;
   if (!uid.value) {
     console.log("ログアウト状態");

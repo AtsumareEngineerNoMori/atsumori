@@ -6,64 +6,65 @@ import UserScoutApproveButton from "../components/button/UserScoutApproveButton.
 import Loading from "../components/Loading.vue";
 import DeleteUserScoutButton from "../components/button/DeleteUserScoutButton.vue";
 import { useRouter } from "vue-router";
+import { app } from "../main";
 
 interface UserScout {
-  id:number,
-  userId: string,
-  islandId: number
+  id: number;
+  userId: string;
+  islandId: number;
 }
 interface Islands {
-  id: number,
-  icon: string,
-  islandName: string,
-  islandDescription: string,
-  adminId: string,
-  createDate: Date
+  id: number;
+  icon: string;
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
 }
 
 const router = useRouter();
 
-const uid:Ref<string> = ref("");
+const uid: Ref<string> = ref("");
 // userScoutから取得したuserIdが等しいデータを保管
-const scoutList:Ref<UserScout[]> = ref([]);
+const scoutList: Ref<UserScout[]> = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
-const islandData:Ref<Islands[]> = ref([]);
-const loading:Ref<boolean> = ref(true);
+const islandData: Ref<Islands[]> = ref([]);
+const loading: Ref<boolean> = ref(true);
 
 onMounted(() => {
-  const currentUserId = $cookies.get("myId");
+  const currentUserId = app.$cookies.get("myId");
   uid.value = currentUserId;
-    if (!uid.value) {
-      console.log("ログアウト状態");
-    } else {
-      console.log(`ログイン状態 uid:${uid.value}`);
-      // userScoutからuserIdが一致するデータを取得
-      const getScoutUser = async () => {
-        const response = await fetch(
-          `http://localhost:8000/userScout/?userId=${uid.value}`
-        );
-        const data = await response.json();
-        scoutList.value = data;
-      };
-      getScoutUser().then(() => {
-        console.log(scoutList.value);
-        // 上で取得した島idと等しいデータをislandsテーブルから取得
-        if (scoutList.value.length > 0) {
-          scoutList.value.map(async (island) => {
-            const response = await fetch(
-              `http://localhost:8000/Islands/?id=${island.islandId}`
-            );
-            const data = await response.json();
-            islandData.value.push(...data);
-            // データ取得後に反転させる
-            loading.value = false;
-          });
-        } else {
-          console.log("データがありません");
+  if (!uid.value) {
+    console.log("ログアウト状態");
+  } else {
+    console.log(`ログイン状態 uid:${uid.value}`);
+    // userScoutからuserIdが一致するデータを取得
+    const getScoutUser = async () => {
+      const response = await fetch(
+        `http://localhost:8000/userScout/?userId=${uid.value}`
+      );
+      const data = await response.json();
+      scoutList.value = data;
+    };
+    getScoutUser().then(() => {
+      console.log(scoutList.value);
+      // 上で取得した島idと等しいデータをislandsテーブルから取得
+      if (scoutList.value.length > 0) {
+        scoutList.value.map(async (island) => {
+          const response = await fetch(
+            `http://localhost:8000/Islands/?id=${island.islandId}`
+          );
+          const data = await response.json();
+          islandData.value.push(...data);
+          // データ取得後に反転させる
           loading.value = false;
-        }
-      });
-    }
+        });
+      } else {
+        console.log("データがありません");
+        loading.value = false;
+      }
+    });
+  }
 });
 const noDataBtn = () => {
   return router.push("/mypage");
@@ -95,12 +96,10 @@ const noDataBtn = () => {
       </section>
       <section class="list__list" v-else>
         <div v-for="island in islandData" :key="island.id" class="list__item">
-          <RouterLink v-bind:to="{ name: 'islandShow', params: { id: island.id } }">
-            <img
-              v-bind:src="island.icon"
-              alt="island"
-              class="list__iconImg"
-            />
+          <RouterLink
+            v-bind:to="{ name: 'islandShow', params: { id: island.id } }"
+          >
+            <img v-bind:src="island.icon" alt="island" class="list__iconImg" />
             <p class="list__name">{{ island.islandName }}</p>
           </RouterLink>
           <div class="scout__buttons">

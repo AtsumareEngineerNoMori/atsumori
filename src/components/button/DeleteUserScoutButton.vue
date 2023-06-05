@@ -4,16 +4,16 @@ import type { Ref } from "vue";
 import "../../css/main.css";
 
 interface UserScout {
-  id: number,
-  userId: string,
-  islandId: number
+  id: number;
+  userId: string;
+  islandId: number;
 }
 
 const props = defineProps({
   userId: String,
   islandId: Number,
 });
-const scoutList:Ref<UserScout[]> = ref([]);
+const scoutList: Ref<UserScout[]> = ref([]);
 
 // 退会ボタン
 const deleteBtn = async () => {

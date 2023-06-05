@@ -2,7 +2,7 @@
 import { onMounted, onUpdated, ref } from "vue";
 import type { Ref } from "vue";
 import { useRoute } from "vue-router";
-import { realtimeDB } from "../../../firebase";
+import { realtimeDB } from "../../firebase";
 import "../../css/main.css";
 import {
   ref as dbRef,
@@ -19,22 +19,23 @@ import Loading from "../../components/Loading.vue";
 import MyChat from "../../components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
 import { myIdJudge } from "../../userJudge";
+import { app } from "../../main";
 
 interface Projects {
-  id: number,
-  icon: string,
-  projectName: string,
-  projectDescription: string,
-  adminId: number,
-  createDate: Date
+  id: number;
+  icon: string;
+  projectName: string;
+  projectDescription: string;
+  adminId: number;
+  createDate: Date;
 }
 interface ChatData {
-  createDate: number,
-  icon: string,
-  projectId: number,
-  message: string,
-  userId: string,
-  name: string,
+  createDate: number;
+  icon: string;
+  projectId: number;
+  message: string;
+  userId: string;
+  name: string;
 }
 
 // プロジェクト詳細からprojectIdを受け取る
@@ -46,18 +47,18 @@ const uid = ref("");
 // データ取得判別
 const loading = ref(true);
 // プロジェクト情報保管
-const projectData:Ref<Projects[]> = ref([]);
+const projectData: Ref<Projects[]> = ref([]);
 // チャット情報保管
-const chatList:Ref<ChatData[]> = ref([]);
+const chatList: Ref<ChatData[]> = ref([]);
 // 全データの数
-const allDataLength:Ref<number> = ref(0);
+const allDataLength: Ref<number> = ref(0);
 // 入力内容保持
-const message:Ref<string> = ref("");
+const message: Ref<string> = ref("");
 // 画面スクロール用
-const messageScreen:Ref<any> = ref(null);
+const messageScreen: Ref<any> = ref(null);
 
 onMounted(() => {
-  const currentUserId = $cookies.get("myId");
+  const currentUserId = app.$cookies.get("myId");
   uid.value = currentUserId;
   if (!uid.value) {
     console.log("ログアウト状態");

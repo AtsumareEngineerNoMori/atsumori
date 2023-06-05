@@ -6,17 +6,17 @@ import Loading from "../components/Loading.vue";
 import { useRoute, useRouter } from "vue-router";
 
 interface joinProjects {
-  id: number,
-  islandId: number,
-  projectId: number,
+  id: number;
+  islandId: number;
+  projectId: number;
 }
 interface Projects {
-  id: number,
-  icon: string,
-  projectName: string,
-  projectDescription: string,
-  adminId: string,
-  createDate: Date
+  id: number;
+  icon: string;
+  projectName: string;
+  projectDescription: string;
+  adminId: string;
+  createDate: Date;
 }
 
 const router = useRouter();
@@ -26,10 +26,10 @@ const islandId = route.params.id;
 console.log(islandId);
 
 // joinProjectsから取得したislandIdが等しいデータを保管
-const joinList:Ref<joinProjects[]> = ref([]);
+const joinList: Ref<joinProjects[]> = ref([]);
 // projectsから取得したprojectIdが等しいデータを保管
-const projectData:Ref<Projects[]> = ref([]);
-const loading:Ref<boolean> = ref(true);
+const projectData: Ref<Projects[]> = ref([]);
+const loading: Ref<boolean> = ref(true);
 
 onMounted(() => {
   const getJoinProject = async () => {
@@ -88,8 +88,14 @@ const noDataBtn = () => {
         </div>
       </section>
       <section class="list__list" v-else>
-        <div v-for="project in projectData" :key="project.id" class="list__item">
-          <RouterLink v-bind:to="{ name: 'projectShow', params: { id: project.id } }">
+        <div
+          v-for="project in projectData"
+          :key="project.id"
+          class="list__item"
+        >
+          <RouterLink
+            v-bind:to="{ name: 'projectShow', params: { id: project.id } }"
+          >
             <img
               v-bind:src="project.icon"
               alt="project"

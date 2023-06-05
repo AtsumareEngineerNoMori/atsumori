@@ -5,37 +5,38 @@ import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
 import { useRouter } from "vue-router";
+import { app } from "../main";
 
 interface JoinIslands {
-  id: number,
-  userId: string,
-  islandId: number,
+  id: number;
+  userId: string;
+  islandId: number;
 }
 
 interface Islands {
-  id: number,
-  icon: string,
-  islandName: string,
-  islandDescription: string,
-  adminId: string,
-  createDate: Date
+  id: number;
+  icon: string;
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
 }
 
 const router = useRouter();
 
 // ログインユーザーのid保管
-const uid:Ref<string> = ref("");
+const uid: Ref<string> = ref("");
 // joinIslandsから取得したuserIdが等しいデータを保管
-const joinList:Ref<JoinIslands[]> = ref([]);
+const joinList: Ref<JoinIslands[]> = ref([]);
 // islandsから取得したislandIdが等しいデータを保管
-const islandData:Ref<Islands[]> = ref([]);
+const islandData: Ref<Islands[]> = ref([]);
 // データ取得判別
-const loading:Ref<boolean> = ref(true);
+const loading: Ref<boolean> = ref(true);
 
 // ログイン認証
 onMounted(() => {
   // クッキーからログインユーザーのid取得
-  const currentUserId = $cookies.get("myId");
+  const currentUserId = app.$cookies.get("myId");
   uid.value = currentUserId;
 
   if (!uid.value) {
@@ -105,11 +106,7 @@ const noDataBtn = () => {
           <RouterLink
             v-bind:to="{ name: 'islandShow', params: { id: island.id } }"
           >
-            <img
-              v-bind:src="island.icon"
-              alt="island"
-              class="list__iconImg"
-            />
+            <img v-bind:src="island.icon" alt="island" class="list__iconImg" />
             <p class="list__name">{{ island.islandName }}</p>
           </RouterLink>
           <template v-if="island.adminId !== uid">

@@ -15,6 +15,7 @@
     "src/views/**/*.vue",
     "src/components/**/*.vue",
     "src/components/date/*.vue",
+    "src/router/index.js",
  ],
   "exclude": ["node_modules"]
 }

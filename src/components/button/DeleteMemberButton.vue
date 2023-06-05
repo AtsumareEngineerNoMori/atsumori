@@ -6,14 +6,14 @@ import "../../css/main.css";
 interface JoinIslands {
   id: number;
   userId: string;
-  islandId: number
+  islandId: number;
 }
 
 const props = defineProps({
   userId: String,
   islandId: Number,
 });
-const joinList:Ref<JoinIslands[]> = ref([]);
+const joinList: Ref<JoinIslands[]> = ref([]);
 
 // 退会ボタン
 const deleteBtn = async () => {
