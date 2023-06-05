@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -7,7 +7,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 
 
 import "../css/main.css";

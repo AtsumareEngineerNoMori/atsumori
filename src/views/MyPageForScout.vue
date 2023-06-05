@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import "../css/main.css";
@@ -7,7 +7,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 
 const User = ref({
   name: "",

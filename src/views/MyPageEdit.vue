@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 // import { placeholder } from "@babel/types";
 import { onMounted, ref as vueref } from "vue";
 import { useRouter } from "vue-router";
 import "../css/main.css";
-import { realtimeDB, auth } from "../../firebase";
+import { realtimeDB, auth } from "../firebase";
 import {
   getStorage,
   ref as firebaseRef,

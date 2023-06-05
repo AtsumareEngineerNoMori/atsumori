@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
@@ -6,7 +6,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 
 
 const checked = ref(false);

@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 // import { onMounted } from "vue";
 // import { promiseImpl } from "ejs";
 import { onMounted, ref } from "vue";
 import "../css/main.css";
-import { auth } from "../../firebase";
+import { auth } from "../firebase";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

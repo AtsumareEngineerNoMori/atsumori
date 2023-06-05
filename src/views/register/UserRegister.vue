@@ -48,7 +48,7 @@
 
             <div class="aaa">
               <div>職種</div>
-              <input type="radio" name="job" value="WEB" v-model="user.job" />
+              <input type="radio" name="job" value="WEB" v-model="user.job"  @change="changeJob"/>
               WEB
               <input
                 type="radio"
@@ -87,6 +87,7 @@
                 name="job"
                 value="その他"
                 @change="changeJob"
+                v-model="user.job"
               />
               その他
               <p class="val-job" v-if="userJobLength">職種を選択してください</p>
@@ -193,7 +194,7 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
 } from "@firebase/auth";
-import { storage, auth } from "../../../firebase";
+import { storage, auth } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
@@ -235,27 +236,27 @@ const user: {
 });
 const router = useRouter();
 
-const changeName = (e: any) => {
+const changeName = (e: Event) => {
   userNameLength.value = false;
 };
 
-const changeJob = (e: any) => {
+const changeJob = (e: Event) => {
   userJobLength.value = false;
 };
 
-const changeComment = (e: any) => {
+const changeComment = (e: Event) => {
   userCommentLength.value = false;
 };
 
-const changeEmail = (e: any) => {
+const changeEmail = (e: Event) => {
   userEmailLength.value = false;
 };
 
-const changePassword = (e: any) => {
+const changePassword = (e: Event) => {
   userPasswordLength.value = false;
 };
 
-const changecPassword = (e: any) => {
+const changecPassword = (e: Event) => {
   usercPasswordLength.value = false;
 };
 
@@ -273,13 +274,14 @@ onMounted(() => {
 // アイコン画像プレビュー処理
 const previewImage = (event: any) => {
   let reader = new FileReader();
-  reader.onload = function (e:any) {
+  reader.onload = function (e: any) {
     iconImg.value = e.target.result;
   };
   reader.readAsDataURL(event.target.files[0]);
   file.value = event.target.files[0];
   iconFileName.value = event.target.files[0].name;
 };
+
 
 // cookieに登録
 const setCookie = (myId: string) => {
@@ -289,7 +291,7 @@ const setCookie = (myId: string) => {
 const U = async () => {
   try {
     await createUserWithEmailAndPassword(auth, user.email, user.password);
-    onAuthStateChanged(auth, (user: any) => {
+    onAuthStateChanged(auth, (user) => {
       if (!user) {
         console.log("ユーザーがいません");
       } else {
