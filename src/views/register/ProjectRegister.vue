@@ -108,7 +108,7 @@
 import If from "../../components/If/If.vue";
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
-import { auth, storage } from "../../../firebase";
+import { auth, storage } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,

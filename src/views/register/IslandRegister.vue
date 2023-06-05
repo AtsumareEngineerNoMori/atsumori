@@ -88,7 +88,7 @@
 import { useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";
-import { storage } from "../../../firebase";
+import { storage } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,

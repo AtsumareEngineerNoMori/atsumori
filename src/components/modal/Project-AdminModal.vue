@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
-import { realtimeDB } from "../../../firebase";
+import { realtimeDB } from "../../firebase";
 import {
   ref as dbRef,
   orderByChild,
@@ -68,7 +68,7 @@ const deleteProject = async () => {
       const datas = await fetch(
         `http://localhost:8000/${i}?projectId=${projectId}`
       ).then((res) => res.json());
-      const dataIds = datas.map((dataId) => dataId.id);
+      const dataIds = datas.map((dataId: any) => dataId.id);
       ids.push(dataIds);
     }
 

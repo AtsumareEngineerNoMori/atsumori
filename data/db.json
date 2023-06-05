@@ -103,18 +103,7 @@
       "id": 4
     }
   ],
-  "RecruitNewUser": [
-    {
-      "islandId": "1",
-      "recruitTitle": "募集１",
-      "recruitJob": "CL",
-      "recruitPoint": "募集します。",
-      "createDate": "2023-05-24T06:32:10.675Z",
-      "islandName": "island1",
-      "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    }
-  ],
+  "RecruitNewUser": [],
   "RecruitNewIsland": [
     {
       "projectId": "1",

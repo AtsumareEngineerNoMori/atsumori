@@ -1,4 +1,9 @@
 interface ImportMetaEnv {
+  readonly VITE_APP_TITLE: string;
+  readonly VITE_ENV_AND_ENVLOCAL_VALUE: string;
+  readonly VITE_ENV_VALUE: string;
+  readonly VITE_MYID: number;
+
   readonly VITE_API_KEY: string;
   readonly VITE_AUTH_DOMAIN: string;
   readonly VITE_DATABASE_URL: string;

@@ -1,13 +1,22 @@
-<script setup>
+<script setup lang="ts">
 import SideMember from "../../components/islandShow/SideMember.vue";
 import Loading from "../../components/Loading.vue";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
+type Islands = {
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  id: number;
+};
+
 const route = useRoute();
 const router = useRouter();
-const island = ref([]);
-const adminName = ref();
+const island = ref<any>([]);
+const adminName = ref<string>();
 const loading = ref(false);
 
 onMounted(async () => {

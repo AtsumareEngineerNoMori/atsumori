@@ -104,7 +104,7 @@
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 import {  ref } from "vue";
 import { onAuthStateChanged } from "@firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../firebase";
 import { useRouter } from "vue-router";
 
 

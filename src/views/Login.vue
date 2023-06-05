@@ -22,7 +22,7 @@ import "../css/main.css";
 import { useRouter } from "vue-router";
 import { reactive,onMounted,ref } from "vue";
 import { signInWithEmailAndPassword} from "@firebase/auth";
-import {  auth } from "../../firebase";
+import {  auth } from "../firebase";
 import {
   onAuthStateChanged,
 } from "@firebase/auth";

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AdminModal from "../../components/modal/Project-AdminModal.vue";
 import SideMember from "../../components/projectShow/SideMember.vue";
 import ShowBtn from "../../components/projectShow/ShowBtn.vue";
@@ -7,17 +7,33 @@ import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
+type Projects = {
+  projectName: string;
+  projectDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  adminIslandId: number;
+  id: number;
+};
+
+type JoinProjects = {
+  islandId: number;
+  projectId: number;
+  id: number;
+};
+
 const route = useRoute();
 const router = useRouter();
 
-const project = ref([]);
+const project = ref<any>([]);
 const adminName = ref();
-const userJudges = ref(null);
-const userIds = ref([]);
-const islandId = ref([]);
+const userJudges = ref();
+const userIds = ref<string[]>([]);
+const islandId = ref<number[]>([]);
 const myId = ref();
 const loading = ref(false);
-const Recruits = ref([]);
+const Recruits = ref<any>([]);
 const RecruitIshow = ref(false);
 
 onMounted(async () => {
@@ -52,7 +68,9 @@ onMounted(async () => {
       `http://localhost:8000/JoinProjects?projectId=${id}`
     ).then((res) => res.json());
 
-    const islandIds = joinProjects.map((joinProject) => joinProject.islandId);
+    const islandIds = joinProjects.map(
+      (joinProject: JoinProjects) => joinProject.islandId
+    );
     islandId.value = islandIds;
 
     // 島idから島の参加者データを取得

@@ -1,8 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { signOut } from "@firebase/auth";
 import { ref } from "vue";
 import { routerKey } from "vue-router";
-import { auth } from "../../../firebase";
+import { auth } from "../../firebase";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
