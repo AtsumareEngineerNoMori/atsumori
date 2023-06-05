@@ -31,20 +31,6 @@
                 id="iconPreview"
                 class="icon_input"
               />
-              <!-- <div class="IslandRegister-details-icon-iconform">
-                <label htmlFor="iconPreview">
-                  <p class="add_icon">+</p>
-                </label>
-                <input
-                  type="file"
-                  name="iconPreview"
-                  @change="previewImage"
-                  accept=".png, .jpeg, .jpg"
-                  id="iconPreview"
-                  class="icon_input"
-                />
-              </div> -->
-
               <div class="IslandRegister-details-name">
                 島の名前
                 <input
@@ -86,9 +72,10 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import type { Ref } from "vue";
 import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";
-import { storage } from "../../../firebase";
+import { storage } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
@@ -97,44 +84,52 @@ import {
 } from "firebase/storage";
 
 const router = useRouter();
-const iconFileName = vueref("");
-const file = vueref();
-const iconImg = vueref(
+const iconFileName :Ref<string>= vueref("");
+const file:Ref<Blob> = vueref(new Blob());
+const iconImg:Ref<string> = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
 );
 
-const islandData = vueref("");
+// const islandData = vueref("");
 
-const island = reactive({
-  id: "",
+const island: {
+  id: number;
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+  name: string;
+  description: string;
+} = reactive({
+  id: Number(),
   islandName: "",
   islandDescription: "",
   adminId: "",
-  createDate: "",
+  createDate:new Date(),
   name: "",
   description: "",
 });
 
-const islandNameLength = vueref(false);
-const islandDescriptionLength = vueref(false);
+const islandNameLength:Ref<boolean>= vueref(false);
+const islandDescriptionLength :Ref<boolean>= vueref(false);
 
 const auth = getAuth();
 const currentUserId = auth.currentUser?.uid;
 
-const changeName = (e) => {
+const changeName = (e: any) => {
   console.log(e);
   islandNameLength.value = false;
 };
 
-const changeInfomation = (e) => {
+const changeInfomation = (e: any) => {
   console.log(e);
   islandDescriptionLength.value = false;
 };
 
 // アイコン画像プレビュー処理
-const previewImage = (event) => {
+const previewImage = (event: any) => {
   let reader = new FileReader();
-  reader.onload = function (e) {
+  reader.onload = function (e:any) {
     iconImg.value = e.target.result;
   };
   reader.readAsDataURL(event.target.files[0]);
@@ -160,7 +155,7 @@ const islandRegisterButton = () => {
         console.log("アイコンを取得のターンがきたよ");
         const storage = getStorage();
         const starsRef = ref(storage, `island/${iconFileName.value}`);
-        getDownloadURL(starsRef).then((url) => {
+        getDownloadURL(starsRef).then((url: string) => {
           console.log(url);
           iconImg.value = url;
           fetch("http://localhost:8000/Islands", {

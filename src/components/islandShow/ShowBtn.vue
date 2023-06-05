@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { joinJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
@@ -8,7 +8,7 @@ const props = defineProps({
   myId: String,
 });
 
-const userJudge = ref(null);
+const userJudge = ref();
 
 const router = useRouter();
 
@@ -19,7 +19,7 @@ watch(props, async () => {
     `http://localhost:8000/JoinIslands?islandId=${id}`
   ).then((res) => res.json());
 
-  const joinIds = joinDatas.map((joinData) => joinData.userId);
+  const joinIds = joinDatas.map((joinData:any) => joinData.userId);
 
   userJudge.value = joinJudge(joinIds, props.myId);
 });

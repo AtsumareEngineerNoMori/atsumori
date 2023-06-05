@@ -1,7 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
-import { realtimeDB } from "../../../firebase";
+import { realtimeDB } from "../../firebase";
+
 import {
   ref as dbRef,
   orderByChild,
@@ -12,6 +13,16 @@ import {
   get,
 } from "firebase/database";
 import { myIdJudge } from "../../userJudge";
+
+type Projects = {
+  projectName: string;
+  projectDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  adminIslandId: number;
+  id: number;
+};
 
 const router = useRouter();
 
@@ -75,7 +86,7 @@ const deleteIsland = async () => {
       const datas = await fetch(
         `http://localhost:8000/${i}?islandId=${islandId}`
       ).then((res) => res.json());
-      const dataIds = datas.map((dataId) => dataId.id);
+      const dataIds = datas.map((data: any) => data.id);
       ids.push(dataIds);
     }
 
@@ -126,7 +137,7 @@ const deleteIsland = async () => {
     ).then((res) => res.json());
 
     if (projects.length > 0) {
-      const projectIds = projects.map((project) => project.id);
+      const projectIds = projects.map((project: Projects) => project.id);
       const projectDb = [
         "RequestProject",
         "JoinProjects",
@@ -143,7 +154,7 @@ const deleteIsland = async () => {
           const datas = await fetch(
             `http://localhost:8000/${i}?projectId=${projectId}`
           ).then((res) => res.json());
-          const dataIds = datas.map((dataId) => dataId.id);
+          const dataIds = datas.map((dataId: any) => dataId.id);
           ids.push(dataIds);
         }
 

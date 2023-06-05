@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 
 import { onMounted, ref } from "vue";
 import { useRoute } from 'vue-router';
@@ -8,7 +8,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 
 
 import "../css/main.css";
@@ -21,11 +21,23 @@ const User = ref({
 });
 
 // joinIslandsから取得したuserIdが等しいデータを保管
-const joinList = ref([]);
-// islandsから取得したislandIdが等しいデータを保管
-const islandData = ref([]);
+const joinList = ref<Join[]>([]);
+type Join = {
+  userId :string;
+  islandId:number;
+  id:number;
+}
 
-
+// Islandsから取得したislandIdが等しいデータを保管
+const islandData = ref<Island[]>([]);
+type Island = {
+  islandName: string,
+  islandDescription: string,
+  adminId:string,
+  createDate:Date,
+  icon:string,
+  id:number
+}
 const route = useRoute();
 const router = useRouter();
 
@@ -50,7 +62,7 @@ onMounted(async () => {
         }
         User.value = await response.json();
         console.log("User.valueの中身", User.value.name);
-      } catch (err) {
+      } catch (err:any) {
         err.value = err;
         console.log("エラー", err.value);
       }
@@ -76,7 +88,7 @@ const getIsland = async () => {
 };
 
 //ログインユーザーが参加している島IDと同じ島IDの島をIslandsテーブルから取得
-const getJoinIsland = async (island) => {
+const getJoinIsland = async () => {
   console.log("２つめ", joinList.value);
   await Promise.all(
     joinList.value.map(async (element) => {

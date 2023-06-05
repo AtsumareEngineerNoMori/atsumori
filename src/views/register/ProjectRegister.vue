@@ -106,9 +106,10 @@
 
 <script setup lang="ts">
 import If from "../../components/If/If.vue";
-import { useRouter } from "vue-router";
+import type { Ref } from "vue";
+import { Router, useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
-import { auth, storage } from "../../../firebase";
+import { auth, storage } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
@@ -118,74 +119,59 @@ import {
 import { onAuthStateChanged } from "@firebase/auth";
 
 const router = useRouter();
-const iconFileName = vueref("");
-const file = vueref();
-const iconImg = vueref(
+const iconFileName:Ref<string> = vueref("");
+const file :Ref<Blob>= vueref( new Blob());
+const iconImg :Ref<string>= vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
 );
 
-const project:{id:Number,projectName:String,  projectDescription:String ,
-  adminId: String,
-  createDate: Date,
-  name: String,
-  description: String} = reactive({
-  id: "",
+const project: {
+  id: number;
+  projectName: string;
+  projectDescription: string;
+  adminId: string;
+  createDate: Date;
+  name: string;
+  description: string;
+} = reactive({
+  id: Number(),
   projectName: "",
   projectDescription: "",
   adminId: "",
-  createDate: "",
+  createDate:new Date(),
   name: "",
   description: "",
 });
 
-const selectIsland = vueref("");
-const projectNameLength = vueref(false);
-const projectDescriptionLength = vueref(false);
-const selectIslandLength = vueref(false);
-const islands = vueref([]);
+const selectIsland:Ref<string> = vueref("");
+const projectNameLength:Ref<boolean>  = vueref(false);
+const projectDescriptionLength:Ref<boolean>  = vueref(false);
+const selectIslandLength:Ref<boolean>  = vueref(false);
+const islands:Ref<{id:number,islandName:string}[]>  = vueref([]);
 
-
-
-const changeName = (e) => {
+const changeName = (e: any) => {
   console.log(e);
   projectNameLength.value = false;
 };
 
-const changeSelect = (e) => {
+const changeSelect = (e: any) => {
   console.log(e);
   selectIslandLength.value = false;
 };
 
-const changeInfomation = (e) => {
+const changeInfomation = (e: any) => {
   console.log(e);
   projectDescriptionLength.value = false;
 };
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth, (currentUser:String) => {
-    if (currentUser) {
-   console.log("ログインしています")
-    } else {
-      router.push("/login");
-    }
-  });
-
-
-// 自分が管理している島取得
-// const getFlight = async () => {
-//   const response = await fetch(
-//     `http://localhost:8000/islands?adminId=${currentUserId}`
-
-//   );
-//   const data = await response.json();
-//   console.log(data);
-//   // islands.value = data;
-// };
-
-// onMounted (
-
-// const auth = getAuth();
-//   const currentUserId = auth.currentUser?.uid;
+onAuthStateChanged(auth, (currentUser) => {
+  if (currentUser) {
+    console.log("ログインしています");
+  } else {
+    router.push("/login");
+  }
+});
 
 const currentUserId = $cookies.get("myId");
 
@@ -197,12 +183,11 @@ const getFlight = async () => {
   console.log(response);
 };
 getFlight();
-// )
 
 // アイコン画像プレビュー処理
-const previewImage = (event) => {
+const previewImage = (event: any) => {
   let reader = new FileReader();
-  reader.onload = function (e) {
+  reader.onload = function (e:any) {
     iconImg.value = e.target.result;
   };
   reader.readAsDataURL(event.target.files[0]);
@@ -222,7 +207,7 @@ const projectRegisterButton = () => {
       .then(() => {
         const storage = getStorage();
         const starsRef = ref(storage, `project/${iconFileName.value}`);
-        getDownloadURL(starsRef).then((url) => {
+        getDownloadURL(starsRef).then((url: string) => {
           iconImg.value = url;
           fetch("http://localhost:8000/Projects", {
             method: "POST",
@@ -235,7 +220,7 @@ const projectRegisterButton = () => {
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
-              adminIslandId:selectIsland.value
+              adminIslandId: selectIsland.value,
             }),
           })
             .then(function (response) {
@@ -270,7 +255,7 @@ const projectRegisterButton = () => {
         adminId: currentUserId,
         createDate: new Date(),
         icon: iconImg.value,
-        adminIslandId:selectIsland.value
+        adminIslandId: selectIsland.value,
       }),
     })
       .then(function (response) {
@@ -303,7 +288,7 @@ const registerProject = () => {
     projectDescriptionLength.value = true;
   }
   if (selectIsland.value === "") {
-    console.log("ヤッホ！！！！");
+    console.log("アイランドの選択がないです");
     selectIslandLength.value = true;
   }
 
@@ -314,8 +299,7 @@ const registerProject = () => {
     project.description.length > 255 ||
     selectIsland.value === ""
   ) {
-    // window.alert("入力が間違っているところがあります")
-    console.log("yahho~!");
+    console.log("入力が間違っているところがあります");
   } else {
     projectRegisterButton();
     router.push("/top");
