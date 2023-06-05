@@ -193,6 +193,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   getAuth,
+Auth,
 } from "@firebase/auth";
 import { storage, auth } from "../../firebase";
 import {
@@ -202,6 +203,9 @@ import {
   getStorage,
 } from "firebase/storage";
 import { useRouter } from "vue-router";
+import {app} from "../../main"
+import { Router} from "vue-router";
+
 
 const emojiRegex =
   /[\uD800-\uDBFF][\uDC00-\uDFFF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/;
@@ -216,7 +220,7 @@ const emailerror : Ref<boolean>= vueref(true);
 const iconFileName: Ref<string> = vueref("");
 const file:Ref<Blob> = vueref(new Blob());
 
-const iconImg = vueref(
+const iconImg:Ref<string> =vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
 );
 const user: {
@@ -234,7 +238,7 @@ const user: {
   password: "",
   cPassword: "",
 });
-const router = useRouter();
+const router:Router = useRouter();
 
 const changeName = (e: Event) => {
   userNameLength.value = false;
@@ -262,7 +266,7 @@ const changecPassword = (e: Event) => {
 
 // ログイン状態の場合の処理
 onMounted(() => {
-  onAuthStateChanged(auth, (currentUser) => {
+  onAuthStateChanged(auth as Auth, (currentUser) => {
     if (currentUser) {
       router.push("/top");
     } else {
@@ -272,20 +276,20 @@ onMounted(() => {
 });
 
 // アイコン画像プレビュー処理
-const previewImage = (event: any) => {
+const previewImage = (event:any) => {
   let reader = new FileReader();
-  reader.onload = function (e: any) {
-    iconImg.value = e.target.result;
+  reader.onload = function (e: ProgressEvent<FileReader>) {
+    iconImg.value = e.target?.result as string;
   };
-  reader.readAsDataURL(event.target.files[0]);
-  file.value = event.target.files[0];
-  iconFileName.value = event.target.files[0].name;
+  reader.readAsDataURL(event.target?.files[0]);
+  file.value = event.target?.files[0];
+  iconFileName.value = event.target?.files[0].name;
 };
 
 
 // cookieに登録
 const setCookie = (myId: string) => {
-  $cookies.set("myId", myId);
+  app.$cookies.set("myId", myId);
 };
 
 const U = async () => {
@@ -295,11 +299,12 @@ const U = async () => {
       if (!user) {
         console.log("ユーザーがいません");
       } else {
-        setCookie(auth.currentUser.uid);
+        setCookie(user.uid);
         UserRegisterButton();
       }
     });
   } catch (error) {
+    console.log("firebaseに登録できないよ")
     emailerror.value = false;
   }
 };
@@ -404,6 +409,7 @@ const registerUser = () => {
     emojiRegex.test(user.password)
   ) {
     console.log("入力が間違っているところがあります");
+  }else {
     U();
   }
 
@@ -425,5 +431,6 @@ const registerUser = () => {
   if (user.cPassword.length <= 0) {
     usercPasswordLength.value = true;
   }
+
 };
 </script>

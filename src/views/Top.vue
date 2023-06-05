@@ -12,7 +12,7 @@
             :key="infomation.id"
             class="top-new-set-item"
           >
-            <router-link
+            <RouterLink
               :to="{ name: 'islandShow', params: { id: infomation.id } }"
             >
               <img
@@ -21,7 +21,7 @@
                 class="top-new-set-img"
               />
               <p class="top-new-set-name">{{ infomation.islandName }}</p>
-            </router-link>
+            </RouterLink>
           </div>
         </section>
       </div>
@@ -34,7 +34,7 @@
             :key="infomation.id"
             class="top-new-set-item"
           >
-            <router-link
+            <RouterLink
               class="top-new-set-imgdiv"
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
             >
@@ -44,7 +44,7 @@
                 class="top-new-set-img"
               />
               <p class="top-new-set-name">{{ infomation.projectName }}</p>
-            </router-link>
+            </RouterLink>
           </div>
         </section>
       </div>
@@ -59,7 +59,7 @@
             :key="infomation.islandId"
             class="top-new-set-item"
           >
-            <router-link
+            <RouterLink
               :to="{ name: 'islandShow', params: { id: infomation.islandId } }"
             >
               <img
@@ -70,7 +70,7 @@
               <p class="top-new-set-name">
                 {{ infomation.islandName }}
               </p>
-            </router-link>
+            </RouterLink>
           </div>
         </section>
       </div>
@@ -83,7 +83,7 @@
             :key="infomation.projectId"
             class="top-new-set-item"
           >
-            <router-link
+            <RouterLink
               :to="{
                 name: 'projectShow',
                 params: { id: infomation.projectId },
@@ -95,7 +95,7 @@
                 class="top-new-set-img"
               />
               <p class="top-new-set-name">{{ infomation.projectName }}</p>
-            </router-link>
+            </RouterLink>
           </div>
         </section>
       </div>
@@ -109,7 +109,7 @@ import { ref } from "vue";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../firebase";
 import { useRouter } from "vue-router";
-import { Ref } from "vue";
+import type { Ref } from "vue";
 
 const newIslandArray: Ref<{ id: number; icon: string; islandName: string }[]> =
   ref([]);
@@ -125,7 +125,7 @@ const newRecruitProjectArray: Ref<
 const router = useRouter();
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth, (currentUser: any) => {
+onAuthStateChanged(auth, (currentUser) => {
   if (currentUser) {
     console.log("ログインしています");
   } else {
@@ -141,7 +141,6 @@ const getIslands = async () => {
     `http://localhost:8000/Islands/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
-  console.log(data);
   newIslandArray.value = data;
 };
 getIslands();
@@ -152,7 +151,6 @@ const getProjects = async () => {
     `http://localhost:8000/Projects/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
-  console.log(data);
   newProjectArray.value = data;
 };
 getProjects();
@@ -163,7 +161,6 @@ const getRecruitIslands = async () => {
     `http://localhost:8000/RecruitNewUser/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
-  console.log(data);
   newRecruitIslandArray.value = data;
 };
 getRecruitIslands();
@@ -174,7 +171,6 @@ const getRecruitProjects = async () => {
     `http://localhost:8000/RecruitNewIsland/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
-  console.log(data);
   newRecruitProjectArray.value = data;
 };
 getRecruitProjects();
