@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -7,7 +7,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 import "../css/main.css";
 
 
@@ -21,6 +21,7 @@ const Island = ref({
   islandName: "",
   islandDescription: "", 
   comment: "",
+  id:""
 });
 
 const overName = ref("");
@@ -48,7 +49,7 @@ onMounted(async () => {
     }
     Island.value = await response.json();
     console.log("IslandId.valueの中身", IslandId.value);
-  } catch (err) {
+  } catch (err:any) {
     err.value = err;
     console.log("エラー", err.value);
   }
@@ -59,7 +60,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event) {
+async function iconEdit(event:any) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了

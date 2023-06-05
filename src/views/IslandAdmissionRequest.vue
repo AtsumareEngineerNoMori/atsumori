@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import {
@@ -6,7 +6,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 
 
 const checked = ref(false);
@@ -14,7 +14,15 @@ const route = useRoute();
 const router = useRouter();
 const userId = route.params.userId;
 const islandId = route.params.islandId;
-const islandData = ref({});
+const islandData = ref<islandData | null>(null);
+type islandData = {
+  islandName: string,
+  islandDescription: string,
+  adminId:string,
+  createDate:Date,
+  icon:string,
+  id:number
+}
 const comment = ref("");
 const overComment = ref("");
 
@@ -84,12 +92,18 @@ function check() {
 </script>
 <template>
   <div class="request">
-    <h1 class="request__title">{{ islandData.islandName }} 移住申請</h1>
-    <div class="request__container">
-      <h1 class="request__item">島の情報</h1>
-      <p class="request__detail">
-        {{ islandData.islandDescription }}
-      </p>
+    <div v-if="islandData">
+
+      <h1 class="request__title">{{ islandData.islandName }} 移住申請</h1>
+      <div class="request__container">
+        <h1 class="request__item">島の情報</h1>
+        <p class="request__detail">
+          {{ islandData.islandDescription }}
+        </p>
+      </div>
+    </div>
+    <div v-else>
+      Loading...
     </div>
     <div>
       <h1 class="request__item">ひとこと</h1>
