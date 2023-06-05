@@ -4,17 +4,20 @@
     "module": "esnext",
     "strict": true,
     "jsx": "preserve",
-
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    },
-
+    }
   },
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
-
+    "src/**/**/*.vue",
+    "src/views/**/*.vue",
+    "src/components/**/*.vue",
+    "src/components/**/**/*.vue"
   ],
   "exclude": ["node_modules"]
 }
