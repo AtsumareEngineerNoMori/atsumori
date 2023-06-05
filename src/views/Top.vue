@@ -1,22 +1,22 @@
 <template>
   <div class="top">
     <div class="top-search">
-    <TopSearchBox />
-  </div>
+      <TopSearchBox />
+    </div>
     <div class="top-new">
       <div class="top-new-set">
         <p class="top-new-set-title">新着島</p>
         <section class="top-new-set-list">
           <div
             v-for="infomation in newIslandArray"
-            :key="infomation"
+            :key="infomation.id"
             class="top-new-set-item"
           >
             <router-link
               :to="{ name: 'islandShow', params: { id: infomation.id } }"
             >
               <img
-                v-bind:src="infomation.icon"
+                :src="infomation.icon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
@@ -31,7 +31,7 @@
         <section class="top-new-set-list">
           <div
             v-for="infomation in newProjectArray"
-            :key="infomation"
+            :key="infomation.id"
             class="top-new-set-item"
           >
             <router-link
@@ -39,7 +39,7 @@
               :to="{ name: 'projectShow', params: { id: infomation.id } }"
             >
               <img
-                v-bind:src="infomation.icon"
+                :src="infomation.icon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
@@ -56,14 +56,14 @@
         <section class="top-new-set-list">
           <div
             v-for="infomation in newRecruitIslandArray"
-            :key="infomation"
+            :key="infomation.islandId"
             class="top-new-set-item"
           >
             <router-link
               :to="{ name: 'islandShow', params: { id: infomation.islandId } }"
             >
               <img
-                v-bind:src="infomation.islandIcon"
+                :src="infomation.islandIcon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
@@ -80,14 +80,17 @@
         <section class="top-new-set-list">
           <div
             v-for="infomation in newRecruitProjectArray"
-            :key="infomation"
+            :key="infomation.projectId"
             class="top-new-set-item"
           >
             <router-link
-              :to="{ name: 'projectShow', params: { id: infomation.projectId } }"
+              :to="{
+                name: 'projectShow',
+                params: { id: infomation.projectId },
+              }"
             >
               <img
-                v-bind:src="infomation.projectIcon"
+                :src="infomation.projectIcon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
@@ -102,30 +105,35 @@
 
 <script setup lang="ts">
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
-import {  ref } from "vue";
+import { ref } from "vue";
 import { onAuthStateChanged } from "@firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../firebase";
 import { useRouter } from "vue-router";
+import { Ref } from "vue";
 
-
-
-const newIslandArray= ref();
-const newProjectArray = ref();
-const newRecruitIslandArray = ref();
-const newRecruitProjectArray = ref();
+const newIslandArray: Ref<{ id: number; icon: string; islandName: string }[]> =
+  ref([]);
+const newProjectArray: Ref<
+  { id: number; icon: string; projectName: string }[]
+> = ref([]);
+const newRecruitIslandArray: Ref<
+  { islandId: number; islandIcon: string; islandName: string }[]
+> = ref([]);
+const newRecruitProjectArray: Ref<
+  { projectId: number; projectIcon: string; projectName: string }[]
+> = ref([]);
 const router = useRouter();
 
-
 // ログイン状態の場合の処理
-  onAuthStateChanged(auth, (currentUser:any) => {
-    if (currentUser) {
-   console.log("ログインしています")
-    } else {
-      router.push("/login");
-    }
-  });
-
-
+onAuthStateChanged(auth, (currentUser: any) => {
+  if (currentUser) {
+    console.log("ログインしています");
+  } else {
+    // router.push("/login");
+    // ログインページへの遷移後に戻ることができない
+    router.replace("/login");
+  }
+});
 
 // 島
 const getIslands = async () => {

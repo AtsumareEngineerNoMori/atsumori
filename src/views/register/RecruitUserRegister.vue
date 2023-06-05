@@ -1,7 +1,7 @@
 <template>
-  <Recruit  :kansu="`user`" :witch="`Islands`"/>
+  <Recruit :kansu="`user`" :witch="`Islands`"/>
 </template>
 
 <script setup lang="ts">
-import Recruit from "../../components/Register/Recruit .vue"
+import Recruit from "../../components/Register/Recruit .vue";
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
-import { realtimeDB } from "../../../firebase";
+import { realtimeDB } from "../../firebase";
 
 import {
   ref as dbRef,
