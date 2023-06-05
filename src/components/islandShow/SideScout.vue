@@ -23,10 +23,10 @@ const router = useRouter();
 const projects = ref<Projects[]>([]);
 const scoutProjects = ref();
 
-const props = defineProps({
-  islandId: Number,
-  userJudge: Number,
-});
+const props = defineProps<{
+  islandId: number;
+  userJudge: number | undefined;
+}>();
 
 watch(props, async () => {
   const islandId = props.islandId;
