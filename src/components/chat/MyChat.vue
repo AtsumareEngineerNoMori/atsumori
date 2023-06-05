@@ -1,12 +1,26 @@
-<script setup>
-import GetTime from "../date/GetTime.vue";
-const props = defineProps({
-  chat: Object,
-});
+<script setup lang="ts">
+import GetTime from "@/components/date/GetTime.vue";
+
+interface Chat {
+  createDate: number;
+  icon: string;
+  islandId?: number;
+  projectId?: number;
+  message: string;
+  userId: string;
+  name: string;
+}
+
+const props = defineProps<{
+  chat: Chat;
+}>();
 </script>
 
 <template>
-  <RouterLink v-bind:to="{ name: 'mypage' }" class="chat__messageWrapper-userIcon">
+  <RouterLink
+    v-bind:to="{ name: 'mypage' }"
+    class="chat__messageWrapper-userIcon"
+  >
     <img
       :src="props.chat.icon"
       alt="userIcon"

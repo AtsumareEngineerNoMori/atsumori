@@ -14,10 +14,14 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
-    "src/**/**/*.vue",
     "src/views/**/*.vue",
     "src/components/**/*.vue",
-    "src/components/**/**/*.vue"
+    "src/components/date/*.vue",
+    "src/router/index.js",
+    "src/**/**/*.vue",
+    "src/views/**/*.vue",
+    "src/components/**/**/*.vue",
   ],
+
   "exclude": ["node_modules"]
 }

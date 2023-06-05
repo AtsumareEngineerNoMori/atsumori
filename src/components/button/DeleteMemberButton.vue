@@ -1,12 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
+import type { Ref } from "vue";
 import "../../css/main.css";
+
+interface JoinIslands {
+  id: number;
+  userId: string;
+  islandId: number;
+}
 
 const props = defineProps({
   userId: String,
   islandId: Number,
 });
-const joinList = ref([]);
+const joinList: Ref<JoinIslands[]> = ref([]);
 
 // 退会ボタン
 const deleteBtn = async () => {
