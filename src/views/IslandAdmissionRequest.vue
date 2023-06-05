@@ -6,7 +6,7 @@ import {
   // createUserWithEmailAndPassword,
   // getAuth,
 } from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { storage, auth, db } from "../firebase";
 
 
 const checked = ref(false);

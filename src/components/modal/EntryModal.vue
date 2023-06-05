@@ -1,8 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref, computed } from "vue";
 
+type Islands = {
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  id: number;
+};
+
 const isShow = ref(false);
-const joinIsland = ref([]);
+const joinIsland = ref<Islands[]>([]);
 const selectIsland = ref();
 const pageShow = ref(false);
 const errorIsShow = ref(false);

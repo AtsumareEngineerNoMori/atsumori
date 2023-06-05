@@ -49,21 +49,39 @@
   </div>
 </template>
 
-<script setup>
-import { onMounted, ref, defineProps } from "vue";
+<script setup lang="ts">
+import { onMounted, ref, defineProps, Ref } from "vue";
+
+//型
+type RecruitNewUser = {
+  id: number;
+  projectId: number;
+  project: {
+    id: number;
+    projectName: string;
+    icon: string;
+  };
+};
 
 const props = defineProps({
-  fetchUrlRec: String,
-  fetchUrlIs: String,
+  fetchUrlRec: {
+    type: String,
+    default: "",
+  },
+  fetchUrlIs: {
+    type: String,
+    default: "",
+  },
   title: String,
 });
+
 console.log("募集一覧", props.fetchUrlRec);
 console.log("登録されたプロ", props.fetchUrlIs);
 
-const originalRecruitNewIslands = ref([]); //データ配列
-const filteredRecruitNewIslands = ref([]); //検索結果に基づくデータの配列
-const keyword = ref("");
-const errorMessage = ref("");
+const originalRecruitNewIslands: Ref<RecruitNewUser[]> = ref([]); //データ配列
+const filteredRecruitNewIslands: Ref<RecruitNewUser[]> = ref([]); //検索結果に基づくデータの配列
+const keyword: Ref<string> = ref("");
+const errorMessage: Ref<string> = ref("");
 
 //募集中のデータ
 const fetchRecruitNewIslands = async () => {
@@ -73,7 +91,7 @@ const fetchRecruitNewIslands = async () => {
     console.log("レスポンス", response);
 
     const data = await response.json();
-    originalRecruitNewIslands.value = data.map((recruitNewIsland) => ({
+    originalRecruitNewIslands.value = data.map((recruitNewIsland:any) => ({
       ...recruitNewIsland,
       project: {},
     }));
@@ -90,7 +108,7 @@ const fetchProjects = async () => {
     const data = await response.json();
     originalRecruitNewIslands.value.forEach((recruitNewIsland) => {
       recruitNewIsland.project = data.find(
-        (project) => project.id === recruitNewIsland.projectId
+        (project:any) => project.id === recruitNewIsland.projectId
       );
     });
     console.log("登録", data);
@@ -100,7 +118,7 @@ const fetchProjects = async () => {
 };
 
 //検索して検索結果に合致するデータを返す
-const filterRecruitNewIslands = (query) => {
+const filterRecruitNewIslands = (query:string) => {
   const textChange = query.toLowerCase(); // 入力されたキーワードを小文字に変換
   const hiragana = textChange.replace(/[\u30a1-\u30f6]/g, (match) =>
     String.fromCharCode(match.charCodeAt(0) - 0x60)

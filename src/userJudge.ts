@@ -2,8 +2,8 @@
 // 管理者、参加者、その他
 function userJudge(
   adminId: string | undefined,
-  joinIds: Array<string | undefined>,
-  myId: string | undefined
+  joinIds: Array<string>,
+  myId: string
 ) {
   if (myId === adminId) {
     return 1;
@@ -24,10 +24,7 @@ function adminJudge(adminId: string | undefined, myId: string | undefined) {
 }
 
 // 参加者か否か
-function joinJudge(
-  joinIds: Array<string | undefined>,
-  myId: string | undefined
-) {
+function joinJudge(joinIds: Array<string>, myId: string) {
   if (joinIds.includes(myId)) {
     return 1;
   } else {

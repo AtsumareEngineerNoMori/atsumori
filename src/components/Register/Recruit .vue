@@ -111,18 +111,19 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { reactive, ref as vueref } from "vue";
+import { reactive, ref} from "vue";
 import { useRoute } from "vue-router";
 import type { Ref } from "vue";
+import { defineProps } from "vue";
 
 const props = defineProps({
-  kansu: String,
+  kansu: String ,
   witch: String,
 });
 
 const route = useRoute();
 const router = useRouter();
-const loading: Ref<boolean> = vueref(false);
+const loading: Ref<boolean> = ref(false);
 
 const Id= route.params.id;
 
@@ -137,26 +138,25 @@ const recruit: {
   recruitPoint: "",
   createDate: new Date(),
 });
-const Data = vueref();
+const Data = ref();
 
-const titleLength :Ref<boolean>= vueref(false);
-const selectLength:Ref<boolean> = vueref(false);
-const infomationLength:Ref<boolean> = vueref(false);
+const titleLength :Ref<boolean>= ref(false);
+const selectLength:Ref<boolean> = ref(false);
+const infomationLength:Ref<boolean> = ref(false);
 
-const changeTitle = (e: any) => {
+const changeTitle = (e:  Event) => {
   titleLength.value = false;
 };
-const changeSelect = (e: any) => {
+const changeSelect = (e:  Event) => {
   selectLength.value = false;
 };
-const changeInfomation = (e: any) => {
+const changeInfomation = (e:  Event) => {
   infomationLength.value = false;
 };
 
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/${props.witch}/${Id}`);
   const data = await response.json();
-  console.log(data);
   Data.value = data;
   loading.value = true;
 };
@@ -185,38 +185,65 @@ const recruitRegister = () => {
     // propsでどっちか表示
     if (props.kansu === `island`) {
       fetch("http://localhost:8000/RecruitNewIsland", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          projectId: Number(Id),
-          recruitTitle: recruit.recruitTitle,
-          recruitJob: recruit.recruitJob,
-          recruitPoint: recruit.recruitPoint,
-          createDate: new Date(),
-          projectName: Data.value.projectName,
-          projectIcon: Data.value.icon,
-        }),
-      });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    projectId: Number(Id),
+    recruitTitle: recruit.recruitTitle,
+    recruitJob: recruit.recruitJob,
+    recruitPoint: recruit.recruitPoint,
+    createDate: new Date(),
+    projectName: Data.value.projectName,
+    projectIcon: Data.value.icon,
+  }),
+})
+  .then(response => {
+    if (response.ok) {
+      // データの送信が成功した場合の処理
+      router.push("/top");
+    } else {
+      // データの送信が失敗した場合の処理
+      console.log("データの送信に失敗しました");
+    }
+  })
+  .catch(error => {
+    // エラーハンドリング
+    console.log("エラーが発生しました", error);
+  });
     } else if (props.kansu === `user`) {
       fetch("http://localhost:8000/RecruitNewUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          islandId: Number(Id),
-          recruitTitle: recruit.recruitTitle,
-          recruitJob: recruit.recruitJob,
-          recruitPoint: recruit.recruitPoint,
-          createDate: new Date(),
-          islandName: Data.value.islandName,
-          islandIcon: Data.value.icon,
-        }),
-      });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    projectId: Number(Id),
+    recruitTitle: recruit.recruitTitle,
+    recruitJob: recruit.recruitJob,
+    recruitPoint: recruit.recruitPoint,
+    createDate: new Date(),
+    projectName: Data.value.projectName,
+    projectIcon: Data.value.icon,
+  }),
+})
+  .then(response => {
+    if (response.ok) {
+      // データの送信が成功した場合の処理
+      router.push("/top");
+    } else {
+      // データの送信が失敗した場合の処理
+      console.log("データの送信に失敗しました");
     }
-    router.push("/top");
+  })
+  .catch(error => {
+    // エラーハンドリング
+    console.log("エラーが発生しました", error);
+  });
+  
   }
+}
 };
 </script>
+Ï

@@ -75,7 +75,7 @@ import { useRouter } from "vue-router";
 import type { Ref } from "vue";
 import { reactive, ref as vueref } from "vue";
 import { getAuth } from "@firebase/auth";
-import { storage } from "../../../firebase";
+import { storage } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
@@ -116,12 +116,12 @@ const islandDescriptionLength :Ref<boolean>= vueref(false);
 const auth = getAuth();
 const currentUserId = auth.currentUser?.uid;
 
-const changeName = (e: any) => {
+const changeName = (e: Event) => {
   console.log(e);
   islandNameLength.value = false;
 };
 
-const changeInfomation = (e: any) => {
+const changeInfomation = (e: Event) => {
   console.log(e);
   islandDescriptionLength.value = false;
 };
@@ -129,12 +129,12 @@ const changeInfomation = (e: any) => {
 // アイコン画像プレビュー処理
 const previewImage = (event: any) => {
   let reader = new FileReader();
-  reader.onload = function (e:any) {
-    iconImg.value = e.target.result;
+  reader.onload = function (e: ProgressEvent<FileReader>) {
+    iconImg.value = e.target?.result as string;
   };
-  reader.readAsDataURL(event.target.files[0]);
-  file.value = event.target.files[0];
-  iconFileName.value = event.target.files[0].name;
+  reader.readAsDataURL(event.target?.files[0]);
+  file.value = event.target?.files[0];
+  iconFileName.value = event.target?.files[0].name;
   console.log(file);
   console.log(iconFileName);
 };
