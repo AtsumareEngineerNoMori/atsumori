@@ -2,7 +2,6 @@
 import { watch, ref } from "vue";
 import { userJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
-import { Type } from "typescript";
 
 type userData = {
   id: string;
@@ -27,11 +26,11 @@ const users = ref<userData[]>([]);
 const requestIslands = ref<RequestIsland[]>([]);
 const requestUsers = ref<userData[]>([]);
 
-const props = defineProps({
-  islandId: Number,
-  adminId: String,
-  myId: String,
-});
+const props = defineProps<{
+  islandId: number;
+  adminId: string | undefined;
+  myId: string;
+}>();
 
 watch(props, async () => {
   const islandId = props.islandId;

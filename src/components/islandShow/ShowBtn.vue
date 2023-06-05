@@ -3,10 +3,10 @@ import { watch, ref } from "vue";
 import { joinJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
 
-const props = defineProps({
-  islandId: Number,
-  myId: String,
-});
+const props = defineProps<{
+  islandId: number;
+  myId: string;
+}>();
 
 const userJudge = ref();
 
@@ -19,7 +19,7 @@ watch(props, async () => {
     `http://localhost:8000/JoinIslands?islandId=${id}`
   ).then((res) => res.json());
 
-  const joinIds = joinDatas.map((joinData:any) => joinData.userId);
+  const joinIds = joinDatas.map((joinData: any) => joinData.userId);
 
   userJudge.value = joinJudge(joinIds, props.myId);
 });
