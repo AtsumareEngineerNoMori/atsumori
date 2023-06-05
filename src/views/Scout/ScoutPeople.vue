@@ -48,17 +48,31 @@
   </div>
 </template>
 
-<script setup>
-import { computed, onMounted, ref } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, ref, Ref } from "vue";
 import { useRoute } from "vue-router";
 
+
+//型
+type User = {
+  id: number;
+  icon: string;
+  name: string;
+};
+type joinIsland = {
+  userId: string;
+  islandId:number;
+  id:number;
+};
+
+
 const route = useRoute();
-const keyword = ref("");
-const users = ref([]);
-const filteredUsers = ref([]);
-const joinIslands = ref([]);
-const results = ref(false);
-const errorMessage = ref("");
+const keyword: Ref<string>  = ref("");
+const users: Ref<User[]>  = ref([]);
+const filteredUsers: Ref<User[]> = ref([]);
+const joinIslands:Ref<joinIsland[]> = ref([]);
+const results: Ref<boolean>  = ref(false);
+const errorMessage: Ref<string>  = ref("");
 
 const fetchUsers = async () => {
   try {
@@ -117,8 +131,8 @@ const searchUsers = () => {
           (user) =>
             !joinIslands.value.some(
               (join) =>
-                join.userId === user.id &&
-                join.islandId === parseInt(route.params.islandId)
+                join.userId === String(user.id) &&
+                join.islandId === parseInt(route.params.islandId as string)
             )
         );
       results.value = true;
@@ -130,8 +144,8 @@ const searchUsers = () => {
       (user) =>
         !joinIslands.value.some(
           (join) =>
-            join.userId === user.id &&
-            join.islandId === parseInt(route.params.islandId)
+            join.userId === String(user.id) &&
+            join.islandId === parseInt(route.params.islandId as string)
         )
     );
     results.value = true;
@@ -145,7 +159,7 @@ const randomUsers = computed(() => {
   if (filteredUsers.value.length <= 20) {
     return filteredUsers.value;
   } else {
-    const randomArray = [];
+    const randomArray: number[] = [];
     while (randomArray.length < 20) {
       const random = Math.floor(Math.random() * filteredUsers.value.length);
       if (!randomArray.includes(random)) {
