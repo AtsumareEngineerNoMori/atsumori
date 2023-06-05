@@ -6,6 +6,7 @@ import UserScoutApproveButton from "../components/button/UserScoutApproveButton.
 import Loading from "../components/Loading.vue";
 import DeleteUserScoutButton from "../components/button/DeleteUserScoutButton.vue";
 import { useRouter } from "vue-router";
+import type { NavigationFailure } from "vue-router";
 import { app } from "../main";
 
 interface UserScout {
@@ -32,29 +33,29 @@ const islandData: Ref<Islands[]> = ref([]);
 const loading: Ref<boolean> = ref(true);
 
 onMounted(() => {
-  const currentUserId = app.$cookies.get("myId");
+  const currentUserId: string = app.$cookies.get("myId");
   uid.value = currentUserId;
   if (!uid.value) {
     console.log("ログアウト状態");
   } else {
     console.log(`ログイン状態 uid:${uid.value}`);
     // userScoutからuserIdが一致するデータを取得
-    const getScoutUser = async () => {
-      const response = await fetch(
+    const getScoutUser: () => Promise<void> = async () => {
+      const response: Response = await fetch(
         `http://localhost:8000/userScout/?userId=${uid.value}`
       );
-      const data = await response.json();
+      const data: UserScout[] = await response.json();
       scoutList.value = data;
     };
     getScoutUser().then(() => {
       console.log(scoutList.value);
       // 上で取得した島idと等しいデータをislandsテーブルから取得
       if (scoutList.value.length > 0) {
-        scoutList.value.map(async (island) => {
-          const response = await fetch(
+        scoutList.value.map(async (island: UserScout) => {
+          const response: Response = await fetch(
             `http://localhost:8000/Islands/?id=${island.islandId}`
           );
-          const data = await response.json();
+          const data: Islands[] = await response.json();
           islandData.value.push(...data);
           // データ取得後に反転させる
           loading.value = false;
@@ -66,7 +67,7 @@ onMounted(() => {
     });
   }
 });
-const noDataBtn = () => {
+const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
   return router.push("/mypage");
 };
 </script>

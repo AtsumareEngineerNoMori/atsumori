@@ -21,7 +21,7 @@ const date = reactive<GetDate>({
   min: "",
 });
 
-const timestamp = new Date(props.createDate);
+const timestamp: Date = new Date(props.createDate);
 date.year = timestamp.getFullYear();
 date.month = timestamp.getMonth() + 1;
 date.date = timestamp.getDate().toString().padStart(2, "0");

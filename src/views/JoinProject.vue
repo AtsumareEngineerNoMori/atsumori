@@ -4,8 +4,9 @@ import type { Ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
 import { useRoute, useRouter } from "vue-router";
+import type { NavigationFailure } from "vue-router";
 
-interface joinProjects {
+interface JoinProjects {
   id: number;
   islandId: number;
   projectId: number;
@@ -22,33 +23,33 @@ interface Projects {
 const router = useRouter();
 // 島詳細画面からislandIdを受け取る
 const route = useRoute();
-const islandId = route.params.id;
+const islandId: string | string[] = route.params.id;
 console.log(islandId);
 
 // joinProjectsから取得したislandIdが等しいデータを保管
-const joinList: Ref<joinProjects[]> = ref([]);
+const joinList: Ref<JoinProjects[]> = ref([]);
 // projectsから取得したprojectIdが等しいデータを保管
 const projectData: Ref<Projects[]> = ref([]);
 const loading: Ref<boolean> = ref(true);
 
 onMounted(() => {
-  const getJoinProject = async () => {
+  const getJoinProject: () => Promise<void> = async () => {
     //joinProjectsからuserIdが等しいデータを取得
-    const response = await fetch(
+    const response: Response = await fetch(
       `http://localhost:8000/joinProjects/?islandId=${islandId}`
     );
-    const data = await response.json();
+    const data: JoinProjects[] = await response.json();
     joinList.value = data;
   };
   getJoinProject().then(() => {
     console.log(joinList.value);
     // 上で取得したprojectIdと等しいデータをprojectsテーブルから取得
     if (joinList.value.length > 0) {
-      joinList.value.map(async (pj) => {
-        const response = await fetch(
+      joinList.value.map(async (pj: JoinProjects) => {
+        const response: Response = await fetch(
           `http://localhost:8000/Projects/?id=${pj.projectId}`
         );
-        const data = await response.json();
+        const data: Projects[] = await response.json();
         projectData.value.push(...data);
         loading.value = false;
       });
@@ -61,7 +62,7 @@ onMounted(() => {
 });
 
 // データない時に表示するボタン
-const noDataBtn = () => {
+const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
   return router.push("/top");
 };
 </script>
