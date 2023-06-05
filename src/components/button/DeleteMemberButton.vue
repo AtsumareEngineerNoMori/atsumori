@@ -16,13 +16,13 @@ const props = defineProps({
 const joinList: Ref<JoinIslands[]> = ref([]);
 
 // 退会ボタン
-const deleteBtn = async () => {
+const deleteBtn: () => Promise<void> = async () => {
   // joinIslandsからuserIdが等しいデータを取得し、選択したislandIdが一致するデータをidを指定して削除する
-  const getJoinIsland = async () => {
-    const response = await fetch(
+  const getJoinIsland: () => Promise<void> = async () => {
+    const response: Response = await fetch(
       `http://localhost:8000/joinIslands/?userId=${props.userId}`
     );
-    const data = await response.json();
+    const data: JoinIslands[] = await response.json();
     joinList.value = data;
     console.log(data);
   };
@@ -30,7 +30,7 @@ const deleteBtn = async () => {
   getJoinIsland()
     .then(() => {
       console.log(joinList.value);
-      joinList.value.map(async (join) => {
+      joinList.value.map(async (join: JoinIslands) => {
         if (props.islandId === join.islandId) {
           await fetch(`http://localhost:8000/joinIslands/${join.id}`, {
             method: "DELETE",
