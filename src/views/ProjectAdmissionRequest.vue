@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
@@ -7,7 +7,25 @@ const route = useRoute();
 const router = useRouter();
 const userId = route.params.userId;
 const projectId = route.params.projectId;
-const projectData = ref({});
+const projectData = ref({
+    projectName:"",
+  projectDescription:"",
+  adminId:"",
+  createDate:"",
+  icon:"",
+  id:"",
+  comment:""
+});
+// const projectData = ref<projectData[]>([]);
+// type projectData = {
+//   projectName:string,
+//   projectDescription:string,
+//   adminId:string,
+//   createDate:Date,
+//   icon:string,
+//   id:number,
+//   comment:string
+// }
 const comment = ref();
 const overComment = ref("");
 

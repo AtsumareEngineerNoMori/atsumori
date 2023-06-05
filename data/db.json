@@ -1,44 +1,13 @@
 {
   "Users": [],
-  "Islands": [
-    {
-      "islandName": "島",
-      "islandDescription": "島",
-      "adminId": "VymAU0evLhMbXK5LdA7qKgY8kKt2",
-      "createDate": "2023-06-02T05:38:50.294Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "l",
-      "projectDescription": "l",
-      "adminId": "VymAU0evLhMbXK5LdA7qKgY8kKt2",
-      "createDate": "2023-06-02T06:04:06.587Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "adminIslandId": 1,
-      "id": 1
-    }
-  ],
+  "Islands": [],
+  "Projects": [],
   "RecruitNewUser": [],
   "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "VymAU0evLhMbXK5LdA7qKgY8kKt2",
-      "islandId": 1,
-      "id": 1
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    }
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "UserScout": [],
   "IslandScout": []
 }
