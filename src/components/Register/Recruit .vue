@@ -33,7 +33,6 @@
         </div>
         <div class="RecruitIslandRegister-details-jobSet-job">
           <p>募集職種</p>
-          <!-- <JobSelect :vmodel="`recruit.recruitJob`" /> -->
           <input
             type="radio"
             name="job"
@@ -110,11 +109,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from "vue-router";
-import { reactive, ref as vueref } from "vue";
+import { reactive, ref} from "vue";
 import { useRoute } from "vue-router";
-import JobSelect from "./JobSelect.vue";
+import type { Ref } from "vue";
+import { defineProps } from "vue";
 
 const props = defineProps({
   kansu: String,
@@ -122,42 +122,37 @@ const props = defineProps({
 });
 
 const route = useRoute();
-const loading = vueref(false);
-
-const Id = route.params.id;
-
 const router = useRouter();
-const recruit = reactive({
+const loading: Ref<boolean> = ref(false);
+
+const Id= route.params.id;
+
+const recruit: {
+  recruitTitle: string,
+  recruitJob: string,
+  recruitPoint: string,
+  createDate: Date,
+} = reactive({
   recruitTitle: "",
   recruitJob: "",
   recruitPoint: "",
-  createDate: "",
+  createDate: new Date(),
 });
-const Data = vueref();
+const Data = ref();
 
-const titleLength = vueref(false);
-const selectLength = vueref(false);
-const infomationLength = vueref(false);
+const titleLength :Ref<boolean>= ref(false);
+const selectLength:Ref<boolean> = ref(false);
+const infomationLength:Ref<boolean> = ref(false);
 
-const changeTitle = (e) => {
+const changeTitle = (e:  Event) => {
   titleLength.value = false;
 };
-const changeSelect = (e) => {
+const changeSelect = (e:  Event) => {
   selectLength.value = false;
 };
-const changeInfomation = (e) => {
+const changeInfomation = (e:  Event) => {
   infomationLength.value = false;
 };
-
-// // ログイン状態の場合の処理
-// onAuthStateChanged(auth, (currentUser) => {
-//     if (currentUser) {
-//    console.log("ログインしています")
-//     } else {
-//       console.log("ログインしてないです")
-//       router.push("/login");
-//     }
-//   });
 
 const getFlight = async () => {
   const response = await fetch(`http://localhost:8000/${props.witch}/${Id}`);
@@ -191,38 +186,65 @@ const recruitRegister = () => {
     // propsでどっちか表示
     if (props.kansu === `island`) {
       fetch("http://localhost:8000/RecruitNewIsland", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          projectId: Number(Id),
-          recruitTitle: recruit.recruitTitle,
-          recruitJob: recruit.recruitJob,
-          recruitPoint: recruit.recruitPoint,
-          createDate: new Date(),
-          projectName: Data.value.projectName,
-          projectIcon: Data.value.icon,
-        }),
-      });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    projectId: Number(Id),
+    recruitTitle: recruit.recruitTitle,
+    recruitJob: recruit.recruitJob,
+    recruitPoint: recruit.recruitPoint,
+    createDate: new Date(),
+    projectName: Data.value.projectName,
+    projectIcon: Data.value.icon,
+  }),
+})
+  .then(response => {
+    if (response.ok) {
+      // データの送信が成功した場合の処理
+      router.push("/top");
+    } else {
+      // データの送信が失敗した場合の処理
+      console.log("データの送信に失敗しました");
+    }
+  })
+  .catch(error => {
+    // エラーハンドリング
+    console.log("エラーが発生しました", error);
+  });
     } else if (props.kansu === `user`) {
       fetch("http://localhost:8000/RecruitNewUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          islandId: Number(Id),
-          recruitTitle: recruit.recruitTitle,
-          recruitJob: recruit.recruitJob,
-          recruitPoint: recruit.recruitPoint,
-          createDate: new Date(),
-          islandName: Data.value.islandName,
-          islandIcon: Data.value.icon,
-        }),
-      });
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    projectId: Number(Id),
+    recruitTitle: recruit.recruitTitle,
+    recruitJob: recruit.recruitJob,
+    recruitPoint: recruit.recruitPoint,
+    createDate: new Date(),
+    projectName: Data.value.projectName,
+    projectIcon: Data.value.icon,
+  }),
+})
+  .then(response => {
+    if (response.ok) {
+      // データの送信が成功した場合の処理
+      router.push("/top");
+    } else {
+      // データの送信が失敗した場合の処理
+      console.log("データの送信に失敗しました");
     }
-    router.push("/top");
+  })
+  .catch(error => {
+    // エラーハンドリング
+    console.log("エラーが発生しました", error);
+  });
+  
   }
+}
 };
 </script>
+Ï

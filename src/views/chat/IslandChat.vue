@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUpdated, ref } from "vue";
-import { realtimeDB } from "../../../firebase";
+import type { Ref } from "vue";
+import { realtimeDB } from "../../firebase";
 import "../../css/main.css";
-import GetDate from "../../components/date/GetDate.vue";
+// import GetDate from "@/components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
-import MyChat from "../../components/chat/MyChat.vue";
+import MyChat from "@/components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
 import { useRoute } from "vue-router";
 import {
@@ -19,29 +20,47 @@ import {
   endAt,
 } from "firebase/database";
 import { myIdJudge } from "../../userJudge";
+import { app } from "../../main";
+
+interface Islands {
+  id: number;
+  icon: string;
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+}
+interface ChatData {
+  createDate: number;
+  icon: string;
+  islandId: number;
+  message: string;
+  userId: string;
+  name: string;
+}
 
 // ログインユーザーのid
-const uid = ref("");
+const uid: Ref<string> = ref("");
 // データ取得判別
-const loading = ref(true);
+const loading: Ref<boolean> = ref(true);
 // 島情報保管
-const islandData = ref();
+const islandData: Ref<Islands[]> = ref([]);
 // チャット情報保管
-const chatList = ref([]);
+const chatList: Ref<ChatData[]> = ref([]);
 // 入力内容保持
-const message = ref("");
+const message: Ref<string> = ref("");
 // 全データ数
-const allDataLength = ref(0);
+const allDataLength: Ref<number> = ref(0);
 // 画面スクロール用
-const messageScreen = ref(null);
+const messageScreen: Ref<any> = ref(null);
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
-const islandId = route.params.id;
+const islandId: string | string[] = route.params.id;
 
 // 初期表示のデータ取得
 onMounted(() => {
-  const currentUserId = $cookies.get("myId");
+  const currentUserId = app.$cookies.get("myId");
   uid.value = currentUserId;
   if (!uid.value) {
     console.log("ログアウト状態");
@@ -60,7 +79,7 @@ const getData = () => {
       `http://localhost:8000/islands/?id=${islandId}`
     );
     const data = await response.json();
-    islandData.value = data;
+    islandData.value.push(...data);
   };
   getIsland().then(() => {
     // realtimeDBから島idと等しいデータを取得
@@ -68,8 +87,8 @@ const getData = () => {
       dbRef(realtimeDB, myIdJudge()),
       orderByChild("islandId"),
       limitToLast(10),
-      startAt(islandId),
-      endAt(islandId)
+      startAt(String(islandId)),
+      endAt(String(islandId))
     );
     onValue(q, (snapshot) => {
       chatList.value = snapshot.val();
@@ -82,8 +101,8 @@ const getData = () => {
 const q = query(
   dbRef(realtimeDB, myIdJudge()),
   orderByChild("islandId"),
-  startAt(islandId),
-  endAt(islandId)
+  startAt(String(islandId)),
+  endAt(String(islandId))
 );
 
 // 全件取得
@@ -176,7 +195,7 @@ onUpdated(() => {
           </button>
         </div>
       </template>
-      <div v-for="chat in chatList" :key="chat">
+      <div v-for="chat in chatList">
         <!-- 自分のメッセージか判別する -->
         <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />

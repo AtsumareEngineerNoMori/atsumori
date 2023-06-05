@@ -1,13 +1,21 @@
-<script setup>
+<script setup lang="ts">
 import { reactive } from "vue";
 
-const props = defineProps({
-  createDate: Number,
-});
+interface GetDate {
+  year: number;
+  month: number;
+  date: string;
+  hour: string;
+  min: string;
+}
 
-const date = reactive({
-  year: "",
-  month: "",
+const props = defineProps<{
+  createDate: number;
+}>();
+
+const date = reactive<GetDate>({
+  year: 0,
+  month: 0,
   date: "",
   hour: "",
   min: "",
@@ -22,5 +30,7 @@ date.min = timestamp.getMinutes().toString().padStart(2, "0");
 </script>
 
 <template>
-  <div class="time">{{ date.month }}/{{ date.date }}&nbsp;{{ date.hour }}:{{ date.min }}</div>
+  <div class="time">
+    {{ date.month }}/{{ date.date }}&nbsp;{{ date.hour }}:{{ date.min }}
+  </div>
 </template>

@@ -3,17 +3,26 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "jsx": "preserve",
     "moduleResolution": "node",
-    "baseUrl": "./",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-    },
+      "@/*": ["src/*"]
+    }
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.vue",
     "src/views/**/*.vue",
     "src/components/*.vue",
     "src/**/*",
+    "src/components/**/*.vue",
+    "src/components/date/*.vue",
+    "src/router/index.js",
+    "src/**/**/*.vue",
+    "src/views/**/*.vue",
+    "src/components/**/**/*.vue",
   ],
 
   "exclude": ["node_modules"]

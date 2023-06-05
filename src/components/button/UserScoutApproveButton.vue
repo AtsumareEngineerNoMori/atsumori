@@ -1,6 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
+import type { Ref } from "vue";
 import "../../css/main.css";
+
+interface UserScout {
+  id: number;
+  userId: string;
+  islandId: number;
+}
 
 const props = defineProps({
   userId: String,
@@ -8,7 +15,7 @@ const props = defineProps({
 });
 
 // データ削除の時に再度取得したデータを保管
-const scoutList = ref([]);
+const scoutList: Ref<UserScout[]> = ref([]);
 
 // スカウトを受け入れて島に参加する
 const approveBtn = async () => {
