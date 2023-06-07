@@ -115,11 +115,13 @@ import {
   uploadBytesResumable,
   ref,
   getStorage,
+StorageReference,
+FirebaseStorage,
 } from "firebase/storage";
-import { onAuthStateChanged } from "@firebase/auth";
+import { onAuthStateChanged, User } from "@firebase/auth";
 import {app} from "../../main"
 
-const router = useRouter();
+const router: Router = useRouter();
 const iconFileName:Ref<string> = vueref("");
 const file :Ref<Blob>= vueref( new Blob());
 const iconImg :Ref<string>= vueref(
@@ -163,7 +165,7 @@ const changeInfomation = (e: Event) => {
 };
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth, (currentUser) => {
+onAuthStateChanged(auth, (currentUser: User | null) => {
   if (currentUser) {
 {}
   } else {
@@ -171,20 +173,20 @@ onAuthStateChanged(auth, (currentUser) => {
   }
 });
 
-const currentUserId = app.$cookies.get("myId");
+const currentUserId: any = app.$cookies.get("myId");
 
-const getFlight = async () => {
-  const response = await fetch(
+const getFlight: () => Promise<void> = async () => {
+  const response: any = await fetch(
     `http://localhost:8000/islands?adminId=${currentUserId}`
-  ).then((response) => response.json());
+  ).then((response: Response) => response.json());
   islands.value = response;
 };
 getFlight();
 
 // アイコン画像プレビュー処理
-const previewImage = (event: any) => {
-  let reader = new FileReader();
-  reader.onload = function (e:ProgressEvent<FileReader>) {
+const previewImage : (event: any) => void= (event: any) => {
+  let reader : FileReader= new FileReader();
+  reader.onload = function (e:ProgressEvent<FileReader>): void {
     iconImg.value = e.target?.result as string;
   };
   reader.readAsDataURL(event.target?.files[0]);
@@ -192,18 +194,18 @@ const previewImage = (event: any) => {
   iconFileName.value = event.target?.files[0].name;
 };
 
-const projectRegisterButton = () => {
+const projectRegisterButton : () => void= () => {
   // Storageにアイコン登録
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
   ) {
-    const storageRef = ref(storage, `project/${iconFileName.value}`);
+    const storageRef : StorageReference= ref(storage, `project/${iconFileName.value}`);
     uploadBytesResumable(storageRef, file.value)
       // StorageからアイコンURLを取得
       .then(() => {
-        const storage = getStorage();
-        const starsRef = ref(storage, `project/${iconFileName.value}`);
+        const storage: FirebaseStorage = getStorage();
+        const starsRef : StorageReference= ref(storage, `project/${iconFileName.value}`);
         getDownloadURL(starsRef).then((url: string) => {
           iconImg.value = url;
           fetch("http://localhost:8000/Projects", {
@@ -220,11 +222,12 @@ const projectRegisterButton = () => {
               adminIslandId: selectIsland.value,
             }),
           })
-            .then(function (response) {
+            .then(function (response: Response): Promise<any> {
               // fetch が返した Promise の解決を待つ
               return response.json();
             })
-            .then(function (jsonObj) {
+            .then(function (jsonObj:any): void {
+              // interfaceでisland定義して、anyではなくてIslandi入れる
               // response.json が返した Promise の解決を待つ
               // console.log(jsonObj.id);
               fetch("http://localhost:8000/JoinProjects", {
@@ -255,11 +258,11 @@ const projectRegisterButton = () => {
         adminIslandId: selectIsland.value,
       }),
     })
-      .then(function (response) {
+      .then(function (response: Response): Promise<any> {
         // fetch が返した Promise の解決を待つ
         return response.json();
       })
-      .then(function (jsonObj) {
+      .then(function (jsonObj:any): void {
         // response.json が返した Promise の解決を待つ
         // console.log(jsonObj.id);
         fetch("http://localhost:8000/JoinProjects", {
@@ -276,7 +279,7 @@ const projectRegisterButton = () => {
   }
 };
 
-const registerProject = () => {
+const registerProject : () => void= () => {
   if (project.name === "") {
     projectNameLength.value = true;
   }

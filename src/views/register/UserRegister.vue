@@ -201,6 +201,8 @@ import {
   uploadBytesResumable,
   ref,
   getStorage,
+StorageReference,
+FirebaseStorage,
 } from "firebase/storage";
 import { useRouter } from "vue-router";
 import {app} from "../../main"
@@ -276,8 +278,8 @@ onMounted(() => {
 });
 
 // アイコン画像プレビュー処理
-const previewImage = (event:any) => {
-  let reader = new FileReader();
+const previewImage: (event: any) => void = (event:any) => {
+  let reader: FileReader= new FileReader();
   reader.onload = function (e: ProgressEvent<FileReader>) {
     iconImg.value = e.target?.result as string;
   };
@@ -288,11 +290,11 @@ const previewImage = (event:any) => {
 
 
 // cookieに登録
-const setCookie = (myId: string) => {
+const setCookie: (myId: string) => void = (myId: string) => {
   app.$cookies.set("myId", myId);
 };
 
-const U = async () => {
+const  U: () => Promise<void> = async () => {
   try {
     await createUserWithEmailAndPassword(auth, user.email, user.password);
     onAuthStateChanged(auth, (user) => {
@@ -310,19 +312,19 @@ const U = async () => {
 };
 
 // 登録ボタンの処理
-const UserRegisterButton = () => {
+const UserRegisterButton: () => void = () => {
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
   ) {
     console.log("画像挿入されてる処理");
-    const auth = getAuth();
-    const currentUserId = auth.currentUser?.uid;
-    const storageRef = ref(storage, `icon/${iconFileName.value}`);
+    const auth: Auth = getAuth();
+    const currentUserId: string | undefined = auth.currentUser?.uid;
+    const storageRef: StorageReference= ref(storage, `icon/${iconFileName.value}`);
     uploadBytesResumable(storageRef, file.value)
       .then(() => {
-        const storage = getStorage();
-        const starsRef = ref(storage, `icon/${iconFileName.value}`);
+        const storage: FirebaseStorage = getStorage();
+        const starsRef : StorageReference= ref(storage, `icon/${iconFileName.value}`);
         getDownloadURL(starsRef).then((url: string) => {
           console.log(url);
           iconImg.value = url;
@@ -347,8 +349,8 @@ const UserRegisterButton = () => {
       });
   } else {
     console.log(`画像なしです${iconImg.value}`);
-    const auth = getAuth();
-    const currentUserId = auth.currentUser?.uid;
+    const  auth: Auth= getAuth();
+    const currentUserId : string | undefined= auth.currentUser?.uid;
     fetch("http://localhost:8000/Users", {
       method: "POST",
       headers: {
@@ -369,12 +371,12 @@ const UserRegisterButton = () => {
 };
 
 // パスワードの入力形式チェック
-const inputCheckSmall = /[a-z]/,
-  inputCheckBig = /[A-Z]/,
-  inputCheckNumber = /[0-9]/,
-  passwordPattern = /[^]{8,20}/;
+const inputCheckSmall: RegExp = /[a-z]/,
+  inputCheckBig: RegExp = /[A-Z]/,
+  inputCheckNumber: RegExp = /[0-9]/,
+  passwordPattern : RegExp= /[^]{8,20}/;
 
-const passwordValid = (password: string) => {
+const passwordValid: (password: string) => boolean = (password: string) => {
   return (
     inputCheckSmall.test(password) &&
     inputCheckBig.test(password) &&
@@ -384,9 +386,9 @@ const passwordValid = (password: string) => {
 };
 
 // メールアドレスの入力形式チェック
-const emailPattern =
+const emailPattern : RegExp=
   /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
-const emailValid = (email: string) => {
+const emailValid : (email: string) => boolean = (email: string) => {
   return emailPattern.test(email);
 };
 

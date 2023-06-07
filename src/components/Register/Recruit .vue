@@ -110,7 +110,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { RouteLocationNormalizedLoaded, Router, useRouter } from "vue-router";
 import { reactive, ref} from "vue";
 import { useRoute } from "vue-router";
 import type { Ref } from "vue";
@@ -121,11 +121,11 @@ const props = defineProps({
   witch: String,
 });
 
-const route = useRoute();
-const router = useRouter();
+const route : RouteLocationNormalizedLoaded= useRoute();
+const router: Router = useRouter();
 const loading: Ref<boolean> = ref(false);
 
-const Id= route.params.id;
+const Id: string | string[]= route.params.id;
 
 const recruit: {
   recruitTitle: string,
@@ -138,7 +138,7 @@ const recruit: {
   recruitPoint: "",
   createDate: new Date(),
 });
-const Data = ref();
+const Data : Ref<any>= ref();
 
 const titleLength :Ref<boolean>= ref(false);
 const selectLength:Ref<boolean> = ref(false);
@@ -154,15 +154,15 @@ const changeInfomation = (e:  Event) => {
   infomationLength.value = false;
 };
 
-const getFlight = async () => {
-  const response = await fetch(`http://localhost:8000/${props.witch}/${Id}`);
+const getFlight : () => Promise<void>= async () => {
+  const response : Response= await fetch(`http://localhost:8000/${props.witch}/${Id}`);
   const data = await response.json();
   Data.value = data;
   loading.value = true;
 };
 getFlight();
 
-const recruitRegister = () => {
+const recruitRegister: () => void = () => {
   if (recruit.recruitTitle === "") {
     titleLength.value = true;
   }
@@ -246,4 +246,3 @@ const recruitRegister = () => {
 }
 };
 </script>
-Ï

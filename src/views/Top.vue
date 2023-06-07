@@ -125,7 +125,7 @@ const newRecruitProjectArray: Ref<
 const router = useRouter();
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth, (currentUser) => {
+onAuthStateChanged(auth , (currentUser) => {
   if (currentUser) {
     console.log("ログインしています");
   } else {
@@ -156,7 +156,7 @@ const getProjects = async () => {
 getProjects();
 
 // 募集人
-const getRecruitIslands = async () => {
+const getRecruitIslands : () => Promise<void>= async () => {
   const response = await fetch(
     `http://localhost:8000/RecruitNewUser/?_limit=6&_sort=createDate&_order=desc`
   );
@@ -166,7 +166,7 @@ const getRecruitIslands = async () => {
 getRecruitIslands();
 
 // 募集島
-const getRecruitProjects = async () => {
+const getRecruitProjects : () => Promise<void>= async () => {
   const response = await fetch(
     `http://localhost:8000/RecruitNewIsland/?_limit=6&_sort=createDate&_order=desc`
   );
