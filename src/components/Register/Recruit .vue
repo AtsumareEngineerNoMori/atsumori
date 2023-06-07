@@ -219,13 +219,13 @@ const recruitRegister: () => void = () => {
     "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    projectId: Number(Id),
+    islandId: Number(Id),
     recruitTitle: recruit.recruitTitle,
     recruitJob: recruit.recruitJob,
     recruitPoint: recruit.recruitPoint,
     createDate: new Date(),
-    projectName: Data.value.projectName,
-    projectIcon: Data.value.icon,
+    islandName: Data.value.islandName,
+    islandIcon: Data.value.icon,
   }),
 })
   .then(response => {
