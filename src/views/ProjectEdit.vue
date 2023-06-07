@@ -2,12 +2,8 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {
-  onAuthStateChanged,
-  // createUserWithEmailAndPassword,
-  // getAuth,
-} from "@firebase/auth";
-import { storage, auth, db } from "../firebase";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../firebase";
 
 
 import "../css/main.css";
@@ -34,9 +30,9 @@ const Project = ref({
   comment:""
 });
 
-const overName = ref("");
-const overDescription = ref("");
-const overComment = ref("");
+const overName = ref<string>("");
+const overDescription = ref<string>("");
+const overComment = ref<string>("");
 
 const data = ref({
   recruitTitle: "",
