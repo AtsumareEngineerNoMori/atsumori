@@ -4,8 +4,8 @@ import { joinJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
 
 const props = defineProps<{
-  islandId: number;
-  myId: string;
+  islandId?: number;
+  myId?: string;
 }>();
 
 const userJudge = ref();

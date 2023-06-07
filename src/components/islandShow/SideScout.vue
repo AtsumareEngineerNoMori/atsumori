@@ -24,8 +24,8 @@ const projects = ref<Projects[]>([]);
 const scoutProjects = ref();
 
 const props = defineProps<{
-  islandId: number;
-  userJudge: number | undefined;
+  islandId?: number;
+  userJudge?: number;
 }>();
 
 watch(props, async () => {
