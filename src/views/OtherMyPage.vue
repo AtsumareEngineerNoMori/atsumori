@@ -51,7 +51,7 @@ onMounted(async () => {
   console.log("prame-ta---", islandId);
 
     // ログイン状態のチェック
-    onAuthStateChanged(auth, async (currentUser) => {
+    onAuthStateChanged(auth, async (currentUser) :Promise<void> => {
     if (currentUser) {
       console.log("ログインしています");
       try {
