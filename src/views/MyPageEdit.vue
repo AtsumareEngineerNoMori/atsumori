@@ -39,7 +39,7 @@ const back = () => {
 //会員情報取得
 onMounted(async () => {
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
-  auth.onAuthStateChanged(async (loggedInUser: any) => {
+  auth.onAuthStateChanged(async (loggedInUser: any) :Promise<void> => {
     if (loggedInUser) {
       userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
 
@@ -63,7 +63,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event:any) {
+async function iconEdit(event:any)  :Promise<void>{
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
@@ -87,7 +87,7 @@ const removeIcon = () => {
   User.value.icon = defaultIconURL;
 };
 //User更新
-async function updateUser() {
+async function updateUser() :Promise<void> {
   if (!check()) {
     return;
   }
@@ -120,7 +120,7 @@ async function updateUser() {
 }
 
 // バリデーションチェック
-function check() {
+function check():boolean {
   let isValid = true;
 
   const maxName = 20;

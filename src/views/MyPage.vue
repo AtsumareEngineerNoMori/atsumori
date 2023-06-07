@@ -38,7 +38,7 @@ onMounted(async () => {
 
 console.log("ユーザーID", userId);
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
-  auth.onAuthStateChanged(async (loggedInUser:any) => {
+  auth.onAuthStateChanged(async (loggedInUser:any) :Promise<void>=> {
     if (loggedInUser) {
       userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
       await getIsland();
