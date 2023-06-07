@@ -19,6 +19,12 @@ import {
   startAt,
   endAt,
 } from "firebase/database";
+import type {
+  Query,
+  DataSnapshot,
+  DatabaseReference,
+  ThenableReference,
+} from "firebase/database";
 import { myIdJudge } from "../../userJudge";
 import { app } from "../../main";
 
@@ -60,7 +66,7 @@ const islandId: string | string[] = route.params.id;
 
 // 初期表示のデータ取得
 onMounted(() => {
-  const currentUserId = app.$cookies.get("myId");
+  const currentUserId: string = app.$cookies.get("myId");
   uid.value = currentUserId;
   if (!uid.value) {
     console.log("ログアウト状態");
@@ -72,25 +78,25 @@ onMounted(() => {
 });
 
 // 初期データの取得
-const getData = () => {
+const getData: () => void = () => {
   // 島の情報取得
-  const getIsland = async () => {
-    const response = await fetch(
+  const getIsland: () => Promise<void> = async () => {
+    const response: Response = await fetch(
       `http://localhost:8000/islands/?id=${islandId}`
     );
-    const data = await response.json();
+    const data: Islands[] = await response.json();
     islandData.value.push(...data);
   };
   getIsland().then(() => {
     // realtimeDBから島idと等しいデータを取得
-    const q = query(
+    const q: Query = query(
       dbRef(realtimeDB, myIdJudge()),
       orderByChild("islandId"),
       limitToLast(10),
       startAt(String(islandId)),
       endAt(String(islandId))
     );
-    onValue(q, (snapshot) => {
+    onValue(q, (snapshot: DataSnapshot) => {
       chatList.value = snapshot.val();
     });
     loading.value = false;
@@ -98,7 +104,7 @@ const getData = () => {
 };
 
 // 全件取得参照先
-const q = query(
+const q: Query = query(
   dbRef(realtimeDB, myIdJudge()),
   orderByChild("islandId"),
   startAt(String(islandId)),
@@ -106,18 +112,18 @@ const q = query(
 );
 
 // 全件取得
-const getAllData = () => {
-  onValue(q, (snapshot) => {
-    const data = snapshot.val();
+const getAllData: () => void = () => {
+  onValue(q, (snapshot: DataSnapshot) => {
+    const data: ChatData[] = snapshot.val();
     chatList.value = data;
     allDataLength.value = Object.keys(data).length;
     console.log(allDataLength.value);
   });
 };
 // 初回表示用にデータ全件取得
-const firstGetAllData = () => {
-  onValue(q, (snapshot) => {
-    const data = snapshot.val();
+const firstGetAllData: () => void = () => {
+  onValue(q, (snapshot: DataSnapshot) => {
+    const data: ChatData = snapshot.val();
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
       console.log(allDataLength.value);
@@ -126,19 +132,19 @@ const firstGetAllData = () => {
 };
 
 // firebaseリアルタイムデータベース追加
-const chatRef = dbRef(realtimeDB, myIdJudge());
+const chatRef: DatabaseReference = dbRef(realtimeDB, myIdJudge());
 // 送信
-const submit = async () => {
+const submit: () => Promise<void> = async () => {
   if (message.value.length > 120 || message.value.length === 0) {
     alert("1文字以上120文字以内で入力してください");
   } else {
     // ログインユーザーの情報取得
-    const response = await fetch(
+    const response: Response = await fetch(
       `http://localhost:8000/users/?id=${uid.value}`
     );
     const userData = await response.json();
     // realtimeDBに追加
-    const newData = push(chatRef, {
+    const newData: ThenableReference = push(chatRef, {
       userId: uid.value,
       name: userData[0].name,
       icon: userData[0].icon,
@@ -152,7 +158,7 @@ const submit = async () => {
   }
 };
 
-const loadMore = () => {
+const loadMore: () => void = () => {
   getAllData();
 };
 
