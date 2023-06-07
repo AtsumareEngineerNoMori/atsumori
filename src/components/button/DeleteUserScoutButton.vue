@@ -16,19 +16,19 @@ const props = defineProps({
 const scoutList: Ref<UserScout[]> = ref([]);
 
 // 退会ボタン
-const deleteBtn = async () => {
+const deleteBtn: () => Promise<void> = async () => {
   // userScoutからuserIdが等しいデータを取得し、選択した島のislandIdが一致するデータをidを指定して削除する
-  const getUserScout = async () => {
-    const response = await fetch(
+  const getUserScout: () => Promise<void> = async () => {
+    const response: Response = await fetch(
       `http://localhost:8000/userScout/?userId=${props.userId}`
     );
-    const data = await response.json();
+    const data: UserScout[] = await response.json();
     scoutList.value = data;
     console.log(data);
   };
   getUserScout()
     .then(() => {
-      scoutList.value.map(async (scout) => {
+      scoutList.value.map(async (scout: UserScout) => {
         if (props.islandId === scout.islandId) {
           await fetch(`http://localhost:8000/userScout/${scout.id}`, {
             method: "DELETE",
