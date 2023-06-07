@@ -53,11 +53,23 @@
 import { computed, onMounted, ref, Ref } from "vue";
 import { useRoute } from "vue-router";
 
+//型
+type Island = {
+  id: number;
+  icon: string;
+  islandName: string;
+};
+type JoinProject = {
+  islandId: number;
+  projectId: number;
+  id: number;
+};
+
 const route = useRoute();
 const keyword: Ref<string> = ref("");
-const islands: Ref<any[]> = ref([]);
-const filteredIslands: Ref<any[]> = ref([]);
-const joinProjects: Ref<any[]> = ref([]);
+const islands: Ref<Island[]> = ref([]);
+const filteredIslands: Ref<Island[]> = ref([]);
+const joinProjects: Ref<JoinProject[]> = ref([]);
 const results: Ref<boolean> = ref(false);
 const errorMessage: Ref<string> = ref("");
 
@@ -85,7 +97,7 @@ const fetchJoinProjects = async () => {
 };
 
 //paramsのprojectId以外のデータを取得
-const searchIslands = () => {
+const searchIslands = (): void => {
   console.log("検索:", keyword.value);
 
   const keywordIsland = keyword.value
