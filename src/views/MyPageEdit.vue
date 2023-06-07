@@ -30,8 +30,8 @@ const User = vueref({
   comment: "",
 });
 const router = useRouter();
-const overName = vueref("");
-const overComment = vueref("");
+const overName = vueref<string>("");
+const overComment = vueref<string>("");
 
 const back = () => {
   router.push("/mypage");

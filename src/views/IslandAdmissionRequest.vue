@@ -23,8 +23,8 @@ type islandData = {
   icon:string,
   id:number
 }
-const comment = ref("");
-const overComment = ref("");
+const comment = ref<String>("");
+const overComment = ref<string>("");
 
 onMounted(async () => {
       // ログイン状態のチェック
