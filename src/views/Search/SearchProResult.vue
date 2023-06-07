@@ -32,13 +32,13 @@ import { useRoute } from "vue-router";
 import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 
 //型
-type project = {
+type Project = {
   id: number;
   icon: string;
   projectName: string;
 };
 
-const projects: Ref<project[]> = ref([]);
+const projects: Ref<Project[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得
