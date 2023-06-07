@@ -59,7 +59,7 @@ type User = {
   icon: string;
   name: string;
 };
-type joinIsland = {
+type JoinIsland = {
   userId: string;
   islandId:number;
   id:number;
@@ -70,7 +70,7 @@ const route = useRoute();
 const keyword: Ref<string>  = ref("");
 const users: Ref<User[]>  = ref([]);
 const filteredUsers: Ref<User[]> = ref([]);
-const joinIslands:Ref<joinIsland[]> = ref([]);
+const joinIslands:Ref<JoinIsland[]> = ref([]);
 const results: Ref<boolean>  = ref(false);
 const errorMessage: Ref<string>  = ref("");
 

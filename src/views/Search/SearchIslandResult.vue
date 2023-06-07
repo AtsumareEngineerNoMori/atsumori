@@ -28,13 +28,13 @@ import { useRoute } from "vue-router";
 import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 
 //型
-type island = {
+type Island = {
   id: number;
   icon: string;
   islandName: string;
 };
 
-const islands: Ref<island[]> = ref([]);
+const islands: Ref<Island[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得

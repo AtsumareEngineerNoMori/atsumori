@@ -2,12 +2,8 @@
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {
-  onAuthStateChanged,
-  // createUserWithEmailAndPassword,
-  // getAuth,
-} from "@firebase/auth";
-import { storage, auth, db } from "../firebase";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../firebase";
 import "../css/main.css";
 
 
@@ -24,9 +20,9 @@ const Island = ref({
   id:""
 });
 
-const overName = ref("");
-const overDescription = ref("");
-const overComment = ref("");
+const overName = ref<string>("");
+const overDescription = ref<string>("");
+const overComment = ref<string>("");
 
 const data = ref({
   recruitTitle: "",
@@ -37,7 +33,7 @@ const data = ref({
 
 onMounted(async () => {
       // ログイン状態のチェック
-      onAuthStateChanged(auth, async (currentUser) => {
+      onAuthStateChanged(auth, async (currentUser:any) => {
     if (currentUser) {
       console.log("ログインしています");
   try {
