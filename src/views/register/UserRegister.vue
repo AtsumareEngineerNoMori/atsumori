@@ -117,6 +117,7 @@
               type="email"
               class="userRegister-details2-input"
               @change="changeEmail"
+              autocomplete="username"
             />
           </div>
           <p class="val-email" v-if="userEmailLength">
@@ -136,6 +137,7 @@
               type="password"
               class="userRegister-details2-input"
               @change="changePassword"
+              autocomplete="new-password"
             />
           </div>
           <p class="val-password" v-if="userPasswordLength">
@@ -162,6 +164,7 @@
               class="userRegister-details2-input"
               v-model="user.cPassword"
               @change="changecPassword"
+              autocomplete="new-password"
             />
           </div>
           <p class="val-cpassword" v-if="user.cPassword.length <= 0">&nbsp;</p>
