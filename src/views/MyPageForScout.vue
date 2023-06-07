@@ -45,7 +45,7 @@ onMounted(async () => {
   console.log("prame-ta---", userId);
   console.log("prame-ta---", islandId);
 
-  onAuthStateChanged(auth, async (currentUser) => {
+  onAuthStateChanged(auth, async (currentUser):Promise<void>  => {
     if (currentUser) {
       console.log("ログインしています");
       try {
@@ -68,7 +68,7 @@ onMounted(async () => {
 });
 
 // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
-const getIsland = async () => {
+const getIsland = async ():Promise<void>  => {
   const response = await fetch(
     `http://localhost:8000/joinIslands/?userId=${userId}`
   );
@@ -79,7 +79,7 @@ const getIsland = async () => {
 };
 
 //ログインユーザーが参加している島IDと同じ島IDの島をIslandsテーブルから取得
-const getJoinIsland = async () => {
+const getJoinIsland = async ():Promise<void>  => {
   console.log("２つめ", joinList.value);
   await Promise.all(
     joinList.value.map(async (element) => {

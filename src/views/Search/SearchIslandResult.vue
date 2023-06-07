@@ -38,7 +38,7 @@ const islands: Ref<Island[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得
-async function fetchData() {
+const fetchData = async () => {
   const searchKeyword = route.query.search;
   const url = `http://localhost:8000/Islands?islandName_like=${searchKeyword}`;
   const response = await fetch(url);
