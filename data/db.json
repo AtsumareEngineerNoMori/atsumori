@@ -1,74 +1,22 @@
 {
   "Users": [
-    {
-      "id": "Ek44vqCbneR5txhEprOSQkCwpZo1",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "www",
-      "job": "WEB",
-      "comment": "www",
-      "email": "www@rakus.co.jp"
-    }
   ],
   "Islands": [
-    {
-      "islandName": "a",
-      "islandDescription": "a",
-      "adminId": "Ek44vqCbneR5txhEprOSQkCwpZo1",
-      "createDate": "2023-06-07T01:14:57.388Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    }
   ],
   "Projects": [
-    {
-      "projectName": "a",
-      "projectDescription": "a",
-      "adminId": "Ek44vqCbneR5txhEprOSQkCwpZo1",
-      "createDate": "2023-06-07T01:15:03.503Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "adminIslandId": 1,
-      "id": 1
-    }
   ],
   "RecruitNewUser": [
-    {
-      "islandId": 1,
-      "recruitTitle": "a",
-      "recruitJob": "FR",
-      "recruitPoint": "a",
-      "createDate": "2023-06-07T01:16:43.470Z",
-      "islandName": "a",
-      "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    }
   ],
   "RecruitNewIsland": [
-    {
-      "projectId": 1,
-      "recruitTitle": "a",
-      "recruitJob": "WEB",
-      "recruitPoint": "a",
-      "createDate": "2023-06-07T01:16:53.070Z",
-      "projectName": "a",
-      "projectIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "id": 1
-    }
+
   ],
   "RequestIsland": [],
   "RequestProject": [],
   "JoinIslands": [
-    {
-      "userId": "Ek44vqCbneR5txhEprOSQkCwpZo1",
-      "islandId": 1,
-      "id": 1
-    }
+
   ],
   "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    }
+    
   ],
   "UserScout": [],
   "IslandScout": []
