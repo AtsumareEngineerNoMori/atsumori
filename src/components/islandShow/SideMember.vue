@@ -27,9 +27,9 @@ const requestIslands = ref<RequestIsland[]>([]);
 const requestUsers = ref<userData[]>([]);
 
 const props = defineProps<{
-  islandId: number;
-  adminId: string | undefined;
-  myId: string;
+  islandId?: number;
+  adminId?: string;
+  myId?: string;
 }>();
 
 watch(props, async () => {

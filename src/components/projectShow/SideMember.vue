@@ -23,15 +23,15 @@ const router = useRouter();
 
 const userJudges = ref();
 const islands = ref<Islands[]>([]);
-const requestProjects = ref<any>([]);
-const requestIslands = ref<any>([]);
+const requestProjects = ref<RequestProject[]>([]);
+const requestIslands = ref<Islands[]>([]);
 
 const props = defineProps<{
-  projectId: number;
-  adminId: string;
+  projectId?: number;
+  adminId?: string;
   userIds: Array<string>;
   islandId: Array<number>;
-  myId: string;
+  myId?: string;
 }>();
 
 watch(props, async () => {

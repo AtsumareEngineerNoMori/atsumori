@@ -7,8 +7,8 @@ import { useRouter } from "vue-router";
 // 1.参加者　2.未参加者
 const props = defineProps<{
   userIds: Array<string>;
-  projectId: number;
-  myId: string;
+  projectId?: number;
+  myId?: string;
 }>();
 
 const userJudge = ref();

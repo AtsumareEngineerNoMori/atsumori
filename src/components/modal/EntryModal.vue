@@ -12,7 +12,7 @@ type Islands = {
 
 const isShow = ref(false);
 const joinIsland = ref<Islands[]>([]);
-const selectIsland = ref();
+const selectIsland = ref<number>();
 const pageShow = ref(false);
 const errorIsShow = ref(false);
 
