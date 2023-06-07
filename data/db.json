@@ -1,122 +1,13 @@
 {
-  "Users": [
-    {
-      "id": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308",
-      "name": "qqq",
-      "job": "WEB",
-      "comment": "qqq",
-      "email": "qqq@rakus.co.jp"
-    }
-  ],
-  "Islands": [
-    {
-      "islandName": "qqq",
-      "islandDescription": "qqq",
-      "adminId": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "createDate": "2023-06-07T01:23:07.713Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    },
-    {
-      "islandName": "aa",
-      "islandDescription": "aa",
-      "adminId": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "createDate": "2023-06-07T01:24:00.339Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 2
-    }
-  ],
-  "Projects": [
-    {
-      "projectName": "qqq",
-      "projectDescription": "qqq",
-      "adminId": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "createDate": "2023-06-07T01:23:15.453Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "adminIslandId": 1,
-      "id": 1
-    },
-    {
-      "projectName": "aa",
-      "projectDescription": "aa",
-      "adminId": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "createDate": "2023-06-07T01:24:06.501Z",
-      "icon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "adminIslandId": 2,
-      "id": 2
-    }
-  ],
-  "RecruitNewUser": [
-    {
-      "islandId": 1,
-      "recruitTitle": "qqq",
-      "recruitJob": "WEB",
-      "recruitPoint": "qqq",
-      "createDate": "2023-06-07T01:23:25.187Z",
-      "islandName": "qqq",
-      "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 1
-    },
-    {
-      "islandId": 2,
-      "recruitTitle": "aa",
-      "recruitJob": "WEB",
-      "recruitPoint": "aa",
-      "createDate": "2023-06-07T01:24:14.794Z",
-      "islandName": "aa",
-      "islandIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0",
-      "id": 2
-    }
-  ],
-  "RecruitNewIsland": [
-    {
-      "projectId": 1,
-      "recruitTitle": "qqq",
-      "recruitJob": "WEB",
-      "recruitPoint": "qqq",
-      "createDate": "2023-06-07T01:23:35.973Z",
-      "projectName": "qqq",
-      "projectIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "id": 1
-    },
-    {
-      "projectId": 2,
-      "recruitTitle": "aa",
-      "recruitJob": "WEB",
-      "recruitPoint": "aa",
-      "createDate": "2023-06-07T01:24:28.434Z",
-      "projectName": "aa",
-      "projectIcon": "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad",
-      "id": 2
-    }
-  ],
+  "Users": [],
+  "Islands": [],
+  "Projects": [],
+  "RecruitNewUser": [],
+  "RecruitNewIsland": [],
   "RequestIsland": [],
   "RequestProject": [],
-  "JoinIslands": [
-    {
-      "userId": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "islandId": 1,
-      "id": 1
-    },
-    {
-      "userId": "sGo2WxoMM6faIEdXhG2cP4QCb273",
-      "islandId": 2,
-      "id": 2
-    }
-  ],
-  "JoinProjects": [
-    {
-      "islandId": 1,
-      "projectId": 1,
-      "id": 1
-    },
-    {
-      "islandId": 2,
-      "projectId": 2,
-      "id": 2
-    }
-  ],
+  "JoinIslands": [],
+  "JoinProjects": [],
   "UserScout": [],
   "IslandScout": []
 }

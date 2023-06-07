@@ -33,7 +33,7 @@ const data = ref({
 
 onMounted(async () => {
       // ログイン状態のチェック
-      onAuthStateChanged(auth, async (currentUser:any) => {
+      onAuthStateChanged(auth, async (currentUser:any)  :Promise<void>=> {
     if (currentUser) {
       console.log("ログインしています");
   try {
@@ -56,7 +56,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event:any) {
+async function iconEdit(event:any) :Promise<void> {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
@@ -75,7 +75,7 @@ async function iconEdit(event:any) {
 
 
 //RecruitNewUser取得
-const getFlight = async () => {
+const getFlight = async () :Promise<void> => {
   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
   const recruitNewUserData = await response.json();
   console.log(recruitNewUserData);
@@ -93,7 +93,7 @@ const removeIcon = () => {
 };
 
 //Island更新
-async function updateIslands() {
+async function updateIslands() :Promise<void> {
   if (!check()) {
     return;
   }
@@ -110,7 +110,7 @@ async function updateIslands() {
     );
 
     // recruitNewUser更新
-    async function updateRecruitNewUser() {
+    async function updateRecruitNewUser() :Promise<void> {
       try {
         const response = await fetch(
           `http://localhost:8000/RecruitNewUser/${Island.value.id}`
@@ -156,7 +156,7 @@ const back = () => {
 };
 
 // バリデーションチェック
-function check() {
+function check() :boolean{
   let isValid = true;
 
   const maxName = 20;
