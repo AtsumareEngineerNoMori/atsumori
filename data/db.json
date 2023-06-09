@@ -175,7 +175,18 @@
       "comment": ":nbsp;"
     }
   ],
-  "RecruitNewUser": [],
+  "RecruitNewUser": [
+    {
+      "islandId": 11,
+      "recruitTitle": "ようこそ",
+      "recruitJob": "ML",
+      "recruitPoint": "ようこそみんな参加してる",
+      "createDate": "2023-06-07T01:46:13.437Z",
+      "islandName": "みんな参加してる〜",
+      "islandIcon": "https://4.bp.blogspot.com/-YYjAdMaEFQk/UbVvW1p58xI/AAAAAAAAUwI/6mIziJiekDU/s400/vacation_island.png",
+      "id": 1
+    }
+  ],
   "RecruitNewIsland": [],
   "RequestIsland": [
     {
