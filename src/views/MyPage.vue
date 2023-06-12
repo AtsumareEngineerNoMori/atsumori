@@ -45,7 +45,7 @@ console.log("ユーザーID", userId);
       await getJoinIsland();
       try {
         const response = await fetch(
-          `http://localhost:8000/Users/${userId.value}`
+          `http://localhost:3000/Users/${userId.value}`
         );
         if (!response.ok) {
           throw new Error(`HTTPエラーです！！！: ${response.status}`);
@@ -65,7 +65,7 @@ console.log("ユーザーID", userId);
 // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
 const getIsland = async () => {
   const response = await fetch(
-    `http://localhost:8000/joinIslands/?userId=${userId.value}`
+    `http://localhost:3000/joinIslands/?userId=${userId.value}`
   );
   const data = await response.json();
   joinList.value = data;
@@ -78,7 +78,7 @@ const getJoinIsland = async () => {
   await Promise.all(
     joinList.value.map(async (element) => {
       const response = await fetch(
-        `http://localhost:8000/Islands/?id=${element.islandId}`
+        `http://localhost:3000/Islands/?id=${element.islandId}`
       );
       const data = await response.json();
       islandData.value.push(...data);
