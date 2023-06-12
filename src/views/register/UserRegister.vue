@@ -183,6 +183,7 @@
           <RouterLink to="/login">
             <div class="userRegister-details2-login">ログインはこちら！</div>
           </RouterLink>
+          <button @click="addUser">テスト登録</button>
         </div>
       </form>
     </div>
@@ -224,6 +225,7 @@ const usercPasswordLength : Ref<boolean>= vueref(false);
 const emailerror : Ref<boolean>= vueref(true);
 const iconFileName: Ref<string> = vueref("");
 const file:Ref<Blob> = vueref(new Blob());
+const users:Ref<string> = vueref("");
 
 const iconImg:Ref<string> =vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
@@ -345,6 +347,8 @@ const UserRegisterButton: () => void = () => {
               email: user.email,
             }),
           }).then((res) => res.json());
+
+
         });
       })
       .then(() => {
@@ -395,6 +399,8 @@ const emailValid : (email: string) => boolean = (email: string) => {
   return emailPattern.test(email);
 };
 
+
+
 const registerUser = () => {
   if (
     user.name.length <= 0 ||
@@ -416,6 +422,10 @@ const registerUser = () => {
     console.log("入力が間違っているところがあります");
   }else {
     U();
+  
+
+
+
   }
 
   if (user.name.length <= 0) {

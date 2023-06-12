@@ -26,6 +26,7 @@ import RecruitIslandRegister from "../views/register/RecruitIslandRegister.vue";
 import TopSearchBox from "../components/Search/TopSearch/TopSearchBox.vue";
 import IslandShow from "@/views/Show/IslandShow.vue";
 import ProjectShow from "@/views/Show/ProjectShow.vue";
+import Test from "@/views/register/test.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -201,6 +202,11 @@ const router = createRouter({
       path: "/top",
       name: "top",
       component: Top,
+    },
+    {
+      path: "/test",
+      name: "test",
+      component: Test,
     },
 
   ],

@@ -56,14 +56,14 @@
         <section class="top-new-set-list">
           <div
             v-for="infomation in newRecruitIslandArray"
-            :key="infomation.islandId"
+            :key="infomation.id"
             class="top-new-set-item"
           >
             <RouterLink
-              :to="{ name: 'islandShow', params: { id: infomation.islandId } }"
+              :to="{ name: 'islandShow', params: { id: infomation.id } }"
             >
               <img
-                :src="infomation.islandIcon"
+                :src="infomation.icon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
@@ -80,17 +80,17 @@
         <section class="top-new-set-list">
           <div
             v-for="infomation in newRecruitProjectArray"
-            :key="infomation.projectId"
+            :key="infomation.id"
             class="top-new-set-item"
           >
             <RouterLink
               :to="{
                 name: 'projectShow',
-                params: { id: infomation.projectId },
+                params: { id: infomation.id },
               }"
             >
               <img
-                :src="infomation.projectIcon"
+                :src="infomation.icon"
                 alt="ifomation"
                 class="top-new-set-img"
               />
@@ -117,15 +117,15 @@ const newProjectArray: Ref<
   { id: number; icon: string; projectName: string }[]
 > = ref([]);
 const newRecruitIslandArray: Ref<
-  { islandId: number; islandIcon: string; islandName: string }[]
+  { id: number; icon: string; islandName: string }[]
 > = ref([]);
 const newRecruitProjectArray: Ref<
-  { projectId: number; projectIcon: string; projectName: string }[]
+  { id: number; icon: string; projectName: string }[]
 > = ref([]);
 const router = useRouter();
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth , (currentUser) => {
+onAuthStateChanged(auth, (currentUser) => {
   if (currentUser) {
     console.log("ログインしています");
   } else {
@@ -136,19 +136,26 @@ onAuthStateChanged(auth , (currentUser) => {
 });
 
 // 島
+// const getIslands = async () => {
+//   const response = await fetch(
+//     `http://localhost:3000/Islands`
+//   );
+//   const data = await response.json();
+//   newIslandArray.value = data;
+// };
+
 const getIslands = async () => {
-  const response = await fetch(
-    `http://localhost:8000/Islands/?_limit=6&_sort=createDate&_order=desc`
-  );
+  const response = await fetch(`http://localhost:3000/islands/?_limit=6&_sort=createDate&_order=desc`);
   const data = await response.json();
   newIslandArray.value = data;
 };
+
 getIslands();
 
 // プロジェクト
 const getProjects = async () => {
   const response = await fetch(
-    `http://localhost:8000/Projects/?_limit=6&_sort=createDate&_order=desc`
+    `http://localhost:3000/projects/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
   newProjectArray.value = data;
@@ -156,22 +163,27 @@ const getProjects = async () => {
 getProjects();
 
 // 募集人
-const getRecruitIslands : () => Promise<void>= async () => {
+const getRecruitIslands: () => Promise<void> = async () => {
   const response = await fetch(
-    `http://localhost:8000/RecruitNewUser/?_limit=6&_sort=createDate&_order=desc`
+    `http://localhost:3000/recruitIslands/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
-  newRecruitIslandArray.value = data;
+  console.log(data)
+  // const islandsArray = await data.islands;
+  const islandsArray = await data.map((item: any) => item.islands);
+  console.log(islandsArray)
+  newRecruitIslandArray.value = await islandsArray;
 };
 getRecruitIslands();
 
 // 募集島
-const getRecruitProjects : () => Promise<void>= async () => {
+const getRecruitProjects: () => Promise<void> = async () => {
   const response = await fetch(
-    `http://localhost:8000/RecruitNewIsland/?_limit=6&_sort=createDate&_order=desc`
+    `http://localhost:3000/recruitProjects/?_limit=6&_sort=createDate&_order=desc`
   );
   const data = await response.json();
-  newRecruitProjectArray.value = data;
+  const projectsArray = await data.map((item: any) => item.projects);
+  newRecruitProjectArray.value = await  projectsArray;
 };
 getRecruitProjects();
 </script>

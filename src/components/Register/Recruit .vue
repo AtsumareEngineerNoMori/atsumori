@@ -125,7 +125,7 @@ const route : RouteLocationNormalizedLoaded= useRoute();
 const router: Router = useRouter();
 const loading: Ref<boolean> = ref(false);
 
-const Id: string | string[]= route.params.id;
+const Id: Number | Number[]= route.params.id;
 
 const recruit: {
   recruitTitle: string,
