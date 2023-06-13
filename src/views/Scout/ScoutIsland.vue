@@ -75,7 +75,7 @@ const errorMessage: Ref<string> = ref("");
 
 const fetchIslands = async () => {
   try {
-    const responce = await fetch(`http://localhost:8000/Islands`);
+    const responce = await fetch(`http://localhost:3000/Islands`);
     const data = await responce.json();
     islands.value = data;
     console.log("島", data);
@@ -87,7 +87,7 @@ const fetchIslands = async () => {
 //参加しているプロジェクト
 const fetchJoinProjects = async () => {
   try {
-    const responce = await fetch(`http://localhost:8000/JoinProjects`);
+    const responce = await fetch(`http://localhost:3000/JoinProjects`);
     const data = await responce.json();
     joinProjects.value = data;
     console.log("参加プロ", data);
@@ -111,7 +111,6 @@ const searchIslands = (): void => {
   if (keywordIsland) {
     if (keyword.value.length > 20) {
       errorMessage.value = "20文字以内で入力してください";
-      // alert("20文字以内で入力してください");
       keyword.value = "";
     } else {
       filteredIslands.value = islands.value

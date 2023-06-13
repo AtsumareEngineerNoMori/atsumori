@@ -52,7 +52,7 @@ const filteredRecruitNewUsers: Ref<RecruitNewUser[]> = ref([]); //検索結果�
 
 const fetchRecruitNewUsers = async () => {
   try {
-    const response = await fetch(`http://localhost:8000/RecruitNewUser`);
+    const response = await fetch(`http://localhost:3000/RecruitNewUser`);
     const data = await response.json();
     originalRecruitNewUsers.value = data.map((recruitNewUser:any) => ({
       ...recruitNewUser,
@@ -68,7 +68,7 @@ const fetchRecruitNewUsers = async () => {
 
 const fetchIslands = async () => {
   try {
-    const response = await fetch(`http://localhost:8000/Islands`);
+    const response = await fetch(`http://localhost:3000/Islands`);
     const data = await response.json();
     originalRecruitNewUsers.value.forEach((recruitNewUser) => {
       recruitNewUser.island = data.find(

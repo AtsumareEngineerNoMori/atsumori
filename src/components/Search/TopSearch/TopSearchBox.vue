@@ -109,19 +109,3 @@ function handleSubmit(): void {
 
 
 </script>
-
-<!-- <script lang="ts">
-export default {
-  name: "TopSearchBox",
-  setup() {
-    return {
-      selectedFilter,
-      keyword,
-      errorMessage,
-      selectFilter,
-      formAction,
-      handleSubmit,
-    };
-  },
-};
-</script> -->

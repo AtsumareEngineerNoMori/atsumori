@@ -76,7 +76,7 @@ const errorMessage: Ref<string>  = ref("");
 
 const fetchUsers = async () => {
   try {
-    const responce = await fetch(`http://localhost:8000/Users`);
+    const responce = await fetch(`http://localhost:3000/Users`);
     const data = await responce.json();
     users.value = data;
     console.log("難民", data);
@@ -88,7 +88,7 @@ const fetchUsers = async () => {
 //参加している島
 const fetchJoinIslands = async () => {
   try {
-    const responce = await fetch(`http://localhost:8000/JoinIslands`);
+    const responce = await fetch(`http://localhost:3000/JoinIslands`);
     const data = await responce.json();
     joinIslands.value = data;
     console.log("参加島", data);
