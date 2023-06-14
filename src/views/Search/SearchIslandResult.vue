@@ -43,6 +43,9 @@ const fetchData = async () => {
   const url = `http://localhost:3000/Islands?islandName_like=${searchKeyword}`;
   const response = await fetch(url);
   islands.value = await response.json();
+
+  console.log("検索内容", searchKeyword);
+  console.log("レスポンス", response);
 }
 
 onMounted(() => {

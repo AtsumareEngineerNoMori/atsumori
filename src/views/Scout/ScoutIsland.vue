@@ -58,6 +58,7 @@ type Island = {
   id: number;
   icon: string;
   islandName: string;
+  JoinProjects: JoinProject[];
 };
 type JoinProject = {
   islandId: number;
@@ -69,30 +70,17 @@ const route = useRoute();
 const keyword: Ref<string> = ref("");
 const islands: Ref<Island[]> = ref([]);
 const filteredIslands: Ref<Island[]> = ref([]);
-const joinProjects: Ref<JoinProject[]> = ref([]);
 const results: Ref<boolean> = ref(false);
 const errorMessage: Ref<string> = ref("");
 
 const fetchIslands = async () => {
   try {
-    const responce = await fetch(`http://localhost:3000/Islands`);
-    const data = await responce.json();
+    const response = await fetch(`http://localhost:3000/scoutIslandsSearch`);
+    const data = await response.json();
     islands.value = data;
     console.log("島", data);
   } catch (error) {
     console.log("島", error);
-  }
-};
-
-//参加しているプロジェクト
-const fetchJoinProjects = async () => {
-  try {
-    const responce = await fetch(`http://localhost:3000/JoinProjects`);
-    const data = await responce.json();
-    joinProjects.value = data;
-    console.log("参加プロ", data);
-  } catch (error) {
-    console.log("参加プロ", error);
   }
 };
 
@@ -127,9 +115,8 @@ const searchIslands = (): void => {
         )
         .filter(
           (island) =>
-            !joinProjects.value.some(
+            !island.JoinProjects.some(
               (join) =>
-                join.islandId === island.id &&
                 join.projectId === parseInt(route.params.projectId as string)
             )
         );
@@ -140,9 +127,8 @@ const searchIslands = (): void => {
   } else {
     filteredIslands.value = islands.value.filter(
       (island) =>
-        !joinProjects.value.some(
+        !island.JoinProjects.some(
           (join) =>
-            join.islandId === island.id &&
             join.projectId === parseInt(route.params.projectId as string)
         )
     );
@@ -150,6 +136,7 @@ const searchIslands = (): void => {
     keyword.value = "";
     errorMessage.value = "";
   }
+  console.log("表示島", filteredIslands.value);
 };
 
 //未入力で検索ボタンを押下した際ランダムで20件選出
@@ -170,6 +157,5 @@ const randomIslands = computed(() => {
 
 onMounted(() => {
   fetchIslands();
-  fetchJoinProjects();
 });
 </script>

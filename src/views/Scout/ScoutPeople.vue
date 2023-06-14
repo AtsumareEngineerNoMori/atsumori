@@ -52,48 +52,34 @@
 import { computed, onMounted, ref, Ref } from "vue";
 import { useRoute } from "vue-router";
 
-
 //型
 type User = {
   id: number;
   icon: string;
   name: string;
+  JoinIslands: JoinIsland[];
 };
 type JoinIsland = {
   userId: string;
-  islandId:number;
-  id:number;
+  islandId: number;
+  id: number;
 };
 
-
 const route = useRoute();
-const keyword: Ref<string>  = ref("");
-const users: Ref<User[]>  = ref([]);
+const keyword: Ref<string> = ref("");
+const users: Ref<User[]> = ref([]);
 const filteredUsers: Ref<User[]> = ref([]);
-const joinIslands:Ref<JoinIsland[]> = ref([]);
-const results: Ref<boolean>  = ref(false);
-const errorMessage: Ref<string>  = ref("");
+const results: Ref<boolean> = ref(false);
+const errorMessage: Ref<string> = ref("");
 
 const fetchUsers = async () => {
   try {
-    const responce = await fetch(`http://localhost:3000/Users`);
+    const responce = await fetch(`http://localhost:3000/scoutUsersSearch`);
     const data = await responce.json();
     users.value = data;
     console.log("難民", data);
   } catch (error) {
     console.log("難民", error);
-  }
-};
-
-//参加している島
-const fetchJoinIslands = async () => {
-  try {
-    const responce = await fetch(`http://localhost:3000/JoinIslands`);
-    const data = await responce.json();
-    joinIslands.value = data;
-    console.log("参加島", data);
-  } catch (error) {
-    console.log("参加島", error);
   }
 };
 
@@ -112,7 +98,6 @@ const searchUsers = () => {
   if (keywordUser) {
     if (keyword.value.length > 20) {
       errorMessage.value = "20文字以内で入力してください";
-      // alert("20文字以内で入力してください");
       keyword.value = "";
     } else {
       filteredUsers.value = users.value
@@ -129,10 +114,9 @@ const searchUsers = () => {
         )
         .filter(
           (user) =>
-            !joinIslands.value.some(
+            !user.JoinIslands.some(
               (join) =>
-                join.userId === String(user.id) &&
-                join.islandId === parseInt(route.params.islandId as string)
+                join.islandId === parseInt(route.params.islandsId as string)
             )
         );
       results.value = true;
@@ -142,16 +126,15 @@ const searchUsers = () => {
   } else {
     filteredUsers.value = users.value.filter(
       (user) =>
-        !joinIslands.value.some(
-          (join) =>
-            join.userId === String(user.id) &&
-            join.islandId === parseInt(route.params.islandId as string)
+        !user.JoinIslands.some(
+          (join) => join.islandId === parseInt(route.params.islandId as string)
         )
     );
     results.value = true;
     keyword.value = "";
     errorMessage.value = "";
   }
+  console.log("表示難民", filteredUsers.value);
 };
 
 //未入力で検索ボタンを押下した際ランダムで20件選出
@@ -172,6 +155,5 @@ const randomUsers = computed(() => {
 
 onMounted(() => {
   fetchUsers();
-  fetchJoinIslands();
 });
 </script>
