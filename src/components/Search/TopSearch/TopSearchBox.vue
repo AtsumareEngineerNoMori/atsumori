@@ -106,6 +106,4 @@ function handleSubmit(): void {
     router.push(url);
   }
 }
-
-
 </script>
