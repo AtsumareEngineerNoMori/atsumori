@@ -7,20 +7,20 @@ import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
 import { useRouter } from "vue-router";
 import { app } from "../main";
 import type { NavigationFailure } from "vue-router";
+import { getListData } from "../getData";
 
 interface JoinIslands {
   id: number;
   userId: string;
   islandId: number;
-}
-
-interface Islands {
-  id: number;
-  icon: string;
-  islandName: string;
-  islandDescription: string;
-  adminId: string;
-  createDate: Date;
+  islands: {
+    id: number;
+    icon: string;
+    islandName: string;
+    islandDescription: string;
+    adminId: string;
+    createDate: Date;
+  };
 }
 
 const router = useRouter();
@@ -29,8 +29,6 @@ const router = useRouter();
 const uid: Ref<string> = ref("");
 // joinIslandsから取得したuserIdが等しいデータを保管
 const joinList: Ref<JoinIslands[]> = ref([]);
-// islandsから取得したislandIdが等しいデータを保管
-const islandData: Ref<Islands[]> = ref([]);
 // データ取得判別
 const loading: Ref<boolean> = ref(true);
 
@@ -44,33 +42,10 @@ onMounted(() => {
     console.log("ログアウト状態");
   } else {
     console.log("ログイン状態");
-    // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
-    const getJoinIsland: () => Promise<void> = async () => {
-      const response: Response = await fetch(
-        `http://localhost:8000/joinIslands/?userId=${uid.value}`
-      );
-      const data: JoinIslands[] = await response.json();
-      joinList.value = data;
-    };
-    getJoinIsland().then(() => {
-      console.log(joinList.value);
-      // 上で取得したデータのislandIdと等しいデータをIslandsテーブルから取得
-      // 上の情報に差分がないならここの処理やらなくていい
-      if (joinList.value.length > 0) {
-        joinList.value.map(async (island: JoinIslands) => {
-          const response: Response = await fetch(
-            `http://localhost:8000/Islands/?id=${island.islandId}`
-          );
-          const data: Islands[] = await response.json();
-          islandData.value.push(...data);
-          // データ取得後反転
-          loading.value = false;
-        });
-      } else {
-        console.log("データがありません");
-        loading.value = false;
-      }
-      console.log(islandData.value);
+    getListData("myIslands", "userId", uid.value).then((res) => {
+      console.log(res);
+      joinList.value = res;
+      loading.value = false;
     });
   }
 });
@@ -90,7 +65,7 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
       <section class="list__sectionTitle">
         <p class="list__title">参加している島</p>
       </section>
-      <section v-if="islandData.length <= 0">
+      <section v-if="joinList.length <= 0">
         <div class="list__noDataTitle">
           <button @click="noDataBtn" class="list__noDataTitle-text">
             島に移住しよう
@@ -103,15 +78,19 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
         </div>
       </section>
       <section class="list__list" v-else>
-        <div v-for="island in islandData" :key="island.id" class="list__item">
+        <div v-for="island in joinList" :key="island.id" class="list__item">
           <RouterLink
-            v-bind:to="{ name: 'islandShow', params: { id: island.id } }"
+            v-bind:to="{ name: 'islandShow', params: { id: island.islandId } }"
           >
-            <img v-bind:src="island.icon" alt="island" class="list__iconImg" />
-            <p class="list__name">{{ island.islandName }}</p>
+            <img
+              v-bind:src="island.islands.icon"
+              alt="island"
+              class="list__iconImg"
+            />
+            <p class="list__name">{{ island.islands.islandName }}</p>
           </RouterLink>
-          <template v-if="island.adminId !== uid">
-            <DeleteMemberButton :userId="uid" :islandId="island.id" />
+          <template v-if="island.islands.adminId !== uid">
+            <DeleteMemberButton :userId="uid" :islandId="island.islandId" />
           </template>
         </div>
       </section>

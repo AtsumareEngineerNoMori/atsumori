@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Ref } from "vue";
 import "../../css/main.css";
 
 interface UserScout {
@@ -13,31 +11,23 @@ const props = defineProps({
   userId: String,
   islandId: Number,
 });
-const scoutList: Ref<UserScout[]> = ref([]);
 
-// 退会ボタン
+// 削除ボタン
 const deleteBtn: () => Promise<void> = async () => {
-  // userScoutからuserIdが等しいデータを取得し、選択した島のislandIdが一致するデータをidを指定して削除する
-  const getUserScout: () => Promise<void> = async () => {
-    const response: Response = await fetch(
-      `http://localhost:8000/userScout/?userId=${props.userId}`
-    );
-    const data: UserScout[] = await response.json();
-    scoutList.value = data;
-    console.log(data);
-  };
-  getUserScout()
-    .then(() => {
-      scoutList.value.map(async (scout: UserScout) => {
-        if (props.islandId === scout.islandId) {
-          await fetch(`http://localhost:8000/userScout/${scout.id}`, {
-            method: "DELETE",
-          });
-        }
-      });
-    })
-    .then(() => {
+  // UserScoutからログインユーザーのuserIdと選択されたislandIdに一致するデータを削除
+  await fetch(
+    `http://localhost:3000/deleteUserScout/?userId=${props.userId}&islandId=${props.islandId}`,
+    {
+      method: "DELETE",
+    }
+  )
+    .then((response) => response.json())
+    .then((data: UserScout) => {
+      console.log("削除されたデータ:", data);
       location.reload();
+    })
+    .catch((error) => {
+      console.log("削除エラー:", error);
     });
 };
 </script>

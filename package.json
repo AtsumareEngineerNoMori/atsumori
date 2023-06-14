@@ -20,6 +20,7 @@
     "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.2",
     "@types/micromodal": "^0.3.3",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/test-utils": "^2.3.0",

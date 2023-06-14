@@ -26,6 +26,7 @@ import MyChat from "../../components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
 import { myIdJudge } from "../../userJudge";
 import { app } from "../../main";
+import { getIdData } from "../../getData";
 
 interface Projects {
   id: number;
@@ -46,7 +47,7 @@ interface ChatData {
 
 // プロジェクト詳細からprojectIdを受け取る
 const route = useRoute();
-const projectId: string | string[] = route.params.id;
+const projectId: number = Number(route.params.id);
 
 // ログインユーザーのid
 const uid: Ref<string> = ref("");
@@ -78,39 +79,39 @@ onMounted(() => {
 // 初期表示のデータ取得
 const getData: () => void = () => {
   // プロジェクト情報取得
-  const getProject: () => Promise<void> = async () => {
-    const response: Response = await fetch(
-      `http://localhost:8000/projects/?id=${projectId}`
-    );
-    const data: Projects[] = await response.json();
-    projectData.value.push(...data);
-  };
-  getProject().then(() => {
-    const q: Query = query(
-      dbRef(realtimeDB, myIdJudge()),
-      orderByChild("projectId"),
-      limitToLast(10),
-      startAt(String(projectId)),
-      endAt(String(projectId))
-    );
-    onValue(q, (snapshot: DataSnapshot) => {
-      chatList.value = snapshot.val();
+  getIdData("getProjects", projectId)
+    .then((res) => {
+      console.log(res);
+      projectData.value.push(res);
+    })
+    .then(() => {
+      // realtimeDBからprojectIdと等しいデータを最大10件取得
+      const q: Query = query(
+        dbRef(realtimeDB, myIdJudge()),
+        orderByChild("projectId"),
+        limitToLast(10),
+        startAt(String(projectId)),
+        endAt(String(projectId))
+      );
+      // 取得したデータをchatListに保管
+      onValue(q, (snapshot: DataSnapshot) => {
+        chatList.value = snapshot.val();
+      });
+      loading.value = false;
     });
-    loading.value = false;
-  });
 };
 
 // 全件取得参照先
-const q: Query = query(
+const allQuery: Query = query(
   dbRef(realtimeDB, myIdJudge()),
   orderByChild("projectId"),
   startAt(String(projectId)),
   endAt(String(projectId))
 );
 
-// チャットデータ全件取得
+//全件データと件数取得
 const getAllData: () => void = () => {
-  onValue(q, (snapshot: DataSnapshot) => {
+  onValue(allQuery, (snapshot: DataSnapshot) => {
     const data: ChatData[] = snapshot.val();
     chatList.value = data;
     allDataLength.value = Object.keys(data).length;
@@ -118,9 +119,9 @@ const getAllData: () => void = () => {
   });
 };
 
-// 初回表示用にデータ全件取得
+// 初回表示用に全件の件数取得
 const firstGetAllData: () => void = () => {
-  onValue(q, (snapshot: DataSnapshot) => {
+  onValue(allQuery, (snapshot: DataSnapshot) => {
     const data: ChatData = snapshot.val();
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
@@ -131,7 +132,7 @@ const firstGetAllData: () => void = () => {
 // リアルタイムデータベース参照
 const chatRef: DatabaseReference = dbRef(realtimeDB, myIdJudge());
 
-// 追加
+// realtimeDBに追加
 const submit: () => Promise<void> = async () => {
   if (message.value.length > 120 || message.value.length === 0) {
     alert("1文字以上120文字以内で入力してください");
@@ -142,19 +143,24 @@ const submit: () => Promise<void> = async () => {
     );
     const userData = await response.json();
 
-    // realtimeDBに追加
-    const newData: ThenableReference = push(chatRef, {
-      userId: uid.value,
-      name: userData[0].name,
-      icon: userData[0].icon,
-      projectId: projectId,
-      createDate: serverTimestamp(),
-      message: message.value,
+    getIdData("getUsers", uid.value).then((res) => {
+      console.log(res);
+      const userData = res;
+
+      // realtimeDBに追加
+      const newData: ThenableReference = push(chatRef, {
+        userId: uid.value,
+        name: userData.name,
+        icon: userData.icon,
+        projectId: projectId,
+        createDate: serverTimestamp(),
+        message: message.value,
+      });
+      console.log("追加");
+      console.log(newData.key);
+      // 空の状態に戻す
+      message.value = "";
     });
-    console.log("追加");
-    console.log(newData.key);
-    // 空の状態に戻す
-    message.value = "";
   }
 };
 

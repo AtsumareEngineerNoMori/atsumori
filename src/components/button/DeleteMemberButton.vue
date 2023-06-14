@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Ref } from "vue";
 import "../../css/main.css";
 
 interface JoinIslands {
@@ -13,33 +11,23 @@ const props = defineProps({
   userId: String,
   islandId: Number,
 });
-const joinList: Ref<JoinIslands[]> = ref([]);
 
 // 退会ボタン
 const deleteBtn: () => Promise<void> = async () => {
-  // joinIslandsからuserIdが等しいデータを取得し、選択したislandIdが一致するデータをidを指定して削除する
-  const getJoinIsland: () => Promise<void> = async () => {
-    const response: Response = await fetch(
-      `http://localhost:8000/joinIslands/?userId=${props.userId}`
-    );
-    const data: JoinIslands[] = await response.json();
-    joinList.value = data;
-    console.log(data);
-  };
-  // 島idと一致するもの消す
-  getJoinIsland()
-    .then(() => {
-      console.log(joinList.value);
-      joinList.value.map(async (join: JoinIslands) => {
-        if (props.islandId === join.islandId) {
-          await fetch(`http://localhost:8000/joinIslands/${join.id}`, {
-            method: "DELETE",
-          });
-        }
-      });
-    })
-    .then(() => {
+  // joinIslandsからログインユーザーのuserIdと選択されたislandIdと一致するデータを削除
+  await fetch(
+    `http://localhost:3000/deleteJoinIslands/?userId=${props.userId}&islandId=${props.islandId}`,
+    {
+      method: "DELETE",
+    }
+  )
+    .then((response) => response.json())
+    .then((data: JoinIslands) => {
+      console.log("削除されたデータ:", data);
       location.reload();
+    })
+    .catch((error) => {
+      console.error("削除エラー:", error);
     });
 };
 </script>
