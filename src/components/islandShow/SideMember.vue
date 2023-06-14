@@ -1,20 +1,36 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { userJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
 
+type userData = {
+  id: string;
+  icon: string;
+  name: string;
+  job: string;
+  comment: string;
+  email: string;
+};
+
+type RequestIsland = {
+  userId: string;
+  islandId: number;
+  comment: string;
+  id: number;
+};
+
 const router = useRouter();
 
-const userJudges = ref(null);
-const users = ref([]);
-const requestIslands = ref([]);
-const requestUsers = ref([]);
+const userJudges = ref();
+const users = ref<userData[]>([]);
+const requestIslands = ref<RequestIsland[]>([]);
+const requestUsers = ref<userData[]>([]);
 
-const props = defineProps({
-  islandId: Number,
-  adminId: String,
-  myId: String,
-});
+const props = defineProps<{
+  islandId?: number;
+  adminId?: string;
+  myId?: string;
+}>();
 
 watch(props, async () => {
   const islandId = props.islandId;
@@ -25,7 +41,7 @@ watch(props, async () => {
     `http://localhost:8000/JoinIslands?islandId=${islandId}`
   ).then((res) => res.json());
 
-  const userIds = joinDatas.map((joinData) => joinData.userId);
+  const userIds = joinDatas.map((joinData: any) => joinData.userId);
   // 管理者、参加者、未参加者の判別
   userJudges.value = userJudge(adminId, userIds, props.myId);
 
@@ -80,7 +96,7 @@ watch(props, async () => {
 });
 
 //　参加申請の却下
-const deleteAsign = (userId) => {
+const deleteAsign = (userId: string) => {
   requestIslands.value.forEach((requestIsland) => {
     if (userId === requestIsland.userId) {
       fetch(`http://localhost:8000/RequestIsland/${requestIsland.id}`, {
@@ -96,7 +112,7 @@ const deleteAsign = (userId) => {
 };
 
 // 参加申請許可
-const Asign = async (userId) => {
+const Asign = async (userId: string) => {
   await fetch("http://localhost:8000/JoinIslands", {
     method: "post",
     headers: {

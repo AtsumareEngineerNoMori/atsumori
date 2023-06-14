@@ -10,14 +10,21 @@
   </div>
 </template>
 
-<script setup>
-import SearchBox from "../../components/Search/ReqList/IslandReqSerch.vue";
-import { ref, onMounted } from "vue";
+<script setup lang="ts">
+import SearchBox from "@/components/Search/ReqList/IslandReqSerch.vue"
+// import * as SearchBox from "@/components/Search/ReqList/IslandReqSerch.vue";
+import { ref, onMounted, Ref } from "vue";
+
+//型
+type Island = {
+  id: number;
+  islandIcon: string;
+  islandName: string;
+};
 
 const fetchUrlRec = "http://localhost:8000/RecruitNewUser";
 const fetchUrlIs = "http://localhost:8000/Islands";
-
-const islandsData = ref([]);
+const islandsData:Ref<Island[]> = ref([]);
 
 const fetchData = async () => {
   const response = await fetch(fetchUrlRec);

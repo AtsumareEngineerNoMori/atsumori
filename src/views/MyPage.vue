@@ -1,9 +1,9 @@
-<script setup>
+<script setup lang="ts">
 // import { onMounted } from "vue";
 // import { promiseImpl } from "ejs";
 import { onMounted, ref } from "vue";
 import "../css/main.css";
-import { auth } from "../../firebase";
+import { auth } from "../firebase";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -17,15 +17,28 @@ const User = ref({
 });
 const userId = ref(); //firebaseでログインしてる人のIDが入る
 // joinIslandsから取得したuserIdが等しいデータを保管
-const joinList = ref([]);
-// islandsから取得したislandIdが等しいデータを保管
-const islandData = ref([]);
+const joinList = ref<Join[]>([]);
+type Join = {
+  userId :string;
+  islandId:number;
+  id:number;
+}
 
+// islandsから取得したislandIdが等しいデータを保管
+const islandData = ref<Island[]>([]);
+type Island = {
+  islandName: string,
+  islandDescription: string,
+  adminId:string,
+  createDate:Date,
+  icon:string,
+  id:number
+}
 onMounted(async () => {
 
-
+console.log("ユーザーID", userId);
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
-  auth.onAuthStateChanged(async (loggedInUser) => {
+  auth.onAuthStateChanged(async (loggedInUser:any) :Promise<void>=> {
     if (loggedInUser) {
       userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
       await getIsland();
@@ -39,7 +52,7 @@ onMounted(async () => {
         }
         User.value = await response.json();
         console.log("User.valueの中身", User.value);
-      } catch (err) {
+      } catch (err:any) {
         err.value = err;
         console.log("エラー", err.value);
       }
@@ -60,7 +73,7 @@ const getIsland = async () => {
 };
 
 //ログインユーザーが参加している島IDと同じ島IDの島をIslandsテーブルから取得
-const getJoinIsland = async (island) => {
+const getJoinIsland = async () => {
   console.log("２つめ", joinList.value);
   await Promise.all(
     joinList.value.map(async (element) => {

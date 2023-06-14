@@ -1,13 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {
-  onAuthStateChanged,
-  // createUserWithEmailAndPassword,
-  // getAuth,
-} from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../firebase";
 import "../css/main.css";
 
 
@@ -21,11 +17,12 @@ const Island = ref({
   islandName: "",
   islandDescription: "", 
   comment: "",
+  id:""
 });
 
-const overName = ref("");
-const overDescription = ref("");
-const overComment = ref("");
+const overName = ref<string>("");
+const overDescription = ref<string>("");
+const overComment = ref<string>("");
 
 const data = ref({
   recruitTitle: "",
@@ -36,7 +33,7 @@ const data = ref({
 
 onMounted(async () => {
       // ログイン状態のチェック
-      onAuthStateChanged(auth, async (currentUser) => {
+      onAuthStateChanged(auth, async (currentUser:any)  :Promise<void>=> {
     if (currentUser) {
       console.log("ログインしています");
   try {
@@ -48,7 +45,7 @@ onMounted(async () => {
     }
     Island.value = await response.json();
     console.log("IslandId.valueの中身", IslandId.value);
-  } catch (err) {
+  } catch (err:any) {
     err.value = err;
     console.log("エラー", err.value);
   }
@@ -59,7 +56,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event) {
+async function iconEdit(event:any) :Promise<void> {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
@@ -78,7 +75,7 @@ async function iconEdit(event) {
 
 
 //RecruitNewUser取得
-const getFlight = async () => {
+const getFlight = async () :Promise<void> => {
   const response = await fetch(`http://localhost:8000/RecruitNewUser/${IslandId.value}`);
   const recruitNewUserData = await response.json();
   console.log(recruitNewUserData);
@@ -96,7 +93,7 @@ const removeIcon = () => {
 };
 
 //Island更新
-async function updateIslands() {
+async function updateIslands() :Promise<void> {
   if (!check()) {
     return;
   }
@@ -113,7 +110,7 @@ async function updateIslands() {
     );
 
     // recruitNewUser更新
-    async function updateRecruitNewUser() {
+    async function updateRecruitNewUser() :Promise<void> {
       try {
         const response = await fetch(
           `http://localhost:8000/RecruitNewUser/${Island.value.id}`
@@ -159,7 +156,7 @@ const back = () => {
 };
 
 // バリデーションチェック
-function check() {
+function check() :boolean{
   let isValid = true;
 
   const maxName = 20;

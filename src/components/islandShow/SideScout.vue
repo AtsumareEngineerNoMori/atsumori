@@ -1,16 +1,32 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
 
+type IslandScout = {
+  id: number;
+  islandId: number;
+  projectId: number;
+};
+
+type Projects = {
+  projectName: string;
+  projectDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  adminIslandId: number;
+  id: number;
+};
+
 const router = useRouter();
 
-const projects = ref([]);
+const projects = ref<Projects[]>([]);
 const scoutProjects = ref();
 
-const props = defineProps({
-  islandId: Number,
-  userJudge: Number,
-});
+const props = defineProps<{
+  islandId?: number;
+  userJudge?: number;
+}>();
 
 watch(props, async () => {
   const islandId = props.islandId;
@@ -23,13 +39,12 @@ watch(props, async () => {
     ).then((res) => res.json());
 
     //スカウトプロジェクトID取得
-    const projectIds = [];
-    scoutProjects.value.forEach((scoutProject) => {
-      projectIds.push(scoutProject.projectId);
-    });
+    const projectIds = scoutProjects.value.map(
+      (scoutProject: IslandScout) => scoutProject.projectId
+    );
 
     // IDからプロジェクト情報取得
-    projectIds.forEach(async (projectId) => {
+    projectIds.forEach(async (projectId: Number) => {
       const projectData = await fetch(
         `http://localhost:8000/Projects/${projectId}`
       ).then((res) => res.json());
@@ -39,8 +54,8 @@ watch(props, async () => {
 });
 
 //　スカウト削除
-const deleteScout = (projectId) => {
-  scoutProjects.value.forEach((scoutProject) => {
+const deleteScout = (projectId: number) => {
+  scoutProjects.value.forEach((scoutProject: IslandScout) => {
     if (projectId === scoutProject.projectId) {
       fetch(`http://localhost:8000/IslandScout/${scoutProject.id}`, {
         method: "delete",
@@ -55,7 +70,7 @@ const deleteScout = (projectId) => {
 };
 
 // スカウト許可
-const scout = async (projectId) => {
+const scout = async (projectId: number) => {
   await fetch("http://localhost:8000/JoinProjects", {
     method: "post",
     headers: {
@@ -77,9 +92,7 @@ const scout = async (projectId) => {
     <p class="scout__title" v-if="projects.length >= 1">
       スカウトが来ています！
     </p>
-    <p class="scout__title" v-else>
-      スカウトは来ていません
-    </p>
+    <p class="scout__title" v-else>スカウトは来ていません</p>
     <div v-for="project in projects">
       <div class="scout__content">
         <router-link :to="{ name: 'projectShow', params: { id: project.id } }">

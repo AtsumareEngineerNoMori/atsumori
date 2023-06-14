@@ -1,13 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import {
-  onAuthStateChanged,
-  // createUserWithEmailAndPassword,
-  // getAuth,
-} from "@firebase/auth";
-import { storage, auth, db } from "../../firebase";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../firebase";
 
 
 import "../css/main.css";
@@ -24,11 +20,19 @@ const router = useRouter();
 
 //プロジェクト情報取得
 const ProjectId = ref(route.params.id);
-const Project = ref("");
+const Project = ref({
+  projectName:"",
+  projectDescription:"",
+  adminId:"",
+  createDate:"",
+  icon:"",
+  id:"",
+  comment:""
+});
 
-const overName = ref("");
-const overDescription = ref("");
-const overComment = ref("");
+const overName = ref<string>("");
+const overDescription = ref<string>("");
+const overComment = ref<string>("");
 
 const data = ref({
   recruitTitle: "",
@@ -53,7 +57,7 @@ onMounted(async () => {
     Project.value = await response.json();
     console.log("Project.valueの中身", Project.value);
     console.log(Project.value);
-  } catch (err) {
+  } catch (err:any) {
     err.value = err;
     console.log("エラー", err.value);
   }
@@ -64,7 +68,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event) {
+async function iconEdit(event:any) {
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了

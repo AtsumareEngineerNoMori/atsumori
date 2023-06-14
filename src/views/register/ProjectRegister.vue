@@ -104,121 +104,109 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import If from "../../components/If/If.vue";
-import { useRouter } from "vue-router";
+import type { Ref } from "vue";
+import { Router, useRouter } from "vue-router";
 import { reactive, ref as vueref } from "vue";
-import { auth, storage } from "../../../firebase";
+import { auth, storage } from "../../firebase";
 import {
   getDownloadURL,
   uploadBytesResumable,
   ref,
   getStorage,
+StorageReference,
+FirebaseStorage,
 } from "firebase/storage";
-import { onAuthStateChanged } from "@firebase/auth";
+import { onAuthStateChanged, User } from "@firebase/auth";
+import {app} from "../../main"
 
-const router = useRouter();
-const iconFileName = vueref("");
-const file = vueref();
-const iconImg = vueref(
+const router: Router = useRouter();
+const iconFileName:Ref<string> = vueref("");
+const file :Ref<Blob>= vueref( new Blob());
+const iconImg :Ref<string>= vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
 );
 
-const project = reactive({
-  id: "",
+const project: {
+  id: number;
+  projectName: string;
+  projectDescription: string;
+  adminId: string;
+  createDate: Date;
+  name: string;
+  description: string;
+} = reactive({
+  id: Number(),
   projectName: "",
   projectDescription: "",
   adminId: "",
-  createDate: "",
+  createDate:new Date(),
   name: "",
   description: "",
 });
 
-const selectIsland = vueref("");
-const projectNameLength = vueref(false);
-const projectDescriptionLength = vueref(false);
-const selectIslandLength = vueref(false);
-const islands = vueref([]);
+const selectIsland:Ref<string> = vueref("");
+const projectNameLength:Ref<boolean>  = vueref(false);
+const projectDescriptionLength:Ref<boolean>  = vueref(false);
+const selectIslandLength:Ref<boolean>  = vueref(false);
+const islands:Ref<{id:number,islandName:string}[]>  = vueref([]);
 
-
-
-const changeName = (e) => {
-  console.log(e);
+const changeName = (e:Event) => {
   projectNameLength.value = false;
 };
 
-const changeSelect = (e) => {
-  console.log(e);
+const changeSelect = (e: Event) => {
   selectIslandLength.value = false;
 };
 
-const changeInfomation = (e) => {
-  console.log(e);
+const changeInfomation = (e: Event) => {
   projectDescriptionLength.value = false;
 };
 
 // ログイン状態の場合の処理
-onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-   console.log("ログインしています")
-    } else {
-      router.push("/login");
-    }
-  });
+onAuthStateChanged(auth, (currentUser: User | null) => {
+  if (currentUser) {
+{}
+  } else {
+    router.push("/login");
+  }
+});
 
+const currentUserId: any = app.$cookies.get("myId");
 
-// 自分が管理している島取得
-// const getFlight = async () => {
-//   const response = await fetch(
-//     `http://localhost:8000/islands?adminId=${currentUserId}`
-
-//   );
-//   const data = await response.json();
-//   console.log(data);
-//   // islands.value = data;
-// };
-
-// onMounted (
-
-// const auth = getAuth();
-//   const currentUserId = auth.currentUser?.uid;
-
-const currentUserId = $cookies.get("myId");
-
-const getFlight = async () => {
-  const response = await fetch(
+const getFlight: () => Promise<void> = async () => {
+  const response: any = await fetch(
     `http://localhost:8000/islands?adminId=${currentUserId}`
-  ).then((response) => response.json());
+  ).then((response: Response) => response.json());
   islands.value = response;
-  console.log(response);
 };
 getFlight();
-// )
 
 // アイコン画像プレビュー処理
-const previewImage = (event) => {
-  let reader = new FileReader();
-  reader.onload = function (e) {
-    iconImg.value = e.target.result;
+const previewImage : (event: any) => void= (event: any) => {
+  let reader : FileReader= new FileReader();
+  reader.onload = function (e:ProgressEvent<FileReader>): void {
+    iconImg.value = e.target?.result as string;
   };
-  reader.readAsDataURL(event.target.files[0]);
-  file.value = event.target.files[0];
-  iconFileName.value = event.target.files[0].name;
+  reader.readAsDataURL(event.target?.files[0]);
+  file.value = event.target?.files[0];
+  iconFileName.value = event.target?.files[0].name;
 };
 
-const projectRegisterButton = () => {
+const projectRegisterButton : () => void= () => {
   // Storageにアイコン登録
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/project%2Fha.png?alt=media&token=6141dc6e-714a-4257-91e2-88fcd6d436ad"
   ) {
-    const storageRef = ref(storage, `project/${iconFileName.value}`);
+    const storageRef : StorageReference= ref(storage, `project/${iconFileName.value}`);
     uploadBytesResumable(storageRef, file.value)
       // StorageからアイコンURLを取得
       .then(() => {
-        const storage = getStorage();
-        const starsRef = ref(storage, `project/${iconFileName.value}`);
-        getDownloadURL(starsRef).then((url) => {
+        const storage: FirebaseStorage = getStorage();
+        const starsRef : StorageReference= ref(storage, `project/${iconFileName.value}`);
+        getDownloadURL(starsRef).then((url: string) => {
           iconImg.value = url;
           fetch("http://localhost:8000/Projects", {
             method: "POST",
@@ -231,16 +219,17 @@ const projectRegisterButton = () => {
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
-              adminIslandId:selectIsland.value
+              adminIslandId: selectIsland.value,
             }),
           })
-            .then(function (response) {
+            .then(function (response: Response): Promise<any> {
               // fetch が返した Promise の解決を待つ
               return response.json();
             })
-            .then(function (jsonObj) {
+            .then(function (jsonObj:any): void {
+              // interfaceでisland定義して、anyではなくてIslandi入れる
               // response.json が返した Promise の解決を待つ
-              console.log(jsonObj.id);
+              // console.log(jsonObj.id);
               fetch("http://localhost:8000/JoinProjects", {
                 method: "POST",
                 headers: {
@@ -266,16 +255,16 @@ const projectRegisterButton = () => {
         adminId: currentUserId,
         createDate: new Date(),
         icon: iconImg.value,
-        adminIslandId:selectIsland.value
+        adminIslandId: selectIsland.value,
       }),
     })
-      .then(function (response) {
+      .then(function (response: Response): Promise<any> {
         // fetch が返した Promise の解決を待つ
         return response.json();
       })
-      .then(function (jsonObj) {
+      .then(function (jsonObj:any): void {
         // response.json が返した Promise の解決を待つ
-        console.log(jsonObj.id);
+        // console.log(jsonObj.id);
         fetch("http://localhost:8000/JoinProjects", {
           method: "POST",
           headers: {
@@ -290,8 +279,7 @@ const projectRegisterButton = () => {
   }
 };
 
-const registerProject = () => {
-  console.log(selectIsland);
+const registerProject : () => void= () => {
   if (project.name === "") {
     projectNameLength.value = true;
   }
@@ -299,7 +287,6 @@ const registerProject = () => {
     projectDescriptionLength.value = true;
   }
   if (selectIsland.value === "") {
-    console.log("ヤッホ！！！！");
     selectIslandLength.value = true;
   }
 
@@ -310,8 +297,7 @@ const registerProject = () => {
     project.description.length > 255 ||
     selectIsland.value === ""
   ) {
-    // window.alert("入力が間違っているところがあります")
-    console.log("yahho~!");
+    console.log("入力が間違っているところがあります");
   } else {
     projectRegisterButton();
     router.push("/top");

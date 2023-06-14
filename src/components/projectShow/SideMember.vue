@@ -1,22 +1,38 @@
-<script setup>
+<script setup lang="ts">
 import { watch, ref } from "vue";
 import { userJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
+import { PropType } from "vue";
+
+type RequestProject = {
+  projectId: number;
+  islandId: number;
+  id: number;
+};
+
+type Islands = {
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+  icon: string;
+  id: number;
+};
 
 const router = useRouter();
 
-const userJudges = ref(null);
-const islands = ref([]);
-const requestProjects = ref([]);
-const requestIslands = ref([]);
+const userJudges = ref();
+const islands = ref<Islands[]>([]);
+const requestProjects = ref<RequestProject[]>([]);
+const requestIslands = ref<Islands[]>([]);
 
-const props = defineProps({
-  projectId: Number,
-  adminId: String,
-  userIds: Array,
-  islandId: Array,
-  myId: String,
-});
+const props = defineProps<{
+  projectId?: number;
+  adminId?: string;
+  userIds: Array<string>;
+  islandId: Array<number>;
+  myId?: string;
+}>();
 
 watch(props, async () => {
   const projectId = props.projectId;
@@ -52,7 +68,7 @@ watch(props, async () => {
 
     // 参加希望データから島id取得
     const requestIslandIds = requestProjects.value.map(
-      (requestProject) => requestProject.islandId
+      (requestProject: RequestProject) => requestProject.islandId
     );
 
     // 島idから島データ取得
@@ -77,8 +93,8 @@ watch(props, async () => {
 });
 
 //　参加申請の却下
-const deleteAsign = (islandId) => {
-  requestProjects.value.forEach((requestProject) => {
+const deleteAsign = (islandId: number) => {
+  requestProjects.value.forEach((requestProject: RequestProject) => {
     if (islandId === requestProject.islandId) {
       fetch(`http://localhost:8000/RequestProject/${requestProject.id}`, {
         method: "delete",
@@ -93,7 +109,7 @@ const deleteAsign = (islandId) => {
 };
 
 // // 参加申請許可
-const Asign = async (islandId) => {
+const Asign = async (islandId: number) => {
   await fetch("http://localhost:8000/JoinProjects", {
     method: "post",
     headers: {

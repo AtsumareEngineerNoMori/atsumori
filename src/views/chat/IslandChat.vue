@@ -1,10 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUpdated, ref } from "vue";
-import { realtimeDB } from "../../../firebase";
+import type { Ref } from "vue";
+import { realtimeDB } from "../../firebase";
 import "../../css/main.css";
-import GetDate from "../../components/date/GetDate.vue";
+// import GetDate from "@/components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
-import MyChat from "../../components/chat/MyChat.vue";
+import MyChat from "@/components/chat/MyChat.vue";
 import OtherChat from "../../components/chat/OtherChat.vue";
 import { useRoute } from "vue-router";
 import {
@@ -18,30 +19,54 @@ import {
   startAt,
   endAt,
 } from "firebase/database";
+import type {
+  Query,
+  DataSnapshot,
+  DatabaseReference,
+  ThenableReference,
+} from "firebase/database";
 import { myIdJudge } from "../../userJudge";
+import { app } from "../../main";
+
+interface Islands {
+  id: number;
+  icon: string;
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date;
+}
+interface ChatData {
+  createDate: number;
+  icon: string;
+  islandId: number;
+  message: string;
+  userId: string;
+  name: string;
+}
 
 // ログインユーザーのid
-const uid = ref("");
+const uid: Ref<string> = ref("");
 // データ取得判別
-const loading = ref(true);
+const loading: Ref<boolean> = ref(true);
 // 島情報保管
-const islandData = ref();
+const islandData: Ref<Islands[]> = ref([]);
 // チャット情報保管
-const chatList = ref([]);
+const chatList: Ref<ChatData[]> = ref([]);
 // 入力内容保持
-const message = ref("");
+const message: Ref<string> = ref("");
 // 全データ数
-const allDataLength = ref(0);
+const allDataLength: Ref<number> = ref(0);
 // 画面スクロール用
-const messageScreen = ref(null);
+const messageScreen: Ref<any> = ref(null);
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
-const islandId = route.params.id;
+const islandId: string | string[] = route.params.id;
 
 // 初期表示のデータ取得
 onMounted(() => {
-  const currentUserId = $cookies.get("myId");
+  const currentUserId: string = app.$cookies.get("myId");
   uid.value = currentUserId;
   if (!uid.value) {
     console.log("ログアウト状態");
@@ -53,25 +78,25 @@ onMounted(() => {
 });
 
 // 初期データの取得
-const getData = () => {
+const getData: () => void = () => {
   // 島の情報取得
-  const getIsland = async () => {
-    const response = await fetch(
+  const getIsland: () => Promise<void> = async () => {
+    const response: Response = await fetch(
       `http://localhost:8000/islands/?id=${islandId}`
     );
-    const data = await response.json();
-    islandData.value = data;
+    const data: Islands[] = await response.json();
+    islandData.value.push(...data);
   };
   getIsland().then(() => {
     // realtimeDBから島idと等しいデータを取得
-    const q = query(
+    const q: Query = query(
       dbRef(realtimeDB, myIdJudge()),
       orderByChild("islandId"),
       limitToLast(10),
-      startAt(islandId),
-      endAt(islandId)
+      startAt(String(islandId)),
+      endAt(String(islandId))
     );
-    onValue(q, (snapshot) => {
+    onValue(q, (snapshot: DataSnapshot) => {
       chatList.value = snapshot.val();
     });
     loading.value = false;
@@ -79,26 +104,26 @@ const getData = () => {
 };
 
 // 全件取得参照先
-const q = query(
+const q: Query = query(
   dbRef(realtimeDB, myIdJudge()),
   orderByChild("islandId"),
-  startAt(islandId),
-  endAt(islandId)
+  startAt(String(islandId)),
+  endAt(String(islandId))
 );
 
 // 全件取得
-const getAllData = () => {
-  onValue(q, (snapshot) => {
-    const data = snapshot.val();
+const getAllData: () => void = () => {
+  onValue(q, (snapshot: DataSnapshot) => {
+    const data: ChatData[] = snapshot.val();
     chatList.value = data;
     allDataLength.value = Object.keys(data).length;
     console.log(allDataLength.value);
   });
 };
 // 初回表示用にデータ全件取得
-const firstGetAllData = () => {
-  onValue(q, (snapshot) => {
-    const data = snapshot.val();
+const firstGetAllData: () => void = () => {
+  onValue(q, (snapshot: DataSnapshot) => {
+    const data: ChatData = snapshot.val();
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
       console.log(allDataLength.value);
@@ -107,19 +132,19 @@ const firstGetAllData = () => {
 };
 
 // firebaseリアルタイムデータベース追加
-const chatRef = dbRef(realtimeDB, myIdJudge());
+const chatRef: DatabaseReference = dbRef(realtimeDB, myIdJudge());
 // 送信
-const submit = async () => {
+const submit: () => Promise<void> = async () => {
   if (message.value.length > 120 || message.value.length === 0) {
     alert("1文字以上120文字以内で入力してください");
   } else {
     // ログインユーザーの情報取得
-    const response = await fetch(
+    const response: Response = await fetch(
       `http://localhost:8000/users/?id=${uid.value}`
     );
     const userData = await response.json();
     // realtimeDBに追加
-    const newData = push(chatRef, {
+    const newData: ThenableReference = push(chatRef, {
       userId: uid.value,
       name: userData[0].name,
       icon: userData[0].icon,
@@ -133,7 +158,7 @@ const submit = async () => {
   }
 };
 
-const loadMore = () => {
+const loadMore: () => void = () => {
   getAllData();
 };
 
@@ -176,7 +201,7 @@ onUpdated(() => {
           </button>
         </div>
       </template>
-      <div v-for="chat in chatList" :key="chat">
+      <div v-for="chat in chatList">
         <!-- 自分のメッセージか判別する -->
         <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />

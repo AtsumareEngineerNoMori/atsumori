@@ -1,17 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import EntryModal from "../modal/EntryModal.vue";
 import { joinJudge } from "../../userJudge";
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
 
 // 1.参加者　2.未参加者
-const props = defineProps({
-  userIds: Array,
-  projectId: Number,
-  myId: String,
-});
+const props = defineProps<{
+  userIds: Array<string>;
+  projectId?: number;
+  myId?: string;
+}>();
 
-const userJudge = ref(null);
+const userJudge = ref();
 const router = useRouter();
 
 watch(props, () => {

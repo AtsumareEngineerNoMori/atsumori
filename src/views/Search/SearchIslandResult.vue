@@ -22,16 +22,23 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, watchEffect } from "vue";
+<script setup lang="ts">
+import { ref, onMounted, watchEffect, Ref } from "vue";
 import { useRoute } from "vue-router";
-import TopSearchBox from "../../components/Search/TopSearch/TopSearchBox.vue";
+import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 
-const islands = ref([]);
+//型
+type Island = {
+  id: number;
+  icon: string;
+  islandName: string;
+};
+
+const islands: Ref<Island[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得
-async function fetchData() {
+const fetchData = async () => {
   const searchKeyword = route.query.search;
   const url = `http://localhost:8000/Islands?islandName_like=${searchKeyword}`;
   const response = await fetch(url);

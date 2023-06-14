@@ -26,16 +26,23 @@
   </div>
 </template>
 
-<script setup>
-import { ref, onMounted, watchEffect } from "vue";
+<script setup lang="ts">
+import { ref, onMounted, watchEffect,Ref } from "vue";
 import { useRoute } from "vue-router";
-import TopSearchBox from "../../components/Search/TopSearch/TopSearchBox.vue";
+import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 
-const projects = ref([]);
+//型
+type Project = {
+  id: number;
+  icon: string;
+  projectName: string;
+};
+
+const projects: Ref<Project[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得
-async function fetchData() {
+  const fetchData = async () => {
   const searchKeyword = route.query.search;
   const url = `http://localhost:8000/Projects?projectName_like=${searchKeyword}`;
   const response = await fetch(url);

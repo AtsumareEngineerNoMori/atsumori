@@ -47,18 +47,18 @@
   <!-- </div> -->
 </template>
 
-<script setup>
-import { computed, ref } from "vue";
+<script setup lang="ts">
+import { computed, ref, Ref } from "vue";
 import { useRouter } from "vue-router";
 
-const selectedFilter = ref("filter1");
-const searchType = ref("island");
-const keyword = ref("");
+const selectedFilter: Ref<string>  = ref("filter1");
+const searchType: Ref<string>  = ref("island");
+const keyword: Ref<string>  = ref("");
+const errorMessage: Ref<string> = ref("");
 const router = useRouter();
-const errorMessage = ref("");
 
 //selectedFilterの値を変更
-function selectFilter(filter) {
+function selectFilter(filter: string): void {
   switch (filter) {
     case "filter1":
       searchType.value = "island";
@@ -77,7 +77,7 @@ function selectFilter(filter) {
   console.log("変更しています", filter);
 }
 
-const formAction = computed(() => {
+const formAction = computed<string>(() => {
   switch (selectedFilter.value) {
     case "filter1":
       return "/searchIslandResult";
@@ -92,38 +92,8 @@ const formAction = computed(() => {
   }
 });
 
-// // //ひらがなカタカナ曖昧検索
-// function handleSubmit() {
-//   if (keyword.value.length > 20) {
-//     errorMessage.value = "20文字以内で入力してください";
-//     // alert("20文字以内で入力してください");
-//     keyword.value = "";
-//   } else {
-//     const searchQuery = keyword.value
-//       // .replace(/[ぁ-ん]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60))
-//       // .replace(/[\u30a1-\u30f6]/g, (c) =>
-//       //   String.fromCharCode(c.charCodeAt(0) - 0x60)
-//       // );
-//       .toLowerCase()
-//     .replace(/[ぁ-ん]/g, (match) =>
-//       String.fromCharCode(match.charCodeAt(0) + 0x60)
-//     )
-//     .replace(/[\u30a1-\u30f6]/g, (match) =>
-//       String.fromCharCode(match.charCodeAt(0) - 0x60)
-//     );
-
-      
-//     const url = `${formAction.value}?search=${searchQuery}`;
-//     keyword.value = "";
-//     errorMessage.value = "";
-
-//     router.push(url);
-//   }
-// }
-
-
 // ひらがなカタカナ曖昧検索なし
-function handleSubmit() {
+function handleSubmit(): void {
   if (keyword.value.length > 20) {
     errorMessage.value = "20文字以内で入力してください";
     keyword.value = "";
@@ -137,4 +107,21 @@ function handleSubmit() {
   }
 }
 
+
 </script>
+
+<!-- <script lang="ts">
+export default {
+  name: "TopSearchBox",
+  setup() {
+    return {
+      selectedFilter,
+      keyword,
+      errorMessage,
+      selectFilter,
+      formAction,
+      handleSubmit,
+    };
+  },
+};
+</script> -->

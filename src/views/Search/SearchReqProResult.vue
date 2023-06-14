@@ -30,21 +30,31 @@
   </div>
 </template>
 
-<script setup>
-import { onMounted, ref, watchEffect } from "vue";
-import TopSearchBox from "../../components/Search/TopSearch/TopSearchBox.vue";
+<script setup lang="ts">
+import { onMounted, ref, watchEffect, Ref } from "vue";
+import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 import { useRoute } from "vue-router";
 
-const route = useRoute();
+//型
+type RecruitNewUser = {
+  id: number;
+  projectId: number;
+  project: {
+    id: number;
+    projectName: string;
+    icon: string;
+  };
+};
 
-const originalRecruitNewIslands = ref([]); //データ配列
-const filteredRecruitNewIslands = ref([]); //検索結果に基づくデータの配列
+const route = useRoute();
+const originalRecruitNewIslands: Ref<RecruitNewUser[]> = ref([]); //データ配列
+const filteredRecruitNewIslands: Ref<RecruitNewUser[]> = ref([]); //検索結果に基づくデータの配列
 
 const fetchRecruitNewIslands = async () => {
   try {
     const response = await fetch(`http://localhost:8000/RecruitNewIsland`);
     const data = await response.json();
-    originalRecruitNewIslands.value = data.map((recruitNewIsland) => ({
+    originalRecruitNewIslands.value = data.map((recruitNewIsland:any) => ({
       ...recruitNewIsland,
       project: {},
     }));
@@ -62,7 +72,7 @@ const fetchIslands = async () => {
     const data = await response.json();
     originalRecruitNewIslands.value.forEach((recruitNewIsland) => {
       recruitNewIsland.project = data.find(
-        (project) => project.id === recruitNewIsland.projectId
+        (project:any) => project.id === recruitNewIsland.projectId
       );
     });
     console.log("島", data);
@@ -71,7 +81,7 @@ const fetchIslands = async () => {
   }
 };
 
-const filterRecruitNewIslands = (query) => {
+const filterRecruitNewIslands = (query:any) => {
   filteredRecruitNewIslands.value = originalRecruitNewIslands.value.filter(
     (recruitNewIsland) => {
       const projectName = recruitNewIsland.project.projectName.toLowerCase();

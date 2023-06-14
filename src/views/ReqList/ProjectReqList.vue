@@ -10,14 +10,20 @@
   </div>
 </template>
 
-<script setup>
-import SearchBox from "../../components/Search/ReqList/ProjectReqSerch.vue";
-import { ref, onMounted } from "vue";
+<script setup lang="ts">
+import SearchBox from "@/components/Search/ReqList/ProjectReqSerch.vue"
+import { ref, onMounted, Ref } from "vue";
+
+//型
+type Project = {
+  id: number;
+  projectIcon: string;
+  projectName: string;
+};
 
 const fetchUrlRec = "http://localhost:8000/RecruitNewIsland";
 const fetchUrlIs = "http://localhost:8000/Projects";
-
-const islandsData = ref([]);
+const islandsData:Ref<Project[]> = ref([]);
 
 const fetchData = async () => {
   const response = await fetch(fetchUrlRec);

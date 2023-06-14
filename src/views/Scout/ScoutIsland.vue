@@ -49,17 +49,29 @@
   </div>
 </template>
 
-<script setup>
-import { computed, onMounted, ref } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, ref, Ref } from "vue";
 import { useRoute } from "vue-router";
 
+//型
+type Island = {
+  id: number;
+  icon: string;
+  islandName: string;
+};
+type JoinProject = {
+  islandId: number;
+  projectId: number;
+  id: number;
+};
+
 const route = useRoute();
-const keyword = ref("");
-const islands = ref([]);
-const filteredIslands = ref([]);
-const joinProjects = ref([]);
-const results = ref(false);
-const errorMessage = ref("");
+const keyword: Ref<string> = ref("");
+const islands: Ref<Island[]> = ref([]);
+const filteredIslands: Ref<Island[]> = ref([]);
+const joinProjects: Ref<JoinProject[]> = ref([]);
+const results: Ref<boolean> = ref(false);
+const errorMessage: Ref<string> = ref("");
 
 const fetchIslands = async () => {
   try {
@@ -85,7 +97,7 @@ const fetchJoinProjects = async () => {
 };
 
 //paramsのprojectId以外のデータを取得
-const searchIslands = () => {
+const searchIslands = (): void => {
   console.log("検索:", keyword.value);
 
   const keywordIsland = keyword.value
@@ -106,10 +118,10 @@ const searchIslands = () => {
         .filter((island) =>
           island.islandName
             .toLowerCase()
-            .replace(/[ぁ-ん]/g, (match) =>
+            .replace(/[ぁ-ん]/g, (match: string) =>
               String.fromCharCode(match.charCodeAt(0) + 0x60)
             )
-            .replace(/[ァ-ン]/g, (match) =>
+            .replace(/[ァ-ン]/g, (match: string) =>
               String.fromCharCode(match.charCodeAt(0) - 0x60)
             )
             .includes(keywordIsland)
@@ -119,7 +131,7 @@ const searchIslands = () => {
             !joinProjects.value.some(
               (join) =>
                 join.islandId === island.id &&
-                join.projectId === parseInt(route.params.projectId)
+                join.projectId === parseInt(route.params.projectId as string)
             )
         );
       results.value = true;
@@ -132,7 +144,7 @@ const searchIslands = () => {
         !joinProjects.value.some(
           (join) =>
             join.islandId === island.id &&
-            join.projectId === parseInt(route.params.projectId)
+            join.projectId === parseInt(route.params.projectId as string)
         )
     );
     results.value = true;
@@ -146,7 +158,7 @@ const randomIslands = computed(() => {
   if (filteredIslands.value.length <= 20) {
     return filteredIslands.value;
   } else {
-    const randomArray = [];
+    const randomArray: number[] = [];
     while (randomArray.length < 20) {
       const random = Math.floor(Math.random() * filteredIslands.value.length);
       if (!randomArray.includes(random)) {

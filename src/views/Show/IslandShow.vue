@@ -1,37 +1,74 @@
-<script setup>
-import AdminModal from "../../components/modal/Island-AdminModal.vue";
-import SideMember from "../../components/islandShow/SideMember.vue";
-import SideScout from "../../components/islandShow/SideScout.vue";
-import ShowBtn from "../../components/islandShow/ShowBtn.vue";
-import Loading from "../../components/Loading.vue";
+<script setup lang="ts">
+import AdminModal from "@/components/modal/Island-AdminModal.vue";
+import SideMember from "@/components/islandShow/SideMember.vue";
+import SideScout from "@/components/islandShow/SideScout.vue";
+import ShowBtn from "@/components/islandShow/ShowBtn.vue";
+import Loading from "@/components/Loading.vue";
 import { adminJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { app } from "@/main";
+
+type RecruitNewUser = {
+  projectId: number;
+  recruitTitle: string;
+  recruitJob: string;
+  recruitPoint: string;
+  createDate: Date | undefined;
+  projectName: string;
+  projectIcon: string;
+  id: number;
+};
+
+type Islands = {
+  islandName: string;
+  islandDescription: string;
+  adminId: string;
+  createDate: Date | undefined;
+  icon: string;
+  id: number;
+};
 
 const route = useRoute();
 const router = useRouter();
 
-const myId = ref();
-const island = ref([]);
-const adminId = ref();
-const adminName = ref();
-const userJudges = ref(null);
-const Recruits = ref([]);
+const myId = ref<string>();
+const adminId = ref<string>();
+const adminName = ref<string>();
+const userJudges = ref<number>();
 const RecruitIshow = ref(false);
 const loading = ref(false);
+const island = ref<Islands>({
+  islandName: "",
+  islandDescription: "",
+  adminId: "",
+  createDate: undefined,
+  icon: "",
+  id: 0,
+});
+const Recruits = ref<RecruitNewUser>({
+  projectId: 0,
+  recruitTitle: "",
+  recruitJob: "",
+  recruitPoint: "",
+  createDate: undefined,
+  projectName: "",
+  projectIcon: "",
+  id: 0,
+});
 
 onMounted(async () => {
   // ログインID取得
-  const userId = $cookies.get("myId");
+  const userId: string = app.$cookies.get("myId");
   if (userId == null) {
     router.push("/login");
   }
   myId.value = userId;
 
   const id = route.params.id;
-  const islandData = await fetch(`http://localhost:8000/Islands/${id}`).then(
-    (res) => res.json()
-  );
+  const islandData: Islands = await fetch(
+    `http://localhost:8000/Islands/${id}`
+  ).then((res) => res.json());
   if (Object.keys(islandData).length === 0) {
     router.push("/top");
   } else {
@@ -56,8 +93,8 @@ onMounted(async () => {
       RecruitIshow.value = true;
       Recruits.value = Recruit[0];
     }
-    loading.value = true;
   }
+  loading.value = true;
 });
 
 const joinProject = () => {

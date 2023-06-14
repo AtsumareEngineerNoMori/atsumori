@@ -1,25 +1,37 @@
-<script setup>
+<script setup lang="ts">
 // import { placeholder } from "@babel/types";
 import { onMounted, ref as vueref } from "vue";
 import { useRouter } from "vue-router";
 import "../css/main.css";
-import { auth } from "../../firebase";
-import { getStorage, ref as firebaseRef, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-
+import { realtimeDB, auth } from "../firebase";
+import {
+  getStorage,
+  ref as firebaseRef,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import {
+  ref as dbRef,
+  onValue,
+  orderByChild,
+  query,
+  startAt,
+  endAt,
+  set,
+} from "firebase/database";
+import { myIdJudge } from "../userJudge";
 
 //会員情報取得
 const userId = vueref(); //firebaseでログインしてる人のID
-const err = vueref();
 const User = vueref({
   icon: "",
   name: "",
-  icon: "",
   job: "",
   comment: "",
 });
 const router = useRouter();
-const overName = vueref("");
-const overComment = vueref("");
+const overName = vueref<string>("");
+const overComment = vueref<string>("");
 
 const back = () => {
   router.push("/mypage");
@@ -27,7 +39,7 @@ const back = () => {
 //会員情報取得
 onMounted(async () => {
   //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
-  auth.onAuthStateChanged(async (loggedInUser) => {
+  auth.onAuthStateChanged(async (loggedInUser: any) :Promise<void> => {
     if (loggedInUser) {
       userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
 
@@ -40,7 +52,7 @@ onMounted(async () => {
         }
         User.value = await response.json();
         console.log("User.valueの中身", User.value);
-      } catch (err) {
+      } catch (err:any) {
         err.value = err;
         console.log("エラー", err.value);
       }
@@ -51,7 +63,7 @@ onMounted(async () => {
 });
 
 //icon選択
-async function iconEdit(event) {
+async function iconEdit(event:any)  :Promise<void>{
   try {
     const file = event.target.files[0];
     if (!file) return; // ファイルが選択されていない場合は終了
@@ -63,15 +75,7 @@ async function iconEdit(event) {
   } catch (error) {
     console.error(error);
   }
-}
 
-function convertToBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
 }
 
 //デフォルトの画像
@@ -83,11 +87,12 @@ const removeIcon = () => {
   User.value.icon = defaultIconURL;
 };
 //User更新
-async function updateUser() {
+async function updateUser() :Promise<void> {
   if (!check()) {
     return;
   }
   try {
+    // json更新
     const response = await fetch(
       `http://localhost:8000/Users/${userId.value}`,
       {
@@ -98,6 +103,12 @@ async function updateUser() {
         body: JSON.stringify(User.value),
       }
     );
+
+    // realtimeDB更新
+    const newName = User.value.name;
+    const newIcon = User.value.icon;
+    updateDB(userId.value, newName, newIcon);
+
     if (!response.ok) {
       throw new Error(`HTTPエラーです！！！: ${response.status}`);
     }
@@ -109,7 +120,7 @@ async function updateUser() {
 }
 
 // バリデーションチェック
-function check() {
+function check():boolean {
   let isValid = true;
 
   const maxName = 20;
@@ -131,6 +142,40 @@ function check() {
   return isValid;
 }
 
+// realtimeDB更新関数
+const updateDB = (userId:string, newName:string, newIcon:string) => {
+  // userIdが等しいデータ参照先
+  const queryRef = query(
+    dbRef(realtimeDB, myIdJudge()),
+    orderByChild("userId"),
+    startAt(userId),
+    endAt(userId)
+  );
+
+  onValue(queryRef, (snapshot) => {
+    if (snapshot.exists()) {
+      console.log("存在する");
+      // データ参照
+      const chatData = snapshot.val();
+      // データ1件ずつキーを取得
+      Object.keys(chatData).forEach(async (childSnapshot) => {
+        // 名前更新
+        await set(
+          dbRef(realtimeDB, `${myIdJudge()}/${childSnapshot}/name`),
+          newName
+        );
+        // icon更新
+        await set(
+          dbRef(realtimeDB, `${myIdJudge()}/${childSnapshot}/icon`),
+          newIcon
+        );
+      });
+      console.log("更新されました");
+    } else {
+      console.log("存在しない");
+    }
+  });
+};
 </script>
 
 <template>
@@ -153,15 +198,12 @@ function check() {
       <ul class="edit__column2">
         <li class="mypage__item_name">
           <div>なまえ：</div>
-    
-         
+
           <span
-            ><input
-              type="text"
-              v-model="User.name"
-              class="edit__input"
-          /></span>      <div style="height: 40px;">
-             <span v-if="overName" class="mypage__check">{{ overName }}</span>
+            ><input type="text" v-model="User.name" class="edit__input"
+          /></span>
+          <div style="height: 40px">
+            <span v-if="overName" class="mypage__check">{{ overName }}</span>
           </div>
         </li>
         <li class="mypage__item">
@@ -192,22 +234,23 @@ function check() {
           </label>
         </li>
         <li class="mypage__item">
-    
           <span>ひとこと：</span>
-      
-            <textarea
-              cols="30"
-              rows="10"
-              class="edit__input"
-              v-model="User.comment"
-                  ></textarea>   
-                     <div  style="height: 40px;">
-            <span v-if="overComment"  class="mypage__check">{{ overComment }}</span>
+
+          <textarea
+            cols="30"
+            rows="10"
+            class="edit__input"
+            v-model="User.comment"
+          ></textarea>
+          <div style="height: 40px">
+            <span v-if="overComment" class="mypage__check">{{
+              overComment
+            }}</span>
           </div>
         </li>
       </ul>
     </div>
-    <div style="height: 40px;"></div>
+    <div style="height: 40px"></div>
     <div class="edit__buttoncontainer">
       <button class="edit__button_cansel" @click="back">戻る</button>
       <button class="edit__button" @click="updateUser">更新</button>
