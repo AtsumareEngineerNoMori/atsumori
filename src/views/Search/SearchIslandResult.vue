@@ -40,12 +40,14 @@ const route = useRoute();
 // URLから検索キーワードを取得して、fetchでデータ取得
 const fetchData = async () => {
   const searchKeyword = route.query.search;
-  const url = `http://localhost:3000/Islands?islandName_like=${searchKeyword}`;
+  const url = `http://localhost:3000/searchIslands?islandName_like=${searchKeyword}`;
+
   const response = await fetch(url);
   islands.value = await response.json();
 
   console.log("検索内容", searchKeyword);
   console.log("レスポンス", response);
+  console.log("ここが問題？",url)
 }
 
 onMounted(() => {
