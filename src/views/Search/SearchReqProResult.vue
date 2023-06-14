@@ -36,7 +36,7 @@ import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 import { useRoute } from "vue-router";
 
 //型
-type RecruitNewUser = {
+type RecruitNewIsland = {
   id: number;
   projectId: number;
   project: {
@@ -47,41 +47,25 @@ type RecruitNewUser = {
 };
 
 const route = useRoute();
-const originalRecruitNewIslands: Ref<RecruitNewUser[]> = ref([]); //データ配列
-const filteredRecruitNewIslands: Ref<RecruitNewUser[]> = ref([]); //検索結果に基づくデータの配列
+const originalRecruitNewIslands: Ref<RecruitNewIsland[]> = ref([]); //データ配列
+const filteredRecruitNewIslands: Ref<RecruitNewIsland[]> = ref([]); //検索結果に基づくデータの配列
 
 const fetchRecruitNewIslands = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/RecruitNewIsland`);
+    const response = await fetch(`http://localhost:3000/searchReqProjects`);
     const data = await response.json();
-    originalRecruitNewIslands.value = data.map((recruitNewIsland:any) => ({
+    originalRecruitNewIslands.value = data.map((recruitNewIsland: any) => ({
       ...recruitNewIsland,
-      project: {},
+      project: recruitNewIsland.projects,
     }));
     console.log("募集中の島", data);
-    await fetchIslands();
     filterRecruitNewIslands(""); // 初期表示時にすべてのデータを表示するように検索を実行
   } catch (error) {
     console.log("募集中の島", error);
   }
 };
 
-const fetchIslands = async () => {
-  try {
-    const response = await fetch(`http://localhost:3000/Projects`);
-    const data = await response.json();
-    originalRecruitNewIslands.value.forEach((recruitNewIsland) => {
-      recruitNewIsland.project = data.find(
-        (project:any) => project.id === recruitNewIsland.projectId
-      );
-    });
-    console.log("島", data);
-  } catch (error) {
-    console.log("島", error);
-  }
-};
-
-const filterRecruitNewIslands = (query:any) => {
+const filterRecruitNewIslands = (query: any) => {
   filteredRecruitNewIslands.value = originalRecruitNewIslands.value.filter(
     (recruitNewIsland) => {
       const projectName = recruitNewIsland.project.projectName.toLowerCase();
@@ -92,7 +76,7 @@ const filterRecruitNewIslands = (query:any) => {
 };
 
 onMounted(async () => {
-  await Promise.all([fetchRecruitNewIslands(), fetchIslands()]);
+  await fetchRecruitNewIslands();
   const searchKeyword = route.query.search || "";
   filterRecruitNewIslands(searchKeyword);
 
