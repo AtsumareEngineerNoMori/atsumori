@@ -92,8 +92,6 @@ const iconImg:Ref<string> = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
 );
 
-// const islandData = vueref("");
-
 const island: {
   id: number;
   islandName: string;
@@ -119,12 +117,10 @@ const auth : Auth= getAuth();
 const currentUserId : string | undefined= auth.currentUser?.uid;
 
 const changeName: (e: Event) => void = (e: Event) => {
-  console.log(e);
   islandNameLength.value = false;
 };
 
 const changeInfomation: (e: Event) => void = (e: Event) => {
-  console.log(e);
   islandDescriptionLength.value = false;
 };
 
@@ -137,11 +133,9 @@ const previewImage : (event: any) => void= (event: any) => {
   reader.readAsDataURL(event.target?.files[0]);
   file.value = event.target?.files[0];
   iconFileName.value = event.target?.files[0].name;
-  console.log(file);
-  console.log(iconFileName);
 };
 
-const islandRegisterButton: () => void = () => {
+const islandRegisterButton: () => void = async () => {
   console.log(iconImg.value);
   if (
     iconImg.value !==
@@ -160,27 +154,27 @@ const islandRegisterButton: () => void = () => {
         getDownloadURL(starsRef).then((url: string) => {
           console.log(url);
           iconImg.value = url;
-          fetch("http://localhost:8000/Islands", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              islandName: island.name,
+          // try {
+          fetch("http://localhost:3000/islandsRegister", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            islandName: island.name,
               islandDescription: island.description,
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
-            }),
-          })
-            .then(function (response: Response): Promise<any> {
+          }),
+        }).then(function (response: Response): Promise<any> {
               // fetch が返した Promise の解決を待つ
               return response.json();
             })
             .then(function (jsonObj: any) {
               // response.json が返した Promise の解決を待つ
               console.log(jsonObj.id);
-              fetch("http://localhost:8000/JoinIslands", {
+              fetch("http://localhost:3000/joinIslandsRegister", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -194,7 +188,7 @@ const islandRegisterButton: () => void = () => {
         });
       });
   } else {
-    fetch("http://localhost:8000/Islands", {
+    fetch("http://localhost:3000/islandsRegister", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -214,7 +208,7 @@ const islandRegisterButton: () => void = () => {
       .then(function (jsonObj: any) : void{
         // response.json が返した Promise の解決を待つ
         console.log(jsonObj.id);
-        fetch("http://localhost:8000/JoinIslands", {
+        fetch("http://localhost:3000/joinIslandsRegister", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -235,15 +229,13 @@ const registerIsland: () => void = () => {
   if (island.description === "") {
     islandDescriptionLength.value = true;
   }
-
   if (
     island.name === "" ||
     island.description === "" ||
     island.name.length > 20 ||
     island.description.length > 255
   ) {
-    // window.alert("入力が間違っているところがあります");
-    console.log("エラーあります");
+    console.log("入力が間違っているところがあります");
   } else {
     islandRegisterButton();
     router.push("/top");

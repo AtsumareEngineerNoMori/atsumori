@@ -183,7 +183,6 @@
           <RouterLink to="/login">
             <div class="userRegister-details2-login">ログインはこちら！</div>
           </RouterLink>
-          <button @click="addUser">テスト登録</button>
         </div>
       </form>
     </div>
@@ -250,23 +249,18 @@ const router:Router = useRouter();
 const changeName = (e: Event) => {
   userNameLength.value = false;
 };
-
 const changeJob = (e: Event) => {
   userJobLength.value = false;
 };
-
 const changeComment = (e: Event) => {
   userCommentLength.value = false;
 };
-
 const changeEmail = (e: Event) => {
   userEmailLength.value = false;
 };
-
 const changePassword = (e: Event) => {
   userPasswordLength.value = false;
 };
-
 const changecPassword = (e: Event) => {
   usercPasswordLength.value = false;
 };
@@ -316,8 +310,7 @@ const  U: () => Promise<void> = async () => {
   }
 };
 
-// 登録ボタンの処理
-const UserRegisterButton: () => void = () => {
+const UserRegisterButton = async () => {
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
@@ -325,56 +318,66 @@ const UserRegisterButton: () => void = () => {
     console.log("画像挿入されてる処理");
     const auth: Auth = getAuth();
     const currentUserId: string | undefined = auth.currentUser?.uid;
-    const storageRef: StorageReference= ref(storage, `icon/${iconFileName.value}`);
-    uploadBytesResumable(storageRef, file.value)
-      .then(() => {
-        const storage: FirebaseStorage = getStorage();
-        const starsRef : StorageReference= ref(storage, `icon/${iconFileName.value}`);
-        getDownloadURL(starsRef).then((url: string) => {
-          console.log(url);
-          iconImg.value = url;
-          fetch("http://localhost:8000/Users", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              id: currentUserId,
-              icon: iconImg.value,
-              name: user.name,
-              job: user.job,
-              comment: user.comment,
-              email: user.email,
-            }),
-          }).then((res) => res.json());
+    const storageRef: StorageReference = ref(storage, `icon/${iconFileName.value}`);
 
+    try {
+      await uploadBytesResumable(storageRef, file.value);
+      const storage: FirebaseStorage = getStorage();
+      const starsRef: StorageReference = ref(storage, `icon/${iconFileName.value}`);
+      const url: string = await getDownloadURL(starsRef);
+      console.log(url);
+      iconImg.value = url;
 
+      try {
+        const response = await fetch("http://localhost:3000/usersRegister", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: currentUserId,
+            icon: iconImg.value,
+            name: user.name,
+            job: user.job,
+            comment: user.comment,
+            email: user.email,
+          }),
         });
-      })
-      .then(() => {
-        router.push("/top");
-      });
+
+        const data = await response.json();
+        users.value = data;
+      } catch (error) {
+        console.error(error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     console.log(`画像なしです${iconImg.value}`);
-    const  auth: Auth= getAuth();
-    const currentUserId : string | undefined= auth.currentUser?.uid;
-    fetch("http://localhost:8000/Users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: currentUserId,
-        icon: iconImg.value,
-        name: user.name,
-        job: user.job,
-        comment: user.comment,
-        email: user.email,
-      }),
-    }).then(() => {
-      router.push("/top");
-    });
+    const auth: Auth = getAuth();
+    const currentUserId: string | undefined = auth.currentUser?.uid;
+
+    try {
+      await fetch("http://localhost:3000/usersRegister", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: currentUserId,
+          icon: iconImg.value,
+          name: user.name,
+          job: user.job,
+          comment: user.comment,
+          email: user.email,
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  router.push("/top");
 };
 
 // パスワードの入力形式チェック
@@ -422,10 +425,6 @@ const registerUser = () => {
     console.log("入力が間違っているところがあります");
   }else {
     U();
-  
-
-
-
   }
 
   if (user.name.length <= 0) {

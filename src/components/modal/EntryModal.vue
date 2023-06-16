@@ -13,8 +13,8 @@ type Islands = {
 const isShow = ref(false);
 const joinIsland = ref<Islands[]>([]);
 const selectIsland = ref<number>();
-const pageShow = ref(false);
 const errorIsShow = ref(false);
+const pageShow = ref(false);
 
 const props = defineProps({
   projectId: Number,
@@ -31,36 +31,28 @@ const errorMessage = computed(() => {
 });
 
 watch(props, async () => {
-  const joinIslandDatas = await fetch(
-    `http://localhost:8000/JoinIslands?userId=${props.myId}`
-  ).then((res) => res.json());
-
-  if (joinIslandDatas.length > 0) {
-    pageShow.value = true;
-  }
-
-  for (let joinIslandData of joinIslandDatas) {
-    const island = await fetch(
-      `http://localhost:8000/Islands/${joinIslandData.islandId}`
-    ).then((res) => res.json());
-
-    let islands = false;
-    for (let i = 0; i < joinIsland.value.length; i++) {
-      if (joinIsland.value[i].id === joinIslandData.islandId) {
-        islands = true;
-        break;
-      }
+  const id = props.myId;
+  console.log(id);
+  const get = async () => {
+    const response = await fetch(
+      `http://localhost:3000/joinIslandData?userid=${id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    const islandArray = await data.map((item: any) => item.islands);
+    console.log(islandArray);
+    joinIsland.value = islandArray;
+    if (islandArray.length > 0) {
+      pageShow.value = true;
     }
-    if (!islands) {
-      joinIsland.value.push(island);
-    }
-  }
+  };
+  get();
 });
 
 // 申請する
 const asign = () => {
   if (selectIsland.value !== undefined) {
-    fetch("http://localhost:8000/RequestProject", {
+    fetch("http://localhost:3000/RequestProjectRegister", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
