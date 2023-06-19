@@ -47,7 +47,6 @@ const fetchData = async () => {
 
   console.log("検索内容", searchKeyword);
   console.log("レスポンス", response);
-  console.log("ここが問題？",url)
 }
 
 onMounted(() => {
