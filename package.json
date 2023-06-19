@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test:unit": "vitest",
+    "test": "vitest",
     "test-vitest": "vitest",
     "mock-api": "json-server --watch data/db.json --port 8000",
     "check": "vue-tsc -noEmit"
