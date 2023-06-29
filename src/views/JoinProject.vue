@@ -27,8 +27,6 @@ const router = useRouter();
 const route = useRoute();
 const islandId: number = Number(route.params.id);
 
-console.log(islandId);
-
 // joinProjectsから取得したislandIdが等しいデータを保管
 const joinList: Ref<JoinProjects[]> = ref([]);
 // データ有無判定(0=false)
@@ -37,50 +35,15 @@ const joinListLength = ref(false);
 const loading: Ref<boolean> = ref(true);
 
 onMounted(() => {
-
   getListData("ourProjects", "islandId", islandId).then((res) => {
     joinList.value = res;
-    if(joinList.value.length <= 0){
-      joinListLength.value = false
-    }else {
-      joinListLength.value = true
+    if (joinList.value.length <= 0) {
+      joinListLength.value = false;
+    } else {
+      joinListLength.value = true;
     }
     loading.value = false;
   });
-
-   joinList.value =[
-      {
-        id: 1,
-        islandId: 1,
-        projectId: 1,
-        projects: {
-          id: 1,
-          icon: "project-icon.png",
-          projectName: "プロジェクトA",
-          projectDescription: "プロジェクトAの説明文",
-          adminId: "adminUserId",
-          createDate: new Date(),
-          adminIslandId: 1,
-        },
-      },
-      {
-        id: 2,
-        islandId: 1,
-        projectId: 2,
-        projects: {
-          id: 2,
-          icon: "project-icon.png",
-          projectName: "プロジェクトB",
-          projectDescription: "プロジェクトBの説明文",
-          adminId: "adminUserId",
-          createDate: new Date(),
-          adminIslandId: 1,
-        },
-      },
-    ];
-    joinListLength.value=true
-    console.log("joinListLength")
-    console.log(joinListLength.value)
 });
 
 // データない時に表示するボタン
@@ -88,28 +51,31 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
   return router.push("/top");
 };
 
-console.log(joinList.value.length)
-const judge = computed(()=>{
-  if(joinList.value.length <= 0){
-    return false
+const judge = computed(() => {
+  if (joinList.value.length <= 0) {
+    return false;
   } else {
-    return true
+    return true;
   }
-})
+});
 </script>
 
 <template>
   <div class="list">
     <Loading />
   </div>
-  <template >
+  <template>
     <div class="list">
       <section class="list__sectionTitle">
         <p class="list__title">参加しているプロジェクト</p>
       </section>
       <section v-if="!joinListLength">
         <div class="list__noDataTitle">
-          <button @click="noDataBtn" class="list__noDataTitle-text" data-testid="noDataBtn">
+          <button
+            @click="noDataBtn"
+            class="list__noDataTitle-text"
+            data-testid="noDataBtn"
+          >
             プロジェクトに参加してみよう
           </button>
           <img
