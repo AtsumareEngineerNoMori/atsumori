@@ -3,7 +3,7 @@ import { onMounted, ref } from "vue";
 import type { Ref } from "vue";
 import "../css/main.css";
 import Loading from "../components/Loading.vue";
-import DeleteMemberButton from "../components/button/DeleteMemberButton.vue";
+import DeleteButton from "../components/button/DeleteButton.vue";
 import { useRouter } from "vue-router";
 import { app } from "../main";
 import type { NavigationFailure } from "vue-router";
@@ -21,6 +21,7 @@ interface JoinIslands {
     adminId: string;
     createDate: Date;
   };
+  admin?: boolean;
 }
 
 const router = useRouter();
@@ -29,6 +30,8 @@ const router = useRouter();
 const uid: Ref<string> = ref("");
 // joinIslandsから取得したuserIdが等しいデータを保管
 const joinList: Ref<JoinIslands[]> = ref([]);
+// データの有無
+const joinListLength: Ref<boolean> = ref(false);
 // データ取得判別
 const loading: Ref<boolean> = ref(true);
 
@@ -44,7 +47,29 @@ onMounted(() => {
     console.log("ログイン状態");
     getListData("myIslands", "userId", uid.value).then((res) => {
       console.log(res);
-      joinList.value = res;
+      if (res.length <= 0) {
+        joinListLength.value = false;
+      } else {
+        joinListLength.value = true;
+      }
+      res.map((data: JoinIslands) => {
+        if (uid.value !== data.islands.adminId) {
+          // 管理していない島
+          const admin = {
+            admin: false,
+          };
+          // adminと取得したデータをくっつける
+          const joinData = Object.assign(data, admin);
+          joinList.value.push(joinData);
+        } else {
+          // 管理している島
+          const admin = {
+            admin: true,
+          };
+          const joinData = Object.assign(data, admin);
+          joinList.value.push(joinData);
+        }
+      });
       loading.value = false;
     });
   }
@@ -65,7 +90,7 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
       <section class="list__sectionTitle">
         <p class="list__title">参加している島</p>
       </section>
-      <section v-if="joinList.length <= 0">
+      <section v-if="!joinListLength">
         <div class="list__noDataTitle">
           <button @click="noDataBtn" class="list__noDataTitle-text">
             島に移住しよう
@@ -89,8 +114,14 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
             />
             <p class="list__name">{{ island.islands.islandName }}</p>
           </RouterLink>
-          <template v-if="island.islands.adminId !== uid">
-            <DeleteMemberButton :userId="uid" :islandId="island.islandId" />
+          <!-- <template v-if="island.islands.adminId !== uid" -->
+          <template v-if="!island.admin">
+            <DeleteButton
+              :userId="uid"
+              :islandId="island.islandId"
+              :admin="island.admin"
+              url="deleteJoinIslands"
+            />
           </template>
         </div>
       </section>

@@ -4,7 +4,7 @@ import type { Ref } from "vue";
 import "../css/main.css";
 import UserScoutApproveButton from "../components/button/UserScoutApproveButton.vue";
 import Loading from "../components/Loading.vue";
-import DeleteUserScoutButton from "../components/button/DeleteUserScoutButton.vue";
+import DeleteButton from "../components/button/DeleteButton.vue";
 import { useRouter } from "vue-router";
 import type { NavigationFailure } from "vue-router";
 import { app } from "../main";
@@ -29,6 +29,8 @@ const router = useRouter();
 const uid: Ref<string> = ref("");
 // userScoutから取得したuserIdが等しいデータを保管
 const scoutList: Ref<UserScout[]> = ref([]);
+// データ有無
+const scoutListLength = ref(false);
 // データ取得判定
 const loading: Ref<boolean> = ref(true);
 
@@ -42,6 +44,11 @@ onMounted(() => {
     getListData("myScout", "userId", uid.value).then((res) => {
       console.log(res);
       scoutList.value = res;
+      if(scoutList.value.length <= 0){
+        scoutListLength.value = false
+      }else {
+        scoutListLength.value = true;
+      }
       loading.value = false;
     });
   }
@@ -60,9 +67,9 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
       <section class="list__sectionTitle">
         <p class="list__title">承認待ちの島</p>
       </section>
-      <section v-if="scoutList.length <= 0">
+      <section v-if="!scoutListLength">
         <div class="list__noDataTitle">
-          <button @click="noDataBtn" class="list__noDataTitle-text">
+          <button @click="noDataBtn" class="list__noDataTitle-text" data-testid="noDataBtn">
             招待はありません<br /><span class="list__noDataTitle-text-back"
               >前の画面に戻る</span
             >
@@ -88,7 +95,11 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
           </RouterLink>
           <div class="scout__buttons">
             <UserScoutApproveButton :userId="uid" :islandId="island.islandId" />
-            <DeleteUserScoutButton :userId="uid" :islandId="island.islandId" />
+            <DeleteButton
+              :userId="uid"
+              :islandId="island.islandId"
+              url="deleteUserScout"
+            />
           </div>
         </div>
       </section>

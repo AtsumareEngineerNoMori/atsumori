@@ -14,6 +14,7 @@ interface Chat {
 const props = defineProps<{
   chat: Chat;
 }>();
+console.log(props.chat)
 </script>
 
 <template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, onUpdated, ref } from "vue";
+import { computed, onMounted, onUpdated, ref } from "vue";
 import type { Ref } from "vue";
 import { realtimeDB } from "../../firebase";
 import "../../css/main.css";
 // import GetDate from "@/components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
 import MyChat from "@/components/chat/MyChat.vue";
-import OtherChat from "../../components/chat/OtherChat.vue";
+import OtherChat from "@/components/chat/OtherChat.vue";
 import { useRoute, useRouter } from "vue-router";
 import {
   ref as dbRef,
@@ -51,7 +51,7 @@ const uid: Ref<string> = ref("");
 // データ取得判別
 const loading: Ref<boolean> = ref(true);
 // 島情報保管
-const islandData: Ref<Islands[]> = ref([]);
+const islandData: Ref<Islands | undefined> = ref();
 // 表示用チャットデータ
 const chatList: Ref<ChatData[]> = ref([]);
 // 入力内容保持
@@ -85,11 +85,12 @@ const getData: () => void = () => {
   getIdData("getIslands", islandId)
     .then((res) => {
       console.log(res);
-      if(res === null){
-        router.push("/404")
-      }else {
-      islandData.value.push(res);
+      if (res === null) {
+        router.push("/404");
+      } else {
+        islandData.value = res;
       }
+      console.log(islandData.value);
     })
     .then(() => {
       // realtimeDBから島idと等しいデータを最大10件取得
@@ -180,6 +181,15 @@ onUpdated(() => {
     messageScreen.value.scrollTop = 1000;
   }
 });
+
+// 最初に取得したデータと全データの件数が一致していなかったらボタン表示
+const judgeLength = computed(() => {
+  if (Object.keys(chatList.value).length !== allDataLength.value) {
+    return true;
+  } else {
+    return false;
+  }
+});
 </script>
 
 <template>
@@ -189,30 +199,38 @@ onUpdated(() => {
   <div class="chat" v-else>
     <section class="chat__header">
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
         class="chat__icon"
       >
-        <img :src="islandData[0].icon" alt="icon" class="chat__icon-img" />
+        <img :src="islandData?.icon" alt="icon" class="chat__icon-img" />
       </RouterLink>
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
       >
-        <p class="chat__name">{{ islandData[0].islandName }}</p>
+        <p class="chat__name">{{ islandData?.islandName }}</p>
       </RouterLink>
     </section>
     <section v-if="chatList === null" class="chat__messageWrapper">
-      <p class="chat__messageWrapper-noDataTitle">メッセージがありません</p>
+      <p class="chat__messageWrapper-noDataTitle" data-testid="noDataMessage">
+        メッセージがありません
+      </p>
     </section>
-    <section class="chat__messageWrapper" ref="messageScreen" v-else>
+    <section
+      class="chat__messageWrapper"
+      ref="messageScreen"
+      v-else
+      data-testid="dataList"
+    >
       <!-- 最初に取得したデータと全データの件数が一致していなかったらボタン表示 -->
-      <template v-if="Object.keys(chatList).length !== allDataLength">
+      <!-- <template v-if="Object.keys(chatList).length !== allDataLength"> -->
+      <template v-if="judgeLength">
         <div class="chat__messageWrapper-loadMore">
           <button @click="loadMore" class="chat__messageWrapper-loadMoreBtn">
             さらに読み込む
           </button>
         </div>
       </template>
-      <div v-for="chat in chatList">
+      <div v-for="chat in chatList" :key="chat.userId">
         <!-- 自分のメッセージか判別する -->
         <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />
@@ -220,14 +238,14 @@ onUpdated(() => {
         <div v-else class="chat__messageWrapper-otherMessage">
           <OtherChat :chat="chat" />
         </div>
-        <template v-if="chat.userId !== '1234567890'">
-          <!-- <GetDate
+        <!-- <template v-if="chat.userId !== '1234567890'"> -->
+        <!-- <GetDate
             :createDate="chat.createDate"
             :chatList="chatList"
             :id="chat.id"
             :chat="chat"
           /> -->
-        </template>
+        <!-- </template> -->
       </div>
     </section>
     <textarea

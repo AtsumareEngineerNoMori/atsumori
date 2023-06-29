@@ -206,7 +206,7 @@ onUpdated(() => {
           </button>
         </div>
       </template>
-      <div v-for="chat in chatList" :key="chat.message">
+      <div v-for="chat in chatList" :key="chat.userId">
         <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />
         </div>
