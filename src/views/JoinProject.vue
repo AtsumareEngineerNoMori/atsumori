@@ -41,6 +41,11 @@ onMounted(() => {
       joinListLength.value = false;
     } else {
       joinListLength.value = true;
+      // TODO:テストでここのelse文に入ってjoinListとjoinListLengthは
+      // 更新されているしnextTickもしているはずなのにDOMが変わらない
+      console.log("通ってる");
+      console.log(joinList.value);
+      console.log(joinListLength.value);
     }
     loading.value = false;
   });
@@ -62,46 +67,47 @@ const judge = computed(() => {
 
 <template>
   <div class="list">
-    <Loading />
+    <Loading v-if="loading" class="loading" />
   </div>
-  <template>
-    <div class="list">
-      <section class="list__sectionTitle">
-        <p class="list__title">参加しているプロジェクト</p>
-      </section>
-      <section v-if="!joinListLength">
-        <div class="list__noDataTitle">
-          <button
-            @click="noDataBtn"
-            class="list__noDataTitle-text"
-            data-testid="noDataBtn"
-          >
-            プロジェクトに参加してみよう
-          </button>
+  <!-- <template> -->
+  <div class="list">
+    <section class="list__sectionTitle">
+      <p class="list__title">参加しているプロジェクト</p>
+    </section>
+    <section v-if="!joinListLength">
+      <div class="list__noDataTitle">
+        <button
+          @click="noDataBtn"
+          class="list__noDataTitle-text"
+          data-testid="noDataBtn"
+        >
+          プロジェクトに参加してみよう
+        </button>
+        <img
+          src="https://1.bp.blogspot.com/-SgT2G_vDGwE/XQjt4RWH1TI/AAAAAAABTNc/0He0eUi8-7QAd0RDvxWGA1MBzphu9hvsgCLcBGAs/s800/animal_chara_computer_penguin.png"
+          alt="titleLogo"
+          class="list__noDataTitle-pjImg"
+        />
+      </div>
+    </section>
+    <section class="list__list" v-else>
+      <div class="list__item"></div>
+      <div v-for="project in joinList" :key="project.id" class="list__item">
+        <RouterLink
+          v-bind:to="{
+            name: 'projectShow',
+            params: { id: project.projectId },
+          }"
+        >
           <img
-            src="https://1.bp.blogspot.com/-SgT2G_vDGwE/XQjt4RWH1TI/AAAAAAABTNc/0He0eUi8-7QAd0RDvxWGA1MBzphu9hvsgCLcBGAs/s800/animal_chara_computer_penguin.png"
-            alt="titleLogo"
-            class="list__noDataTitle-pjImg"
+            v-bind:src="project.projects.icon"
+            alt="project"
+            class="list__iconImg"
           />
-        </div>
-      </section>
-      <section class="list__list" v-else>
-        <div v-for="project in joinList" :key="project.id" class="list__item">
-          <RouterLink
-            v-bind:to="{
-              name: 'projectShow',
-              params: { id: project.projectId },
-            }"
-          >
-            <img
-              v-bind:src="project.projects.icon"
-              alt="project"
-              class="list__iconImg"
-            />
-            <p class="list__name">{{ project.projects.projectName }}</p>
-          </RouterLink>
-        </div>
-      </section>
-    </div>
-  </template>
+          <p class="list__name">{{ project.projects.projectName }}</p>
+        </RouterLink>
+      </div>
+    </section>
+  </div>
+  <!-- </template> -->
 </template>

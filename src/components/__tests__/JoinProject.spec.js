@@ -49,19 +49,29 @@ global.fetch = vi.fn(() =>
 );
 
 describe("JoinProject", () => {
-  it("取得後Loadingコンポーネントが表示されないこと", () => {
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+  it("joinListの取得後、Loadingコンポーネントが表示されないこと", async () => {
     const wrapper = mount(JoinProject);
+    await wrapper.vm.$nextTick();
     expect(wrapper.find(".loading").exists()).toBe(false);
   });
-  it("リスト表示されないこと", () => {
+  it("joinListの取得後、リスト表示されること", async () => {
     const wrapper = mount(JoinProject);
-    expect(wrapper.find(".list__item").exists()).toBe(false);
+    await wrapper.vm.$nextTick();
+    expect(wrapper.find(".list__item").exists()).toBe(true);
   });
-  it("プロジェクトに参加してみよう」ボタンが表示されていること", () => {
+  it("joinListの取得後、プロジェクトに参加してみよう」ボタンが表示されないこと", async () => {
     const wrapper = mount(JoinProject);
-    expect(wrapper.find(`[data-testid="noDataBtn"]`).exists()).toBe(true);
+    await wrapper.vm.$nextTick();
+    console.log("DOMをみるよ");
+    console.log(wrapper.html());
+    expect(wrapper.find(`[data-testid="noDataBtn"]`).exists()).toBe(false);
   });
-  it("http://localhost:3000/ourProjects/?islandId=1に対してfetchが走っていること", () => {
+  it("http://localhost:3000/ourProjects/?islandId=1に対してfetchが1回走っていること", () => {
+    mount(JoinProject);
+    expect(fetch).toBeCalledTimes(1);
     expect(fetch).toHaveBeenCalledWith(
       "http://localhost:3000/ourProjects/?islandId=1"
     );
