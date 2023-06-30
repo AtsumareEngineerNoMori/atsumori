@@ -1,28 +1,13 @@
 <script setup lang="ts">
-import { watch, ref } from "vue";
-import { joinJudge } from "../../userJudge";
 import { useRouter } from "vue-router";
 
 const props = defineProps<{
   islandId?: number;
   myId?: string;
+  userJudges?: number;
 }>();
 
-const userJudge = ref();
-
 const router = useRouter();
-
-// 表示切り替え
-watch(props, async () => {
-  const id = props.islandId;
-  const joinDatas = await fetch(
-    `http://localhost:8000/JoinIslands?islandId=${id}`
-  ).then((res) => res.json());
-
-  const joinIds = joinDatas.map((joinData: any) => joinData.userId);
-
-  userJudge.value = joinJudge(joinIds, props.myId);
-});
 
 // 遷移
 const islandChatRouter = () => {
@@ -40,7 +25,8 @@ const recruitRouter = () => {
 <template>
   <div>
     <button
-      v-show="userJudge === 1"
+      id="chat"
+      v-show="props.userJudges === 1 || props.userJudges === 2"
       @click="islandChatRouter"
       class="showBtn showChat"
     >
@@ -48,7 +34,8 @@ const recruitRouter = () => {
     </button>
 
     <button
-      v-show="userJudge === 2"
+      id="request"
+      v-show="props.userJudges === 3"
       @click="recruitRouter"
       class="showBtn showEntry"
     >

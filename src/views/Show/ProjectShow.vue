@@ -3,37 +3,11 @@ import AdminModal from "@/components/modal/Project-AdminModal.vue";
 import SideMember from "@/components/projectShow/SideMember.vue";
 import ShowBtn from "@/components/projectShow/ShowBtn.vue";
 import Loading from "@/components/Loading.vue";
-import { adminJudge } from "../../userJudge";
+import { userJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { app } from "@/main";
-
-type Projects = {
-  projectName: string;
-  projectDescription: string;
-  adminId: string;
-  createDate: Date | undefined;
-  icon: string;
-  adminIslandId: number;
-  id: number;
-};
-
-type RecruitNewIsland = {
-  projectId: number;
-  recruitTitle: string;
-  recruitJob: string;
-  recruitPoint: string;
-  createDate: Date | undefined;
-  projectName: string;
-  projectIcon: string;
-  id: number;
-};
-
-type JoinProjects = {
-  islandId: number;
-  projectId: number;
-  id: number;
-};
+import { Projects, RecruitNewIsland, JoinProjects, Islands } from "@/@types/db";
 
 const route = useRoute();
 const router = useRouter();
@@ -60,14 +34,12 @@ const Recruits = ref<RecruitNewIsland>({
 const adminName = ref<string>();
 const userJudges = ref<number>();
 const userIds = ref<string[]>([]);
-const islandId = ref<number[]>([]);
+const islands = ref<Islands[]>([]);
 const myId = ref<string>();
 const loading = ref(false);
 const RecruitIshow = ref(false);
 
 onMounted(async () => {
-  const id = route.params.id;
-
   // ログインID取得
   const userId = app.$cookies.get("myId");
   if (userId == null) {
@@ -76,47 +48,50 @@ onMounted(async () => {
   myId.value = userId;
 
   // プロジェクトデータの取得
-  const projectDatas = await fetch(`http://localhost:8000/Projects/${id}`).then(
-    (res) => res.json()
+  const id = route.params.id;
+  const data = await fetch(`http://localhost:3000/projects/${id}`).then((res) =>
+    res.json()
   );
-  if (Object.keys(projectDatas).length === 0) {
+  const projectData = data.project;
+
+  if (Object.keys(projectData).length === 0) {
     router.push("/top");
   } else {
-    project.value = projectDatas;
+    project.value = projectData;
+    adminName.value = projectData.adminUsers.name;
 
-    // 管理者かの判別
-    userJudges.value = adminJudge(project.value.adminId, myId.value);
-    // 管理者の名前取得
-    const adminData = await fetch(
-      `http://localhost:8000/Users/${project.value.adminId}`
-    ).then((res) => res.json());
-    adminName.value = adminData.name;
-
-    // 参加者か未参加者かの判別
-    const joinProjects = await fetch(
-      `http://localhost:8000/JoinProjects?projectId=${id}`
+    const data = await fetch(
+      `http://localhost:3000/projects/${project.value.id}/joinProjects`
     ).then((res) => res.json());
 
+    const joinProjects = data.member;
     const islandIds = joinProjects.map(
-      (joinProject: JoinProjects) => joinProject.islandId
+      (joinProject: JoinProjects) => joinProject.islands.id
     );
-    islandId.value = islandIds;
+    const island = joinProjects.map(
+      (joinProject: JoinProjects) => joinProject.islands
+    );
+    islands.value = island;
 
-    // 島idから島の参加者データを取得
+    // 島idからユーザーデータを取得
     for (let islandId of islandIds) {
       const joinIslands = await fetch(
-        `http://localhost:8000/JoinIslands?islandId=${islandId}`
+        `http://localhost:3000/islands/${islandId}/joinIslands`
       ).then((res) => res.json());
-      for (let joinIsland of joinIslands) {
+      for (let joinIsland of joinIslands.member) {
         userIds.value.push(joinIsland.userId);
       }
+
+      // 管理者、参加者、未参加者の判別
+      userJudges.value = userJudge(
+        project.value.adminId,
+        userIds.value,
+        myId.value
+      );
     }
 
     // 募集要項取得
-    const Recruit = await fetch(
-      `http://localhost:8000/RecruitNewIsland?projectId=${id}`
-    ).then((res) => res.json());
-
+    const Recruit = projectData.RecruitNewIslands;
     if (Recruit.length >= 1) {
       RecruitIshow.value = true;
       Recruits.value = Recruit[0];
@@ -150,12 +125,16 @@ onMounted(async () => {
       </div>
 
       <div v-show="userJudges === 1" class="detail__user__setting">
-        <AdminModal :projectId="project.id" />
+        <AdminModal
+          :recruitIshow="RecruitIshow"
+          :recruitId="Recruits.id"
+          :projectId="project.id"
+        />
       </div>
     </div>
 
     <div class="projectDetail__btn">
-      <ShowBtn :userIds="userIds" :projectId="project.id" :myId="myId" />
+      <ShowBtn :projectId="project.id" :myId="myId" :userJudges="userJudges" />
     </div>
 
     <div class="projectDetail__underContent">
@@ -171,11 +150,10 @@ onMounted(async () => {
 
       <div class="projectDetail__member">
         <SideMember
+          :userJudges="userJudges"
           :projectId="project.id"
-          :adminId="project.adminId"
-          :userIds="userIds"
-          :islandId="islandId"
           :myId="myId"
+          :islandData="islands"
         />
       </div>
     </div>

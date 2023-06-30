@@ -31,36 +31,21 @@ const errorMessage = computed(() => {
 });
 
 watch(props, async () => {
-  const joinIslandDatas = await fetch(
-    `http://localhost:8000/JoinIslands?userId=${props.myId}`
+  const data = await fetch(
+    `http://localhost:3000/projects/${props.myId}/joinIslands`
   ).then((res) => res.json());
 
-  if (joinIslandDatas.length > 0) {
+  const joinIslands = data.joins;
+  if (joinIslands.length > 0) {
     pageShow.value = true;
   }
-
-  for (let joinIslandData of joinIslandDatas) {
-    const island = await fetch(
-      `http://localhost:8000/Islands/${joinIslandData.islandId}`
-    ).then((res) => res.json());
-
-    let islands = false;
-    for (let i = 0; i < joinIsland.value.length; i++) {
-      if (joinIsland.value[i].id === joinIslandData.islandId) {
-        islands = true;
-        break;
-      }
-    }
-    if (!islands) {
-      joinIsland.value.push(island);
-    }
-  }
+  joinIsland.value = joinIslands.map((joinIsland: any) => joinIsland.islands);
 });
 
 // 申請する
 const asign = () => {
   if (selectIsland.value !== undefined) {
-    fetch("http://localhost:8000/RequestProject", {
+    fetch("http://localhost:3000/projects/joinRequest", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

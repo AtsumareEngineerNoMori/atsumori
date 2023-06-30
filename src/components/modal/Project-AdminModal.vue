@@ -1,27 +1,19 @@
 <script setup lang="ts">
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
-import { realtimeDB } from "../../firebase";
-import {
-  ref as dbRef,
-  orderByChild,
-  query,
-  startAt,
-  endAt,
-  remove,
-  get,
-} from "firebase/database";
-import { myIdJudge } from "../../userJudge";
+import { deleteChat } from "./deleteChat";
 
 const router = useRouter();
 
 const isShow = ref(false);
 const recruitIsShow = ref(false);
-const recruitData = ref();
+const recruitId = ref<number>();
 
-const props = defineProps({
-  projectId: Number,
-});
+const props = defineProps<{
+  recruitIshow: boolean;
+  recruitId: number;
+  projectId: number;
+}>();
 
 // モーダルの表示切り替え
 const toggleStatus = () => {
@@ -30,21 +22,14 @@ const toggleStatus = () => {
 
 watch(props, async () => {
   //募集中か否か判別
-  const projectId = props.projectId;
-  const recruit = await fetch(
-    `http://localhost:8000/RecruitNewIsland?projectId=${projectId}`
-  ).then((res) => res.json());
-
-  if (recruit.length >= 1) {
-    recruitIsShow.value = true;
-    recruitData.value = recruit[0];
-  }
+  recruitIsShow.value = props.recruitIshow;
+  recruitId.value = props.recruitId;
 });
 
 // 募集削除
 const deleteRecruit = () => {
-  const recruitId = recruitData.value.id;
-  fetch(`http://localhost:8000/RecruitNewIsland/${recruitId}`, {
+  const id = recruitId.value;
+  fetch(`http://localhost:3000/projects/${id}/recruitNewIsland`, {
     method: "delete",
     headers: {
       "Content-Type": "application/json",
@@ -59,66 +44,15 @@ const deleteProject = async () => {
   alert("本当に削除してもよろしいですか？");
   try {
     const projectId = props.projectId;
-
-    const db = ["RequestProject", "JoinProjects", "IslandScout"];
-    const ids = [];
-
-    //削除するプロジェクトの関連データのidを取得
-    for (let i of db) {
-      const datas = await fetch(
-        `http://localhost:8000/${i}?projectId=${projectId}`
-      ).then((res) => res.json());
-      const dataIds = datas.map((dataId: any) => dataId.id);
-      ids.push(dataIds);
-    }
-
-    // 削除するプロジェクトの関連データの削除
-    for (let i = 0; i < db.length; i++) {
-      if (ids[i].length > 0) {
-        for (let id of ids[i]) {
-          await fetch(`http://localhost:8000/${db[i]}/${id}`, {
-            method: "delete",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        }
-      }
-    }
-
-    // チャット削除
-    const q = query(
-      dbRef(realtimeDB, myIdJudge()),
-      orderByChild("projectId"),
-      startAt(String(projectId)),
-      endAt(String(projectId))
-    );
-    await get(q).then((snapshot) => {
-      snapshot.forEach((a) => {
-        remove(a.ref);
-      });
-    });
-
-    // 募集削除（あったら）
-    if (recruitIsShow.value) {
-      await fetch(
-        `http://localhost:8000/RecruitNewIsland/${recruitData.value.id}`,
-        {
-          method: "delete",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    }
-
-    // プロジェクトの削除
-    await fetch(`http://localhost:8000/projects/${projectId}`, {
+    await fetch(`http://localhost:3000/projects/${projectId}/deleteProject`, {
       method: "delete",
       headers: {
         "Content-Type": "application/json",
       },
-    });
+    }).then((res) => res.json());
+
+    // チャット削除
+    await deleteChat(projectId, "projectId");
 
     router.push("/top");
   } catch (e) {

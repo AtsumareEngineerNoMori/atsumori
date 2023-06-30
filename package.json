@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "test:unit": "vitest",
     "mock-api": "json-server --watch data/db.json --port 8000",
-    "check": "vue-tsc -noEmit"
+    "check": "vue-tsc -noEmit",
+    "test": "vitest"
   },
   "dependencies": {
     "firebase": "^9.21.0",
@@ -20,9 +21,12 @@
     "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.2",
     "@types/micromodal": "^0.3.3",
     "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/test-utils": "^2.3.0",
+    "@vue/test-utils": "^2.3.2",
+    "fetch-mock": "^9.11.0",
+    "jest": "^29.5.0",
     "jsdom": "^21.1.0",
     "json-server": "^0.17.3",
     "ts-loader": "^9.4.3",
