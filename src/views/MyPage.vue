@@ -5,6 +5,7 @@ import { onMounted, ref } from "vue";
 import "../css/main.css";
 import { auth } from "../firebase";
 import { useRouter } from 'vue-router';
+import { defineExpose } from 'vue';
 
 const router = useRouter();
 
@@ -34,35 +35,38 @@ type Island = {
   icon:string,
   id:number
 }
-onMounted(async () => {
 
-console.log("ユーザーID", userId);
-  //onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
-  auth.onAuthStateChanged(async (loggedInUser:any) :Promise<void>=> {
-    if (loggedInUser) {
-      userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
-      await getIsland();
-      await getJoinIsland();
-      try {
-        const response = await fetch(
-          `http://localhost:3000/Users/${userId.value}`
-        );
-        if (!response.ok) {
-          throw new Error(`HTTPエラーです！！！: ${response.status}`);
-        }
-        User.value = await response.json();
-        console.log("User.valueの中身", User.value);
-      } catch (err:any) {
-        err.value = err;
-        console.log("エラー", err.value);
+//onAuthStateChanged★Firebaseの認証状態が変更されたときに呼び出され、現在の認証状態を示すユーザーオブジェクトを返す
+const login = async (loggedInUser:any): Promise<void> => {
+  if (loggedInUser) {
+    userId.value = loggedInUser.uid; // ログインしているユーザーのUIDをセット
+    await getIsland();
+    await getJoinIsland();
+    try {
+      const response = await fetch(
+        `http://localhost:3000/Users/${userId.value}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTPエラーです！！！: ${response.status}`);
       }
-    } else {
-      router.push("/login");
+      User.value = await response.json();
+      console.log("User.valueの中身", User.value);
+    } catch (err:any) {
+      err.value = err;
+      console.log("エラー", err.value);
     }
-  });
-});
+  } else {
+    router.push("/login");
+  }
+};
 
-// joinIslandsテーブルからログインユーザーのidに等しいデータを取得
+auth.onAuthStateChanged(login);
+
+onMounted(async () => {
+  });
+  console.log("ユーザーID", userId);
+  
+  // joinIslandsテーブルからログインユーザーのidに等しいデータを取得
 const getIsland = async () => {
   const response = await fetch(
     `http://localhost:3000/joinIslands/?userId=${userId.value}`
@@ -95,6 +99,12 @@ const moreIslands = () => {
 const userScout  = () => {
   router.push("/userscout")
 }
+
+defineExpose({
+  login,
+  User,
+  // 他の公開したい関数やリアクティブなプロパティもここに書くことができます。
+});
 </script>
 
 <template>
