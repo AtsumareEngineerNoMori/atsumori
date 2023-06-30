@@ -73,6 +73,7 @@ async function Request() {
     console.log("更新できませんでした");
   }
   router.push(`/islandShow/${islandId}`);
+  // router.push("/login");
 }
 
 // バリデーションチェック
@@ -121,7 +122,7 @@ function check() {
     <div class="request__agree">
       <!-- <input type="checkbox" id="agree" v-model="checked.value"/> -->
       <label for="agree">上記に同意しました　</label>
-      <input type="checkbox" id="agree" v-model="checked" />
+      <input type="checkbox" id="agree" v-model="checked" class="checkbox" />
 
       <div>
         <button
