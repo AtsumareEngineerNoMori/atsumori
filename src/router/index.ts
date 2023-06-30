@@ -202,7 +202,11 @@ const router = createRouter({
       name: "top",
       component: Top,
     },
-
+    {
+      path: "/:catchAll(.*)",
+      name: "404",
+      component: () => import("../views/404.vue")
+    }
   ],
 });
 

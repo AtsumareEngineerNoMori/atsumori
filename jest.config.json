@@ -1,0 +1,16 @@
+
+{
+  "verbose": true,
+  "transform": {
+    ".(js|jsx)": "@babel/pres。et-env",
+    "^.+\\.vue$": "vue-jest",
+    "^.+\\.js$": "vite-jest"
+  },
+  "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  "moduleFileExtensions": ["js", "jsx", "json", "node", "vue"],
+  "transformIgnorePatterns": ["/node_modules/(?!vue)"],
+  "testEnvironment": "jest-environment-node",
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1"
+  }
+}

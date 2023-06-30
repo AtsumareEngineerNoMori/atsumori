@@ -30,6 +30,7 @@
 import { ref, onMounted, watchEffect,Ref } from "vue";
 import { useRoute } from "vue-router";
 import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
+import axios from "axios";
 
 //型
 type Project = {
@@ -42,15 +43,19 @@ const projects: Ref<Project[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得
-  const fetchData = async () => {
-  const searchKeyword = route.query.search;
-  const url = `http://localhost:8000/Projects?projectName_like=${searchKeyword}`;
-  const response = await fetch(url);
-  projects.value = await response.json();
+const fetchData = async () => {
+  const searchKeyword = route?.query?.search;
+  const url = `http://localhost:3000/searchProjects?projectName_like=${searchKeyword}`;
 
-  console.log("検索内容", searchKeyword);
-  console.log("レスポンス", response);
-}
+  try {
+    const response = await axios.get(url);
+    projects.value = response.data;
+    console.log("検索内容", searchKeyword);
+    console.log("レスポンス", response);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 onMounted(() => {
   fetchData();

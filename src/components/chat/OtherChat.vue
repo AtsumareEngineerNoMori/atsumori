@@ -16,7 +16,6 @@ const props = defineProps<{
 </script>
 
 <template>
-  <template v-if="props.chat.userId !== '1234567890'">
     <RouterLink
       v-bind:to="{ name: 'othermypage', params: { id: props.chat.userId } }"
       class="chat__messageWrapper-userIcon"
@@ -44,5 +43,4 @@ const props = defineProps<{
         <GetTime :createDate="props.chat.createDate" />
       </div>
     </div>
-  </template>
 </template>

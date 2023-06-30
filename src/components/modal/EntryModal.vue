@@ -13,8 +13,8 @@ type Islands = {
 const isShow = ref(false);
 const joinIsland = ref<Islands[]>([]);
 const selectIsland = ref<number>();
-const pageShow = ref(false);
 const errorIsShow = ref(false);
+const pageShow = ref(false);
 
 const props = defineProps({
   projectId: Number,
