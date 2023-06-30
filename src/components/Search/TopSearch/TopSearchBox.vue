@@ -106,22 +106,4 @@ function handleSubmit(): void {
     router.push(url);
   }
 }
-
-
 </script>
-
-<!-- <script lang="ts">
-export default {
-  name: "TopSearchBox",
-  setup() {
-    return {
-      selectedFilter,
-      keyword,
-      errorMessage,
-      selectFilter,
-      formAction,
-      handleSubmit,
-    };
-  },
-};
-</script> -->

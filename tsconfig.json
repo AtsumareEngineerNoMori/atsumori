@@ -9,7 +9,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": [
+      "jest",
+      "vitest/globals"
+    ]
+    // "types": ["vitest/globals"]
   },
   "include": [
     "src/**/*.ts",

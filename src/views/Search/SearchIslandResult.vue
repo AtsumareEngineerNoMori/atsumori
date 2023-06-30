@@ -26,6 +26,7 @@
 import { ref, onMounted, watchEffect, Ref } from "vue";
 import { useRoute } from "vue-router";
 import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
+import axios from "axios";
 
 //型
 type Island = {
@@ -38,12 +39,31 @@ const islands: Ref<Island[]> = ref([]);
 const route = useRoute();
 
 // URLから検索キーワードを取得して、fetchでデータ取得
+// const fetchData = async () => {
+//   const searchKeyword = route.query.search;
+//   const url = `http://localhost:3000/searchIslands?islandName_like=${searchKeyword}`;
+
+//   const response = await fetch(url);
+//   islands.value = await response.json();
+
+//   console.log("検索内容", searchKeyword);
+//   console.log("レスポンス", response);
+// }
+
+// URLから検索キーワードを取得して、fetchでデータ取得
 const fetchData = async () => {
-  const searchKeyword = route.query.search;
-  const url = `http://localhost:8000/Islands?islandName_like=${searchKeyword}`;
-  const response = await fetch(url);
-  islands.value = await response.json();
-}
+  const searchKeyword = route?.query?.search;
+  const url = `http://localhost:3000/searchIslands?islandName_like=${searchKeyword}`;
+
+  try {
+    const response = await axios.get(url);
+    islands.value = response.data;
+    console.log("検索内容", searchKeyword);
+    console.log("レスポンス", response);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 onMounted(() => {
   fetchData();
