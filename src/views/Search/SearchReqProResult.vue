@@ -33,7 +33,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect, Ref } from "vue";
 import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
-import { useRoute } from "vue-router";
+import { useRoute, RouteLocationNormalizedLoaded } from "vue-router";
+import axios from "axios";
 
 //型
 type RecruitNewIsland = {
@@ -47,13 +48,14 @@ type RecruitNewIsland = {
 };
 
 const route = useRoute();
+// const route: RouteLocationNormalizedLoaded = useRoute();
 const originalRecruitNewIslands: Ref<RecruitNewIsland[]> = ref([]); //データ配列
 const filteredRecruitNewIslands: Ref<RecruitNewIsland[]> = ref([]); //検索結果に基づくデータの配列
 
 const fetchRecruitNewIslands = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/searchReqProjects`);
-    const data = await response.json();
+    const response = await axios.get(`http://localhost:3000/searchReqProjects`);
+    const data = await response.data;
     originalRecruitNewIslands.value = data.map((recruitNewIsland: any) => ({
       ...recruitNewIsland,
       project: recruitNewIsland.projects,
