@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import type { Ref } from "vue";
 import "../../css/main.css";
 
 interface UserScout {
@@ -20,14 +18,11 @@ const props = defineProps({
   islandId: Number,
 });
 
-// データ削除の時に再度取得したデータを保管
-const scoutList: Ref<UserScout[]> = ref([]);
-
 // スカウトを受け入れて島に参加する
-const approveBtn: () => Promise<void> = async () => {
+const approveBtn = async () => {
   // JoinIslandsに追加
   const joinResponse: Response = await fetch(
-    "http://localhost:8000/joinIslands",
+    "http://localhost:3000/addJoinIslands",
     {
       method: "POST",
       headers: {
@@ -42,28 +37,21 @@ const approveBtn: () => Promise<void> = async () => {
   const joinData: JoinIslands = await joinResponse.json();
   console.log(joinData);
 
-  // userScoutからuserIdが等しいデータを取得し、選択した島のislandIdが一致するデータをidを指定して削除する
-  const getScoutUser: () => Promise<void> = async () => {
-    const response: Response = await fetch(
-      `http://localhost:8000/userScout/?userId=${props.userId}`
-    );
-    const data: UserScout[] = await response.json();
-    scoutList.value = data;
-    console.log(data);
-  };
-  getScoutUser()
-    .then(() => {
-      scoutList.value.map(async (scout: UserScout) => {
-        if (props.islandId === scout.islandId) {
-          await fetch(`http://localhost:8000/userScout/${scout.id}`, {
-            method: "DELETE",
-          });
-        }
-      });
-    })
-    // 削除後のデータを取得するためにリロード
-    .then(() => {
+  // UserScoutからログインユーザーのuserIdと選択されたislandIdに一致するデータを削除
+  await fetch(
+    `http://localhost:3000/deleteUserScout/?userId=${props.userId}&islandId=${props.islandId}`,
+    {
+      method: "DELETE",
+    }
+  )
+    .then((res) => res.json())
+    .then((data: UserScout) => {
+      console.log("削除されたデータ:", data);
+      // 削除後のデータを取得するためにリロード
       location.reload();
+    })
+    .then((error) => {
+      console.log("削除エラー:", error);
     });
 };
 </script>
