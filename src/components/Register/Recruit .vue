@@ -5,11 +5,11 @@
       <div class="RecruitIslandRegister-details">
         <div v-if="loading">
           <p class="RecruitIslandRegister-details-name">
-            <span v-if="props.witch === `Projects`">
-              {{ Data.projectName }}
+            <span v-if="props.witch === `recruitProjectName`">
+              {{ Data[0].projectName }}
             </span>
-            <span v-if="props.witch === `Islands`">
-              {{ Data.islandName }}
+            <span v-if="props.witch === `recruitIslandName`">
+              {{ Data[0].islandName }}
             </span>
           </p>
         </div>
@@ -111,57 +111,64 @@
 
 <script setup lang="ts">
 import { RouteLocationNormalizedLoaded, Router, useRouter } from "vue-router";
-import { reactive, ref} from "vue";
+import { reactive, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import type { Ref } from "vue";
 import { defineProps } from "vue";
 
+onMounted(() => {
+  getFlight();
+});
+
 const props = defineProps({
-  kansu: String ,
+  kansu: String,
   witch: String,
 });
 
-const route : RouteLocationNormalizedLoaded= useRoute();
+const route: RouteLocationNormalizedLoaded = useRoute();
 const router: Router = useRouter();
 const loading: Ref<boolean> = ref(false);
 
-const Id: string | string[]= route.params.id;
+const Id: Number | Number[] = route.params.id;
+// const Id:Number = 1
 
 const recruit: {
-  recruitTitle: string,
-  recruitJob: string,
-  recruitPoint: string,
-  createDate: Date,
+  recruitTitle: string;
+  recruitJob: string;
+  recruitPoint: string;
+  createDate: Date;
 } = reactive({
   recruitTitle: "",
   recruitJob: "",
   recruitPoint: "",
   createDate: new Date(),
 });
-const Data : Ref<any>= ref();
+const Data: Ref<any> = ref();
 
-const titleLength :Ref<boolean>= ref(false);
-const selectLength:Ref<boolean> = ref(false);
-const infomationLength:Ref<boolean> = ref(false);
+const titleLength: Ref<boolean> = ref(false);
+const selectLength: Ref<boolean> = ref(false);
+const infomationLength: Ref<boolean> = ref(false);
 
-const changeTitle = (e:  Event) => {
+const changeTitle = (e: Event) => {
   titleLength.value = false;
 };
-const changeSelect = (e:  Event) => {
+const changeSelect = (e: Event) => {
   selectLength.value = false;
 };
-const changeInfomation = (e:  Event) => {
+const changeInfomation = (e: Event) => {
   infomationLength.value = false;
 };
 
-const getFlight : () => Promise<void>= async () => {
-  const response : Response= await fetch(`http://localhost:8000/${props.witch}/${Id}`);
+const getFlight: () => Promise<void> = async () => {
+  const response: Response = await fetch(
+    `http://localhost:3000/${props.witch}/${Id}`
+  );
   const data = await response.json();
   Data.value = data;
+  console.log(data);
   loading.value = true;
+  console.log(loading.value);
 };
-getFlight();
-
 const recruitRegister: () => void = () => {
   if (recruit.recruitTitle === "") {
     titleLength.value = true;
@@ -184,65 +191,60 @@ const recruitRegister: () => void = () => {
   } else {
     // propsでどっちか表示
     if (props.kansu === `island`) {
-      fetch("http://localhost:8000/RecruitNewIsland", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    projectId: Number(Id),
-    recruitTitle: recruit.recruitTitle,
-    recruitJob: recruit.recruitJob,
-    recruitPoint: recruit.recruitPoint,
-    createDate: new Date(),
-    projectName: Data.value.projectName,
-    projectIcon: Data.value.icon,
-  }),
-})
-  .then(response => {
-    if (response.ok) {
-      // データの送信が成功した場合の処理
-      router.push("/top");
-    } else {
-      // データの送信が失敗した場合の処理
-      console.log("データの送信に失敗しました");
-    }
-  })
-  .catch(error => {
-    // エラーハンドリング
-    console.log("エラーが発生しました", error);
-  });
+      fetch("http://localhost:3000/recruitNewIslandRegister", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          projectId: Number(Id),
+          recruitTitle: recruit.recruitTitle,
+          recruitJob: recruit.recruitJob,
+          recruitPoint: recruit.recruitPoint,
+          createDate: new Date(),
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // データの送信が成功した場合の処理
+            router.push("/top");
+          } else {
+            // データの送信が失敗した場合の処理
+            console.log("データの送信に失敗しました");
+          }
+        })
+        .catch((error) => {
+          // エラーハンドリング
+          console.log("エラーが発生しました", error);
+        });
     } else if (props.kansu === `user`) {
-      fetch("http://localhost:8000/RecruitNewUser", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    islandId: Number(Id),
-    recruitTitle: recruit.recruitTitle,
-    recruitJob: recruit.recruitJob,
-    recruitPoint: recruit.recruitPoint,
-    createDate: new Date(),
-    islandName: Data.value.islandName,
-    islandIcon: Data.value.icon,
-  }),
-})
-  .then(response => {
-    if (response.ok) {
-      // データの送信が成功した場合の処理
-      router.push("/top");
-    } else {
-      // データの送信が失敗した場合の処理
-      console.log("データの送信に失敗しました");
+      fetch("http://localhost:3000/recruitNewUserRegister", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          islandId: Number(Id),
+          recruitTitle: recruit.recruitTitle,
+          recruitJob: recruit.recruitJob,
+          recruitPoint: recruit.recruitPoint,
+          createDate: new Date(),
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // データの送信が成功した場合の処理
+            router.push("/top");
+          } else {
+            // データの送信が失敗した場合の処理
+            console.log("データの送信に失敗しました");
+          }
+        })
+        .catch((error) => {
+          // エラーハンドリング
+          console.log("エラーが発生しました", error);
+        });
     }
-  })
-  .catch(error => {
-    // エラーハンドリング
-    console.log("エラーが発生しました", error);
-  });
-  
   }
-}
 };
 </script>
