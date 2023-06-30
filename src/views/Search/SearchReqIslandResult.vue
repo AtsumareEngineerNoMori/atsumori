@@ -34,6 +34,7 @@
 import { onMounted, ref, watchEffect, Ref } from "vue";
 import TopSearchBox from "@/components/Search/TopSearch/TopSearchBox.vue";
 import { useRoute } from "vue-router";
+import axios from "axios";
 
 //型
 type RecruitNewUser = {
@@ -52,59 +53,23 @@ const filteredRecruitNewUsers: Ref<RecruitNewUser[]> = ref([]); //検索結果�
 
 // const fetchRecruitNewUsers = async () => {
 //   try {
-//     const response = await fetch(`http://localhost:3000/RecruitNewUser`);
+//     const response = await fetch(`http://localhost:3000/searchReqIslands`);
 //     const data = await response.json();
-//     originalRecruitNewUsers.value = data.map((recruitNewUser:any) => ({
+//     originalRecruitNewUsers.value = data.map((recruitNewUser: any) => ({
 //       ...recruitNewUser,
-//       island: {},
+//       island: recruitNewUser.islands,
 //     }));
 //     console.log("募集中の島", data);
-//     await fetchIslands();
 //     filterRecruitNewUsers(""); // 初期表示時にすべてのデータを表示するように検索を実行
 //   } catch (error) {
 //     console.log("募集中の島", error);
 //   }
 // };
 
-// const fetchIslands = async () => {
-//   try {
-//     const response = await fetch(`http://localhost:3000/Islands`);
-//     const data = await response.json();
-//     originalRecruitNewUsers.value.forEach((recruitNewUser) => {
-//       recruitNewUser.island = data.find(
-//         (island:any) => island.id === recruitNewUser.islandId
-//       );
-//     });
-//     console.log("島", data);
-//   } catch (error) {
-//     console.log("島", error);
-//   }
-// };
-
-// const filterRecruitNewUsers = (query:any) => {
-//   filteredRecruitNewUsers.value = originalRecruitNewUsers.value.filter(
-//     (recruitNewUser) => {
-//       const islandName = recruitNewUser.island.islandName.toLowerCase();
-//       const searchQuery = query.toLowerCase();
-//       return islandName.includes(searchQuery);
-//     }
-//   );
-// };
-
-// onMounted(async () => {
-//   await Promise.all([fetchRecruitNewUsers(), fetchIslands()]);
-//   const searchKeyword = route.query.search || "";
-//   filterRecruitNewUsers(searchKeyword);
-
-//   watchEffect(() => {
-//     filterRecruitNewUsers(route.query.search || "");
-//   });
-// });
-
 const fetchRecruitNewUsers = async () => {
   try {
-    const response = await fetch(`http://localhost:3000/searchReqIslands`);
-    const data = await response.json();
+    const response = await axios.get(`http://localhost:3000/searchReqIslands`);
+    const data = await response.data;
     originalRecruitNewUsers.value = data.map((recruitNewUser: any) => ({
       ...recruitNewUser,
       island: recruitNewUser.islands,

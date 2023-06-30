@@ -51,6 +51,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, Ref } from "vue";
 import { useRoute } from "vue-router";
+import axios from "axios";
 
 //型
 type User = {
@@ -74,8 +75,10 @@ const errorMessage: Ref<string> = ref("");
 
 const fetchUsers = async () => {
   try {
-    const responce = await fetch(`http://localhost:3000/scoutUsersSearch`);
-    const data = await responce.json();
+    // const responce = await fetch(`http://localhost:3000/scoutUsersSearch`);
+    // const data = await responce.json();
+    const responce = await axios.get(`http://localhost:3000/scoutUsersSearch`);
+    const data = await responce.data;
     users.value = data;
     console.log("難民", data);
   } catch (error) {

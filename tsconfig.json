@@ -11,8 +11,10 @@
       "@/*": ["src/*"]
     },
     "types": [
-      "jest"
+      "jest",
+      "vitest/globals"
     ]
+    // "types": ["vitest/globals"]
   },
   "include": [
     "src/**/*.ts",

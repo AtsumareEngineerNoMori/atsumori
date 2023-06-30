@@ -8,8 +8,8 @@ import "./css/header/Header.css";
 import "./css/main.css";
 import VueCookies from "vue-cookies";
 // import type { VueCookies as TsVueCookies } from 'vue-cookies'
-import axios from "axios";
-import VueAxios from "vue-axios";
+// import axios from "axios";
+// import VueAxios from "vue-axios";
 
 
 const app:any = createApp(App);
@@ -18,7 +18,7 @@ const app:any = createApp(App);
 
 app.use(router);
 app.use(VueCookies, {expires: "7d"});
-app.use(VueAxios, axios);
+// app.use(VueAxios, axios);
 
 
 app.mount("#app");
