@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { onMounted, onUpdated, ref } from "vue";
+import { computed, onMounted, onUpdated, ref } from "vue";
 import type { Ref } from "vue";
 import { realtimeDB } from "../../firebase";
 import "../../css/main.css";
 // import GetDate from "@/components/date/GetDate.vue";
 import Loading from "../../components/Loading.vue";
 import MyChat from "@/components/chat/MyChat.vue";
-import OtherChat from "../../components/chat/OtherChat.vue";
-import { useRoute } from "vue-router";
+import OtherChat from "@/components/chat/OtherChat.vue";
+import { useRoute, useRouter } from "vue-router";
 import {
   ref as dbRef,
   push,
@@ -27,6 +27,7 @@ import type {
 } from "firebase/database";
 import { myIdJudge } from "../../userJudge";
 import { app } from "../../main";
+import { getIdData } from "../../getData";
 
 interface Islands {
   id: number;
@@ -50,8 +51,8 @@ const uid: Ref<string> = ref("");
 // データ取得判別
 const loading: Ref<boolean> = ref(true);
 // 島情報保管
-const islandData: Ref<Islands[]> = ref([]);
-// チャット情報保管
+const islandData: Ref<Islands | undefined> = ref();
+// 表示用チャットデータ
 const chatList: Ref<ChatData[]> = ref([]);
 // 入力内容保持
 const message: Ref<string> = ref("");
@@ -62,7 +63,8 @@ const messageScreen: Ref<any> = ref(null);
 
 // 島詳細からislandIdを受け取る
 const route = useRoute();
-const islandId: string | string[] = route.params.id;
+const islandId: number = Number(route.params.id);
+const router = useRouter();
 
 // 初期表示のデータ取得
 onMounted(() => {
@@ -79,50 +81,55 @@ onMounted(() => {
 
 // 初期データの取得
 const getData: () => void = () => {
-  // 島の情報取得
-  const getIsland: () => Promise<void> = async () => {
-    const response: Response = await fetch(
-      `http://localhost:8000/islands/?id=${islandId}`
-    );
-    const data: Islands[] = await response.json();
-    islandData.value.push(...data);
-  };
-  getIsland().then(() => {
-    // realtimeDBから島idと等しいデータを取得
-    const q: Query = query(
-      dbRef(realtimeDB, myIdJudge()),
-      orderByChild("islandId"),
-      limitToLast(10),
-      startAt(String(islandId)),
-      endAt(String(islandId))
-    );
-    onValue(q, (snapshot: DataSnapshot) => {
-      chatList.value = snapshot.val();
+  // 島のデータ取得
+  getIdData("getIslands", islandId)
+    .then((res) => {
+      console.log(res);
+      if (res === null) {
+        router.push("/404");
+      } else {
+        islandData.value = res;
+      }
+      console.log(islandData.value);
+    })
+    .then(() => {
+      // realtimeDBから島idと等しいデータを最大10件取得
+      const q: Query = query(
+        dbRef(realtimeDB, myIdJudge()),
+        orderByChild("islandId"),
+        limitToLast(10),
+        startAt(String(islandId)),
+        endAt(String(islandId))
+      );
+      // 取得したデータをchatListに保管
+      onValue(q, (snapshot: DataSnapshot) => {
+        chatList.value = snapshot.val();
+      });
+      console.log(chatList.value);
+      loading.value = false;
     });
-    loading.value = false;
-  });
 };
 
 // 全件取得参照先
-const q: Query = query(
+const allQuery: Query = query(
   dbRef(realtimeDB, myIdJudge()),
   orderByChild("islandId"),
   startAt(String(islandId)),
   endAt(String(islandId))
 );
 
-// 全件取得
+// 全件データと件数取得
 const getAllData: () => void = () => {
-  onValue(q, (snapshot: DataSnapshot) => {
+  onValue(allQuery, (snapshot: DataSnapshot) => {
     const data: ChatData[] = snapshot.val();
     chatList.value = data;
     allDataLength.value = Object.keys(data).length;
     console.log(allDataLength.value);
   });
 };
-// 初回表示用にデータ全件取得
+// 初回表示用に全件の件数取得
 const firstGetAllData: () => void = () => {
-  onValue(q, (snapshot: DataSnapshot) => {
+  onValue(allQuery, (snapshot: DataSnapshot) => {
     const data: ChatData = snapshot.val();
     if (data !== null) {
       allDataLength.value = Object.keys(data).length;
@@ -131,33 +138,37 @@ const firstGetAllData: () => void = () => {
   });
 };
 
-// firebaseリアルタイムデータベース追加
+// realtimeDB参照
 const chatRef: DatabaseReference = dbRef(realtimeDB, myIdJudge());
-// 送信
+
+// firebaseリアルタイムデータベースに追加
 const submit: () => Promise<void> = async () => {
   if (message.value.length > 120 || message.value.length === 0) {
     alert("1文字以上120文字以内で入力してください");
   } else {
     // ログインユーザーの情報取得
-    const response: Response = await fetch(
-      `http://localhost:8000/users/?id=${uid.value}`
-    );
-    const userData = await response.json();
-    // realtimeDBに追加
-    const newData: ThenableReference = push(chatRef, {
-      userId: uid.value,
-      name: userData[0].name,
-      icon: userData[0].icon,
-      islandId: islandId,
-      createDate: serverTimestamp(),
-      message: message.value,
+    getIdData("getUsers", uid.value).then((res) => {
+      console.log(res);
+      const userData = res;
+
+      // realtimeDBに追加
+      const newData: ThenableReference = push(chatRef, {
+        userId: uid.value,
+        name: userData.name,
+        icon: userData.icon,
+        islandId: islandId,
+        createDate: serverTimestamp(),
+        message: message.value,
+      });
+      console.log("追加");
+      console.log(newData.key);
+      // 空の状態に戻す
+      message.value = "";
     });
-    console.log("追加");
-    console.log(newData.key);
-    message.value = "";
   }
 };
 
+// さらに読み込むボタン
 const loadMore: () => void = () => {
   getAllData();
 };
@@ -170,6 +181,15 @@ onUpdated(() => {
     messageScreen.value.scrollTop = 1000;
   }
 });
+
+// 最初に取得したデータと全データの件数が一致していなかったらボタン表示
+const judgeLength = computed(() => {
+  if (Object.keys(chatList.value).length !== allDataLength.value) {
+    return true;
+  } else {
+    return false;
+  }
+});
 </script>
 
 <template>
@@ -179,45 +199,53 @@ onUpdated(() => {
   <div class="chat" v-else>
     <section class="chat__header">
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
         class="chat__icon"
       >
-        <img :src="islandData[0].icon" alt="icon" class="chat__icon-img" />
+        <img :src="islandData?.icon" alt="icon" class="chat__icon-img" />
       </RouterLink>
       <RouterLink
-        v-bind:to="{ name: 'islandShow', params: { id: islandData[0].id } }"
+        v-bind:to="{ name: 'islandShow', params: { id: islandData?.id } }"
       >
-        <p class="chat__name">{{ islandData[0].islandName }}</p>
+        <p class="chat__name">{{ islandData?.islandName }}</p>
       </RouterLink>
     </section>
     <section v-if="chatList === null" class="chat__messageWrapper">
-      <p class="chat__messageWrapper-noDataTitle">メッセージがありません</p>
+      <p class="chat__messageWrapper-noDataTitle" data-testid="noDataMessage">
+        メッセージがありません
+      </p>
     </section>
-    <section class="chat__messageWrapper" ref="messageScreen" v-else>
-      <template v-if="Object.keys(chatList).length !== allDataLength">
+    <section
+      class="chat__messageWrapper"
+      ref="messageScreen"
+      v-else
+      data-testid="dataList"
+    >
+      <!-- 最初に取得したデータと全データの件数が一致していなかったらボタン表示 -->
+      <!-- <template v-if="Object.keys(chatList).length !== allDataLength"> -->
+      <template v-if="judgeLength">
         <div class="chat__messageWrapper-loadMore">
           <button @click="loadMore" class="chat__messageWrapper-loadMoreBtn">
             さらに読み込む
           </button>
         </div>
       </template>
-      <div v-for="chat in chatList">
+      <div v-for="chat in chatList" :key="chat.userId">
         <!-- 自分のメッセージか判別する -->
         <div v-if="chat.userId === uid" class="chat__messageWrapper-myMessage">
           <MyChat :chat="chat" />
         </div>
-
         <div v-else class="chat__messageWrapper-otherMessage">
           <OtherChat :chat="chat" />
         </div>
-        <template v-if="chat.userId !== '1234567890'">
-          <!-- <GetDate
+        <!-- <template v-if="chat.userId !== '1234567890'"> -->
+        <!-- <GetDate
             :createDate="chat.createDate"
             :chatList="chatList"
             :id="chat.id"
             :chat="chat"
           /> -->
-        </template>
+        <!-- </template> -->
       </div>
     </section>
     <textarea
