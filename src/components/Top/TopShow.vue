@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { Ref } from "vue";
-import { defineProps } from "vue";
-import { useRouter } from "vue-router";
 
 const props = defineProps({
   table: String,
@@ -17,9 +15,7 @@ const arrayProject: Ref<{ id: number; icon: string; projectName: string }[]> =
 
 if (props.witch === "island") {
   const get = async () => {
-    const response = await fetch(
-      `http://localhost:3000/${props.table}/?_limit=6&_sort=createDate&_order=desc`
-    );
+    const response = await fetch(`http://localhost:3000/${props.table}`);
     const data = await response.json();
     if (props.table === "recruitIslandsTop") {
       const islandArray = await data.map((item: any) => item.islands);
@@ -32,7 +28,8 @@ if (props.witch === "island") {
 } else if (props.witch === "project") {
   const get = async () => {
     const response = await fetch(
-      `http://localhost:3000/${props.table}/?_limit=6&_sort=createDate&_order=desc`
+      `http://localhost:3000/${props.table}`
+      // `http://localhost:3000/${props.table}/?_limit=6&_sort=createDate&_order=desc`
     );
     const data = await response.json();
     if (props.table === "recruitProjectsTop") {
@@ -64,6 +61,7 @@ if (props.witch === "island") {
               :src="infomation.icon"
               alt="ifomation"
               class="top-new-set-img"
+              name="island"
             />
             <p class="top-new-set-name">{{ infomation.islandName }}</p>
           </RouterLink>
@@ -83,6 +81,7 @@ if (props.witch === "island") {
               :src="infomation.icon"
               alt="ifomation"
               class="top-new-set-img"
+              name="project"
             />
             <p class="top-new-set-name">{{ infomation.projectName }}</p>
           </RouterLink>

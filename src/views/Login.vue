@@ -7,18 +7,34 @@
     <div class="loginPage-text">
       <form @submit.prevent="loginButton">
         <div>
-          <input type="email" placeholder="メールアドレスを入力してください" class="loginPage-email" v-model="user.email" autocomplete="email" />
+          <input
+            type="email"
+            placeholder="メールアドレスを入力してください"
+            class="loginPage-email"
+            v-model="user.email"
+            autocomplete="email"
+          />
         </div>
         <div>
-          <input type="password" placeholder="パスワードを入力してください" class="loginPage-password" v-model="user.password" autocomplete="current-password" />
+          <input
+            type="password"
+            placeholder="パスワードを入力してください"
+            class="loginPage-password"
+            v-model="user.password"
+            autocomplete="current-password"
+          />
         </div>
-        <p class="alart" v-if="input">メールアドレスまたはパスワードが間違っています</p>
+        <p class="alart" v-if="input">
+          メールアドレスまたはパスワードが間違っています
+        </p>
         <div>
           <button type="submit" class="loginPage-button">ログイン</button>
         </div>
       </form>
       <RouterLink to="/userRegister">
-        <div class="loginPage-register-margin"><span class="loginPage-register">アカウントを登録しよう！</span></div>
+        <div class="loginPage-register-margin">
+          <span class="loginPage-register">アカウントを登録しよう！</span>
+        </div>
       </RouterLink>
     </div>
   </div>
@@ -32,8 +48,7 @@ import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "@firebase/auth";
 import { app } from "../main";
-
-
+// import { loginButton } from "../yasuo";
 interface User {
   uid: string;
 }
@@ -44,7 +59,7 @@ const input = ref(false);
 
 // cookieに登録
 const setCookie = (myId: string) => {
-  app.$cookies.set('myId', myId);
+  app.$cookies.set("myId", myId);
 };
 
 // ログイン状態の場合の処理
@@ -54,11 +69,13 @@ onMounted(() => {
       router.push("/top");
       console.log("ログイン中");
     } else {
-    {}
+      {
+      }
     }
   });
 });
 
+// loginButton(user.value);
 const loginButton = async () => {
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -78,5 +95,8 @@ const loginButton = async () => {
     input.value = true;
     console.log("メールアドレスまたはパスワードが間違っています");
   }
+  return "hello";
 };
+
+// export { loginButton };
 </script>

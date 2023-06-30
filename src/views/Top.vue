@@ -4,12 +4,24 @@
       <TopSearchBox />
     </div>
     <div class="top-new">
-      <TopShow  :table="`islandsTop`"  :witch="`island`"  :title="'新着島'"/>
-      <TopShow  :table="`projectsTop`"  :witch="`project`"  :title="'新着プロジェクト'"/>
+      <TopShow :table="`islandsTop`" :witch="`island`" :title="'新着島'" />
+      <TopShow
+        :table="`projectsTop`"
+        :witch="`project`"
+        :title="'新着プロジェクト'"
+      />
     </div>
     <div class="top-new">
-      <TopShow  :table="`recruitIslandsTop`"  :witch="`island`"  :title="'新着募集島'"/>
-      <TopShow  :table="`recruitProjectsTop`"  :witch="`project`"  :title="'新着募集プロジェクト'"/>
+      <TopShow
+        :table="`recruitIslandsTop`"
+        :witch="`island`"
+        :title="'新着募集島'"
+      />
+      <TopShow
+        :table="`recruitProjectsTop`"
+        :witch="`project`"
+        :title="'新着募集プロジェクト'"
+      />
     </div>
   </div>
 </template>

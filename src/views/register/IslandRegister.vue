@@ -81,14 +81,14 @@ import {
   uploadBytesResumable,
   ref,
   getStorage,
-StorageReference,
-FirebaseStorage,
+  StorageReference,
+  FirebaseStorage,
 } from "firebase/storage";
 
 const router: Router = useRouter();
-const iconFileName :Ref<string>= vueref("");
-const file:Ref<Blob> = vueref(new Blob());
-const iconImg:Ref<string> = vueref(
+const iconFileName: Ref<string> = vueref("");
+const file: Ref<Blob> = vueref(new Blob());
+const iconImg: Ref<string> = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/island%2Fha.png?alt=media&token=10b4db92-8536-44a6-be94-0541b2b84dc0"
 );
 
@@ -105,16 +105,16 @@ const island: {
   islandName: "",
   islandDescription: "",
   adminId: "",
-  createDate:new Date(),
+  createDate: new Date(),
   name: "",
   description: "",
 });
 
-const islandNameLength:Ref<boolean>= vueref(false);
-const islandDescriptionLength :Ref<boolean>= vueref(false);
+const islandNameLength: Ref<boolean> = vueref(false);
+const islandDescriptionLength: Ref<boolean> = vueref(false);
 
-const auth : Auth= getAuth();
-const currentUserId : string | undefined= auth.currentUser?.uid;
+const auth: Auth = getAuth();
+const currentUserId: string | undefined = auth.currentUser?.uid;
 
 const changeName: (e: Event) => void = (e: Event) => {
   islandNameLength.value = false;
@@ -125,7 +125,7 @@ const changeInfomation: (e: Event) => void = (e: Event) => {
 };
 
 // アイコン画像プレビュー処理
-const previewImage : (event: any) => void= (event: any) => {
+const previewImage: (event: any) => void = (event: any) => {
   let reader: FileReader = new FileReader();
   reader.onload = function (e: ProgressEvent<FileReader>) {
     iconImg.value = e.target?.result as string;
@@ -143,31 +143,38 @@ const islandRegisterButton: () => void = async () => {
   ) {
     // Storageにアイコン登録
     console.log("アイコンの登録のターンがきたよ");
-    const storageRef: StorageReference = ref(storage, `island/${iconFileName.value}`);
+    const storageRef: StorageReference = ref(
+      storage,
+      `island/${iconFileName.value}`
+    );
     console.log(storageRef);
     uploadBytesResumable(storageRef, file.value)
       // StorageからアイコンURLを取得
       .then(() => {
         console.log("アイコンを取得のターンがきたよ");
         const storage: FirebaseStorage = getStorage();
-        const starsRef :StorageReference= ref(storage, `island/${iconFileName.value}`);
+        const starsRef: StorageReference = ref(
+          storage,
+          `island/${iconFileName.value}`
+        );
         getDownloadURL(starsRef).then((url: string) => {
           console.log(url);
           iconImg.value = url;
           // try {
           fetch("http://localhost:3000/islandsRegister", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            islandName: island.name,
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              islandName: island.name,
               islandDescription: island.description,
               adminId: currentUserId,
               createDate: new Date(),
               icon: iconImg.value,
-          }),
-        }).then(function (response: Response): Promise<any> {
+            }),
+          })
+            .then(function (response: Response): Promise<any> {
               // fetch が返した Promise の解決を待つ
               return response.json();
             })
@@ -205,7 +212,7 @@ const islandRegisterButton: () => void = async () => {
         // fetch が返した Promise の解決を待つ
         return response.json();
       })
-      .then(function (jsonObj: any) : void{
+      .then(function (jsonObj: any): void {
         // response.json が返した Promise の解決を待つ
         console.log(jsonObj.id);
         fetch("http://localhost:3000/joinIslandsRegister", {
