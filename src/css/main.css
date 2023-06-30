@@ -666,7 +666,7 @@ html {
 }
 
 body {
-  background-image: url(astumoriIsland.png);
+  background-image: url(/astumoriIsland.png);
   /* 画像を常に天地左右の中央に配置 */
   background-position: center center;
   /* 画像をタイル状に繰り返し表示しない */
@@ -1417,9 +1417,9 @@ button {
 }
 .header-logo {
   width: 15%;
-  /* height: 10%; */
-  margin-bottom: -5px;
-  margin-top: -8px;
+  height: 15%;
+  margin-bottom: -24px;
+  margin-top: -23px;
 }
 .header__a {
   margin-right: 10px;
