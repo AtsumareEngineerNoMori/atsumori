@@ -177,7 +177,8 @@ const currentUserId: any = app.$cookies.get("myId");
 
 const getFlight: () => Promise<void> = async () => {
   const response: any = await fetch(
-    `http://localhost:8000/islands?adminId=${currentUserId}`
+    // `http://localhost:8000/islands?adminId=${currentUserId}`
+    `http://localhost:3000/adminIsland/${currentUserId}`
   ).then((response: Response) => response.json());
   islands.value = response;
 };
@@ -208,7 +209,7 @@ const projectRegisterButton : () => void= () => {
         const starsRef : StorageReference= ref(storage, `project/${iconFileName.value}`);
         getDownloadURL(starsRef).then((url: string) => {
           iconImg.value = url;
-          fetch("http://localhost:8000/Projects", {
+          fetch("http://localhost:3000/projectsRegister", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -230,7 +231,7 @@ const projectRegisterButton : () => void= () => {
               // interfaceでisland定義して、anyではなくてIslandi入れる
               // response.json が返した Promise の解決を待つ
               // console.log(jsonObj.id);
-              fetch("http://localhost:8000/JoinProjects", {
+              fetch("http://localhost:3000/joinProjectsRegister", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -244,7 +245,7 @@ const projectRegisterButton : () => void= () => {
         });
       });
   } else {
-    fetch("http://localhost:8000/Projects", {
+    fetch("http://localhost:3000/projectsRegister", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -264,8 +265,7 @@ const projectRegisterButton : () => void= () => {
       })
       .then(function (jsonObj:any): void {
         // response.json が返した Promise の解決を待つ
-        // console.log(jsonObj.id);
-        fetch("http://localhost:8000/JoinProjects", {
+        fetch("http://localhost:3000/joinProjectsRegister", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -289,7 +289,6 @@ const registerProject : () => void= () => {
   if (selectIsland.value === "") {
     selectIslandLength.value = true;
   }
-
   if (
     project.name === "" ||
     project.description === "" ||

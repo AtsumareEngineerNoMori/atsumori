@@ -44,12 +44,12 @@ function myIdJudge() {
     return "chat3";
   } else if (import.meta.env.VITE_MYID == 4) {
     return "chat4";
-  } else if(import.meta.env.VITE_MYID == 5) {
+  } else if (import.meta.env.VITE_MYID == 5) {
     return "chat5";
-  } else if(import.meta.env.VITE_MYID == 6) {
-    return "chat6"
-  } else if(import.meta.env.VITE_MYID == 7){
-    return "chat7"
+  } else if (import.meta.env.VITE_MYID == 6) {
+    return "chat6";
+  } else if (import.meta.env.VITE_MYID == 7) {
+    return "chat7";
   }
 }
 
