@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "firebase": "^9.21.0",
+    "flush-promises": "^1.0.2",
     "headers-polyfill": "^3.1.2",
     "micromodal": "^0.4.10",
     "vue": "^3.3.4",

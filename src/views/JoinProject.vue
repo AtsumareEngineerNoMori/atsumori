@@ -37,7 +37,7 @@ const loading: Ref<boolean> = ref(true);
 onMounted(() => {
   getListData("ourProjects", "islandId", islandId).then((res) => {
     joinList.value = res;
-    if (joinList.value.length <= 0) {
+    if (joinList.value.length === 0) {
       joinListLength.value = false;
     } else {
       joinListLength.value = true;
@@ -47,8 +47,11 @@ onMounted(() => {
       console.log(joinList.value);
       console.log(joinListLength.value);
     }
+    // loading.value = false;
+  })
+  .then(()=>{
     loading.value = false;
-  });
+  })
 });
 
 // データない時に表示するボタン
@@ -56,20 +59,20 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
   return router.push("/top");
 };
 
-const judge = computed(() => {
-  if (joinList.value.length <= 0) {
-    return false;
-  } else {
-    return true;
-  }
-});
+// const judge = computed(() => {
+//   if (joinList.value.length <= 0) {
+//     return false;
+//   } else {
+//     return true;
+//   }
+// });
 </script>
 
 <template>
-  <div class="list">
-    <Loading v-if="loading" class="loading" />
+  <div v-if="loading" class="list">
+    <Loading  data-testid="loading" />
   </div>
-  <!-- <template> -->
+  <template v-else>
   <div class="list">
     <section class="list__sectionTitle">
       <p class="list__title">参加しているプロジェクト</p>
@@ -91,7 +94,7 @@ const judge = computed(() => {
       </div>
     </section>
     <section class="list__list" v-else>
-      <div class="list__item"></div>
+      <!-- <div class="list__item"></div> -->
       <div v-for="project in joinList" :key="project.id" class="list__item">
         <RouterLink
           v-bind:to="{
@@ -109,5 +112,5 @@ const judge = computed(() => {
       </div>
     </section>
   </div>
-  <!-- </template> -->
+  </template>
 </template>
