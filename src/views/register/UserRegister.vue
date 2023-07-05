@@ -37,6 +37,7 @@
                 class="userRegister-details-detail-name"
                 v-model="user.name"
                 @change="changeName"
+                name="name"
               />
               <p v-if="userNameLength" class="val-name">
                 お名前を入力してください
@@ -48,7 +49,13 @@
 
             <div class="aaa">
               <div>職種</div>
-              <input type="radio" name="job" value="WEB" v-model="user.job"  @change="changeJob"/>
+              <input
+                type="radio"
+                name="job"
+                value="WEB"
+                v-model="user.job"
+                @change="changeJob"
+              />
               WEB
               <input
                 type="radio"
@@ -118,6 +125,7 @@
               class="userRegister-details2-input"
               @change="changeEmail"
               autocomplete="username"
+              name="email"
             />
           </div>
           <p class="val-email" v-if="userEmailLength">
@@ -138,6 +146,7 @@
               class="userRegister-details2-input"
               @change="changePassword"
               autocomplete="new-password"
+              name="password"
             />
           </div>
           <p class="val-password" v-if="userPasswordLength">
@@ -165,6 +174,7 @@
               v-model="user.cPassword"
               @change="changecPassword"
               autocomplete="new-password"
+              name="confirmPassword"
             />
           </div>
           <p class="val-cpassword" v-if="user.cPassword.length <= 0">&nbsp;</p>
@@ -175,7 +185,7 @@
             class="val-cpassword2"
             v-else-if="user.cPassword !== user.password"
           >
-            パスワードが一致しません
+            <span>パスワードが一致しません</span>
           </p>
           <button type="submit" class="userRegister-details2-button">
             登録する
@@ -196,7 +206,7 @@ import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   getAuth,
-Auth,
+  Auth,
 } from "@firebase/auth";
 import { storage, auth } from "../../firebase";
 import {
@@ -204,28 +214,28 @@ import {
   uploadBytesResumable,
   ref,
   getStorage,
-StorageReference,
-FirebaseStorage,
+  StorageReference,
+  FirebaseStorage,
 } from "firebase/storage";
 import { useRouter } from "vue-router";
-import {app} from "../../main"
-import { Router} from "vue-router";
-
+import { app } from "../../main";
+import { Router } from "vue-router";
 
 const emojiRegex =
   /[\uD800-\uDBFF][\uDC00-\uDFFF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/;
 
-const userNameLength : Ref<boolean> = vueref(false);
+const userNameLength: Ref<boolean> = vueref(false);
 const userJobLength: Ref<boolean> = vueref(false);
-const userCommentLength : Ref<boolean>= vueref(false);
-const userEmailLength : Ref<boolean>= vueref(false);
-const userPasswordLength : Ref<boolean>= vueref(false);
-const usercPasswordLength : Ref<boolean>= vueref(false);
-const emailerror : Ref<boolean>= vueref(true);
+const userCommentLength: Ref<boolean> = vueref(false);
+const userEmailLength: Ref<boolean> = vueref(false);
+const userPasswordLength: Ref<boolean> = vueref(false);
+const usercPasswordLength: Ref<boolean> = vueref(false);
+const emailerror: Ref<boolean> = vueref(true);
 const iconFileName: Ref<string> = vueref("");
-const file:Ref<Blob> = vueref(new Blob());
+const file: Ref<Blob> = vueref(new Blob());
+const users: Ref<string> = vueref("");
 
-const iconImg:Ref<string> =vueref(
+const iconImg: Ref<string> = vueref(
   "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
 );
 const user: {
@@ -243,28 +253,23 @@ const user: {
   password: "",
   cPassword: "",
 });
-const router:Router = useRouter();
+const router: Router = useRouter();
 
 const changeName = (e: Event) => {
   userNameLength.value = false;
 };
-
 const changeJob = (e: Event) => {
   userJobLength.value = false;
 };
-
 const changeComment = (e: Event) => {
   userCommentLength.value = false;
 };
-
 const changeEmail = (e: Event) => {
   userEmailLength.value = false;
 };
-
 const changePassword = (e: Event) => {
   userPasswordLength.value = false;
 };
-
 const changecPassword = (e: Event) => {
   usercPasswordLength.value = false;
 };
@@ -281,8 +286,8 @@ onMounted(() => {
 });
 
 // アイコン画像プレビュー処理
-const previewImage: (event: any) => void = (event:any) => {
-  let reader: FileReader= new FileReader();
+const previewImage: (event: any) => void = (event: any) => {
+  let reader: FileReader = new FileReader();
   reader.onload = function (e: ProgressEvent<FileReader>) {
     iconImg.value = e.target?.result as string;
   };
@@ -291,13 +296,12 @@ const previewImage: (event: any) => void = (event:any) => {
   iconFileName.value = event.target?.files[0].name;
 };
 
-
 // cookieに登録
 const setCookie: (myId: string) => void = (myId: string) => {
   app.$cookies.set("myId", myId);
 };
 
-const  U: () => Promise<void> = async () => {
+const U: () => Promise<void> = async () => {
   try {
     await createUserWithEmailAndPassword(auth, user.email, user.password);
     onAuthStateChanged(auth, (user) => {
@@ -309,13 +313,12 @@ const  U: () => Promise<void> = async () => {
       }
     });
   } catch (error) {
-    console.log("firebaseに登録できないよ")
+    console.log("firebaseに登録できないよ");
     emailerror.value = false;
   }
 };
 
-// 登録ボタンの処理
-const UserRegisterButton: () => void = () => {
+const UserRegisterButton = async () => {
   if (
     iconImg.value !==
     "https://firebasestorage.googleapis.com/v0/b/atsumareengineernomori.appspot.com/o/icon%2Fha.png?alt=media&token=145c0742-89c6-4fdd-8702-6ab6b80d5308"
@@ -323,61 +326,80 @@ const UserRegisterButton: () => void = () => {
     console.log("画像挿入されてる処理");
     const auth: Auth = getAuth();
     const currentUserId: string | undefined = auth.currentUser?.uid;
-    const storageRef: StorageReference= ref(storage, `icon/${iconFileName.value}`);
-    uploadBytesResumable(storageRef, file.value)
-      .then(() => {
-        const storage: FirebaseStorage = getStorage();
-        const starsRef : StorageReference= ref(storage, `icon/${iconFileName.value}`);
-        getDownloadURL(starsRef).then((url: string) => {
-          console.log(url);
-          iconImg.value = url;
-          fetch("http://localhost:8000/Users", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              id: currentUserId,
-              icon: iconImg.value,
-              name: user.name,
-              job: user.job,
-              comment: user.comment,
-              email: user.email,
-            }),
-          }).then((res) => res.json());
+    const storageRef: StorageReference = ref(
+      storage,
+      `icon/${iconFileName.value}`
+    );
+
+    try {
+      await uploadBytesResumable(storageRef, file.value);
+      const storage: FirebaseStorage = getStorage();
+      const starsRef: StorageReference = ref(
+        storage,
+        `icon/${iconFileName.value}`
+      );
+      const url: string = await getDownloadURL(starsRef);
+      console.log(url);
+      iconImg.value = url;
+
+      try {
+        const response = await fetch("http://localhost:3000/usersRegister", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: currentUserId,
+            icon: iconImg.value,
+            name: user.name,
+            job: user.job,
+            comment: user.comment,
+            email: user.email,
+          }),
         });
-      })
-      .then(() => {
-        router.push("/top");
-      });
+
+        const data = await response.json();
+        users.value = data;
+      } catch (error) {
+        console.error(error);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     console.log(`画像なしです${iconImg.value}`);
-    const  auth: Auth= getAuth();
-    const currentUserId : string | undefined= auth.currentUser?.uid;
-    fetch("http://localhost:8000/Users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: currentUserId,
-        icon: iconImg.value,
-        name: user.name,
-        job: user.job,
-        comment: user.comment,
-        email: user.email,
-      }),
-    }).then(() => {
-      router.push("/top");
-    });
+    const auth: Auth = getAuth();
+    const currentUserId: string | undefined = auth.currentUser?.uid;
+
+    try {
+      await fetch("http://localhost:3000/usersRegister", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: currentUserId,
+          icon: iconImg.value,
+          name: user.name,
+          job: user.job,
+          comment: user.comment,
+          email: user.email,
+        }),
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
+
+  router.push("/top");
+  return "hello";
 };
 
 // パスワードの入力形式チェック
 const inputCheckSmall: RegExp = /[a-z]/,
   inputCheckBig: RegExp = /[A-Z]/,
   inputCheckNumber: RegExp = /[0-9]/,
-  passwordPattern : RegExp= /[^]{8,20}/;
+  passwordPattern: RegExp = /[^]{8,20}/;
 
 const passwordValid: (password: string) => boolean = (password: string) => {
   return (
@@ -389,9 +411,9 @@ const passwordValid: (password: string) => boolean = (password: string) => {
 };
 
 // メールアドレスの入力形式チェック
-const emailPattern : RegExp=
+const emailPattern: RegExp =
   /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}(rakus\.co\.jp|rakus-partners\.co\.jp)+$/;
-const emailValid : (email: string) => boolean = (email: string) => {
+const emailValid: (email: string) => boolean = (email: string) => {
   return emailPattern.test(email);
 };
 
@@ -414,7 +436,7 @@ const registerUser = () => {
     emojiRegex.test(user.password)
   ) {
     console.log("入力が間違っているところがあります");
-  }else {
+  } else {
     U();
   }
 
@@ -436,6 +458,5 @@ const registerUser = () => {
   if (user.cPassword.length <= 0) {
     usercPasswordLength.value = true;
   }
-
 };
 </script>

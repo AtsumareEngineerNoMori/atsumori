@@ -149,7 +149,6 @@ const searchIslands = () => {
   console.log("検索:", keyword.value);
   if (keyword.value.length > 20) {
     errorMessage.value = "20文字以内で入力してください";
-    // alert("20文字以内で入力してください");
     keyword.value = "";
   } else {
     filteredRecruitNewUsers.value = filterRecruitNewUsers(keyword.value);
@@ -157,17 +156,4 @@ const searchIslands = () => {
     errorMessage.value = "";
   }
 };
-// export {
-//   props,
-//   originalRecruitNewUsers,
-//   filteredRecruitNewUsers,
-//   keyword,
-//   errorMessage,
-//   fetchRecruitNewUsers,
-//   fetchIslands,
-//   filterRecruitNewUsers,
-//   resetSearch,
-//   searchIslands,
-//   onMounted,
-// };
 </script>

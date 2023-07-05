@@ -21,8 +21,8 @@ type Project = {
   projectName: string;
 };
 
-const fetchUrlRec = "http://localhost:8000/RecruitNewIsland";
-const fetchUrlIs = "http://localhost:8000/Projects";
+const fetchUrlRec = "http://localhost:3000/RecruitNewIsland";
+const fetchUrlIs = "http://localhost:3000/Projects";
 const islandsData:Ref<Project[]> = ref([]);
 
 const fetchData = async () => {

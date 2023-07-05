@@ -8,28 +8,53 @@ type Islands = {
   islandName: string;
   islandDescription: string;
   adminId: string;
-  createDate: Date;
+  createDate: Date | undefined;
   icon: string;
+  id: number;
+};
+type RecruitNewUser = {
+  projectId: number;
+  recruitTitle: string;
+  recruitJob: string;
+  recruitPoint: string;
+  createDate: Date | undefined;
+  projectName: string;
+  projectIcon: string;
   id: number;
 };
 
 const route = useRoute();
 const router = useRouter();
-const island = ref<any>([]);
+
+const island = ref<Islands>({
+  islandName: "",
+  islandDescription: "",
+  adminId: "",
+  createDate: undefined,
+  icon: "",
+  id: 0,
+});
+
 const adminName = ref<string>();
+const users = ref<any>([]);
+const userJudges = ref<number>(3);
+
 const loading = ref(false);
 
 onMounted(async () => {
   const id = route.params.islandId;
-  const islandData = await fetch(`http://localhost:8000/Islands/${id}`).then(
-    (res) => res.json()
+  const data = await fetch(`http://localhost:3000/islands/${id}`).then((res) =>
+    res.json()
   );
+  const islandData = data.island;
   island.value = islandData;
+  adminName.value = islandData.adminUsers.name;
 
-  const adminData = await fetch(
-    `http://localhost:8000/Users/${islandData.adminId}`
+  const joinData = await fetch(
+    `http://localhost:3000/islands/${island.value.id}/joinIslands`
   ).then((res) => res.json());
-  adminName.value = adminData.name;
+  const joinUsers = joinData.member;
+  users.value = joinUsers.map((joinUser: any) => joinUser.users);
 
   loading.value = true;
 });
@@ -39,7 +64,7 @@ const scoutRouter = async () => {
   const islandId = route.params.islandId;
   const projectId = route.params.projectId;
 
-  await fetch("http://localhost:8000/IslandScout", {
+  await fetch("http://localhost:3000/islands/scout", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -48,7 +73,7 @@ const scoutRouter = async () => {
       islandId: Number(islandId),
       projectId: Number(projectId),
     }),
-  }).then((res) => res.json());
+  });
   router.push({ name: "projectShow", params: { id: projectId } });
 };
 
@@ -96,7 +121,11 @@ const joinProject = () => {
       </div>
 
       <div class="detail__member">
-        <SideMember :islandId="island.id" :adminId="'x'" :myId="'a'" />
+        <SideMember
+          :islandId="island.id"
+          :userJudges="userJudges"
+          :userData="users"
+        />
       </div>
     </div>
   </div>

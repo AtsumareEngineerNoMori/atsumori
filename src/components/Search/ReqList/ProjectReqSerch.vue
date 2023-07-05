@@ -148,7 +148,6 @@ const searchProjects = () => {
   console.log(keyword.value);
   if (keyword.value.length > 20) {
     errorMessage.value = "20文字以内で入力してください";
-    // alert("20文字以内で入力してください");
     keyword.value = "";
   } else {
     filteredRecruitNewIslands.value = filterRecruitNewIslands(keyword.value);

@@ -1,5 +1,5 @@
 <template>
-  <Recruit :kansu="`user`" :witch="`Islands`"/>
+  <Recruit :kansu="`user`" :witch="`recruitIslandName`"/>
 </template>
 
 <script setup lang="ts">

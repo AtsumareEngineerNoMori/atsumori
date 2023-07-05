@@ -4,7 +4,7 @@ import Header from "@/components/Header/Header.vue";
 import { computed, ref } from "vue";
 
 const route = useRoute();
-console.log(route.path);
+// console.log(route.path);
 </script>
 
 <template>

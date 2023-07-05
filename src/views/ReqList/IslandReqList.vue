@@ -12,7 +12,6 @@
 
 <script setup lang="ts">
 import SearchBox from "@/components/Search/ReqList/IslandReqSerch.vue"
-// import * as SearchBox from "@/components/Search/ReqList/IslandReqSerch.vue";
 import { ref, onMounted, Ref } from "vue";
 
 //型
@@ -22,8 +21,8 @@ type Island = {
   islandName: string;
 };
 
-const fetchUrlRec = "http://localhost:8000/RecruitNewUser";
-const fetchUrlIs = "http://localhost:8000/Islands";
+const fetchUrlRec = "http://localhost:3000/RecruitNewUser";
+const fetchUrlIs = "http://localhost:3000/Islands";
 const islandsData:Ref<Island[]> = ref([]);
 
 const fetchData = async () => {

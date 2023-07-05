@@ -4,40 +4,15 @@ import SideMember from "@/components/islandShow/SideMember.vue";
 import SideScout from "@/components/islandShow/SideScout.vue";
 import ShowBtn from "@/components/islandShow/ShowBtn.vue";
 import Loading from "@/components/Loading.vue";
-import { adminJudge } from "../../userJudge";
+import { userJudge } from "../../userJudge";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { app } from "@/main";
-
-type RecruitNewUser = {
-  projectId: number;
-  recruitTitle: string;
-  recruitJob: string;
-  recruitPoint: string;
-  createDate: Date | undefined;
-  projectName: string;
-  projectIcon: string;
-  id: number;
-};
-
-type Islands = {
-  islandName: string;
-  islandDescription: string;
-  adminId: string;
-  createDate: Date | undefined;
-  icon: string;
-  id: number;
-};
+import { Islands, RecruitNewUser } from "@/@types/db";
 
 const route = useRoute();
 const router = useRouter();
 
-const myId = ref<string>();
-const adminId = ref<string>();
-const adminName = ref<string>();
-const userJudges = ref<number>();
-const RecruitIshow = ref(false);
-const loading = ref(false);
 const island = ref<Islands>({
   islandName: "",
   islandDescription: "",
@@ -56,6 +31,14 @@ const Recruits = ref<RecruitNewUser>({
   projectIcon: "",
   id: 0,
 });
+const myId = ref<string>();
+const adminId = ref<string>();
+const adminName = ref<string>();
+const users = ref<any>([]);
+const userIds = ref<string[]>([]);
+const userJudges = ref<number>();
+const RecruitIshow = ref(false);
+const loading = ref(false);
 
 onMounted(async () => {
   // ログインID取得
@@ -66,29 +49,34 @@ onMounted(async () => {
   myId.value = userId;
 
   const id = route.params.id;
-  const islandData: Islands = await fetch(
-    `http://localhost:8000/Islands/${id}`
-  ).then((res) => res.json());
+  const data = await fetch(`http://localhost:3000/islands/${id}`).then((res) =>
+    res.json()
+  );
+  const islandData = data.island;
+
   if (Object.keys(islandData).length === 0) {
     router.push("/top");
   } else {
     island.value = islandData;
     adminId.value = islandData.adminId;
+    adminName.value = islandData.adminUsers.name;
 
-    // ユーザーの判別
-    userJudges.value = adminJudge(adminId.value, myId.value);
-
-    // 管理者の名前取得
-    const adminData = await fetch(
-      `http://localhost:8000/Users/${islandData.adminId}`
+    const data = await fetch(
+      `http://localhost:3000/islands/${island.value.id}/joinIslands`
     ).then((res) => res.json());
-    adminName.value = adminData.name;
+    const joinUsers = data.member;
+    users.value = joinUsers.map((joinUser: any) => joinUser.users);
+    userIds.value = joinUsers.map((joinUser: any) => joinUser.users.id);
+
+    // 管理者、参加者、未参加者の判別
+    userJudges.value = userJudge(
+      island.value.adminId,
+      userIds.value,
+      myId.value
+    );
 
     // 募集要項取得
-    const Recruit = await fetch(
-      `http://localhost:8000/RecruitNewUser?islandId=${id}`
-    ).then((res) => res.json());
-
+    const Recruit = islandData.RecruitNewUsers;
     if (Recruit.length >= 1) {
       RecruitIshow.value = true;
       Recruits.value = Recruit[0];
@@ -129,17 +117,21 @@ const joinProject = () => {
       </div>
 
       <div v-show="userJudges === 1" class="detail__user__setting">
-        <AdminModal :islandId="island.id" />
+        <AdminModal
+          :recruitIshow="RecruitIshow"
+          :recruitId="Recruits.id"
+          :islandId="island.id"
+        />
       </div>
     </div>
 
     <div class="detail__btn">
-      <ShowBtn :islandId="island.id" :myId="myId" />
+      <ShowBtn :islandId="island.id" :myId="myId" :userJudges="userJudges" />
     </div>
 
     <div class="detail__underContent">
       <div class="detail__scout">
-        <SideScout :islandId="island.id" :userJudge="userJudges" />
+        <SideScout :islandId="island.id" v-show="userJudges === 1" />
       </div>
 
       <div class="detail__desc">
@@ -153,7 +145,11 @@ const joinProject = () => {
       </div>
 
       <div class="detail__member">
-        <SideMember :islandId="island.id" :adminId="adminId" :myId="myId" />
+        <SideMember
+          :islandId="island.id"
+          :userJudges="userJudges"
+          :userData="users"
+        />
       </div>
     </div>
   </div>

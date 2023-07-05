@@ -1,22 +1,16 @@
 <script setup lang="ts">
 import EntryModal from "../modal/EntryModal.vue";
-import { joinJudge } from "../../userJudge";
 import { watch, ref } from "vue";
 import { useRouter } from "vue-router";
 
 // 1.参加者　2.未参加者
 const props = defineProps<{
-  userIds: Array<string>;
   projectId?: number;
   myId?: string;
+  userJudges?: number;
 }>();
 
-const userJudge = ref();
 const router = useRouter();
-
-watch(props, () => {
-  userJudge.value = joinJudge(props.userIds, props.myId);
-});
 
 // 遷移
 const projectChatRouter = () => {
@@ -26,12 +20,13 @@ const projectChatRouter = () => {
 
 <template>
   <div>
-    <div v-show="userJudge === 2">
+    <div v-show="props.userJudges === 3">
       <EntryModal :projectId="props.projectId" :myId="props.myId" />
     </div>
 
     <button
-      v-show="userJudge === 1"
+      id="chat"
+      v-show="props.userJudges === 1 || props.userJudges === 2"
       @click="projectChatRouter"
       class="showBtn showChat"
     >
