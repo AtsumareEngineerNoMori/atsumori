@@ -162,6 +162,7 @@ const submit: () => Promise<void> = async () => {
       });
       console.log("追加");
       console.log(newData.key);
+      console.log(chatList.value)
       // 空の状態に戻す
       message.value = "";
     });

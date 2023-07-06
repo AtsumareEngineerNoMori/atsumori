@@ -36,6 +36,7 @@ const mockJoinList = [
 
 const mockedPush = vi.fn();
 
+// モックの宣言
 vi.mock("vue-router", () => ({
   useRouter: () => ({
     push: mockedPush,

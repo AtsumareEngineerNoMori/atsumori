@@ -42,7 +42,7 @@ describe("deleteButton", () => {
     // コンポーネントの描画が完了するまで待機
     await wrapper.vm.$nextTick();
 
-    // ボタンが存在するか
+    // ボタンが存在しないこと
     expect(wrapper.find(".list__button").exists()).toBe(false);
   });
 

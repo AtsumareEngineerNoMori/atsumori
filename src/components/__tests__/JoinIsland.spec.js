@@ -35,7 +35,7 @@ const mockJoinList = [
   },
 ];
 
-const mockedPush = vi.fn();
+// const mockedPush = vi.fn();
 
 // モック化
 // vi.mock("vue-router", () => ({
@@ -89,5 +89,12 @@ describe("JoinIsland", () => {
     await flushPromises();
     // リスト表示されていること
     expect(wrapper.find(".list__list").exists()).toBe(true);
+  });
+  it("http://localhost:3000/myIslands/?userId=myIdに対してfetchが1回走っていること", () => {
+    mount(JoinIsland);
+    expect(fetch).toBeCalledTimes(1);
+    expect(fetch).toHaveBeenCalledWith(
+      "http://localhost:3000/myIslands/?userId=myId"
+    );
   });
 });

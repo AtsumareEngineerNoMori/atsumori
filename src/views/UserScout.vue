@@ -60,7 +60,7 @@ const noDataBtn: () => Promise<void | NavigationFailure | undefined> = () => {
 
 <template>
   <div v-if="loading" class="list">
-    <Loading />
+    <Loading data-testid="loading" />
   </div>
   <template v-else>
     <div class="list">
